@@ -1,0 +1,1363 @@
+</main>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery-ui.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery-growl.js"></script>
+<!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/all.min.js"></script> -->
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/summernote-bs4.js"></script>
+<!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/sweetalert.min.js"></script> -->
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.dataTables.min.js"></script>
+<!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.bootstrap.js"></script> -->
+<!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.responsive.js"></script> -->
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/custom.js"></script>
+<!-- //jspdf  -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+
+<!-- JavaScript Bundle with Popper -->
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('.summernote').summernote({
+			height: 300,
+			tabsize: 2
+		});
+
+			$('#login_btn').click(function() {
+				var $btn = $(this);
+				if ($('#username').val() == "") {
+					$('#username').css("border", "1px solid red");
+					$('#username').focus();
+					return false
+				} else {
+					$('#username').css("border", "1px solid lightgray");
+				}
+				if ($('#password').val() == "") {
+					$(".errorTxt").html("Please Enter Your Password");
+					$('#password').css("border", "1px solid red");
+					$('#password').focus();
+					return false
+
+				} else {
+					$('#password').css("border", "1px solid lightgray");
+				}
+				var username = $("#username").val();
+				var password = $("#password").val();
+				var loginurl = '<?php echo BASE_URL; ?>login';
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: loginurl,
+					data: {
+						"username": username,
+						"password": password
+					},
+					success: function(res) {
+						if (res.success == 0) {
+							$(".errorTxt").removeClass("text-success");
+							$(".errorTxt").addClass("text-danger");
+							$(".errorTxt").html(res.msg);
+						} else {
+							$(".errorTxt").removeClass("text-danger");
+							$(".errorTxt").addClass("text-success");
+							$(".errorTxt").html(res.msg);
+							location.href = res.redirect_url;
+						}
+					}
+
+				});
+				return false;
+			});
+
+			function isEmail(email) {
+				var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+				return regex.test(email);
+			}
+			$("#email_id").blur(function() {
+				if (isEmail($("#email_id").val()) == false) {
+					$("#email_id").addClass("errorCall");
+
+					$("#email_id").val('');
+					$("#email_id").attr('placeholder', 'Please Enter Valid Email ID');
+
+				} else {
+					$("#email_id").css("border", "1px solid #ccc");
+				}
+			});
+
+
+		var test = Array();
+		var id = 1;
+		var total_persons = 0;
+
+		function phonenumber(inputtxt) {
+			var phoneno = /^\+?([6-9]{1})\)?([0-9]{4})?([0-9]{5})$/;
+			if ((inputtxt.match(phoneno))) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		//calculation
+		function calculation() {
+			var total = 0;
+			var totalTestExpanses = 0;
+			var rew = $("#point").val();
+			var rewamountupdate = $("#rewamountupdate").val();
+			var rewardpoint = $("#points").val();
+			rewardpoint = Number(rewardpoint);
+
+			var rewpoint = 0;
+
+			var discount = 0;
+			$("input[name^=testAmount]").each(function() {
+				total = Number(total) + Number(this.value);
+				rewpoint += Number(this.value) * Number(rew);
+			});
+			$("input[name^=discountAmount]").each(function() {
+				discount = Number(discount) + Number(this.value);
+			});
+			$("input[name^=testExpanses]").each(function() {
+				totalTestExpanses = Number(totalTestExpanses) + Number(this.value);
+			});
+			var grandTotal = total - discount;
+			$("#totalTestExpanses").val(totalTestExpanses);
+			$("#total").val(total);
+			$("#discount").val(discount);
+			$("#final_total").val(grandTotal);
+
+			var final_discount_type = $("input[name='final_discount_type']:checked").val();
+			var f_discount = $("#f_discount").val();
+			if (final_discount_type == 'Amount') {
+				$("#final_discount").val(f_discount);
+
+			} else if (final_discount_type == 'Percentage') {
+				var f_discount = (Number(grandTotal) * (Number(f_discount) / Number(100))).toFixed(2);
+				$("#final_discount").val(f_discount);
+			}
+			var final_discount = $("#final_discount").val();
+
+
+			var advance = $("#advance").val();
+			// console.log(advance);
+			if (advance == '') {
+				var advance = 0;
+			}
+			var outside = $("#outside").val();
+			var homevisiting = $("#homevisiting").val();
+			// console.log(homevisting);
+			//var balance=$("#balance").val();
+			var rewardAmount = $("#reward").val();
+			var gTotal = Number(grandTotal) - Number(final_discount);
+
+
+			var finAmount = Number(gTotal);
+			var finaAmount;
+			var rewarddiscount = $("#reward").val();
+
+			// console.log(rewarddiscount);
+			var rewardfinaldiscount = Number(rewarddiscount);
+			finaAmount = Number(gTotal);
+			var reward1 = Number(rewpoint);
+			var reward;
+
+			reward = reward1;
+			$("#points").val(reward);
+			var outside1 = "NO";
+			if (outside1 == 'YES') {
+				finAmount = Number(finAmount) + Number(outside);
+				finaAmount = Number(finaAmount) + Number(outside);
+			}
+			var homevisiting1 = "NO";
+			// console.log(homevisiting1);
+			if (homevisiting1 == 'YES') {
+				finAmount = Number(finAmount) + Number(homevisiting);
+				finaAmount = Number(finaAmount) + Number(homevisiting);
+			}
+			if (Number(total_persons) > 0) {
+				finAmount = Number(finAmount) * Number(total_persons);
+				finaAmount = Number(finaAmount) * Number(total_persons);
+				$("#total").val(finAmount);
+			}
+			finAmount = Number(finAmount) - Number(rewardAmount);
+			finaAmount = Number(finaAmount) - Number(rewardAmount);
+			$("#grand_total").val(finAmount);
+			if ('NO' == 'YES' && '' == 'ENABLED') {
+				console.log('');
+				$("#advance").val(finAmount);
+			}
+			var paid = $("#paid").val();
+			var advance_paid = Number(advance) + Number(paid)
+			$("#advance").attr('max', finaAmount);
+			var balance = (finaAmount - advance_paid).toFixed(2);
+			if ('NO' == 'YES') {
+				$("#balance").val(0);
+			} else {
+				$("#balance").val(balance);
+			}
+
+			if (final_discount > grandTotal) {
+				$(".test_save").hide();
+				$("#test_clear").hide();
+				$("#f_discount").css("border", "1px solid red");
+				return false;
+			} else {
+				$(".test_save").show();
+				$("#test_clear").show();
+				$("#f_discount").css("border", "1px solid lightgray");
+
+			}
+
+			// discount()
+			if (total > 0) {
+				if ($("#reason_otp").val() == 'verified') {
+					$(".test_save").show();
+					$("#test_clear").show();
+				} else {
+					$(".test_save").hide();
+					$("#test_clear").hide();
+				}
+
+			} else {
+				$(".test_save").hide();
+				$("#test_clear").hide();
+			}
+
+		}
+		//discount
+		function discount() {
+			var reason_otp = $("#reason_otp").val();
+			// var showamount=$("#reward").val();
+			// console.log(showamount);
+			if (reason_otp != 'verified') {
+				var discount = $('#discount').val();
+				var final_discount = $("#final_discount").val();
+				var total = Number(discount) + Number(final_discount);
+				if (total > 0) {
+					$("#verification").show();
+					$(".test_save").hide();
+					$("#test_clear").hide();
+					$("#send_otp").removeAttr("disabled", "disabled");
+					$("#reason_discount").focus();
+				} else {
+					$("#verification").hide();
+					$(".test_save").show();
+					$("#test_clear").show();
+					$("#send_otp").attr("disabled", "disabled");
+				}
+			}
+		}
+
+		$('.age-type').click(function() {
+			$(".age-type").removeClass("btn-primary");
+			$(".age-type").addClass("btn-secondary");
+			$(this).addClass("btn-primary");
+			$(this).removeClass("btn-secondary");
+			var id = (this.id);
+			var type = id;
+			$("#age_type").val(type);
+		});
+
+		$("#title").on('change', function() {
+			var title = $("#title").val();
+			if (title == 'Mr' || title == 'Master') {
+				$("#gender").val('Male');
+				$(".btn-process").removeClass("btn-primary");
+				$(".btn-process").addClass("btn-secondary");
+				$("#Male").addClass("btn-primary");
+				$("#Male").removeClass("btn-secondary");
+			} else if (title == 'Ms' || title == 'Mrs' || title == 'Miss' || title == 'Selvi' || title == 'Kumari') {
+				$("#gender").val('Female');
+				$(".btn-process").removeClass("btn-primary");
+				$(".btn-process").addClass("btn-secondary");
+				$("#Female").addClass("btn-primary");
+				$("#Female").removeClass("btn-secondary");
+			} else if (title == 'Smt') {
+				$("#Others").click();
+			}
+
+		});
+
+		// register 
+		$('body').on('click', '#patient_save', function() {
+
+			if ($("#patientNameAdd").val() == '') {
+				$('#patientNameAdd').css("border", "1px solid red");
+				$('#patientNameAdd').focus();
+				return false
+			} else {
+				$('#patientNameAdd').css("border", "1px solid lightgray");
+			}
+			if ($("#ageAdd").val() == '') {
+				$('#ageAdd').css("border", "1px solid red");
+				$('#ageAdd').focus();
+				return false
+			} else {
+				$('#ageAdd').css("border", "1px solid lightgray");
+			}
+			if ($("#refered_by_nameAdd").val() == '') {
+				$('#refered_by_nameAdd').css("border", "1px solid red");
+				$('#refered_by_nameAdd').focus();
+				return false
+			} else {
+				$('#refered_by_nameAdd').css("border", "1px solid lightgray");
+			}
+			$("#errorText").hide();
+			var title = $("#titleAdd").val();
+			var patientName = $("#patientNameAdd").val();
+			var mobileNo = $("#mobileNoAdd").val();
+			var emailId = $("#emailIdAdd").val();
+			var age = $("#ageAdd").val();
+			var gender = $('#genderAdd').val();
+			var refered_by = $("#refered_by_nameAdd").val();
+			var address = $("#addressAdd").val();
+			var age_type = $("#age_typeAdd").val();
+			var pin = $("#pinAdd").val();
+			var registerpurl = '<?php echo BASE_URL; ?>patient/register_patient';
+			$.ajax({
+				type: "POST",
+				url: registerpurl,
+				dataType: "json",
+				data: {
+					"title": title,
+					"patientName": patientName,
+					"mobileNo": mobileNo,
+					"emailId": emailId,
+					"gender": gender,
+					"refered_by": refered_by,
+					"address": address,
+					"age": age,
+					"age_type": age_type,
+					'pin': pin
+				},
+				success: function(res) {
+					$('#patientresetbtn').click();
+					if (res.success == 1) {
+						$.growl.notice({
+							title: "success",
+							message: "Patient added."
+						});
+					} else {
+						$.growl.error({
+							title: "error",
+							message: "Something went wrong."
+						});
+					}
+
+				}
+			});
+		});
+
+		$(".patientedit_btn").click(function() {
+			var id = $(this).data("id");
+			var editpurl = '<?php echo BASE_URL; ?>patient/patientEdit';
+
+			$.ajax({
+				type: "POST",
+				url: editpurl,
+				dataType: "json",
+				data: {
+					"id": id
+				},
+				success: function(res) {
+					$('#patientID').val(res.id);
+					$('#title').val(res.title).change();
+					$('#patientName').val(res.patientname);
+					$('#mobileNo').val(res.mobile);
+					$('#age').val(res.age);
+					$('#age_type').val(res.age_type);
+					$('#gender').val(res.gender);
+					$('#refered_by_name').val(res.refered_by);
+					$('#address').val(res.address);
+					$('#pin').val(res.pin);
+					$("#emailId").val(res.email);
+					$('#' + res.age_type).addClass("btn-primary").removeClass("btn-secondary");
+				}
+			});
+		});
+
+		//patient edit 
+		$("#gotoBilling").click(function() {
+			if ($("#title").val() == '') {
+				$('#title').css("border", "1px solid red");
+				$('#title').focus();
+				return false
+			} else {
+				$('#title').css("border", "1px solid lightgray");
+			}
+			if ($("#patientName").val() == '') {
+				$('#patientName').css("border", "1px solid red");
+				$('#patientName').focus();
+				return false
+			} else {
+				$('#patientName').css("border", "1px solid lightgray");
+			}
+			if ($("#age").val() == '') {
+				$('#age').css("border", "1px solid red");
+				$('#age').focus();
+				return false
+			} else {
+				$('#age').css("border", "1px solid lightgray");
+			}
+
+			if ($("#refered_by_name").val() == '') {
+				$('#refered_by_name').css("border", "1px solid red");
+				$('#refered_by_name').focus();
+				return false
+			} else {
+				$('#refered_by_name').css("border", "1px solid lightgray");
+			}
+			$("#errorText").hide();
+
+			var title = $("#title").val();
+			var patientName = $("#patientName").val();
+			var mobileNo = $("#mobileNo").val();
+			var emailId = $("#emailId").val();
+			var gender = $("#gender").val();
+			var refered_by = $("#refered_by_name").val();
+			var address = $("#address").val();
+			var pin = $("#pin").val();
+			var age = $("#age").val();
+			var id = $('#patientID').val();
+			var age_type = $("#age_type").val();
+			var updateUrl = '<?php echo BASE_URL; ?>patient/patientUpdate';
+
+			$.ajax({
+				type: "POST",
+				url: updateUrl,
+				dataType: "json",
+				data: {
+					"id": id,
+					"title": title,
+					"patientName": patientName,
+					"mobileNo": mobileNo,
+					"emailId": emailId,
+					"gender": gender,
+					"refered_by": refered_by,
+					"address": address,
+					"pin": pin,
+					"age": age,
+					"age_type": age_type,
+				},
+				success: function(res) {
+					if (res.success == 1) {
+						$.growl.notice({
+							title: "success",
+							message: "Patient updated."
+						});
+						$(".modal .close").click();
+						location.reload();
+					} else {
+						$.growl.error({
+							title: "error",
+							message: "An error has occurred"
+						});
+
+					}
+				}
+			});
+
+		});
+
+		//patient delete 
+		$('.btn-delete').on('click', function() {
+			var url = $(this).data("url");
+			var title = $(this).data("title");
+			$('#confirmdeletepatient').attr("href", url);
+			$('#delete_model_msg').html("Are you sure you want to delete " + title + "?");
+
+		});
+
+		//add test
+		$("#saveTest").on('click', function() {
+			$("#saveTest").attr("disabled", "disabled");
+			if ($("#departmentID").val() == '') {
+				$("#departmentID").css('border', '1px solid red');
+				$("#departmentID").focus();
+				$("#saveTest").removeAttr("disabled", "disabled");
+				return false;
+
+			} else {
+				$("#departmentID").css('border', '1px solid lightgray');
+			}
+			if ($("#testName").val() == '') {
+				$("#testName").css('border', '1px solid red');
+				$("#testName").focus();
+				$("#saveTest").removeAttr("disabled", "disabled");
+				return false;
+			} else {
+				$("#testName").css('border', '1px solid lightgray');
+			}
+
+			if ($("#test_amount").val() == '') {
+				$("#test_amount").css('border', '1px solid red');
+				$("#test_amount").focus();
+				$("#saveTest").removeAttr("disabled", "disabled");
+				return false;
+			} else {
+				$("#test_amount").css('border', '1px solid lightgray');
+			}
+
+			var department = $("#departmentID").val();
+			var testName = $("#testName").val();
+			var test_amount = $("#test_amount").val();
+			var test_status = $("#testStatus").val();
+			var testAddUrl = '<?php echo BASE_URL; ?>test/addTest';
+
+			$.ajax({
+				type: "POST",
+				url: testAddUrl,
+				dataType: "json",
+				data: {
+					"department": department,
+					"testName": testName,
+					"test_amount": test_amount,
+					"test_status": test_status,
+				},
+				success: function(res) {
+					if (res.success == 1) {
+						location.reload();
+					} else {
+						$.growl.error({
+							title: "error",
+							message: "An error has occurred"
+						});
+
+					}
+				}
+			});
+		});
+
+		// /test edit 
+		$(".test_edit").click(function() {
+			var id = $(this).data("id");
+			var editpurl = '<?php echo BASE_URL; ?>test/testEdit';
+
+			$.ajax({
+				type: "POST",
+				url: editpurl,
+				dataType: "json",
+				data: {
+					"id": id
+				},
+				success: function(res) {
+					$("#edittestid").val(res.id);
+					$("#EditDepartmentId").val(res.department).change();
+					$("#EditTestName").val(res.test_name);
+					$("#EditTestAmount").val(res.amount);
+					$("#editTestStatus").val(res.status).change();
+				}
+			});
+		});
+
+		// test update 
+		$("#testUpdate").click(function() {
+			if ($("#EditTestName").val() == '') {
+				$("#EditTestName").css('border', '1px solid red');
+				$("#EditTestName").focus();
+				return false;
+			} else {
+				$("#EditTestName").css('border', '1px solid lightgray');
+			}
+
+			if ($("#EditTestAmount").val() == '') {
+				$("#EditTestAmount").css('border', '1px solid red');
+				$("#EditTestAmount").focus();
+				return false;
+			} else {
+				$("#EditTestAmount").css('border', '1px solid lightgray');
+			}
+			var department = $("#EditDepartmentId").val();
+			var testName = $("#EditTestName").val();
+			var id = $("#edittestid").val();
+			var test_amount = $("#EditTestAmount").val();
+			var edit_test_status = $("#editTestStatus").val();
+			var updateTestUrl = '<?php echo BASE_URL; ?>test/updateTest';
+
+			$.ajax({
+				type: "POST",
+				url: updateTestUrl,
+				dataType: "json",
+				data: {
+					"department": department,
+					"testName": testName,
+					"id": id,
+					"test_amount": test_amount,
+					"edit_test_status": edit_test_status,
+				},
+				success: function(res) {
+					if (res.success == 1) {
+						location.reload();
+					} else {
+						$.growl.error({
+							title: "error",
+							message: "An error has occurred"
+						});
+
+					}
+				}
+			});
+		});
+
+		$('#searchPatientId').keypress(function() {
+			$('#searchPatientId').autocomplete({
+				source: "<?php echo BASE_URL; ?>patient/searchPatient",
+				minLength: 1,
+				max: 10,
+				scroll: true,
+				autoFocus: true,
+				select: function(event, ui) {
+					event.preventDefault();
+					$('#search_patient_id').val(ui.item.id);
+					$('#searchPatientId').val(ui.item.patientname);
+				}
+			}).data('ui-autocomplete')._renderItem = function(ul, item) {
+				return $("<li class='ui-autocomplete-row'></li>")
+					.data("item.autocomplete", item)
+					.append(item.patientname + ' - ' + item.mobile)
+					.appendTo(ul);
+			};
+		})
+
+		//   ul click funtion 
+		$('body').on('click', 'ul.listitems li', function(e) {
+			var patientId = $(this).data('id');
+			var patientName = $(this).data('name');
+			$('#search_patient_id').val(patientId);
+			$('#searchPatientId').val(patientName);
+		});
+
+		// go funtion
+		$("#searchPatient").click(function() {
+			if ($("#search_patient_id").val() == '') {
+				// $('.error').append('<span>Please search or select patient</span>')
+				$.growl.error({
+					title: "error",
+					message: "Please search or select patient"
+				});
+			} else {
+				var search_patient = $("#search_patient_id").val();
+				window.location = 'bill?t=' + search_patient;
+			}
+		});
+
+		//current date/time
+		let output = new Date();
+		let month = output.getMonth() + 1;
+		let day = output.getDate();
+		let year = output.getFullYear();
+
+		if (month <= 9) {
+			month = '0' + month;
+		}
+		if (day <= 9) {
+			day = '0' + day;
+		}
+
+		var today = year + "-" + month + "-" + day;
+		var time = output.getHours() + ":" + output.getMinutes() + ":" + output.getSeconds();
+		$(".billadd #billDate").val(today);
+		$(".billadd #time").val(time);
+
+		//autocomplete
+		$('#test').keypress(function() {
+
+			$('#test').autocomplete({
+				source: "<?php echo BASE_URL; ?>test/getAutoComplete",
+				minLength: 1,
+				max: 10,
+				scroll: true,
+				autoFocus: true,
+				select: function(event, ui) {
+					event.preventDefault();
+					$('#test').val(ui.item.test_name);
+					$('#test_id').val(ui.item.id);
+					$('#department_id').val(ui.item.department);
+					$('#test_amount').val(ui.item.amount);
+					$('#nameTest').val(ui.item.test_name);
+					$('#add_list').attr('disabled', false);
+					$('#test_expanses').val(ui.item.id);
+				}
+			}).data('ui-autocomplete')._renderItem = function(ul, item) {
+				return $("<li class='ui-autocomplete-row'></li>")
+					.data("item.autocomplete", item)
+					.append(item.test_name + ' - Rs. ' + item.amount)
+					.appendTo(ul);
+			};
+		});
+
+		// in bill patient edit
+		$(".btn-edit").click(function() {
+			$("#ref_detail").hide();
+			var patient_id = $("#editpatientid").val();
+			var url = "<?php echo BASE_URL; ?>patient/patientEdit";
+			$.ajax({
+				type: 'POST',
+				url: url,
+				dataType: 'json',
+				data: {
+					"id": patient_id
+				},
+				success: function(res) {
+					$("#patientIdaEdit").html(res.patientid);
+					$("#patientIdEdit").val(res.id);
+					$('#title_patientEdit').val(res.title).change();
+					$("#patientNameEdit").val(res.patientname);
+					$("#mobileNoEdit").val(res.mobile);
+					$("#alternateMobileNoEdit").val(res.alternatemobile);
+					$("#emailIdEdit").val(res.email);
+					$("#ageEdit").val(res.age);
+					$("#genderEdit").val(res.gender);
+					$("#refered_byEdit").val(res.refered_by);
+					$("#areaEdit").val(res.area);
+					$("#cityEdit").val(res.city);
+					$("#pinEdit").val(res.pin);
+					$(".age-type").removeClass("btn-primary");
+					$(".age-type").addClass("btn-secondary");
+					$("#" + res.age_type).addClass("btn-primary");
+					$("#" + res.age_type).removeClass("btn-secondary");
+					$("#age_type").val(res.age_type);
+					$(".btn-process-Edit").removeClass("btn-primary");
+					$(".btn-process-Edit").addClass("btn-secondary");
+					$("#" + res.gender + "Edit").addClass("btn-primary");
+					$("#" + res.gender + "Edit").removeClass("btn-secondary");
+				}
+
+			});
+		});
+
+		// in bill patient update 
+		$("#gotoBillingEdit").click(function() {
+			if ($("#title_patientEdit").val() == '') {
+				$('#title_patientEdit').css("border", "1px solid red");
+				$('#title_patientEdit').focus();
+				return false
+			} else {
+				$('#title_patientEdit').css("border", "1px solid lightgray");
+			}
+			if ($("#patientNameEdit").val() == '') {
+				$('#patientNameEdit').css("border", "1px solid red");
+				$('#patientNameEdit').focus();
+				return false
+			} else {
+				$('#patientNameEdit').css("border", "1px solid lightgray");
+			}
+			if ($("#ageEdit").val() == '') {
+				$('#ageEdit').css("border", "1px solid red");
+				$('#ageEdit').focus();
+				return false
+			} else {
+				$('#ageEdit').css("border", "1px solid lightgray");
+			}
+
+			$("#errorText").hide();
+			var id = $("#patientIdEdit").val();
+			var title = $("#title_patientEdit").val();
+			var patientName = $("#patientNameEdit").val();
+			var mobileNo = $("#mobileNoEdit").val();
+			var alternateMobileNo = $("#alternateMobileNoEdit").val();
+			var emailId = $("#emailIdEdit").val();
+			var gender = $("#genderEdit").val();
+			var refered_by = $("#refered_byEdit").val();
+			var area = $("#areaEdit").val();
+			var city = $("#cityEdit").val();
+			var pin = $("#pinEdit").val();
+			var age = $("#ageEdit").val();
+			var age_type = $("#age_type").val();
+			$.ajax({
+				type: "POST",
+				url: "<?php echo BASE_URL; ?>patient/patientUpdate",
+				dataType: "json",
+				data: {
+					"id": id,
+					"title": title,
+					"patientName": patientName,
+					"mobileNo": mobileNo,
+					"alternateMobileNo": alternateMobileNo,
+					"emailId": emailId,
+					"gender": gender,
+					"refered_by": refered_by,
+					"area": area,
+					"city": city,
+					"pin": pin,
+					"age": age,
+					"age_type": age_type
+				},
+				success: function(res) {
+					$('#patient_name').html(title + '. ' + patientName + ' (' + gender.charAt(0) + ' - ' + age + ' )<br>Patient No : ' + $('#patientIdaEdit').html());
+					$(".modal .close").click();
+				}
+			});
+		});
+
+		//add test list
+
+		$("#add_list").click(function() {
+
+			if ($("#test_id").val() == '') {
+				$("#test").css("border", "1px solid red");
+				$("#test_amount").focus();
+				return false;
+			} else {
+				$("#test").css("border", "1px solid lightgray");
+			}
+			if ($("#test_amount").val() == '') {
+				$("#test_amount").css("border", "1px solid red");
+				$("#test_amount").focus();
+				return false;
+			} else {
+				$("#test_amount").css("border", "1px solid lightgray");
+			}
+
+			var test_count = 0;
+			var testId = $("#test_id").val();
+			var test_in = $.inArray(testId, test);
+			if (test_in >= 0 || test_count > 0) {
+				$.growl.error({
+					title: "error",
+					message: "You selected test was already added kindly add other test"
+				});
+
+			} else {
+				test.push(testId);
+				$("#add_list").attr("disabled", "disabled");
+				var departmentId = $("#department_id").val();
+				var testAmount = $("#test_amount").val();
+				var discount_type = $("input[name='discount_type']:checked").val();
+				if (discount_type == "Percentage") {
+					var discountAmount1 = $("#discount_amount").val();
+					var discountAmount = (Number(testAmount) * (Number(discountAmount1) / Number(100))).toFixed(2);
+				} else {
+					var discountAmount = $("#discount_amount").val();
+					var discountAmount1 = 0;
+				}
+				if (discountAmount == '') {
+					var discountAmount = 0;
+				}
+				var nameTest = $("#nameTest").val();
+
+				$("#testRequest").append("<tr><td>" + nameTest + "</td><td><input type='text' name='testId[]' id='testId' value=" + testId + " class='form-control testId' readonly></td><td><input type='text' name='testAmount[]' id='testAmount' value=" + testAmount + " class='form-control testAmount' readonly></td><td><input type='hidden' name='discount_value[]' id='discount_value' value='" + discountAmount1 + "'><input type='text' name='discountAmount[]' id='discountAmount' value=" + discountAmount + " class='form-control testAmount' readonly></td><td><a href='#' class='remove_this btn btn-danger'>X</a></td></tr>");
+				$("#discount_amount").val(0);
+				$("#test_id").val('');
+				$("#test_amount").val('');
+				$("#test_expanses").val('');
+				$("#nameTest").val('');
+				$("#test").val('');
+				calculation();
+				discount();
+			}
+		});
+
+		$("#testRequest").on('click', '.remove_this', function() {
+			var v = $(this).closest('tr').find("#testId").val();
+			test = $.grep(test, function(value) {
+				return value != v;
+			});
+			$(this).closest('tr').remove();
+			calculation();
+		});
+
+		// referral doctors
+		$('#patientRef').keypress(function() {
+			$('#patientRef').autocomplete({
+				source: "<?php echo BASE_URL; ?>doctor/getAutocompleteDoctor",
+				minLength: 1,
+				select: function(event, ui) {
+					event.preventDefault();
+					$('#patientRef').val(ui.item.referral_name);
+				
+					$('#patientRefId').val(ui.item.id);
+					if('#refered_by_name'){
+					$('#refered_by_name').val(ui.item.id);
+					}
+				}
+			}).data('ui-autocomplete')._renderItem = function(ul, item) {
+				return $("<li class='ui-autocomplete-row'></li>")
+					.data("item.autocomplete", item)
+					.append(item.referral_name + ' - ' + item.designation)
+					.appendTo(ul);
+			};
+		})
+
+		$('#patientRefAdd').keypress(function() {
+			$('#patientRefAdd').autocomplete({
+				source: "<?php echo BASE_URL; ?>doctor/getAutocompleteDoctor",
+				minLength: 1,
+				select: function(event, ui) {
+					event.preventDefault();
+					$('#patientRefAdd').val(ui.item.referral_name);
+					$('#refered_by_nameAdd').val(ui.item.id);				
+				}
+
+			}).data('ui-autocomplete')._renderItem = function(ul, item) {
+				return $("<li class='ui-autocomplete-row'></li>")
+					.data("item.autocomplete", item)
+					.append(item.referral_name + ' - ' + item.designation)
+					.appendTo(ul);
+			};
+		})
+
+		// department on change
+		$("#departments").on('change', function() {
+			var department = $("#departments").val();
+			$("#bottom").removeAttr('disabled', 'disabled');
+			$.ajax({
+				type: "POST",
+				url: "<?php echo BASE_URL; ?>test/selectTest",
+				dataType: "json",
+				data: {
+					"department": department,
+					"test": test
+				},
+				success: function(res) {
+					$("#selectTest").modal('show');
+					$("#selectTest .modal-body").html(res);
+				}
+			});
+		});
+
+		$("body").on('click', '#bottom', function() {
+
+			$("#bottom").attr('disabled', 'disabled');
+			var temp = Array();
+
+			$(".check_list").each(function() {
+				if ($(this).is(':checked')) {
+					var checked = ($(this).val());
+
+					var Stest = $.inArray(checked, test);
+					if (Stest <= 0) {
+						test.push(checked);
+						temp.push(checked);
+					}
+				}
+			});
+			$.ajax({
+				type: "POST",
+				url: "<?php echo BASE_URL; ?>test/testSubmit",
+				dataType: "json",
+				data: {
+					"temp": temp
+				},
+				success: function(res) {
+					if (res) {
+						$("#testRequest").append(res);
+					}
+					calculation();
+					$("#selectTest").modal('hide');
+					$("#discount_amount").val(0);
+					$("#test_id").val('');
+					$("#test_amount").val('');
+					$("#nameTest").val('');
+					$("#departments").val('').change();
+					$("#test").val('');
+				}
+			});
+		});
+		// press enter test save 
+		$('#test_save').keypress(function(event) {
+			var keycode = (event.keyCode ? event.keyCode : event.which);
+			if (keycode == '13') {
+				$('#test_save').click();
+			}
+		});
+		//test clear
+		$("#test_clear").on('click', function() {
+			test = [];
+			$("#testRequest").empty();
+			$("#balance").val('');
+			$("#grand_total").val('');
+			$("#advance").val('');
+
+		});
+		$('input[name="final_discount_type"]').click(function() {
+			var final_discount_type = $("input[name='final_discount_type']:checked").val();
+			console.log(final_discount_type)
+			if (final_discount_type == 'Amount') {
+				$("#f_discount").keyup();
+			} else if (final_discount_type == 'Percentage') {
+				$("#f_discount").keyup();
+			}
+
+		});
+		$("#f_discount").keyup(function() {
+			if ($(this).val() > 0) {
+
+				if ('NO' == "YES") {
+					$("#reason_otp").val('');
+				}
+			}
+			calculation()
+
+		});
+		$("#f_discount").blur(function() {
+			discount()
+			if ($(this).val() > 0) {
+				if ('NO' == "YES") {
+					$("#reason_otp").val('');
+				}
+			}
+		});
+		$("#f_discount").keyup(function() {
+			var final_total = $("#final_total").val();
+			var f_discount = $("#f_discount").val();
+			var final_discount_type = $("input[name='final_discount_type']:checked").val();
+			if (final_discount_type == 'Amount') {
+				var final_discount = f_discount;
+			} else if (final_discount_type == 'Percentage') {
+				var final_discount = (Number(final_total) * (Number(f_discount) / Number(100))).toFixed(2);
+			};
+			if (Number(final_discount) > Number(final_total)) {
+				$.growl.error({
+					title: "Discount",
+					message: "The discount amount is higher than the test amount................."
+				});
+				$(".test_save").hide();
+				$("#test_clear").hide();
+
+			} else {
+				if ($.trim($('#grand_total').val()))
+					$("#test_save").show("disabled", "disabled");
+				$("#test_clear").show("disabled", "disabled");
+			}
+
+
+		});
+
+		//test bill save
+		$("#test_save").click(function(e) {
+
+			if ($("#billDate").val() == '') {
+				$("#billDate").css("border", "1px solid red");
+				$("#billDate").focus();
+				$.growl.error({
+					title: "Error",
+					message: "Select bill date"
+				});
+				return false;
+			} else {
+				$("#billDate").css("border", "1px solid lightgray");
+			}
+
+			if ($("#test_id").val() != '') {
+				$.growl.error({
+					title: "Error",
+					message: "add test process incomplete"
+				})
+
+			} else {
+				if ($("#payment_mode").val() == '') {
+					$("#payment_mode").css("border", "1px solid red");
+					$("#payment_mode").focus();
+					return false;
+				} else {
+					$("#payment_mode").css("border", "1px solid lightgray");
+				}
+
+				if (!$.trim($('#grand_total').val())) {
+					$.growl.error({
+						title: "Error",
+						message: "Please Enter the Test Name"
+					})
+
+					return false;
+				}
+
+				$(".test_save").hide();
+				$("#test_clear").hide();
+				var bill_id = $("#bill_id").val();
+				var billDate = $("#billDate").val();
+				var time = $("#time").val();
+				if ("DISABLED" == 'ENABLED') {
+					billDate = billDate;
+				} else {
+					billDate = billDate.concat(" " + time);
+				}
+				var patient_id = $("#editpatientid").val();
+				var total = $("#total").val();
+				var discount = $("#discount").val();
+				var grandTotal = $("#grand_total").val();
+				var final_discount = $("#final_discount").val();
+				var reason_discount = $("#reason_discount").val();
+				if (final_discount == '') {
+					final_discount = 0;
+				}
+				var discount_type = $("input[name='discount_type']:checked").val();
+				var final_discount_type = $("input[name='final_discount_type']:checked").val();
+				var f_discount = $("#f_discount").val();
+				var advance = $("#advance").val();
+				if (advance == '') {
+					advance = 0;
+				}
+				var persons = $("#persons").val();
+				var balance = $("#balance").val();
+				var patientRef = $("#patientRefId").val();
+				var referralhospital = $("#refhospitalId option:selected").val();
+				var referralHos = $('#hospital_id').val();
+				var max_total = $("#max_total").val();
+				var payment_mode = $("#payment_mode").val();
+				var testAmount = Array();
+				var testId = Array();
+				var discountAmount = Array();
+				var departmentId = Array();
+				var testInfo = Array();
+				var doctorInfo = Array();
+				var discount_value = Array();
+				var specimen_test_wise = Array();
+				var test_expanses = Array();
+				$("input[name^=testAmount]").each(function() {
+					testAmount.push(this.value);
+				});
+				$("input[name^=testExpanses]").each(function() {
+					test_expanses.push(this.value);
+				});
+				$("input[name^=testId]").each(function() {
+					testId.push(this.value);
+				});
+				$("input[name^=discountAmount]").each(function() {
+					discountAmount.push(this.value);
+				});
+				$("input[name^=departmentId]").each(function() {
+					departmentId.push(this.value);
+				});
+				$("input[name^=testInfo]").each(function() {
+					testInfo.push(this.value);
+				});
+				$("input[name^=doctorInfo]").each(function() {
+					doctorInfo.push(this.value);
+				});
+				$("input[name^=discount_value]").each(function() {
+					discount_value.push(this.value);
+				});
+
+				var url = '<?php echo BASE_URL; ?>bill/billEntry';
+
+				$.ajax({
+					type: "POST",
+					url: url,
+					dataType: "json",
+					data: {
+						"bill_id": bill_id,
+						"billDate": billDate,
+						"patient_id": patient_id,
+						"total": total,
+						"discount": discount,
+						"grandTotal": grandTotal,
+						"testAmount": testAmount,
+						"testId": testId,
+						"discountAmount": discountAmount,
+						"final_discount": final_discount,
+						"advance": advance,
+						"balance": balance,
+						"patientRef": patientRef,
+						"payment_mode": payment_mode
+					},
+					success: function(res) {
+						$.growl.notice({
+							title: "SUCCESS",
+							message: "success"
+						});
+						location.href = '<?php echo BASE_URL ?>report';
+					}
+				});
+			}
+		});
+
+		// subit rport btn
+		$('.submit_report').show();
+
+		// on fill value 
+		$(".call").keyup(function() {
+			var id = (this.id);
+			var id = id.substring(10, 200);
+			var actual_value = $(this).val();
+			var min_range = $("#min_range" + id).val();
+			var max_range = $("#max_range" + id).val();
+			if (min_range != '' || max_range != '') {
+				if (Number(actual_value) > Number(max_range) || Number(actual_value) < Number(min_range)) {
+					$(this).css("border", "1px solid red");
+					$("#highlight" + id).prop('checked', true);
+					$("#checkValue" + id).val('Yes');
+				} else {
+					$(this).css("border", "1px solid lightgray");
+					$("#highlight" + id).prop('checked', false);
+					$("#checkValue" + id).val('No');
+				}
+			}
+		});
+
+		// btn-action
+		$(".btn-action").click(function() {
+
+			var id = (this.id);
+			var test_id = id.substring(10, 200);
+
+			var position1 = (this.name);
+			if ($(".card-link").last().attr('id') == position1) {
+				var position = 'Yes';
+			} else {
+				var position2 = position1.substring(4, 20);
+
+				var position = Number(position2) + Number(1);
+			}
+
+			var formData = new FormData($("#postValue" + test_id)[0]);
+
+			formData.append('testId', $(this).data('testid'));
+			formData.append('reportDataid', $('#reportid' + test_id).val());
+			formData.append('patientID', $('#patientID').val());
+			formData.append('billId', $('#bill_id').val());
+			$.ajax({
+				type: "POST",
+				url: '<?php echo BASE_URL; ?>report/saveReportvalue',
+				dataType: "json",
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function(res) {
+					console.log(res);
+					$.growl.notice({
+						title: "SUCCESS",
+						message: "Value Added Successfully"
+					});
+					$(".img" + test_id).html('<img src="<?php echo BASE_URL ?>public/assets/images/like.png" alt="Report Completed!" width="32" align="right">');
+
+				},
+				error: function(err) {
+					console.dir(err);
+
+				}
+			});
+		});
+
+		$("body").on('click', '.bill_settle', function() {
+			var id = $(this).data("id");
+
+			$.ajax({
+				type: "POST",
+				url: '<?php echo BASE_URL; ?>report/bill_settle',
+				data: {
+					"id": id
+				},
+				success: function(res) {
+					console.log(res);
+					$("#bill_settlement .modal-content").html(res);
+				}
+			});
+		});
+
+		$("body").on('click', '#postValue', function() {
+
+
+			if ($("#payment_mode").val() == '') {
+				$("#payment_mode").css("border", "1px solid red");
+				$("#payment_mode").focus();
+				return false;
+			}
+			$("#add_balance").attr("disabled", "disabled");
+			var bill_id = $("#bill_id").val();
+			var balance = $("#balance").val();
+			var final_discount = $("#final_discount").val();
+		
+			var balance_received = $("#balance_received").val();
+			if (balance_received == 0) {
+				$.growl.error({
+					title: "Invalid",
+					message: "Invalid Amount"
+				});
+
+			} else {
+				var add_discount = $("input[name='add_discount']:checked").val();
+				var max_total = $("#max_total").val();
+				var payment_mode = $("#payment_mode").val();
+				var totalBalance = balance - balance_received;
+				if (totalBalance == 0 || add_discount == 'Yes') {
+					var permission = true;
+				} else {
+					var permission = false;
+				}
+				
+				$.ajax({
+					type: "POST",
+					url: '<?php echo BASE_URL; ?>bill/statusUpdate',
+					dataType: "json",
+					data: {
+						"bill_id": bill_id,
+						"balance_received": balance_received,
+						"payment_mode": payment_mode,
+						'permission': permission,
+						'balance': balance,
+						"final_discount": final_discount
+					},
+					success: function(res) {
+						$.growl.notice({
+							title: "SUCCESS",
+							message: "The Balance Bill Amount Received"
+						});
+						window.reload();
+					},
+					error: function(err) {
+						$.growl.err({
+							title: "Error",
+							message: err
+						});
+					}
+				});
+			}
+
+
+		});
+
+
+		$('#submit_report').attr('disabled', 'disabled');
+		$('.select').click(function() {
+			$('#submit_report').removeAttr('disabled', 'disabled');
+			$('.chkbox').prop('checked', true);
+		});
+		$('.deselect').click(function() {
+			$('#submit_report').attr('disabled', 'disabled');
+			$('.chkbox').prop('checked', false);
+
+		});
+
+		// review btn 
+		$("body").on('click', '.review-btn', function() {
+		
+		var val = $(this).data('id');
+				$("#test" + val).prop("checked", true);
+				$('#submit_report').removeAttr('disabled', 'disabled');
+				$("#report").submit();
+				
+		});
+
+		// submit report
+		$("#submit_report").click(function() {
+			var payment_status = $("#payment_status1").val();
+			if (payment_status == 'Pending') {
+				$.growl.error({
+					title: "Payment",
+					message: "Payment Not Received"
+				});
+			} else {
+				return true;
+			}
+
+			$.ajax({
+				type: "POST",
+				url: "ajaxCalls/updatePrintHistory.php",
+				dataType: "json",
+				data: $("#report").serialize(),
+				success: function(res) {
+					window.reload();
+				}
+			});
+		});
+
+
+
+	});
+</script>
+</body>
+
+</html>
