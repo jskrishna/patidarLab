@@ -13,7 +13,7 @@ class Bill extends CI_Controller
         if (isset($_GET['t'])) {
             $patientData = $this->Bill_model->patientInfo($_GET['t']);
             $patientData = $patientData[0];
-            $departmentData = $this->Bill_model->getAlldepart();
+            $departmentData = $this->Bill_model->getneededDepartment();
             $doctorData = $this->Bill_model->getAllDoctor();
             $referedData = $this->Bill_model->getreferedData();
             $data = array('patientData' => $patientData, 'departmentData' => $departmentData, 'doctorData' => $doctorData, 'referedData' => $referedData);
@@ -73,7 +73,7 @@ class Bill extends CI_Controller
             $patientData = $this->Bill_model->patientInfo($billData[0]->patient_id);
             $patientData = $patientData[0];
             $referedData = $this->Bill_model->getreferedData();
-            $departmentData = $this->Bill_model->getAlldepart();
+            $departmentData = $this->Bill_model->getneededDepartment();
             $doctorData = $this->Bill_model->getAllDoctor();
 
             $data = array('patientData' => $patientData, 'departmentData' => $departmentData, 'doctorData' => $doctorData, 'billData' => $billData, 'referedData' => $referedData, 'pxthis' => $this);

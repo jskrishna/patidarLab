@@ -22,7 +22,7 @@ class Patient_model extends CI_Model
 
     public function patientinfo()
     {
-        $query = $this->db->select('*')->from('patient');
+        $query = $this->db->select('*')->from('patient')->order_by('id', 'desc');
         $query = $this->db->get();
         return $query->result();
     }

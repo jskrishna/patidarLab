@@ -28,12 +28,15 @@
 								<div class="errorTxt text-danger text-center mb-3"></div>
 								<div class="form-group">
 									<label class="" for="leadCapFirstName">Username or Email</label>
-									<input class="form-control " id="username" type="text" name="username" />
+									<input class="form-control required" id="username" type="text" name="username" />
+									<span class='error'>This field is required.</span>
 								</div>
 								<div class="form-group">
 									<label class="" for="leadCapEmail">Password</label>
 									<div class="input-group " id="logPassword">
-										<input class="form-control " type="password" name="password" id="password">
+										<input class="form-control required" type="password" name="password" id="password">
+									<span class='error'>This field is required.</span>
+
 										<!-- <div class="input-group-append">
 											<span class="input-group-text" id="basic-addon2">
 												<div class="input-group-addon">

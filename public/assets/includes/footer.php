@@ -1,10 +1,115 @@
 </main>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.min.js"></script>
+<div class="c-modal modal right fade" id="patientEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="page-head">
+                        <h2>Edit Patient </h2>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <img src="<?php echo BASE_URL ?>public/assets/images/remove.svg" alt="">
+                        </button>
+                    </div>
+                    <div class="modals-body">
+                        <div class="row">
+                            <div id="edit_patient">
+                                <div class="row">
+                                    <div class="form-group col-lg-3">
+                                        <label for="title">Title<span class="text-danger">*</span>
+                                        </label>
+                                        <select name="title" id="title" class="form-control title_div">
+                                            <option value="Mr">Mr</option>
+                                            <option value="Mrs">Mrs</option>
+                                            <option value="Miss">Miss</option>
+                                            <option value="New Born">New Born</option>
+                                            <option value="Baby">Baby</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-lg-9">
+                                        <input type="hidden" name="patientID" id="patientID" class="form-control" placeholder="Full Name">
+                                        <label for="patientName">Full Name<span class="text-danger">*</span></label>
+                                        <input type="text" name="patientName" id="patientName" class="form-control required" placeholder="Full Name">
+                                        <span class="error">This field is required.</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-3">
+                                        <label for="age">Age<span class="text-danger">*</span></label>
+                                        <input type="text" name="age" onkeypress="if(this.value.length==6)return false;" id="age" class="form-control required" placeholder="Age" autocomplete="off">
+                                        <span class="error">This field is required.</span>
+
+                                    </div>
+                                    <div class="form-group col-lg-4">
+                                        <input type="hidden" name="age_type" id="age_type" class="age_type-input" value="Y">
+                                        <label for="Y">Age Type<span class="text-danger">*</span></label>
+                                        <div class="btn-group btn-block age_type_div">
+                                            <button type="button" class="btn btn-primary age-type " id="Y">Y</button>
+                                            <button type="button" class="btn btn-secondary age-type" id="M">M</button>
+                                            <button type="button" class="btn btn-secondary age-type" id="D">D</button>
+                                        </div>
+                                    </div>
+									<div class="form-group col-lg-5">
+                                        <label for="Male">Gender<span class="text-danger">*</span></label>
+                                        <input type="hidden" name="gender" id="gender" class="gender">
+                                        <div class="btn-group btn-block gender_type_div">
+                                            <button type="button" class="btn btn-primary btn-process " data-value="Male" id="Male">Male</button>
+                                            <button type="button" class="btn btn-secondary btn-process" data-value="Female" id="Female">Female</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="mobileNo">Contact Number
+                                        </label>
+                                        <input type="number" name="mobileNo" id="mobileNo" class="form-control number_only" onkeypress="if(this.value.length==10)return false;" placeholder="Mobile Number" autocomplete="off">
+                                    </div>
+									<div class="form-group col-lg-6">
+                                        <label for="pin">Pin Code
+                                        </label>
+                                        <input type="number" name="pin" id="pin" class="form-control number_only" onkeypress="if(this.value.length==6)return false;" placeholder="Pincode">
+                                    </div>
+                                </div>
+                                <!-- <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="emailId">Email
+                                        </label>
+                                        <input type="text" name="emailId" id="emailId" class="form-control" placeholder="Email ID" autocomplete="off">
+                                    </div>
+                                    
+                                </div> -->
+                                <div class="row">
+                                    <div class="form-group col-lg-12">
+                                        <label for="address">Address</label>
+                                        <textarea type="text" name="address" id="address" class="form-control" placeholder="Address"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row" id="ref_detail">
+                                    <div class="form-group col-lg-12">
+                                        <label for="patientRef">Referred By<span class="text-danger">*</span></label>
+                                        <?php foreach ($referedData as $data) {
+                                            if ($data->id == 1) { ?>
+                                                <input type="hidden" id="refered_by_name" value="<?php echo $data->id; ?>" name="refered_by_name" class="ui-autocomplete-input">
+                                                <input type="text" name="patientRef" placeholder="Search Dr..." id="patientRef" value="<?php echo $data->referral_name; ?>" class="form-control search-input required">
+                                                <span class="error">This field is required.</span>
+
+                                        <?php }
+                                        } ?>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-12 text-center">
+                            <input type="button" class="btn btnupdate custom-btn m-auto" id="gotoBilling" value="Update">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery-ui.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery-growl.js"></script>
-<!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/all.min.js"></script> -->
-<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/summernote-bs4.js"></script>
-<!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/sweetalert.min.js"></script> -->
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.dataTables.min.js"></script>
 <!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.bootstrap.js"></script> -->
@@ -18,72 +123,69 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		$('.summernote').summernote({
-			height: 300,
-			tabsize: 2
+		$('#login_btn').click(function() {
+			var $btn = $(this);
+
+			var submit_form = true;
+			$('.required').each(function() {
+				if ($(this).val() == "" && !$(this).val()) {
+					$(this).focus();
+					$(this).parent('.form-group').addClass('error');
+
+					$(this).siblings('.error').show();
+					submit_form = false;
+				} else {
+					$(this).siblings('.error').hide();
+					$(this).parent('.form-group').removeClass('error');
+
+				}
+			});
+
+			var username = $("#username").val();
+			var password = $("#password").val();
+			var loginurl = '<?php echo BASE_URL; ?>login';
+			if(submit_form){
+			$.ajax({
+				type: "POST",
+				dataType: "json",
+				url: loginurl,
+				data: {
+					"username": username,
+					"password": password
+				},
+				success: function(res) {
+					if (res.success == 0) {
+						$(".errorTxt").removeClass("text-success");
+						$(".errorTxt").addClass("text-danger");
+						$(".errorTxt").html(res.msg);
+					} else {
+						$(".errorTxt").removeClass("text-danger");
+						$(".errorTxt").addClass("text-success");
+						$(".errorTxt").html(res.msg);
+						location.href = res.redirect_url;
+					}
+				}
+
+			});
+		}
+			return false;
 		});
 
-			$('#login_btn').click(function() {
-				var $btn = $(this);
-				if ($('#username').val() == "") {
-					$('#username').css("border", "1px solid red");
-					$('#username').focus();
-					return false
-				} else {
-					$('#username').css("border", "1px solid lightgray");
-				}
-				if ($('#password').val() == "") {
-					$(".errorTxt").html("Please Enter Your Password");
-					$('#password').css("border", "1px solid red");
-					$('#password').focus();
-					return false
+		function isEmail(email) {
+			var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			return regex.test(email);
+		}
+		$("#email_id").blur(function() {
+			if (isEmail($("#email_id").val()) == false) {
+				$("#email_id").addClass("errorCall");
 
-				} else {
-					$('#password').css("border", "1px solid lightgray");
-				}
-				var username = $("#username").val();
-				var password = $("#password").val();
-				var loginurl = '<?php echo BASE_URL; ?>login';
-				$.ajax({
-					type: "POST",
-					dataType: "json",
-					url: loginurl,
-					data: {
-						"username": username,
-						"password": password
-					},
-					success: function(res) {
-						if (res.success == 0) {
-							$(".errorTxt").removeClass("text-success");
-							$(".errorTxt").addClass("text-danger");
-							$(".errorTxt").html(res.msg);
-						} else {
-							$(".errorTxt").removeClass("text-danger");
-							$(".errorTxt").addClass("text-success");
-							$(".errorTxt").html(res.msg);
-							location.href = res.redirect_url;
-						}
-					}
+				$("#email_id").val('');
+				$("#email_id").attr('placeholder', 'Please Enter Valid Email ID');
 
-				});
-				return false;
-			});
-
-			function isEmail(email) {
-				var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-				return regex.test(email);
+			} else {
+				$("#email_id").css("border", "1px solid #ccc");
 			}
-			$("#email_id").blur(function() {
-				if (isEmail($("#email_id").val()) == false) {
-					$("#email_id").addClass("errorCall");
-
-					$("#email_id").val('');
-					$("#email_id").attr('placeholder', 'Please Enter Valid Email ID');
-
-				} else {
-					$("#email_id").css("border", "1px solid #ccc");
-				}
-			});
+		});
 
 
 		var test = Array();
@@ -109,15 +211,12 @@
 			rewardpoint = Number(rewardpoint);
 
 			var rewpoint = 0;
-
 			var discount = 0;
 			$("input[name^=testAmount]").each(function() {
 				total = Number(total) + Number(this.value);
 				rewpoint += Number(this.value) * Number(rew);
 			});
-			$("input[name^=discountAmount]").each(function() {
-				discount = Number(discount) + Number(this.value);
-			});
+
 			$("input[name^=testExpanses]").each(function() {
 				totalTestExpanses = Number(totalTestExpanses) + Number(this.value);
 			});
@@ -127,41 +226,26 @@
 			$("#discount").val(discount);
 			$("#final_total").val(grandTotal);
 
-			var final_discount_type = $("input[name='final_discount_type']:checked").val();
 			var f_discount = $("#f_discount").val();
-			if (final_discount_type == 'Amount') {
-				$("#final_discount").val(f_discount);
-
-			} else if (final_discount_type == 'Percentage') {
-				var f_discount = (Number(grandTotal) * (Number(f_discount) / Number(100))).toFixed(2);
-				$("#final_discount").val(f_discount);
-			}
-			var final_discount = $("#final_discount").val();
-
-
+			$("#final_discount").val(f_discount);
+			var final_discount = f_discount;
 			var advance = $("#advance").val();
-			// console.log(advance);
 			if (advance == '') {
 				var advance = 0;
 			}
 			var outside = $("#outside").val();
 			var homevisiting = $("#homevisiting").val();
-			// console.log(homevisting);
-			//var balance=$("#balance").val();
 			var rewardAmount = $("#reward").val();
+			console.log(final_discount);
+
 			var gTotal = Number(grandTotal) - Number(final_discount);
-
-
 			var finAmount = Number(gTotal);
 			var finaAmount;
 			var rewarddiscount = $("#reward").val();
-
-			// console.log(rewarddiscount);
 			var rewardfinaldiscount = Number(rewarddiscount);
 			finaAmount = Number(gTotal);
 			var reward1 = Number(rewpoint);
 			var reward;
-
 			reward = reward1;
 			$("#points").val(reward);
 			var outside1 = "NO";
@@ -233,6 +317,9 @@
 			if (reason_otp != 'verified') {
 				var discount = $('#discount').val();
 				var final_discount = $("#final_discount").val();
+				if (final_discount = '') {
+					final_discount = 0;
+				}
 				var total = Number(discount) + Number(final_discount);
 				if (total > 0) {
 					$("#verification").show();
@@ -278,31 +365,71 @@
 			}
 
 		});
+		$('.error').hide();
+
+		// on change title
+		$('.title_div').on('change', function (e) {
+			if(this.value == 'Mr' || this.value == 'Master' || this.value == 'Baby' || this.value == 'New Born'){
+				$('#MaleAdd').addClass(' btn-primary').removeClass(' btn-secondary');
+				$('#FemaleAdd').addClass(' btn-secondary').removeClass(' btn-primary');
+				$('.gender').val('Male');
+			}else{
+				$('#FemaleAdd').addClass(' btn-primary').removeClass(' btn-secondary');
+				$('#MaleAdd').addClass(' btn-secondary').removeClass(' btn-primary');
+				$('.gender').val('Female');
+			}
+			$('.age-type').removeClass(' btn-primary');
+			$('.age-type').addClass(' btn-secondary');
+			if(this.value == 'New Born'){
+				$('.age_type-input').val('D');
+				$('#DAdd').addClass(' btn-primary').removeClass(' btn-secondary');
+				$('#D').addClass(' btn-primary').removeClass(' btn-secondary');
+		
+			}else if(this.value == 'Mr' || this.value == 'Mrs' || this.value == 'Miss'){
+				$('.age_type-input').val('Y');
+				$('#YAdd').addClass(' btn-primary').removeClass(' btn-secondary');
+				$('#Y').addClass(' btn-primary').removeClass(' btn-secondary');
+			}else{
+				$('.age_type-input').val('M');
+				$('#MAdd').addClass(' btn-primary').removeClass(' btn-secondary');
+				$('#M').addClass(' btn-primary').removeClass(' btn-secondary');
+			}
+		});
+
+		//gender btn click
+		$('body').on('click', '.btn-process', function() {
+			var gender = $(this).data('value');
+			$('.gender').val(gender);
+			if(gender == 'Male'){
+				$('#MaleAdd').addClass(' btn-primary').removeClass(' btn-secondary');
+				$('#FemaleAdd').addClass(' btn-secondary').removeClass(' btn-primary');
+				$('#Male').addClass(' btn-primary').removeClass(' btn-secondary');
+				$('#Female').addClass(' btn-secondary').removeClass(' btn-primary');
+				$('.title_div').val('Mr').change();
+			}else{
+				$('#FemaleAdd').addClass(' btn-primary').removeClass(' btn-secondary');
+				$('#MaleAdd').addClass(' btn-secondary').removeClass(' btn-primary');
+				$('#Female').addClass(' btn-primary').removeClass(' btn-secondary');
+				$('#Male').addClass(' btn-secondary').removeClass(' btn-primary');
+				$('.title_div').val('Mrs').change();
+			}
+		});
 
 		// register 
 		$('body').on('click', '#patient_save', function() {
+			var submit_form = true;
+			$('#new_patient .required').each(function() {
+				if ($(this).val() == "" && !$(this).val()) {
+					$(this).focus();
+					$(this).parent('.form-group').addClass('error');
+					$(this).siblings('.error').show();
+					submit_form = false;
+				} else {
+					$(this).siblings('.error').hide();
+					$(this).parent('.form-group').removeClass('error');
+				}
+			});
 
-			if ($("#patientNameAdd").val() == '') {
-				$('#patientNameAdd').css("border", "1px solid red");
-				$('#patientNameAdd').focus();
-				return false
-			} else {
-				$('#patientNameAdd').css("border", "1px solid lightgray");
-			}
-			if ($("#ageAdd").val() == '') {
-				$('#ageAdd').css("border", "1px solid red");
-				$('#ageAdd').focus();
-				return false
-			} else {
-				$('#ageAdd').css("border", "1px solid lightgray");
-			}
-			if ($("#refered_by_nameAdd").val() == '') {
-				$('#refered_by_nameAdd').css("border", "1px solid red");
-				$('#refered_by_nameAdd').focus();
-				return false
-			} else {
-				$('#refered_by_nameAdd').css("border", "1px solid lightgray");
-			}
 			$("#errorText").hide();
 			var title = $("#titleAdd").val();
 			var patientName = $("#patientNameAdd").val();
@@ -315,38 +442,109 @@
 			var age_type = $("#age_typeAdd").val();
 			var pin = $("#pinAdd").val();
 			var registerpurl = '<?php echo BASE_URL; ?>patient/register_patient';
-			$.ajax({
-				type: "POST",
-				url: registerpurl,
-				dataType: "json",
-				data: {
-					"title": title,
-					"patientName": patientName,
-					"mobileNo": mobileNo,
-					"emailId": emailId,
-					"gender": gender,
-					"refered_by": refered_by,
-					"address": address,
-					"age": age,
-					"age_type": age_type,
-					'pin': pin
-				},
-				success: function(res) {
-					$('#patientresetbtn').click();
-					if (res.success == 1) {
-						$.growl.notice({
-							title: "success",
-							message: "Patient added."
-						});
-					} else {
-						$.growl.error({
-							title: "error",
-							message: "Something went wrong."
-						});
+			if (submit_form) {
+				$('.error').hide();
+				$.ajax({
+					type: "POST",
+					url: registerpurl,
+					dataType: "json",
+					data: {
+						"title": title,
+						"patientName": patientName,
+						"mobileNo": mobileNo,
+						"emailId": emailId,
+						"gender": gender,
+						"refered_by": refered_by,
+						"address": address,
+						"age": age,
+						"age_type": age_type,
+						'pin': pin
+					},
+					success: function(res) {
+						$('#patientresetbtn').click();
+						if (res.success == 1) {
+							$.growl.notice({
+								title: "success",
+								message: "Patient added."
+							});
+						} else {
+							$.growl.error({
+								title: "error",
+								message: "Something went wrong."
+							});
+						}
+
 					}
+				});
+			}
+		});
+		//patient edit 
+		$("#gotoBilling").click(function() {
+			var submit_form = true;
+			$('#edit_patient .required').each(function() {
+				if ($(this).val() == "" && !$(this).val()) {
+					$(this).focus();
+					$(this).parent('.form-group').addClass('error');
+
+					$(this).siblings('.error').show();
+					submit_form = false;
+				} else {
+					$(this).siblings('.error').hide();
+					$(this).parent('.form-group').removeClass('error');
 
 				}
 			});
+
+			$("#errorText").hide();
+
+			var title = $("#title").val();
+			var patientName = $("#patientName").val();
+			var mobileNo = $("#mobileNo").val();
+			var emailId = $("#emailId").val();
+			var gender = $("#gender").val();
+			var refered_by = $("#refered_by_name").val();
+			var address = $("#address").val();
+			var pin = $("#pin").val();
+			var age = $("#age").val();
+			var id = $('#patientID').val();
+			var age_type = $("#age_type").val();
+			var updateUrl = '<?php echo BASE_URL; ?>patient/patientUpdate';
+			if (submit_form) {
+				$.ajax({
+					type: "POST",
+					url: updateUrl,
+					dataType: "json",
+					data: {
+						"id": id,
+						"title": title,
+						"patientName": patientName,
+						"mobileNo": mobileNo,
+						"emailId": emailId,
+						"gender": gender,
+						"refered_by": refered_by,
+						"address": address,
+						"pin": pin,
+						"age": age,
+						"age_type": age_type,
+					},
+					success: function(res) {
+						if (res.success == 1) {
+							$.growl.notice({
+								title: "success",
+								message: "Patient updated."
+							});
+							$(".modal .close").click();
+							location.reload();
+						} else {
+							$.growl.error({
+								title: "error",
+								message: "An error has occurred"
+							});
+
+						}
+					}
+				});
+			}
 		});
 
 		$(".patientedit_btn").click(function() {
@@ -377,88 +575,7 @@
 			});
 		});
 
-		//patient edit 
-		$("#gotoBilling").click(function() {
-			if ($("#title").val() == '') {
-				$('#title').css("border", "1px solid red");
-				$('#title').focus();
-				return false
-			} else {
-				$('#title').css("border", "1px solid lightgray");
-			}
-			if ($("#patientName").val() == '') {
-				$('#patientName').css("border", "1px solid red");
-				$('#patientName').focus();
-				return false
-			} else {
-				$('#patientName').css("border", "1px solid lightgray");
-			}
-			if ($("#age").val() == '') {
-				$('#age').css("border", "1px solid red");
-				$('#age').focus();
-				return false
-			} else {
-				$('#age').css("border", "1px solid lightgray");
-			}
 
-			if ($("#refered_by_name").val() == '') {
-				$('#refered_by_name').css("border", "1px solid red");
-				$('#refered_by_name').focus();
-				return false
-			} else {
-				$('#refered_by_name').css("border", "1px solid lightgray");
-			}
-			$("#errorText").hide();
-
-			var title = $("#title").val();
-			var patientName = $("#patientName").val();
-			var mobileNo = $("#mobileNo").val();
-			var emailId = $("#emailId").val();
-			var gender = $("#gender").val();
-			var refered_by = $("#refered_by_name").val();
-			var address = $("#address").val();
-			var pin = $("#pin").val();
-			var age = $("#age").val();
-			var id = $('#patientID').val();
-			var age_type = $("#age_type").val();
-			var updateUrl = '<?php echo BASE_URL; ?>patient/patientUpdate';
-
-			$.ajax({
-				type: "POST",
-				url: updateUrl,
-				dataType: "json",
-				data: {
-					"id": id,
-					"title": title,
-					"patientName": patientName,
-					"mobileNo": mobileNo,
-					"emailId": emailId,
-					"gender": gender,
-					"refered_by": refered_by,
-					"address": address,
-					"pin": pin,
-					"age": age,
-					"age_type": age_type,
-				},
-				success: function(res) {
-					if (res.success == 1) {
-						$.growl.notice({
-							title: "success",
-							message: "Patient updated."
-						});
-						$(".modal .close").click();
-						location.reload();
-					} else {
-						$.growl.error({
-							title: "error",
-							message: "An error has occurred"
-						});
-
-					}
-				}
-			});
-
-		});
 
 		//patient delete 
 		$('.btn-delete').on('click', function() {
@@ -659,6 +776,7 @@
 		var time = output.getHours() + ":" + output.getMinutes() + ":" + output.getSeconds();
 		$(".billadd #billDate").val(today);
 		$(".billadd #time").val(time);
+		$("#bdate").html(today);
 
 		//autocomplete
 		$('#test').keypress(function() {
@@ -678,6 +796,7 @@
 					$('#nameTest').val(ui.item.test_name);
 					$('#add_list').attr('disabled', false);
 					$('#test_expanses').val(ui.item.id);
+					$("#add_list").click();
 				}
 			}).data('ui-autocomplete')._renderItem = function(ul, item) {
 				return $("<li class='ui-autocomplete-row'></li>")
@@ -824,21 +943,13 @@
 				$("#add_list").attr("disabled", "disabled");
 				var departmentId = $("#department_id").val();
 				var testAmount = $("#test_amount").val();
-				var discount_type = $("input[name='discount_type']:checked").val();
-				if (discount_type == "Percentage") {
-					var discountAmount1 = $("#discount_amount").val();
-					var discountAmount = (Number(testAmount) * (Number(discountAmount1) / Number(100))).toFixed(2);
-				} else {
-					var discountAmount = $("#discount_amount").val();
-					var discountAmount1 = 0;
-				}
-				if (discountAmount == '') {
-					var discountAmount = 0;
-				}
+				var discountAmount = 0;
+				var discountAmount1 = 0;
+
+
 				var nameTest = $("#nameTest").val();
 
-				$("#testRequest").append("<tr><td>" + nameTest + "</td><td><input type='text' name='testId[]' id='testId' value=" + testId + " class='form-control testId' readonly></td><td><input type='text' name='testAmount[]' id='testAmount' value=" + testAmount + " class='form-control testAmount' readonly></td><td><input type='hidden' name='discount_value[]' id='discount_value' value='" + discountAmount1 + "'><input type='text' name='discountAmount[]' id='discountAmount' value=" + discountAmount + " class='form-control testAmount' readonly></td><td><a href='#' class='remove_this btn btn-danger'>X</a></td></tr>");
-				$("#discount_amount").val(0);
+				$("#testRequest").append("<tr><td>" + nameTest + "<input type='hidden' name='testId[]' id='testId' value=" + testId + " class='form-control testId' readonly></td><td><input type='text' name='testAmount[]' id='testAmount' value=" + testAmount + " class='form-control testAmount' readonly><input type='hidden' name='discount_value[]' id='discount_value' value='" + discountAmount1 + "'><input type='hidden' name='discountAmount[]' id='discountAmount' value=" + discountAmount + " class='form-control testAmount' readonly></td><td><a href='#' class='remove_this btn btn-danger'>X</a></td></tr>");
 				$("#test_id").val('');
 				$("#test_amount").val('');
 				$("#test_expanses").val('');
@@ -866,11 +977,12 @@
 				select: function(event, ui) {
 					event.preventDefault();
 					$('#patientRef').val(ui.item.referral_name);
-				
+
 					$('#patientRefId').val(ui.item.id);
-					if('#refered_by_name'){
-					$('#refered_by_name').val(ui.item.id);
+					if ('#refered_by_name') {
+						$('#refered_by_name').val(ui.item.id);
 					}
+
 				}
 			}).data('ui-autocomplete')._renderItem = function(ul, item) {
 				return $("<li class='ui-autocomplete-row'></li>")
@@ -887,7 +999,7 @@
 				select: function(event, ui) {
 					event.preventDefault();
 					$('#patientRefAdd').val(ui.item.referral_name);
-					$('#refered_by_nameAdd').val(ui.item.id);				
+					$('#refered_by_nameAdd').val(ui.item.id);
 				}
 
 			}).data('ui-autocomplete')._renderItem = function(ul, item) {
@@ -946,7 +1058,6 @@
 					}
 					calculation();
 					$("#selectTest").modal('hide');
-					$("#discount_amount").val(0);
 					$("#test_id").val('');
 					$("#test_amount").val('');
 					$("#nameTest").val('');
@@ -971,58 +1082,26 @@
 			$("#advance").val('');
 
 		});
-		$('input[name="final_discount_type"]').click(function() {
-			var final_discount_type = $("input[name='final_discount_type']:checked").val();
-			console.log(final_discount_type)
-			if (final_discount_type == 'Amount') {
-				$("#f_discount").keyup();
-			} else if (final_discount_type == 'Percentage') {
-				$("#f_discount").keyup();
-			}
 
-		});
 		$("#f_discount").keyup(function() {
-			if ($(this).val() > 0) {
-
-				if ('NO' == "YES") {
-					$("#reason_otp").val('');
-				}
-			}
-			calculation()
-
-		});
-		$("#f_discount").blur(function() {
-			discount()
-			if ($(this).val() > 0) {
-				if ('NO' == "YES") {
-					$("#reason_otp").val('');
-				}
-			}
-		});
-		$("#f_discount").keyup(function() {
+			discount();
+			calculation();
 			var final_total = $("#final_total").val();
 			var f_discount = $("#f_discount").val();
-			var final_discount_type = $("input[name='final_discount_type']:checked").val();
-			if (final_discount_type == 'Amount') {
-				var final_discount = f_discount;
-			} else if (final_discount_type == 'Percentage') {
-				var final_discount = (Number(final_total) * (Number(f_discount) / Number(100))).toFixed(2);
-			};
+			var final_discount = f_discount;
+
 			if (Number(final_discount) > Number(final_total)) {
 				$.growl.error({
 					title: "Discount",
-					message: "The discount amount is higher than the test amount................."
+					message: "The discount amount is higher than the test amount..."
 				});
 				$(".test_save").hide();
 				$("#test_clear").hide();
-
 			} else {
 				if ($.trim($('#grand_total').val()))
 					$("#test_save").show("disabled", "disabled");
 				$("#test_clear").show("disabled", "disabled");
 			}
-
-
 		});
 
 		//test bill save
@@ -1084,7 +1163,7 @@
 					final_discount = 0;
 				}
 				var discount_type = $("input[name='discount_type']:checked").val();
-				var final_discount_type = $("input[name='final_discount_type']:checked").val();
+				var final_discount_type = $("input[name='final_discount_type']").val();
 				var f_discount = $("#f_discount").val();
 				var advance = $("#advance").val();
 				if (advance == '') {
@@ -1221,7 +1300,7 @@
 						title: "SUCCESS",
 						message: "Value Added Successfully"
 					});
-					$(".img" + test_id).html('<img src="<?php echo BASE_URL ?>public/assets/images/like.png" alt="Report Completed!" width="32" align="right">');
+					$(".img" + test_id).html('<img src="<?php echo BASE_URL ?>public/assets/images/icon-thumbs-up-active.svg" alt="Report Completed!" width="32" align="right">');
 
 				},
 				error: function(err) {
@@ -1259,7 +1338,7 @@
 			var bill_id = $("#bill_id").val();
 			var balance = $("#balance").val();
 			var final_discount = $("#final_discount").val();
-		
+
 			var balance_received = $("#balance_received").val();
 			if (balance_received == 0) {
 				$.growl.error({
@@ -1277,7 +1356,7 @@
 				} else {
 					var permission = false;
 				}
-				
+
 				$.ajax({
 					type: "POST",
 					url: '<?php echo BASE_URL; ?>bill/statusUpdate',
@@ -1323,40 +1402,46 @@
 
 		// review btn 
 		$("body").on('click', '.review-btn', function() {
-		
-		var val = $(this).data('id');
-				$("#test" + val).prop("checked", true);
-				$('#submit_report').removeAttr('disabled', 'disabled');
-				$("#report").submit();
-				
+
+			var val = $(this).data('id');
+			$("#test" + val).prop("checked", true);
+			$('#submit_report').removeAttr('disabled', 'disabled');
+			$("#report").submit();
+
 		});
 
 		// submit report
 		$("#submit_report").click(function() {
-			var payment_status = $("#payment_status1").val();
-			if (payment_status == 'Pending') {
-				$.growl.error({
-					title: "Payment",
-					message: "Payment Not Received"
-				});
-			} else {
-				return true;
-			}
+			$("#report").submit();
 
-			$.ajax({
-				type: "POST",
-				url: "ajaxCalls/updatePrintHistory.php",
-				dataType: "json",
-				data: $("#report").serialize(),
-				success: function(res) {
-					window.reload();
-				}
-			});
+			// var payment_status = $("#payment_status1").val();
+			// if (payment_status == 'Pending') {
+			// 	$.growl.error({
+			// 		title: "Payment",
+			// 		message: "Payment Not Received"
+			// 	});
+			// } else {
+			// 	return true;
+
+			// }
+
+			// $.ajax({
+			// 	type: "POST",
+			// 	url: "ajaxCalls/updatePrintHistory.php",
+			// 	dataType: "json",
+			// 	data: $("#report").serialize(),
+			// 	success: function(res) {
+			// 		window.reload();
+			// 	}
+			// });
 		});
-
-
-
 	});
+	$(".report-filter li").on('click', function(){
+    $(".report-filter li").removeClass('btn-primary');
+    $(".report-filter li").addClass('btn-secondary');
+    $(this).addClass('btn-primary');
+    $(this).removeClass('btn-secondary');
+});
 </script>
 </body>
 

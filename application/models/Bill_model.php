@@ -34,6 +34,13 @@ class Bill_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    public function getneededDepartment()
+    {
+        $array_Ids= array(1,2,3,4,5);
+        $query = $this->db->select('*')->from('department')->where_in('id', $array_Ids);
+        $query = $this->db->get();
+        return $query->result();
+    }
     public function getAllDoctor()
     {
         $query = $this->db->select('*')->from('referral');
