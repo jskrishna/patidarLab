@@ -12,7 +12,12 @@ body.modal-open {
 .form-group {
     margin-bottom: 20px;
 }
-
+.form-group .error {
+    font-size: 10px;
+    line-height: initial;
+    display: block;
+    margin-top: 5px;
+}
 .form-group label {
     font-size: 13px;
     line-height: 22px;
@@ -26,15 +31,26 @@ body.modal-open {
     width: 100%;
     height: 45px;
     border-radius: 5px;
-    border: 1px solid #C9C9C9;
+    border: 1px solid rgba(0, 0, 0, 0.12);
     padding: 0 15px;
     font-size: 14px;
     line-height: 45px;
     font-family: 'Inter', sans-serif;
     min-height: 45px;
 }
+.c-datatable .form-group input, .c-datatable .form-group select, .c-datatable .form-control {
+    height: 36px;
+    font-size: 12px;
+    line-height: 36px;
+    min-height: 36px;
+}
+.c-datatable textarea.form-control  {
+    min-height: 100px;
+    line-height: inherit;
+    padding: 10px 15px;
+}
 
-.form-group input:focus, .form-group textarea:focus, .form-group select:focus, .form-control:focus, .dataTables_filter input, .dataTables_length select {
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus, .form-control:focus, .dataTables_filter input:focus, .dataTables_length select:focus {
     box-shadow: 0 3px 10px rgb(0 0 0 / 8%) !important;
     border: 1px solid #C9C9C9 !important;
     outline: none;
@@ -89,12 +105,13 @@ body.modal-open {
 
 /* side nav css */
 .layoutSidenav_nav {
+    border-right: 1px solid #c9c9c959;
     height: 100%;
     left: 0;
     position: fixed;
     overflow-x: hidden;
     overflow-y: auto;
-    /* top: 0; */
+    top: 0;
     width: 250px;
     z-index: 91;
     background: #fff;
@@ -106,7 +123,7 @@ body.modal-open {
 }
 
 .sidenav-header {
-    padding: 30px 20px;
+    padding: 25px 20px;
 }
 
 .sidenav-header a {
@@ -115,7 +132,7 @@ body.modal-open {
 }
 
 .sidenav-header a img {
-    max-width: 175px;
+    max-width: 165px;
 }
 
 .sidenav {
@@ -123,16 +140,16 @@ body.modal-open {
     height: 100%;
 }
 
-/* .sidenav-menu {
-    max-height: calc(100vh - 190px);
+.sidenav-menu {
+    max-height: calc(100vh - 200px);
     overflow: auto;
-} */
+}
 
 .sidenav-menu ul {
     padding: 0;
-    margin-top: 20px;
     list-style: none;
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .sidenav-menu .nav-link {
@@ -145,7 +162,7 @@ body.modal-open {
     bottom: 0;
     left: 0;
     box-sizing: border-box;
-    width: 300px;
+    width: 250px;
     padding: 20px;
     background: #fff;
 }
@@ -154,7 +171,7 @@ body.modal-open {
     color: #242424;
     display: flex;
     align-items: center;
-    padding: 15px 20px;
+    padding: 10px 20px;
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;
@@ -163,7 +180,7 @@ body.modal-open {
 .nav-active {
     background: rgb(4 162 155 / 5%);
     color: #04a29b;
-    border-right: 3px solid #04a29b;
+    border-right: 4px solid #04a29b;
 }
 
 .nav-link-icon {
@@ -181,7 +198,7 @@ body.modal-open {
 
 .layoutSidenav_content {
     float: left;
-    padding:0px 0px 0px 250px;
+    padding: 0px 0px 0px 250px;
     width: 100%;
     -webkit-transition: all 0.4s ease 0s;
     -moz-transition: all 0.4s ease 0s;
@@ -194,11 +211,10 @@ body.modal-open {
 
 .layout_content_inr {
     min-height: calc(100vh - 63px);
-    background: #fff;
+    background: #f9f9f9;
     padding: 30px 45px;
     border-radius: 0;
     overflow: auto;
-    border-left: 1px solid #c9c9c959;
 }
 
 .page-head {
@@ -210,11 +226,30 @@ body.modal-open {
     flex-wrap: wrap;
     border-bottom: 1px solid #c9c9c959;
 }
-
+.btn-group, .btn-group-vertical {
+    width: 100%;
+}
 .page-head-border {
-    padding-bottom: 30px;
+    padding-bottom: 25px;
     margin-bottom: 20px;
     border-bottom: 1px solid #c9c9c959;
+}
+.patient-add-sec {
+    max-width: 600px;
+    margin: auto;
+    margin-top: 30px;
+    padding: 40px;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+    background: #fff;
+    border-radius: 10px;
+}
+.age_type_div .btn, .gender_type_div .btn {
+    height: 45px;
+    border: 0;
+    font-size: 14px;
+}
+.age_type_div .btn {
+    width: 45px;
 }
 
 .page-head h2 {
@@ -381,65 +416,90 @@ body.modal-open {
 
 
 /* tabs css */
+.tabs {
+    display: flex;
+    margin-bottom: 80px;
+}
+
 .tabs ul {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
     margin: 0;
-    background: rgb(46 35 103 / 3%);
+    background: #fff;
+    margin-right: 20px;
+    flex-direction: column;
+    min-width: 300px;
+    max-width: 300px;
+    border: 1px solid #e0e0e0;
+}
+
+.tabs .tab-content {
+    width: 100%;
 }
 
 .tabs ul .tab-menu {
-    margin: 0 20px;
     list-style: none;
-    min-width: max-content;
 }
 
 .tab-link {
-    font-size: 14px;
+    font-size: 13px;
     color: #000000;
     font-weight: 600;
     display: flex;
     align-items: center;
     position: relative;
     transition: 300ms all;
-    padding: 20px 0;
+    padding: 10px 15px;
+    border-right: 3px solid transparent;
+    border-bottom: 1px solid rgb(224 224 224);
+    justify-content: space-between;
 }
 
-.tab-link.active, .tab-link:hover {
+.tab-link.active {
+    border-right: 3px solid #04a29b;
     color: #04a29b;
 }
 
-.tab-link:after {
-    content: "";
-    position: absolute;
-    bottom: 0px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: transparent;
+.tab-link:hover {
+    color: #000;
 }
 
-.tab-link.active:after {
-    background: #04a29b;
+.form-footer {
+    position: fixed;
+    bottom: 0;
+    left: 252px;
+    background: #fff;
+    padding: 15px;
+    border-top: 1px solid #ececec;
+    width: calc(100% - 250px);
+}
+
+.form-footer .custom-btn {
+    margin: auto;
 }
 
 .thumb-img {
     margin-left: 10px;
+    background: #fff;
+    border-radius: 50%;
+    min-width: 30px;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* report list-head */
 .report-list-head {
-    border-bottom: 1px solid rgba(112, 112, 112, 0.2);
     padding: 20px 0 40px;
-    margin-bottom: 40px;
 }
 
 .patient-name-sec {
-    background: rgb(4 162 155 / 5%);
-    border: 1px dashed #04A29B;
-    border-radius: 10px;
-    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px 20px;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
 }
 
 .name-sec-inr {
@@ -454,8 +514,12 @@ body.modal-open {
     flex-wrap: wrap;
     align-items: center;
 }
-.name-sec-right {
+
+.name-sec-center p {
+    margin: 0;
     display: flex;
+    align-items: center;
+    line-height: 30px;
 }
 
 .name-icon {
@@ -506,7 +570,7 @@ body.modal-open {
     line-height: 30px;
 }
 
-.patient-dtl p span, .name-sec-right p span {
+.patient-dtl p span, .name-sec-right p span, .name-sec-center p span {
     margin-left: 10px;
     font-weight: 600;
 }
@@ -519,18 +583,27 @@ body.modal-open {
 .main-header {
     position: fixed;
     top: 0;
-    width: 100%;
+    left: 251px;
+    width: calc(100% - 251px);
     background: #fff;
     border-bottom: 1px solid #c9c9c959;
     z-index: 91;
 }
-.main-header + main {
+
+.main-header+main {
     margin-top: 63px;
 }
-.header-inr {
-    padding: 10px;
-}
 
+.header-inr {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header-inr > div {
+    flex: 0 0 33.33%;
+    max-width: 33.33%;
+}
 .header-logo a img {
     max-width: 130px;
 }
@@ -538,7 +611,6 @@ body.modal-open {
 .header-right {
     text-align: right;
 }
-
 .user-btn {
     width: 40px;
     height: 40px;
@@ -552,13 +624,13 @@ body.modal-open {
 }
 
 .user-btn:after {
-display: none;
+    display: none;
 }
 
 .patient-short-name {
-    height: 40px;
-    line-height: 40px;
-    width: 40px;
+    height: 35px;
+    line-height: 35px;
+    width: 35px;
     background: rgb(6 154 152 / 20%);
     text-align: center;
     border-radius: 50%;
@@ -567,23 +639,29 @@ display: none;
     margin-right: 15px;
     border: 1px solid rgb(6 154 152 / 30%);
     text-transform: uppercase;
+    font-size: 12px;
 }
+
 .patient-avator {
     display: flex;
     align-items: center;
 }
+
 .ava-r {
     text-transform: capitalize;
 }
+
 .ava-r span {
     font-weight: 600;
     white-space: nowrap;
 }
+
 .ava-r div {
     color: #898989;
     font-size: 12px;
 }
-.test-name  {
+
+.test-name {
     font-size: 12px;
     font-weight: 500;
     display: flex;
@@ -591,10 +669,12 @@ display: none;
     margin-bottom: 5px;
     position: relative;
 }
-.test-name label  {
+
+.test-name label {
     position: relative;
     padding-left: 25px;
 }
+
 .test-name label:after {
     content: "";
     position: absolute;
@@ -603,17 +683,21 @@ display: none;
     background: url(../images/check-mark.svg) no-repeat center / 14px;
     left: 0;
     top: 50%;
-    transform: translateY( -50% );
+    transform: translateY(-50%);
 }
+
 .test-name.text-pending label:after {
     background: url(../images/feather-clock.svg) no-repeat center / 14px;
 }
+
 .test-success {
     color: #009688;
 }
+
 .text-pending {
     color: #ff9800;
 }
+
 .bill_settle {
     position: relative;
     background: transparent;
@@ -622,9 +706,11 @@ display: none;
     padding: 8px 15px 8px 25px;
     border-radius: 5px;
 }
+
 .thumb-img img {
-    width: 18px;
+    width: 15px;
 }
+
 /* .btn-pay {
 border: 1px solid #e0e0e0;
 } */
@@ -637,16 +723,24 @@ border: 1px solid #e0e0e0;
     background: #009688;
     left: 10px;
     top: 50%;
-    transform: translateY( -50% );
+    transform: translateY(-50%);
 }
 
 .bill_settle.btn-pay:after {
     background: #ff9800;
 }
+
 .bill_settle.btn-pay:hover {
     background: rgb(0 0 0 / 6%);
 }
+
 .btn-sml img {
     width: 20px;
     height: 18px;
+}
+
+.report-filter {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
 }
