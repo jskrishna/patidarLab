@@ -19,7 +19,7 @@
                                 <div class="form-group col-lg-6">
                                     <label>Select Patient <span class="text-danger">*</span></label>
                                     <input type="hidden" name="search_patient_id" id="search_patient_id">
-                                    <input type="text" name="searchPatientId" id="searchPatientId" placeholder="Search by Patient Name / Mobile Number" class="search__field txt_stle form-control ui-autocomplete-input" autocomplete="off">
+                                    <input type="text" name="searchPatientId" id="searchPatientId" placeholder="Search by Patient Name / ID / Mobile Number" class="search__field txt_stle form-control ui-autocomplete-input" autocomplete="off">
                                 </div>
                             </div>
                             <div class="row">
@@ -37,7 +37,7 @@
                                         <iframe scrolling="no" style="border: 0px;" id="barcode" src="https://niglabs.com/barcodeSample.php?code=<?php echo $_GET['t']; ?>" border="0" width="300" height="50"></iframe>
                                     </div>
                                 </div> -->
-                       
+
                                 <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="patient_name">Patient Name</label>
@@ -236,107 +236,6 @@
                             <button type="button" class="btn custom-btn btn-danger" data-bs-dismiss="modal">Close</button>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-        <div class="c-modal modal right fade" id="patientEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-md" role="document">
-                <div class="modal-content">
-                    <div class="page-head">
-                        <h2>Edit Patient </h2>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <img src="<?php echo BASE_URL ?>public/assets/images/remove.svg" alt="">
-                        </button>
-                    </div>
-                    <div class="modals-body">
-                        <div class="row">
-                            <div id="new_patient">
-                                <div class="row">
-                                    <div class="form-group col-lg-2">
-                                        <label for="fieldName">Title<span class="text-danger">*</span>
-                                        </label>
-                                        <select name="title" id="title" class="form-control">
-                                            <option value="Mr">Mr</option>
-                                            <option value="Mrs">Mrs</option>
-                                            <option value="Miss">Miss</option>
-                                            <option value="New Born">New Born</option>
-                                            <option value="Baby">Baby</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-lg-10">
-                                        <input type="hidden" name="patientID" id="patientID" class="form-control" placeholder="Full Name">
-                                        <label class="fieldName">Full Name<span class="text-danger">*</span></label>
-                                        <input type="text" name="patientName" id="patientName" class="form-control" placeholder="Full Name">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-6">
-                                        <label class="fieldName">Age</label>
-                                        <input type="text" name="age" onkeypress="if(this.value.length==6)return false;" id="age" class="form-control" placeholder="Age" autocomplete="off">
-                                    </div>
-                                    <div class="form-group col-lg-6 ">
-                                        <input type="hidden" name="age_type" id="age_type" value="Y">
-                                        <label class="fieldName">Age Type</label>
-                                        <div class="btn-group btn-block">
-                                            <button type="button" class="btn btn-primary age-type " id="Y">Y</button>
-                                            <button type="button" class="btn btn-secondary age-type" id="M">M</button>
-                                            <button type="button" class="btn btn-secondary age-type" id="D">D</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-6">
-                                        <label for="refered_by_name">Gender</label>
-                                        <input type="hidden" name="gender" id="gender">
-                                        <div class="btn-group btn-block">
-                                            <button type="button" class="btn btn-primary btn-process " id="Male">Male</button>
-                                            <button type="button" class="btn btn-secondary btn-process" id="Female">Female</button>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-lg-6">
-                                        <label for="fieldName">Contact Number
-                                        </label>
-                                        <input type="number" name="mobileNo" id="mobileNo" class="form-control number_only" onkeypress="if(this.value.length==10)return false;" placeholder="Mobile Number" autocomplete="off">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-6">
-                                        <label for="fieldName">Email
-                                        </label>
-                                        <input type="text" name="emailId" id="emailId" class="form-control" placeholder="Email ID" autocomplete="off">
-                                    </div>
-                                    <div class="form-group col-lg-6">
-                                        <label for="pin">Zip Code
-                                        </label>
-                                        <input type="number" name="pin" id="pin" class="form-control number_only" onkeypress="if(this.value.length==6)return false;" placeholder="Pincode">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <label for="address">Address</label>
-                                    <div class="form-group col-lg-12">
-                                        <textarea type="text" name="address" id="address" class="form-control" placeholder="Address"></textarea>
-                                    </div>
-                                </div>
-                                <div class="row" id="ref_detail">
-                                    <label for="refered_by_name">Referred By</label>
-                                    <div class="form-group col-lg-12">
-                                        <select name="refered_by_name" id="refered_by_name" class="form-control">
-                                            <?php foreach ($referedData as $data) { ?>
-                                                <option <?php if ($data->id == 1) {
-                                                            echo 'selected';
-                                                        } ?> value="<?php echo $data->id; ?>"><?php echo $data->referral_name; ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-lg-12 text-center">
-                            <input type="button" class="btn btnupdate custom-btn" id="gotoBilling" value="Update">
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

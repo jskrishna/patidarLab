@@ -7,10 +7,8 @@
     <title>Nextige Lab</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="<?php echo BASE_URL ?>public/assets/images/icon.png" />
-
     <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
     <link rel="stylesheet" href="<?php echo BASE_URL ?>public/assets/css/global.css">
-
     <!-- CSS only -->
 </head>
 
@@ -90,12 +88,10 @@
                                     ?>
                                 </th>
                             </tr>
-
                             <?php
                             foreach ($testIDS as $test) {
                                 foreach ($selecetdtestArray as $tid) {
                                     if ($test == $tid) {
-
                                         $testData = $this->Report_model->getTestByID($tid);
                                         $reportData = $this->Report_model->getreportDataByBIllandTestId($bill_id, $tid);
                                         $reportData = $reportData[0];
@@ -104,21 +100,20 @@
 
                                         foreach ($parameter_ids as $index => $paramID) {
                                             $paramData = $this->Report_model->getparameterBYID($tid, $paramID);
-                                        $paramData = $paramData[0];
-                                        if($paramData->unit){
-                                            $unitData = $this->Report_model->getunitBYID($paramData->unit);
-                                            $unitData = $unitData[0];
-  // unit working 
-                                        }else{
-
-                                        }
-
-                                        
+                                            $paramData = $paramData[0];
+                                            if ($paramData->unit) {
+                                                $unitData = $this->Report_model->getunitBYID($paramData->unit);
+                                                $unitData = $unitData[0];
+                                                // unit working 
+                                            } else {
+                                            }
                             ?>
                                             <tr>
                                                 <td> <?php echo $paramData->name; ?></td>
                                                 <td><?php echo $input_values[$index]; ?> </td>
-                                                <td><?php if($paramData->min_value){ echo  $paramData->min_value.' -'.$paramData->max_value; } ?> </td>
+                                                <td><?php if ($paramData->min_value) {
+                                                        echo  $paramData->min_value . ' -' . $paramData->max_value;
+                                                    } ?> </td>
                                             </tr>
                             <?php
                                         }
@@ -126,7 +121,6 @@
                                 }
                             }
                             ?>
-
                         </tbody>
                     </table>
                 </div>
@@ -134,5 +128,4 @@
         </div>
     </section>
 </body>
-
 </html>

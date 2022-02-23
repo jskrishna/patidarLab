@@ -1,6 +1,11 @@
 <div class="layoutSidenav">
     <div class="layoutSidenav_nav">
         <nav class="sidenav shadow-right sidenav-light">
+        <div class="sidenav-header">
+                <a href="/">
+                    <img src="<?php echo BASE_URL ?>public/assets/images/logo.svg" alt="logo">
+                </a>
+            </div>
             <div class="sidenav-menu">
                 <div class="nav accordion" id="accordionSidenav">
                     <ul>
@@ -48,13 +53,24 @@
                                 Report
                             </a>
                         </li>
+                        <hr/>
+                        <li>
+                            <a class="nav-links <?php if (strpos($actual_link, "report") !== false) {
+                                                                                echo "nav-active";
+                                                                            } ?>" href="<?php echo BASE_URL; ?>report">
+                                <div class="nav-link-icon">
+                                    <img src="<?php echo BASE_URL ?>public/assets/images/icon-home.svg" alt="">
+                                </div>
+                                Settings
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
-            <!-- <div class="sidenav-footer">
+            <div class="sidenav-footer">
                 <div class="sidenav-footer-content">
                     <a href="<?php //echo BASE_URL; ?>Logout" class="btn custom-btn">Logout</a>
                 </div>
-            </div> -->
+            </div>
         </nav>
     </div>
