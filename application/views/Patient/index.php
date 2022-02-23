@@ -51,22 +51,24 @@
                                             <div class="patient-avator">
                                                 <div class="ava-l">
                                                     <div class="patient-short-name">
-                                                    <?php $name = explode(' ',$data->patientname);
-                                    foreach($name as $n){
-                                        echo $n[0];
-                                    } ?>         </div>
+                                                        <?php $name = explode(' ', $data->patientname);
+                                                        foreach ($name as $n) {
+                                                            echo $n[0];
+                                                        } ?> </div>
                                                 </div>
                                                 <div class="ava-r">
                                                     <span><?php echo $data->patientname; ?></span>
                                                     <div>
-                                                        <?php echo $data->gender[0]; ?> / <?php echo $data->age. ' '. $data->age_type; ?>
+                                                        <?php echo $data->gender[0]; ?> / <?php echo $data->age . ' ' . $data->age_type; ?>
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <span class="reg-span date">
-                                            <span class="nowwrap-text"><?php echo date_format(new DateTime($data->created_at), "d/m/Y"); ?></span>
+                                            <p style="display: none;"><?php echo date_format(new DateTime($data->created_at), "Ymd"); ?></p>
+
+                                                <span class="nowwrap-text"><?php echo date_format(new DateTime($data->created_at), "d/m/Y"); ?></span>
                                                 <?php //echo date_format(new DateTime($data->created_at), "h:i A"); 
                                                 ?>
                                             </span>
@@ -99,8 +101,8 @@
 
                                             <!-- <button data-bs-toggle="modal" data-title="<?php //echo $data->patientname; 
                                                                                             ?>" data-bs-target="#myDeletemodel" data-url="patient/patientDelete?id=<?php //echo $data->id; 
-                                                                                                                                                                                                    ?>" id="patientdelete" class="btn btn-sml btn-delete" value="<?php //echo $data->id; 
-                                                                                                                                                                                                                                                                                            ?>">
+                                                                                                                                                                    ?>" id="patientdelete" class="btn btn-sml btn-delete" value="<?php //echo $data->id; 
+                                                                                                                                                                                                                                                                    ?>">
                                                 <img src="<?php //echo BASE_URL 
                                                             ?>public/assets/images/trash.svg" alt="">
                                             </button> -->

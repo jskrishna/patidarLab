@@ -10,7 +10,7 @@ class Report_model extends CI_Model
     }
     public function getPatientinfo()
     {
-        $query = $this->db->select('*')->from('patient');
+        $query = $this->db->select('*')->from('patient')->order_by('id','DESC');
         $query = $this->db->get();
         return $query->result();
     }
@@ -80,6 +80,15 @@ class Report_model extends CI_Model
         return $query->result();
     }
     
+    public function getReportByBillAndPatientId($bill_id,$patient_id)
+    {
+        $query = $this->db->select('*')->from('reportdata');
+        $query = $this->db->where('bill_id',$bill_id);
+        $query = $this->db->where('patient_id',$patient_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    
     public function getdoctorinfoByID($id)
     {
         $query = $this->db->select('*')->from('referral')->where('id',$id);
@@ -113,5 +122,20 @@ class Report_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    
+
+    public function getparameterBYID($test_id,$pid)
+    {
+        $query = $this->db->select('*')->from('parameter');
+        $query = $this->db->where('id',$pid);
+        $query = $this->db->where('test_id',$test_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function getunitBYID($id)
+    {
+        $query = $this->db->select('*')->from('units');
+        $query = $this->db->where('id',$id);
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

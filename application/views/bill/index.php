@@ -32,39 +32,32 @@
                             <div id="main" style="<?php if (!isset($_GET['t'])) {
                                                         echo 'display:none;';
                                                     } ?>">
-                                <!-- <div class="row">
-                                    <div class="form-group col-lg-2 barcode">
-                                        <iframe scrolling="no" style="border: 0px;" id="barcode" src="https://niglabs.com/barcodeSample.php?code=<?php echo $_GET['t']; ?>" border="0" width="300" height="50"></iframe>
-                                    </div>
-                                </div> -->
-
+                       
                                 <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="patient_name">Patient Name</label>
                                         <span id="patient_name" class="font-weight-bold">
-                                            <?php echo $patientData->title . '. ' . $patientData->patientname . ' (' . $patientData->gender[0] . ' - ' . $patientData->age . ')'; ?>
+                                            <?php echo $patientData->title . '. ' . $patientData->patientname . ' (' . $patientData->gender[0] . ' - ' . $patientData->age .' ' . $patientData->age_type. ')'; ?>
                                             <br>
                                             <?php echo "Patient No : " . $patientData->patientid; ?>
                                         </span>
-                                        <input type="hidden" name="editpatientid" id="editpatientid" value="<?php echo $patientData->id; ?>">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-6 ">
-                                        <label for="patientRef">Referral Details <span class="text-danger">*</span></label>
+                                       
+                                        <label for="patientRef">Referral By :</label>
                                         <?php foreach ($doctorData as $doctor) {
                                             if ($doctor->id == $patientData->refered_by) {
                                         ?>
-                                                <input type="text" name="patientRef" id="patientRef" class="form-control ui-autocomplete-input" value="<?php echo $doctor->referral_name; ?>" autocomplete="off">
+                                           <span><?php echo $doctor->referral_name; ?></span> 
                                         <?php }
                                         } ?>
                                         <input type="hidden" name="patientRefId" id="patientRefId" value="<?php echo $patientData->refered_by; ?>" class="form-control">
                                         <label id="patient_ref" class="text-danger"></label>
+                                    
+                                        <input type="hidden" name="editpatientid" id="editpatientid" value="<?php echo $patientData->id; ?>">
+                                        <div class="form-group col-lg-6 billadd"> <!-- billadd class imp -->
+                                        <label for="billDate">Bill Date</label><span id="bdate"></span>
+                                        <input type="hidden" readonly name="billDate" id="billDate" class="form-control" value="" onkeydown="return false">
+                                        <input type="hidden" name="time" id="time" class="form-control" value="">
                                     </div>
-                                    <div class="form-group col-lg-6 billadd">
-                                        <label for="billDate">Bill Date <span class="text-danger">*</span></label>
-                                        <input type="date" name="billDate" id="billDate" class="form-control" value="2022-01-25" onkeydown="return false">
-                                        <input type="hidden" name="time" id="time" class="form-control" value="16:19:55">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -87,35 +80,19 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-2">
-                                        <label for="test_amount">Amount <span class="text-danger">*</span></label>
+                                    
                                         <input type="hidden" id="nameTest" name="nameTest">
-                                        <input type="number" name="test_amount" id="test_amount" class="form-control prc number_only" readonly="">
-                                        <input type="hidden" name="test_amount1" id="test_amount1">
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <label for="discount_amount">Discount</label>
-                                        <input type="number" name="discount_amount" id="discount_amount" class="form-control prc number_only">
-                                    </div>
-                                    <div class="col-lg-2"><br>
-                                        <input type="radio" name="discount_type" id="discount_type" value="Percentage"> % &nbsp;
-                                        <input type="radio" name="discount_type" id="discount_type" value="Amount" checked="checked"> ₹
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <label></label>
+                                        <input type="hidden" name="test_amount" id="test_amount" class="form-control prc number_only">
+                                    <div class="col-lg-2" style="display: none;">
                                         <button type="button" name="add_list" id="add_list" class="btn custom-btn add-billing " value="Add" disabled="disabled">Add</button>
                                     </div>
-                                </div>
                                 <div class="form-row">
                                     <div class="col-lg-12">
                                         <table class="table">
                                             <thead>
                                                 <tr>
                                                     <th>Test Name</th>
-                                                    <th width="125px">Test ID</th>
                                                     <th width="125px">Price (₹)</th>
-                                                    <th width="125px">Discount (₹)</th>
                                                     <th width="50px">Action</th>
                                                 </tr>
                                             </thead>
@@ -124,19 +101,13 @@
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="1">Total</th>
-                                                    <th class="text-right">₹</th>
-                                                    <th><input type="text" name="total" id="total" class="form-control" readonly="" value=""></th>
-                                                    <th><input type="text" name="discount" id="discount" class="form-control" value="0" readonly="">
-                                                    </th>
+                                                    <th colspan="2"><input type="text" name="total" id="total" class="form-control" readonly="" value=""></th>
+                                                    <input type="hidden" name="discount" id="discount" class="form-control" value="0" readonly="">
+                                                    <input type="hidden" name="final_total" id="final_total" class="form-control" value="0" readonly="">
                                                 </tr>
+                                                
                                                 <tr>
-                                                    <th colspan="1">Final Total</th>
-                                                    <th class="text-right">₹</th>
-                                                    <th colspan="2"><input type="text" name="final_total" id="final_total" class="form-control" value="0" readonly=""></th>
-                                                </tr>
-                                                <tr>
-                                                    <th colspan="1">Final Discount &nbsp;&nbsp;<input type="radio" name="final_discount_type" id="final_discount_type" value="Percentage"> % &nbsp;<input type="radio" name="final_discount_type" id="final_discount_type" value="Amount" checked="checked"> ₹ &nbsp;&nbsp; <input type="number" name="f_discount" id="f_discount" value="" tabindex="1" class="form-control-sm number_only tab_inp"></th>
-                                                    <th class="text-right">₹</th>
+                                                    <th colspan="1">Final Discount &nbsp;&nbsp;<input type="hidden" name="final_discount_type" id="final_discount_type" value="Amount" checked="checked"><input type="number" name="f_discount" id="f_discount" value="" tabindex="1" class="form-control-sm number_only tab_inp"> &nbsp;&nbsp; ₹</th>
                                                     <th colspan="2"><input type="text" name="final_discount" value="" id="final_discount" class="form-control" readonly=""></th>
                                                 </tr>
                                                 <input type="hidden" name="reason_otp" id="reason_otp" value="verified">
@@ -154,43 +125,24 @@
                                                 <input type="hidden" name="rewardpoint" id="points" value="">
                                                 <input type="hidden" name="rewamount" id="rewamount" value="">
                                                 <input type="hidden" name="rewamountupdate" id="rewamountupdate" value="">
+                                                <input type="hidden" name="advance" id="advance" value="0" class="form-control number_only tab_inp" tabindex="6">
                                                 <tr>
                                                     <th colspan="1">Grand Total</th>
-                                                    <th class="text-right">₹</th>
                                                     <th colspan="2"><input type="text" name="grand_total" id="grand_total" class="form-control" value="" readonly="">
                                                     </th>
                                                 </tr>
-                                                <tr>
-                                                    <th colspan="1">Advance Amount</th>
-                                                    <th class="text-right">₹</th>
-                                                    <th colspan="2"><input type="number" name="advance" id="advance" value="" class="form-control number_only tab_inp" tabindex="6">
-                                                        <input type="hidden" name="like" id="like" value="">
-                                                    </th>
-                                                </tr>
                                                 <input type="hidden" name="paid" id="paid" value="0" class="form-control number_only tab_inp" tabindex="6">
-                                                <tr>
-                                                    <th colspan="1">Balance Amount </th>
-                                                    <th class="text-right">₹</th>
-                                                    <th colspan="2">
-                                                        <input type="text" name="balance" id="balance" class="form-control" readonly="" value="">
-                                                    </th>
-                                                </tr>
+                                                <input type="hidden" name="balance" id="balance" class="form-control" readonly="" value="">
+                                               
                                                 <tr>
                                                     <th colspan="1">Payment Mode
                                                         <span class="text-danger">*</span>
                                                     </th>
-                                                    <th class="text-right"></th>
                                                     <th colspan="2">
                                                         <select name="payment_mode" id="payment_mode" tabindex="7" class="form-control tab_inp">
                                                             <option value="Due">Due </option>
-                                                            <option value="Credit">Credit </option>
                                                             <option value="Cash">Cash</option>
-                                                            <option value="Card">Card</option>
-                                                            <option value="Net Banking">Net Banking</option>
-                                                            <option value="Google Pay">Google Pay</option>
-                                                            <option value="PhonePe">PhonePe</option>
-                                                            <option value="PAYTM">PAYTM</option>
-                                                            <option value="Amazon Pay">Amazon Pay</option>
+                                                            <option value="PhonePe">PhonePe UPI</option>
                                                         </select>
                                                     </th>
                                                 </tr>

@@ -7,33 +7,43 @@
         </div>
         <div class="report-sec">
             <div class="form-row">
+            <div class="col-lg-12">
+                <ul class="report-filter">
+                    <li class="filter-item all-r btn btn-primary" data-value="">All</li>
+                    <li class="filter-item pending-r btn btn-secondary" data-value="pending">Pending</li>
+                    <li class="filter-item complete-r btn btn-secondary" data-value="completed">Completed</li>
+                </ul>
+            </div>
                 <div class="col-lg-12">
                     <div class="c-datatable">
                         <table class="table dt-responsive" role="grid">
                             <thead>
                                 <tr role="row" class="tablesorter-headerRow">
-                                    <th data-column="2">
+                                    <th>
                                         <div class="tablesorter-header-inner">Name</div>
                                     </th>
-                                    <th data-column="1">
+                                    <th>
                                         <div class="tablesorter-header-inner">Report Date</div>
                                     </th>
-                                    <th data-column="1" class="">
+                                    <th class="">
                                         <div class="tablesorter-header-inner">Id</div>
                                     </th>
-                                    <th data-column="3">
+                                    <th>
                                         <div class="tablesorter-header-inner">Amount (₹)</div>
                                     </th>
-                                    <th data-column="4">
+                                    <th>
                                         <div class="tablesorter-header-inner">Referral</div>
                                     </th>
-                                    <th data-column="5">
+                                    <th>
                                         <div class="tablesorter-header-inner">Test Name</div>
                                     </th>
-                                    <th data-column="6">
+                                    <th style="display: none;">
+                                        <div class="tablesorter-header-inner">Report Status</div>
+                                    </th>
+                                    <th>
                                         <div class="tablesorter-header-inner">Payment Status</div>
                                     </th>
-                                    <th data-column="9">
+                                    <th>
                                         <div class="tablesorter-header-inner">Action</div>
                                     </th>
                                 </tr>
@@ -65,6 +75,7 @@
                                         </td>
                                         <td>
                                             <span class="nowwrap-text">
+                                                <p style="display: none;"><?php echo date_format(new DateTime($report->billDate), "Ymd"); ?></p>
                                             <?php echo date_format(new DateTime($report->billDate), "d-M-Y"); ?>
                                             </span>
                                         </td>
@@ -97,6 +108,18 @@
                                             ?>
 
                                         </td>
+                                        <td style="display: none;">
+                                            <?php
+                                              $testIDs = explode(',', $report->testId);
+                                            $reportcount = $pxthis->Report_model->getReportByBillAndPatientId($report->id, $report->patient_id);
+
+                                            if(count($testIDs) == count($reportcount)){
+                                                echo 'completed';
+                                            }else{
+                                                echo 'pending';
+                                            } ?>
+                                            
+                                        </td>
                                         <td>
                                             <?php if ($report->status == 'Pending') { ?>
                                                 <button class="patientedit-btn bill_settle btn-pay" data-status="Pending" data-id="<?php echo $report->id; ?>" value="<?php echo $report->id; ?>" id="status<?php echo $report->id; ?>" data-bs-toggle="modal" data-bs-target="#bill_settlement">
@@ -127,11 +150,15 @@
                                                     <?php }
                                                     } ?>
                                                 </li>
+                                             
                                                 <li>
                                                     <a href="report/orderReport/<?php echo $report->id; ?>" class="btn btn-sml btn-print">
                                                         <img src="<?php echo BASE_URL ?>public/assets/images/icon-report.svg" alt="">
                                                     </a>
                                                 </li>
+                                          
+                                               
+
                                             </ul>
                                         </td>
                                     </tr>

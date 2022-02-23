@@ -129,4 +129,9 @@ class Patient extends CI_Controller
 			exit;
 		}
 	}
+	
+	public function add_patient()
+	{
+		$this->load->view('Patient/add-patient');
+	}
 }
