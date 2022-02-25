@@ -3,7 +3,7 @@
 <div class="layoutSidenav_content">
     <div class="layout_content_inr">
         <div class="page-head page-head-border">
-            <h2>User Profile</h2>
+            <h2>Settings</h2>
         </div>
         <div class="patient-add-sec">
             <form method="POST" id="profile-form" name="profile" enctype="multipart/form-data">
