@@ -1,73 +1,73 @@
 </main>
 <div class="c-modal modal right fade" id="patientEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-md" role="document">
-                <div class="modal-content">
-                    <div class="page-head">
-                        <h2>Edit Patient </h2>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <img src="<?php echo BASE_URL ?>public/assets/images/remove.svg" alt="">
-                        </button>
-                    </div>
-                    <div class="modals-body">
-                        <div class="row">
-                            <div id="edit_patient">
-                                <div class="row">
-                                    <div class="form-group col-lg-3">
-                                        <label for="title">Title<span class="text-danger">*</span>
-                                        </label>
-                                        <select name="title" id="title" class="form-control title_div">
-                                            <option value="Mr">Mr</option>
-                                            <option value="Mrs">Mrs</option>
-                                            <option value="Miss">Miss</option>
-                                            <option value="New Born">New Born</option>
-                                            <option value="Baby">Baby</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-lg-9">
-                                        <input type="hidden" name="patientID" id="patientID" class="form-control" placeholder="Full Name">
-                                        <label for="patientName">Full Name<span class="text-danger">*</span></label>
-                                        <input type="text" name="patientName" id="patientName" class="form-control required" placeholder="Full Name">
-                                        <span class="error">This field is required.</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-3">
-                                        <label for="age">Age<span class="text-danger">*</span></label>
-                                        <input type="text" name="age" onkeypress="if(this.value.length==6)return false;" id="age" class="form-control required" placeholder="Age" autocomplete="off">
-                                        <span class="error">This field is required.</span>
+	<div class="modal-dialog modal-md" role="document">
+		<div class="modal-content">
+			<div class="page-head">
+				<h2>Edit Patient </h2>
+				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+					<img src="<?php echo BASE_URL ?>public/assets/images/remove.svg" alt="">
+				</button>
+			</div>
+			<div class="modals-body">
+				<div class="row">
+					<div id="edit_patient">
+						<div class="row">
+							<div class="form-group col-lg-3">
+								<label for="title">Title<span class="text-danger">*</span>
+								</label>
+								<select name="title" id="title" class="form-control title_div">
+									<option value="Mr">Mr</option>
+									<option value="Mrs">Mrs</option>
+									<option value="Miss">Miss</option>
+									<option value="New Born">New Born</option>
+									<option value="Baby">Baby</option>
+								</select>
+							</div>
+							<div class="form-group col-lg-9">
+								<input type="hidden" name="patientID" id="patientID" class="form-control" placeholder="Full Name">
+								<label for="patientName">Full Name<span class="text-danger">*</span></label>
+								<input type="text" name="patientName" id="patientName" class="form-control required" placeholder="Full Name">
+								<span class="error">This field is required.</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-lg-3">
+								<label for="age">Age<span class="text-danger">*</span></label>
+								<input type="text" name="age" onkeypress="if(this.value.length==6)return false;" id="age" class="form-control required" placeholder="Age" autocomplete="off">
+								<span class="error">This field is required.</span>
 
-                                    </div>
-                                    <div class="form-group col-lg-4">
-                                        <input type="hidden" name="age_type" id="age_type" class="age_type-input" value="Y">
-                                        <label for="Y">Age Type<span class="text-danger">*</span></label>
-                                        <div class="btn-group btn-block age_type_div">
-                                            <button type="button" class="btn btn-primary age-type " id="Y">Y</button>
-                                            <button type="button" class="btn btn-secondary age-type" id="M">M</button>
-                                            <button type="button" class="btn btn-secondary age-type" id="D">D</button>
-                                        </div>
-                                    </div>
-									<div class="form-group col-lg-5">
-                                        <label for="Male">Gender<span class="text-danger">*</span></label>
-                                        <input type="hidden" name="gender" id="gender" class="gender">
-                                        <div class="btn-group btn-block gender_type_div">
-                                            <button type="button" class="btn btn-primary btn-process " data-value="Male" id="Male">Male</button>
-                                            <button type="button" class="btn btn-secondary btn-process" data-value="Female" id="Female">Female</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-lg-6">
-                                        <label for="mobileNo">Contact Number
-                                        </label>
-                                        <input type="number" name="mobileNo" id="mobileNo" class="form-control number_only" onkeypress="if(this.value.length==10)return false;" placeholder="Mobile Number" autocomplete="off">
-                                    </div>
-									<div class="form-group col-lg-6">
-                                        <label for="pin">Pin Code
-                                        </label>
-                                        <input type="number" name="pin" id="pin" class="form-control number_only" onkeypress="if(this.value.length==6)return false;" placeholder="Pincode">
-                                    </div>
-                                </div>
-                                <!-- <div class="row">
+							</div>
+							<div class="form-group col-lg-4">
+								<input type="hidden" name="age_type" id="age_type" class="age_type-input" value="Y">
+								<label for="Y">Age Type<span class="text-danger">*</span></label>
+								<div class="btn-group btn-block age_type_div">
+									<button type="button" class="btn btn-primary age-type " id="Y">Y</button>
+									<button type="button" class="btn btn-secondary age-type" id="M">M</button>
+									<button type="button" class="btn btn-secondary age-type" id="D">D</button>
+								</div>
+							</div>
+							<div class="form-group col-lg-5">
+								<label for="Male">Gender<span class="text-danger">*</span></label>
+								<input type="hidden" name="gender" id="gender" class="gender">
+								<div class="btn-group btn-block gender_type_div">
+									<button type="button" class="btn btn-primary btn-process " data-value="Male" id="Male">Male</button>
+									<button type="button" class="btn btn-secondary btn-process" data-value="Female" id="Female">Female</button>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-lg-6">
+								<label for="mobileNo">Contact Number
+								</label>
+								<input type="number" name="mobileNo" id="mobileNo" class="form-control number_only" onkeypress="if(this.value.length==10)return false;" placeholder="Mobile Number" autocomplete="off">
+							</div>
+							<div class="form-group col-lg-6">
+								<label for="pin">Pin Code
+								</label>
+								<input type="number" name="pin" id="pin" class="form-control number_only" onkeypress="if(this.value.length==6)return false;" placeholder="Pincode">
+							</div>
+						</div>
+						<!-- <div class="row">
                                     <div class="form-group col-lg-6">
                                         <label for="emailId">Email
                                         </label>
@@ -75,39 +75,37 @@
                                     </div>
                                     
                                 </div> -->
-                                <div class="row">
-                                    <div class="form-group col-lg-12">
-                                        <label for="address">Address</label>
-                                        <textarea type="text" name="address" id="address" class="form-control" placeholder="Address"></textarea>
-                                    </div>
-                                </div>
-                                <div class="row" id="ref_detail">
-                                    <div class="form-group col-lg-12">
-                                        <label for="patientRef">Referred By<span class="text-danger">*</span></label>
-                                        <?php foreach ($referedData as $data) {
-                                            if ($data->id == 1) { ?>
-                                                <input type="hidden" id="refered_by_name" value="<?php echo $data->id; ?>" name="refered_by_name" class="ui-autocomplete-input">
-                                                <input type="text" name="patientRef" placeholder="Search Dr..." id="patientRef" value="<?php echo $data->referral_name; ?>" class="form-control search-input required">
-                                                <span class="error">This field is required.</span>
+						<div class="row">
+							<div class="form-group col-lg-12">
+								<label for="address">Address</label>
+								<textarea type="text" name="address" id="address" class="form-control" placeholder="Address"></textarea>
+							</div>
+						</div>
+						<div class="row" id="ref_detail">
+							<div class="form-group col-lg-12">
+								<label for="patientRef">Referred By<span class="text-danger">*</span></label>
+										<input type="hidden" id="refered_by_name" value="" name="refered_by_name" class="ui-autocomplete-input required">
+										<select name="patientRef" id="patientRef" class="form-control search-input">
+											<option>Select Refered By </option>
+										</select>
+										<!-- <input type="text" name="patientRef" placeholder="Search Dr..." id="patientRef" value="" class=""> -->
+										<span class="error">This field is required.</span>
+							</div>
+						</div>
+						<hr>
+					</div>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="col-lg-12 text-center">
+					<input type="button" class="btn btnupdate custom-btn m-auto" id="gotoBilling" value="Update">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-                                        <?php }
-                                        } ?>
-                                    </div>
-                                </div>
-                                <hr>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-lg-12 text-center">
-                            <input type="button" class="btn btnupdate custom-btn m-auto" id="gotoBilling" value="Update">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-		<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery-ui.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery-growl.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/bootstrap.bundle.min.js"></script>
@@ -116,7 +114,7 @@
 <!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.responsive.js"></script> -->
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/custom.js"></script>
 <!-- //jspdf  -->
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 
 <!-- JavaScript Bundle with Popper -->
@@ -127,7 +125,7 @@
 			var $btn = $(this);
 
 			var submit_form = true;
-			$('.required').each(function() {
+			$('.login-form .required').each(function() {
 				if ($(this).val() == "" && !$(this).val()) {
 					$(this).focus();
 					$(this).parent('.form-group').addClass('error');
@@ -144,32 +142,33 @@
 			var username = $("#username").val();
 			var password = $("#password").val();
 			var loginurl = '<?php echo BASE_URL; ?>login';
-			if(submit_form){
-			$.ajax({
-				type: "POST",
-				dataType: "json",
-				url: loginurl,
-				data: {
-					"username": username,
-					"password": password
-				},
-				success: function(res) {
-					if (res.success == 0) {
-						$(".errorTxt").removeClass("text-success");
-						$(".errorTxt").addClass("text-danger");
-						$(".errorTxt").html(res.msg);
-					} else {
-						$(".errorTxt").removeClass("text-danger");
-						$(".errorTxt").addClass("text-success");
-						$(".errorTxt").html(res.msg);
-						location.href = res.redirect_url;
+			if (submit_form) {
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: loginurl,
+					data: {
+						"username": username,
+						"password": password
+					},
+					success: function(res) {
+						if (res.success == 0) {
+							$(".errorTxt").removeClass("text-success");
+							$(".errorTxt").addClass("text-danger");
+							$(".errorTxt").html(res.msg);
+						} else {
+							$(".errorTxt").removeClass("text-danger");
+							$(".errorTxt").addClass("text-success");
+							$(".errorTxt").html(res.msg);
+							location.href = res.redirect_url;
+						}
 					}
-				}
 
-			});
-		}
+				});
+			}
 			return false;
 		});
+
 
 		function isEmail(email) {
 			var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -368,28 +367,28 @@
 		$('.error').hide();
 
 		// on change title
-		$('.title_div').on('change', function (e) {
-			if(this.value == 'Mr' || this.value == 'Master' || this.value == 'Baby' || this.value == 'New Born'){
+		$('.title_div').on('change', function(e) {
+			if (this.value == 'Mr' || this.value == 'Master' || this.value == 'Baby' || this.value == 'New Born') {
 				$('#MaleAdd').addClass(' btn-primary').removeClass(' btn-secondary');
 				$('#FemaleAdd').addClass(' btn-secondary').removeClass(' btn-primary');
 				$('.gender').val('Male');
-			}else{
+			} else {
 				$('#FemaleAdd').addClass(' btn-primary').removeClass(' btn-secondary');
 				$('#MaleAdd').addClass(' btn-secondary').removeClass(' btn-primary');
 				$('.gender').val('Female');
 			}
 			$('.age-type').removeClass(' btn-primary');
 			$('.age-type').addClass(' btn-secondary');
-			if(this.value == 'New Born'){
+			if (this.value == 'New Born') {
 				$('.age_type-input').val('D');
 				$('#DAdd').addClass(' btn-primary').removeClass(' btn-secondary');
 				$('#D').addClass(' btn-primary').removeClass(' btn-secondary');
-		
-			}else if(this.value == 'Mr' || this.value == 'Mrs' || this.value == 'Miss'){
+
+			} else if (this.value == 'Mr' || this.value == 'Mrs' || this.value == 'Miss') {
 				$('.age_type-input').val('Y');
 				$('#YAdd').addClass(' btn-primary').removeClass(' btn-secondary');
 				$('#Y').addClass(' btn-primary').removeClass(' btn-secondary');
-			}else{
+			} else {
 				$('.age_type-input').val('M');
 				$('#MAdd').addClass(' btn-primary').removeClass(' btn-secondary');
 				$('#M').addClass(' btn-primary').removeClass(' btn-secondary');
@@ -400,13 +399,13 @@
 		$('body').on('click', '.btn-process', function() {
 			var gender = $(this).data('value');
 			$('.gender').val(gender);
-			if(gender == 'Male'){
+			if (gender == 'Male') {
 				$('#MaleAdd').addClass(' btn-primary').removeClass(' btn-secondary');
 				$('#FemaleAdd').addClass(' btn-secondary').removeClass(' btn-primary');
 				$('#Male').addClass(' btn-primary').removeClass(' btn-secondary');
 				$('#Female').addClass(' btn-secondary').removeClass(' btn-primary');
 				$('.title_div').val('Mr').change();
-			}else{
+			} else {
 				$('#FemaleAdd').addClass(' btn-primary').removeClass(' btn-secondary');
 				$('#MaleAdd').addClass(' btn-secondary').removeClass(' btn-primary');
 				$('#Female').addClass(' btn-primary').removeClass(' btn-secondary');
@@ -467,6 +466,7 @@
 								title: "success",
 								message: "Patient added."
 							});
+							$('#add-from-reset').click();
 						} else {
 							$.growl.error({
 								title: "error",
@@ -547,7 +547,7 @@
 			}
 		});
 
-		$(".patientedit_btn").click(function() {
+		$('body').on('click', '.patientedit_btn', function() {
 			var id = $(this).data("id");
 			var editpurl = '<?php echo BASE_URL; ?>patient/patientEdit';
 
@@ -567,6 +567,7 @@
 					$('#age_type').val(res.age_type);
 					$('#gender').val(res.gender);
 					$('#refered_by_name').val(res.refered_by);
+					$('#patientRef').val(res.refered_by).change();
 					$('#address').val(res.address);
 					$('#pin').val(res.pin);
 					$("#emailId").val(res.email);
@@ -717,25 +718,28 @@
 			});
 		});
 
-		$('#searchPatientId').keypress(function() {
-			$('#searchPatientId').autocomplete({
-				source: "<?php echo BASE_URL; ?>patient/searchPatient",
-				minLength: 1,
-				max: 10,
-				scroll: true,
-				autoFocus: true,
-				select: function(event, ui) {
-					event.preventDefault();
-					$('#search_patient_id').val(ui.item.id);
-					$('#searchPatientId').val(ui.item.patientname);
-				}
-			}).data('ui-autocomplete')._renderItem = function(ul, item) {
-				return $("<li class='ui-autocomplete-row'></li>")
-					.data("item.autocomplete", item)
-					.append(item.patientname + ' - ' + item.mobile)
-					.appendTo(ul);
-			};
-		})
+		// patient search 
+
+		// $('#searchPatientId').keypress(function() {
+		// 	$('#searchPatientId').autocomplete({
+		// 		source: "<?php // echo BASE_URL; ?>patient/searchPatient",
+		// 		minLength: 1,
+		// 		max: 10,
+		// 		scroll: true,
+		// 		autoFocus: true,
+		// 		select: function(event, ui) {
+		// 			event.preventDefault();
+		// 			$('#search_patient_id').val(ui.item.id);
+		// 			$('#searchPatientId').val(ui.item.patientname);
+		// 			$('#searchPatient').click();
+		// 		}
+		// 	}).data('ui-autocomplete')._renderItem = function(ul, item) {
+		// 		return $("<li class='ui-autocomplete-row'></li>")
+		// 			.data("item.autocomplete", item)
+		// 			.append(item.patientname + ' - ' + item.mobile)
+		// 			.appendTo(ul);
+		// 	};
+		// })
 
 		//   ul click funtion 
 		$('body').on('click', 'ul.listitems li', function(e) {
@@ -774,9 +778,14 @@
 
 		var today = year + "-" + month + "-" + day;
 		var time = output.getHours() + ":" + output.getMinutes() + ":" + output.getSeconds();
-		$(".billadd #billDate").val(today);
-		$(".billadd #time").val(time);
-		$("#bdate").html(today);
+		$(".bill-add-d #billDate").val(today);
+		$(".bill-add-d #time").val(time);
+
+		$('.bill-add-d #bdate').html(today);
+		// $("#time").val(time);
+		// $("#bdate").html(today);
+		// $(".edit-bill-d #billDate").val(today);
+		// $(".edit-bill-d #time").val(time);
 
 		//autocomplete
 		$('#test').keypress(function() {
@@ -970,45 +979,45 @@
 		});
 
 		// referral doctors
-		$('#patientRef').keypress(function() {
-			$('#patientRef').autocomplete({
-				source: "<?php echo BASE_URL; ?>doctor/getAutocompleteDoctor",
-				minLength: 1,
-				select: function(event, ui) {
-					event.preventDefault();
-					$('#patientRef').val(ui.item.referral_name);
+		// $('#patientRef').keypress(function() {
+		// 	$('#patientRef').autocomplete({
+		// 		source: "<?php // echo BASE_URL; ?>doctor/getAutocompleteDoctor",
+		// 		minLength: 1,
+		// 		select: function(event, ui) {
+		// 			event.preventDefault();
+		// 			$('#patientRef').val(ui.item.referral_name);
 
-					$('#patientRefId').val(ui.item.id);
-					if ('#refered_by_name') {
-						$('#refered_by_name').val(ui.item.id);
-					}
+		// 			$('#patientRefId').val(ui.item.id);
+		// 			if ('#refered_by_name') {
+		// 				$('#refered_by_name').val(ui.item.id);
+		// 			}
 
-				}
-			}).data('ui-autocomplete')._renderItem = function(ul, item) {
-				return $("<li class='ui-autocomplete-row'></li>")
-					.data("item.autocomplete", item)
-					.append(item.referral_name + ' - ' + item.designation)
-					.appendTo(ul);
-			};
-		})
+		// 		}
+		// 	}).data('ui-autocomplete')._renderItem = function(ul, item) {
+		// 		return $("<li class='ui-autocomplete-row'></li>")
+		// 			.data("item.autocomplete", item)
+		// 			.append(item.referral_name + ' - ' + item.designation)
+		// 			.appendTo(ul);
+		// 	};
+		// })
 
-		$('#patientRefAdd').keypress(function() {
-			$('#patientRefAdd').autocomplete({
-				source: "<?php echo BASE_URL; ?>doctor/getAutocompleteDoctor",
-				minLength: 1,
-				select: function(event, ui) {
-					event.preventDefault();
-					$('#patientRefAdd').val(ui.item.referral_name);
-					$('#refered_by_nameAdd').val(ui.item.id);
-				}
+		// $('#patientRefAdd').keypress(function() {
+		// 	$('#patientRefAdd').autocomplete({
+		// 		source: "<?php //echo BASE_URL; ?>doctor/getAutocompleteDoctor",
+		// 		minLength: 1,
+		// 		select: function(event, ui) {
+		// 			event.preventDefault();
+		// 			$('#patientRefAdd').val(ui.item.referral_name);
+		// 			$('#refered_by_nameAdd').val(ui.item.id);
+		// 		}
 
-			}).data('ui-autocomplete')._renderItem = function(ul, item) {
-				return $("<li class='ui-autocomplete-row'></li>")
-					.data("item.autocomplete", item)
-					.append(item.referral_name + ' - ' + item.designation)
-					.appendTo(ul);
-			};
-		})
+		// 	}).data('ui-autocomplete')._renderItem = function(ul, item) {
+		// 		return $("<li class='ui-autocomplete-row'></li>")
+		// 			.data("item.autocomplete", item)
+		// 			.append(item.referral_name + ' - ' + item.designation)
+		// 			.appendTo(ul);
+		// 	};
+		// })
 
 		// department on change
 		$("#departments").on('change', function() {
@@ -1212,6 +1221,13 @@
 
 				var url = '<?php echo BASE_URL; ?>bill/billEntry';
 
+				if (testId.length === 0) {
+					$.growl.error({
+						title: "Error",
+						message: "Please Select Test"
+					})
+					return false;
+				}
 				$.ajax({
 					type: "POST",
 					url: url,
@@ -1384,22 +1400,27 @@
 					}
 				});
 			}
-
-
 		});
 
-
-		$('#submit_report').attr('disabled', 'disabled');
-		$('.select').click(function() {
-			$('#submit_report').removeAttr('disabled', 'disabled');
-			$('.chkbox').prop('checked', true);
-		});
-		$('.deselect').click(function() {
-			$('#submit_report').attr('disabled', 'disabled');
-			$('.chkbox').prop('checked', false);
-
+		$('.select label').click(function() {
+			if ($('#select_all').is(':checked')) {
+				$('.chkbox').prop('checked', false);
+				$('#submit_report').attr('disabled', 'disabled');
+			} else {
+				$('.chkbox').prop('checked', true);
+				$('#submit_report').removeAttr('disabled', 'disabled');
+			}
 		});
 
+		$('.single-select label').click(function() {
+			if ($(this).find('.chkbox').is(':checked')) {
+				$(this).prop('checked', false);
+				$('#submit_report').attr('disabled', 'disabled');
+			} else {
+				$(this).find('.chkbox').prop('checked', true);
+				$('#submit_report').removeAttr('disabled', 'disabled');
+			}
+		})
 		// review btn 
 		$("body").on('click', '.review-btn', function() {
 
@@ -1436,12 +1457,117 @@
 			// });
 		});
 	});
-	$(".report-filter li").on('click', function(){
-    $(".report-filter li").removeClass('btn-primary');
-    $(".report-filter li").addClass('btn-secondary');
-    $(this).addClass('btn-primary');
-    $(this).removeClass('btn-secondary');
-});
+	$(".report-filter li").on('click', function() {
+		$(".report-filter li").removeClass('active');
+		$(this).addClass('active');
+	});
+
+
+	$('#update_profile').click(function() {
+		var submit_form = true;
+		$('#profile .required').each(function() {
+			if ($(this).val() == "" && !$(this).val()) {
+				$(this).focus();
+				$(this).parent('.form-group').addClass('error');
+				$(this).siblings('.error').show();
+				submit_form = false;
+			} else {
+				$(this).siblings('.error').hide();
+				$(this).parent('.form-group').removeClass('error');
+			}
+		});
+
+		var formData = new FormData($('#profile-form')[0]);
+
+		var updateurl = '<?php echo BASE_URL; ?>Users/update';
+		if (submit_form) {
+			$.ajax({
+				type: "POST",
+				url: updateurl,
+				processData: false,
+				contentType: false,
+				data: formData,
+				success: function(res) {
+					if (res.success == 0) {
+						$(".errorTxt").removeClass("text-success");
+						$(".errorTxt").addClass("text-danger");
+						$(".errorTxt").html(res.msg);
+						$.growl.error({
+							title: "Error",
+							message: 'Something went wrong'
+						});
+					} else {
+						$(".errorTxt").removeClass("text-danger");
+						$(".errorTxt").addClass("text-success");
+						$(".errorTxt").html(res.msg);
+						$.growl.notice({
+							title: "SUCCESS",
+							message: 'Update profile successfully'
+						});
+					}
+				}
+
+			});
+		}
+		return false;
+	});
+	// onload select 
+	
+	onloadSelect();
+
+	function onloadSelect() {
+		$.ajax({
+			type: "POST",
+			url: '<?php echo BASE_URL; ?>Patient/patientList',
+			dataType: "json",
+			success: function(res) {
+			$('#searchPatientId').append(res);
+			},
+			error: function(err) {
+				$.growl.err({
+					title: "Error",
+					message: err
+				});
+			}
+		});
+
+		$.ajax({
+			type: "POST",
+			url: '<?php echo BASE_URL; ?>Doctor/referedList',
+			dataType: "json",
+			success: function(res) {
+			$('#patientRef').append(res);
+			$('#patientRefAdd').append(res);
+			},
+			error: function(err) {
+				$.growl.err({
+					title: "Error",
+					message: err
+				});
+			}
+		});
+		
+	}
+	$("#searchPatientId").select2();
+	$("#patientRef").select2();
+	$("#patientRefAdd").select2();
+
+	$('#searchPatientId').on('change', function() {
+			var id = this.value;
+			$('#search_patient_id').val(id);
+			$('#searchPatient').click();
+		});
+
+		$('#patientRef').on('change', function() {
+			var id = this.value;
+			$('#refered_by_name').val(id);
+		});
+		$('#patientRefAdd').on('change', function() {
+			var id = this.value;
+			$('#refered_by_nameAdd').val(id);
+		});
+    
+
 </script>
 </body>
 

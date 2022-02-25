@@ -9,6 +9,7 @@
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo BASE_URL ?>public/assets/images/icon.png" />
 	<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
 	<link rel="stylesheet" href="<?php echo BASE_URL ?>public/assets/css/global.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 	<!-- CSS only -->
 </head>
 
@@ -25,12 +26,18 @@
 					</div>
 					<div class="header-add-p">
 						<input type="hidden" name="search_patient_id" id="search_patient_id">
-						<input type="text" name="searchPatientId" id="searchPatientId" placeholder="Search by Patient Name / ID / Mobile Number" class="search__field txt_stle form-control ui-autocomplete-input" autocomplete="off">
+						<select name="searchPatientId" class="search__field txt_stle form-control" id="searchPatientId">
+						<option >Select or Search Patient</option>
+					</select>
+						<input type="hidden" name="searchPatient" id="searchPatient" class="btn custom-btn btnupdate font-weight-bolder btn-primary" value="Go">
 					</div>
 					<div class="header-right">
-						<div class="header-right-w">
-							Current User
-						</div>
+						<a href="" class="header-right-w">
+							<div class="current-u-avtr">
+								PX
+							</div>
+							<span>Current User</span>
+						</a>
 					</div>
 				</div>
 			</div>

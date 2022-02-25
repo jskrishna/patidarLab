@@ -24,7 +24,11 @@ class Patient extends CI_Controller
 		if ($this->input->post('title')) {
 			$px = $this->Patient_model->patientId();
 			$patientId = $px[0]->id+1;
-			$patientId = '00'.$patientId;
+			if(strlen($patientId) > 3){
+				$patientId = 'PTD0'.$patientId;
+			}else{
+				$patientId = 'PTD00'.$patientId;
+			}
 			$title = $this->input->post('title');
 			$patientName = $this->input->post('patientName');
 			$mobileNo = $this->input->post('mobileNo');
@@ -133,5 +137,20 @@ class Patient extends CI_Controller
 	public function add_patient()
 	{
 		$this->load->view('Patient/add-patient');
+	}
+	public function patientList()
+	{
+		
+		$patientList = $this->Patient_model->patientinfo();
+		$data = '';
+
+		if($patientList){
+			foreach($patientList as $patient){
+				$data .= '<option value="'.$patient->id.'">'.$patient->patientname.' - '. $patient->patientid.'</option>';
+			}
+		}
+		echo json_encode($data);
+			exit;
+		# code...
 	}
 }
