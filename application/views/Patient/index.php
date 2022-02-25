@@ -88,12 +88,14 @@
                                         <td>
                                             <ul class="action-list">
                                                 <li>
-                                                    <button data-bs-target="#patientEdit" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-sml patientedit_btn patientedit-btn" namse="test_edit" data-id="<?php echo $data->id; ?>" value="<?php echo $data->id; ?>">
+                                                
+              
+                                                    <button data-toggle="tooltip" data-placement="top" title="Edit Patient" data-bs-target="#patientEdit" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-sml patientedit_btn patientedit-btn" namse="test_edit" data-id="<?php echo $data->id; ?>" value="<?php echo $data->id; ?>">
                                                         <img src="<?php echo BASE_URL ?>public/assets/images/icon-edit.svg" alt="">
                                                     </button>
                                                 </li>
                                                 <li>
-                                                    <a href="<?php echo BASE_URL ?>bill?t=<?php echo $data->id; ?>" class="btn btn-sml btn-billing">
+                                                    <a href="<?php echo BASE_URL ?>bill?t=<?php echo $data->id; ?>" data-toggle="tooltip" data-placement="top" title="Billing"  class="btn btn-sml btn-billing">
                                                         <img src="<?php echo BASE_URL ?>public/assets/images/billing.svg" alt="">
                                                     </a>
                                                 </li>

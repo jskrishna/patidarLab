@@ -200,6 +200,10 @@
 			}
 		}
 
+		$(function () {
+			$('[data-toggle="tooltip"]').tooltip()
+		})
+
 		//calculation
 		function calculation() {
 			var total = 0;
