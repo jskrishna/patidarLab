@@ -67,14 +67,6 @@
 								<input type="number" name="pin" id="pin" class="form-control number_only" onkeypress="if(this.value.length==6)return false;" placeholder="Pincode">
 							</div>
 						</div>
-						<!-- <div class="row">
-                                    <div class="form-group col-lg-6">
-                                        <label for="emailId">Email
-                                        </label>
-                                        <input type="text" name="emailId" id="emailId" class="form-control" placeholder="Email ID" autocomplete="off">
-                                    </div>
-                                    
-                                </div> -->
 						<div class="row">
 							<div class="form-group col-lg-12">
 								<label for="address">Address</label>
@@ -84,12 +76,11 @@
 						<div class="row" id="ref_detail">
 							<div class="form-group col-lg-12">
 								<label for="patientRef">Referred By<span class="text-danger">*</span></label>
-										<input type="hidden" id="refered_by_name" value="" name="refered_by_name" class="ui-autocomplete-input required">
-										<select name="patientRef" id="patientRef" class="form-control search-input">
-											<option>Select Refered By </option>
-										</select>
-										<!-- <input type="text" name="patientRef" placeholder="Search Dr..." id="patientRef" value="" class=""> -->
-										<span class="error">This field is required.</span>
+								<input type="hidden" id="refered_by_name" value="" name="refered_by_name" class="ui-autocomplete-input required">
+								<select name="patientRef" id="patientRef" class="form-control search-input">
+									<option>Select Refered By </option>
+								</select>
+								<span class="error">This field is required.</span>
 							</div>
 						</div>
 						<hr>
@@ -113,10 +104,7 @@
 <!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.bootstrap.js"></script> -->
 <!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.responsive.js"></script> -->
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/custom.js"></script>
-<!-- //jspdf  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
-
 <!-- JavaScript Bundle with Popper -->
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -315,8 +303,6 @@
 		//discount
 		function discount() {
 			var reason_otp = $("#reason_otp").val();
-			// var showamount=$("#reward").val();
-			// console.log(showamount);
 			if (reason_otp != 'verified') {
 				var discount = $('#discount').val();
 				var final_discount = $("#final_discount").val();
@@ -580,15 +566,12 @@
 			});
 		});
 
-
-
 		//patient delete 
 		$('.btn-delete').on('click', function() {
 			var url = $(this).data("url");
 			var title = $(this).data("title");
 			$('#confirmdeletepatient').attr("href", url);
 			$('#delete_model_msg').html("Are you sure you want to delete " + title + "?");
-
 		});
 
 		//add test
@@ -655,7 +638,6 @@
 		$(".test_edit").click(function() {
 			var id = $(this).data("id");
 			var editpurl = '<?php echo BASE_URL; ?>test/testEdit';
-
 			$.ajax({
 				type: "POST",
 				url: editpurl,
@@ -722,29 +704,6 @@
 			});
 		});
 
-		// patient search 
-
-		// $('#searchPatientId').keypress(function() {
-		// 	$('#searchPatientId').autocomplete({
-		// 		source: "<?php // echo BASE_URL; ?>patient/searchPatient",
-		// 		minLength: 1,
-		// 		max: 10,
-		// 		scroll: true,
-		// 		autoFocus: true,
-		// 		select: function(event, ui) {
-		// 			event.preventDefault();
-		// 			$('#search_patient_id').val(ui.item.id);
-		// 			$('#searchPatientId').val(ui.item.patientname);
-		// 			$('#searchPatient').click();
-		// 		}
-		// 	}).data('ui-autocomplete')._renderItem = function(ul, item) {
-		// 		return $("<li class='ui-autocomplete-row'></li>")
-		// 			.data("item.autocomplete", item)
-		// 			.append(item.patientname + ' - ' + item.mobile)
-		// 			.appendTo(ul);
-		// 	};
-		// })
-
 		//   ul click funtion 
 		$('body').on('click', 'ul.listitems li', function(e) {
 			var patientId = $(this).data('id');
@@ -756,14 +715,13 @@
 		// go funtion
 		$("#searchPatient").click(function() {
 			if ($("#search_patient_id").val() == '') {
-				// $('.error').append('<span>Please search or select patient</span>')
 				$.growl.error({
 					title: "error",
 					message: "Please search or select patient"
 				});
 			} else {
 				var search_patient = $("#search_patient_id").val();
-				window.location = 'bill?t=' + search_patient;
+				location.href = '<?php echo BASE_URL ?>bill?t=' + search_patient;
 			}
 		});
 
@@ -786,10 +744,6 @@
 		$(".bill-add-d #time").val(time);
 
 		$('.bill-add-d #bdate').html(today);
-		// $("#time").val(time);
-		// $("#bdate").html(today);
-		// $(".edit-bill-d #billDate").val(today);
-		// $(".edit-bill-d #time").val(time);
 
 		//autocomplete
 		$('#test').keypress(function() {
@@ -855,7 +809,6 @@
 					$("#" + res.gender + "Edit").addClass("btn-primary");
 					$("#" + res.gender + "Edit").removeClass("btn-secondary");
 				}
-
 			});
 		});
 
@@ -924,9 +877,7 @@
 		});
 
 		//add test list
-
 		$("#add_list").click(function() {
-
 			if ($("#test_id").val() == '') {
 				$("#test").css("border", "1px solid red");
 				$("#test_amount").focus();
@@ -958,10 +909,7 @@
 				var testAmount = $("#test_amount").val();
 				var discountAmount = 0;
 				var discountAmount1 = 0;
-
-
 				var nameTest = $("#nameTest").val();
-
 				$("#testRequest").append("<tr><td>" + nameTest + "<input type='hidden' name='testId[]' id='testId' value=" + testId + " class='form-control testId' readonly></td><td><input type='text' name='testAmount[]' id='testAmount' value=" + testAmount + " class='form-control testAmount' readonly><input type='hidden' name='discount_value[]' id='discount_value' value='" + discountAmount1 + "'><input type='hidden' name='discountAmount[]' id='discountAmount' value=" + discountAmount + " class='form-control testAmount' readonly></td><td><a href='#' class='remove_this btn btn-danger'>X</a></td></tr>");
 				$("#test_id").val('');
 				$("#test_amount").val('');
@@ -981,47 +929,6 @@
 			$(this).closest('tr').remove();
 			calculation();
 		});
-
-		// referral doctors
-		// $('#patientRef').keypress(function() {
-		// 	$('#patientRef').autocomplete({
-		// 		source: "<?php // echo BASE_URL; ?>doctor/getAutocompleteDoctor",
-		// 		minLength: 1,
-		// 		select: function(event, ui) {
-		// 			event.preventDefault();
-		// 			$('#patientRef').val(ui.item.referral_name);
-
-		// 			$('#patientRefId').val(ui.item.id);
-		// 			if ('#refered_by_name') {
-		// 				$('#refered_by_name').val(ui.item.id);
-		// 			}
-
-		// 		}
-		// 	}).data('ui-autocomplete')._renderItem = function(ul, item) {
-		// 		return $("<li class='ui-autocomplete-row'></li>")
-		// 			.data("item.autocomplete", item)
-		// 			.append(item.referral_name + ' - ' + item.designation)
-		// 			.appendTo(ul);
-		// 	};
-		// })
-
-		// $('#patientRefAdd').keypress(function() {
-		// 	$('#patientRefAdd').autocomplete({
-		// 		source: "<?php //echo BASE_URL; ?>doctor/getAutocompleteDoctor",
-		// 		minLength: 1,
-		// 		select: function(event, ui) {
-		// 			event.preventDefault();
-		// 			$('#patientRefAdd').val(ui.item.referral_name);
-		// 			$('#refered_by_nameAdd').val(ui.item.id);
-		// 		}
-
-		// 	}).data('ui-autocomplete')._renderItem = function(ul, item) {
-		// 		return $("<li class='ui-autocomplete-row'></li>")
-		// 			.data("item.autocomplete", item)
-		// 			.append(item.referral_name + ' - ' + item.designation)
-		// 			.appendTo(ul);
-		// 	};
-		// })
 
 		// department on change
 		$("#departments").on('change', function() {
@@ -1043,10 +950,8 @@
 		});
 
 		$("body").on('click', '#bottom', function() {
-
 			$("#bottom").attr('disabled', 'disabled');
 			var temp = Array();
-
 			$(".check_list").each(function() {
 				if ($(this).is(':checked')) {
 					var checked = ($(this).val());
@@ -1079,6 +984,7 @@
 				}
 			});
 		});
+
 		// press enter test save 
 		$('#test_save').keypress(function(event) {
 			var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -1086,6 +992,7 @@
 				$('#test_save').click();
 			}
 		});
+
 		//test clear
 		$("#test_clear").on('click', function() {
 			test = [];
@@ -1093,7 +1000,6 @@
 			$("#balance").val('');
 			$("#grand_total").val('');
 			$("#advance").val('');
-
 		});
 
 		$("#f_discount").keyup(function() {
@@ -1152,7 +1058,6 @@
 						title: "Error",
 						message: "Please Enter the Test Name"
 					})
-
 					return false;
 				}
 
@@ -1288,10 +1193,8 @@
 
 		// btn-action
 		$(".btn-action").click(function() {
-
 			var id = (this.id);
 			var test_id = id.substring(10, 200);
-
 			var position1 = (this.name);
 			if ($(".card-link").last().attr('id') == position1) {
 				var position = 'Yes';
@@ -1300,9 +1203,7 @@
 
 				var position = Number(position2) + Number(1);
 			}
-
 			var formData = new FormData($("#postValue" + test_id)[0]);
-
 			formData.append('testId', $(this).data('testid'));
 			formData.append('reportDataid', $('#reportid' + test_id).val());
 			formData.append('patientID', $('#patientID').val());
@@ -1321,18 +1222,15 @@
 						message: "Value Added Successfully"
 					});
 					$(".img" + test_id).html('<img src="<?php echo BASE_URL ?>public/assets/images/icon-thumbs-up-active.svg" alt="Report Completed!" width="32" align="right">');
-
 				},
 				error: function(err) {
 					console.dir(err);
-
 				}
 			});
 		});
 
 		$("body").on('click', '.bill_settle', function() {
 			var id = $(this).data("id");
-
 			$.ajax({
 				type: "POST",
 				url: '<?php echo BASE_URL; ?>report/bill_settle',
@@ -1347,8 +1245,6 @@
 		});
 
 		$("body").on('click', '#postValue', function() {
-
-
 			if ($("#payment_mode").val() == '') {
 				$("#payment_mode").css("border", "1px solid red");
 				$("#payment_mode").focus();
@@ -1376,7 +1272,6 @@
 				} else {
 					var permission = false;
 				}
-
 				$.ajax({
 					type: "POST",
 					url: '<?php echo BASE_URL; ?>bill/statusUpdate',
@@ -1438,29 +1333,9 @@
 		// submit report
 		$("#submit_report").click(function() {
 			$("#report").submit();
-
-			// var payment_status = $("#payment_status1").val();
-			// if (payment_status == 'Pending') {
-			// 	$.growl.error({
-			// 		title: "Payment",
-			// 		message: "Payment Not Received"
-			// 	});
-			// } else {
-			// 	return true;
-
-			// }
-
-			// $.ajax({
-			// 	type: "POST",
-			// 	url: "ajaxCalls/updatePrintHistory.php",
-			// 	dataType: "json",
-			// 	data: $("#report").serialize(),
-			// 	success: function(res) {
-			// 		window.reload();
-			// 	}
-			// });
 		});
 	});
+
 	$(".report-filter li").on('click', function() {
 		$(".report-filter li").removeClass('active');
 		$(this).addClass('active');
@@ -1516,7 +1391,7 @@
 		return false;
 	});
 	// onload select 
-	
+
 	onloadSelect();
 
 	function onloadSelect() {
@@ -1525,7 +1400,7 @@
 			url: '<?php echo BASE_URL; ?>Patient/patientList',
 			dataType: "json",
 			success: function(res) {
-			$('#searchPatientId').append(res);
+				$('#searchPatientId').append(res);
 			},
 			error: function(err) {
 				$.growl.err({
@@ -1540,8 +1415,8 @@
 			url: '<?php echo BASE_URL; ?>Doctor/referedList',
 			dataType: "json",
 			success: function(res) {
-			$('#patientRef').append(res);
-			$('#patientRefAdd').append(res);
+				$('#patientRef').append(res);
+				$('#patientRefAdd').append(res);
 			},
 			error: function(err) {
 				$.growl.err({
@@ -1550,28 +1425,26 @@
 				});
 			}
 		});
-		
+
 	}
 	$("#searchPatientId").select2();
 	$("#patientRef").select2();
 	$("#patientRefAdd").select2();
 
 	$('#searchPatientId').on('change', function() {
-			var id = this.value;
-			$('#search_patient_id').val(id);
-			$('#searchPatient').click();
-		});
+		var id = this.value;
+		$('#search_patient_id').val(id);
+		$('#searchPatient').click();
+	});
 
-		$('#patientRef').on('change', function() {
-			var id = this.value;
-			$('#refered_by_name').val(id);
-		});
-		$('#patientRefAdd').on('change', function() {
-			var id = this.value;
-			$('#refered_by_nameAdd').val(id);
-		});
-    
-
+	$('#patientRef').on('change', function() {
+		var id = this.value;
+		$('#refered_by_name').val(id);
+	});
+	$('#patientRefAdd').on('change', function() {
+		var id = this.value;
+		$('#refered_by_nameAdd').val(id);
+	});
 </script>
 </body>
 
