@@ -64,8 +64,8 @@
                             </div>
                         </div>
                     </div>
-                    <form method="POST" action="<?php echo BASE_URL; ?>report/outputpdf" target="_blank" id="report">
-                        <div class="c-datatable">
+                    <form method="POST" action="<?php echo BASE_URL; ?>tcpdfexample/index" target="_blank" id="report">
+                        <div class="c-datatable fixed-save">
                             <table class="table report-edit" id="tablelist">
                                 <thead>
                                     <tr style="display: none;">
@@ -150,8 +150,8 @@
                                                 <div class="col-lg-6">
                                                     <div class="row">
                                                         <div class="col-lg-6 mt-4">
-                                                            <input type="button" class="btn btn-primary btn-sm select" id="select_all" value="Select All">
-                                                            <input type="button" class="btn btn-sm btn-primary deselect" id="deselect_All" value="Deselect All">
+                                                            <!-- <input type="button" class="btn btn-primary btn-sm select" id="select_all" value="Select All">
+                                                            <input type="button" class="btn btn-sm btn-primary deselect" id="deselect_All" value="Deselect All"> -->
                                                         </div>
                                                         <div class="col-lg-7"></div>
                                                     </div>
@@ -168,7 +168,10 @@
                                     </tr>
                                     <tr>
                                         <th>
-                                            <div class="tablesorter-header-inner">#</div>
+                                            <div class="check-group select">
+                                                <input type="checkbox" class="" id="select_all" name="select_all">
+                                                <label for="select_all"></label>
+                                            </div>
                                         </th>
                                         <th>
                                             <div class="tablesorter-header-inner">Department</div>
@@ -190,8 +193,8 @@
                                         $testData = $testData[0]; ?>
                                         <tr class="reportcnt" id="<?php echo $testData->id; ?>">
                                             <td>
-                                                <div class="check-group">
-                                                    <input type="checkbox" onclick="myFunction(<?php echo $testData->id; ?>)" value="<?php echo $testData->id; ?>" class="chkbox" id="test<?php echo $testData->id; ?>" name="test_id[]">
+                                                <div class="check-group single-select">
+                                                    <input type="checkbox" value="<?php echo $testData->id; ?>" class="chkbox" id="test<?php echo $testData->id; ?>" name="test_id[]">
                                                     <label for="test<?php echo $testData->id; ?>"></label>
                                                 </div>
                                             </td>
@@ -210,29 +213,17 @@
                                             </td>
                                         </tr>
                                     <?php  } ?>
-                                    <tr>
-                                        <td colspan="4">
-                                            <div class="btn-group">
-                                                <div class="col-lg-6 mx-2">
-                                                    <input type="button" class="btn custom-btn select" id="select_all" value="Select All">
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <input type="button" class="btn custom-btn deselect" id="deselect_All" value="Deselect All">
-                                                </div>
-                                            </div>
-                                            <input type="hidden" name="payment_status1" id="payment_status1" value="<?php echo $billData->status; ?>">
-                                            <input type="hidden" name="count1" id="count1" value="1">
-                                            <input type="hidden" name="bill_total" id="bill_total" value="<?php echo intval($billData->balance) - intval($billData->advance); ?>">
-                                            <input type="hidden" name="total_credit" id="total_credit" value="<?php echo intval($billData->received_amount); ?>">
-                                        </td>
-                                    </tr>
+                                    <input type="hidden" name="payment_status1" id="payment_status1" value="<?php echo $billData->status; ?>">
+                                    <input type="hidden" name="count1" id="count1" value="1">
+                                    <input type="hidden" name="bill_total" id="bill_total" value="<?php echo intval($billData->balance) - intval($billData->advance); ?>">
+                                    <input type="hidden" name="total_credit" id="total_credit" value="<?php echo intval($billData->received_amount); ?>">
                                 </tbody>
                             </table>
                         </div>
+                        <div class="form-footer">
+                            <input type="submit" class="btn custom-btn" id="submit_report" value="Submit" disabled="disabled">
+                        </div>
                     </form>
-                    <div class="form-footer">
-                        <input type="submit" class="btn custom-btn" id="submit_report" value="Submit" disabled="disabled">
-                    </div>
                 </div>
             </div>
         </div>

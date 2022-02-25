@@ -4,7 +4,7 @@
     <div class="layout_content_inr">
         <div class="page-head page-head-border">
             <h2>Report</h2>
-            <a class="btn custom-btn patientedit_btn" href="<?php echo BASE_URL; ?>report">Back</a>
+            <a class="btn custom-btn small_btn" href="<?php echo BASE_URL; ?>report">Back</a>
         </div>
         <div class="form-row">
             <div class="form-row col-lg-12">
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tabs">
+                <div class="tabs fixed-save">
                     <!-- tabs menu  -->
                     <div>
                     <ul class="nav nav-tab" role="tablist">
