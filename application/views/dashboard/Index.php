@@ -2,11 +2,14 @@
 <?php include_once "./public/assets/includes/navbar.php";   ?>
 <div class="layoutSidenav_content">
     <div class="layout_content_inr">
+    <div class="page-head page-head-border">
+            <h2>Dashboard</h2>
+            <!-- <a class="btn custom-btn" href="#" data-bs-target="#patientAdd" data-bs-toggle="modal" data-bs-dismiss="modal">
+                Add Patient
+            </a> -->
+        </div>
         <div class="dashbord-content-main">
             <div class="dashbord-content-inr">
-                <div class="page-head">
-                    <h2>Good morning! <b>Px</b></h2>
-                </div>
                 <div class="dashbord-box-main">
                     <h3>Today's <b class="color-green">Report</b></h3>
                     <div class="dashbord-box-inr">

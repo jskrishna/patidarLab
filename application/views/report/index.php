@@ -6,16 +6,17 @@
             <h2>Reports</h2>
         </div>
         <div class="report-sec">
+        <div class="c-datatable px-0 py-0">
             <div class="form-row">
             <div class="col-lg-12">
                 <ul class="report-filter">
-                    <li class="filter-item all-r active" data-value="">All</li>
+                    <li class="filter-item all-r active" data-value="">All Reports</li>
                     <li class="filter-item pending-r" data-value="pending">Pending</li>
                     <li class="filter-item complete-r" data-value="completed">Completed</li>
                 </ul>
             </div>
                 <div class="col-lg-12">
-                    <div class="c-datatable">
+                   
                         <table class="table dt-responsive" role="grid">
                             <thead>
                                 <tr role="row" class="tablesorter-headerRow">
@@ -25,7 +26,7 @@
                                     <th>
                                         <div class="tablesorter-header-inner">Report Date</div>
                                     </th>
-                                    <th class="">
+                                    <th class="" style="display:none">
                                         <div class="tablesorter-header-inner">Id</div>
                                     </th>
                                     <th>
@@ -44,7 +45,7 @@
                                         <div class="tablesorter-header-inner">Payment Status</div>
                                     </th>
                                     <th>
-                                        <div class="tablesorter-header-inner">Action</div>
+                                        <div class="tablesorter-header-inner">Actions</div>
                                     </th>
                                 </tr>
                             </thead>
@@ -55,16 +56,16 @@
                                     <tr>
                                         <td>
                                             <div class="patient-avator">
-                                                <div class="ava-l">
+                                                <!-- <div class="ava-l">
                                                     <div class="patient-short-name">
-                                                        <?php foreach ($patientData as $patient) {
+                                                       <?php foreach ($patientData as $patient) {
                                                             if ($patient->id == $report->patient_id) {
-                                                                $name = explode(' ', $patient->patientname);
-                                                                foreach ($name as $n) {
-                                                                    echo $n[0];
-                                                                }
+                                                               $name = explode(' ', $patient->patientname);
+                                                              foreach ($name as $n) {
+                                                                   // echo $n[0];
+                                                             }
                                                          ?> </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="ava-r">
                                                     <span><?php echo $patient->patientname; ?></span>
                                                     <div>
@@ -79,9 +80,9 @@
                                             <?php echo date_format(new DateTime($report->billDate), "d-M-Y"); ?>
                                             </span>
                                         </td>
-                                        <td><?php echo $patient->patientid; ?></td>
+                                        <td style="display:none"><?php echo $patient->patientid; ?></td>
                                         <td>
-                                            <b>₹ </b><?php echo  intval($report->balance) - intval($report->advance); ?>
+                                           ₹ <?php echo  intval($report->balance) - intval($report->advance); ?>
                                         </td>
                                         <?php foreach ($doctorsData as $doc) {
                                             if ($doc->id == $report->patientRef) {
@@ -136,7 +137,7 @@
                                         <td>
                                             <ul class="action-list">
                                                 <li>
-                                                    <a href="report/add_value/<?php echo $report->id; ?>" class="btn btn-sml patientedit-btn btnupdate">
+                                                    <a data-toggle="tooltip" data-placement="top" title="Edit Report"  href="report/add_value/<?php echo $report->id; ?>" class="btn btn-sml patientedit-btn btnupdate">
                                                         <img src="<?php echo BASE_URL ?>public/assets/images/icon-edit.svg" alt="">
                                                     </a>
                                                 </li>
@@ -144,7 +145,7 @@
                                                     <?php foreach ($patientData as $patient) {
                                                         if ($patient->id == $report->patient_id) {
                                                     ?>
-                                                            <a href="bill/edit?bill=<?php echo $report->id; ?>" class="btn btn-sml btnupdate btn-report">
+                                                            <a data-toggle="tooltip" data-placement="top" title="View Test"  href="bill/edit?bill=<?php echo $report->id; ?>" class="btn btn-sml btnupdate btn-report">
                                                                 <img src="<?php echo BASE_URL ?>public/assets/images/billing.svg" alt="">
                                                             </a>
                                                     <?php }
@@ -152,7 +153,7 @@
                                                 </li>
                                              
                                                 <li>
-                                                    <a href="report/orderReport/<?php echo $report->id; ?>" class="btn btn-sml btn-print">
+                                                    <a data-toggle="tooltip" data-placement="top" title="Print Report" href="report/orderReport/<?php echo $report->id; ?>" class="btn btn-sml btn-print">
                                                         <img src="<?php echo BASE_URL ?>public/assets/images/icon-report.svg" alt="">
                                                     </a>
                                                 </li>
@@ -165,9 +166,10 @@
                                 <?php } ?>
                             </tbody>
                         </table>
-                    </div>
+
                 </div>
             </div>
+        </div>
         </div>
         <!-- //payment model  -->
         <div class="modal fade" id="bill_settlement" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

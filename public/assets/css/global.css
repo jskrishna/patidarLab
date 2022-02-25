@@ -1,18 +1,13 @@
 @import url(./bootstrap.min.css);
 @import url(./font-awesome.min.css);
 @import url(./jquery.growl.css);
-@import url(./summernote-bs4.css);
 @import url(./jquery.datatable.min.css);
-/* @import url(./dataTables.bootstrap.css); */
-/* @import url(./dataTables.responsive.css); */
 @import url(./custom.css);
-/* @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
 
 body {
     margin: 0;
-    background-color: #F5F5F5;
-    /* font-family: 'Manrope', sans-serif; */
+    background-color: #f4f6f8;
     font-family: 'Inter', sans-serif;
     color: #242424;
     font-size: 14px;
@@ -90,7 +85,7 @@ select {
 }
 
 hr {
-    margin: 20px 0 40px;
+    margin: 20px 0;
     background-color: #c9c9c959;
     border: 0;
     opacity: 1;
@@ -137,7 +132,7 @@ textarea {
 }
 
 .custom-btn:hover, .custom-btn:focus {
-    box-shadow: 0 5px 20px rgb(0 0 0 / 10%);
+    box-shadow: 0 5px 20px rgb(0 0 0 / 5%);
     color: #fff;
     background: #009391;
 }
@@ -156,9 +151,18 @@ textarea {
 }
 
 .btn-sml:hover {
-    background: rgb(0 0 0 / 6%);
+    background: rgb(244 246 248);
 }
-.border-btn, .border-btn:hover {
+.header-right-w-group {
+    display: flex;
+    align-items: center;
+    color: #242424;
+
+}
+.header-right-w-group:hover {
+    color: rgb(36 36 36 / 70%);
+}
+.border-btn, .border-btn:hover, .border-btn:focus {
     background: transparent;
     border: 1px solid #069a98;
     color: #069a98;
@@ -229,9 +233,9 @@ textarea {
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.12);
 }
-table.dataTable tbody tr:hover {
+/* table.dataTable tbody tr:hover {
     background: #f9f9f9;
-}
+} */
 div#exportTable_filter {
     text-align: right;
     min-width: 500px;
@@ -317,12 +321,12 @@ table.dataTable.no-footer {
 .dataTables_wrapper .dataTables_paginate {
     padding: 20px 0 0;
 }
-.c-datatable{
+.c-datatable {
     background: #fff;
-border-radius: 5px;
+    border-radius: 5px;
     overflow: hidden;
-    box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
     padding: 20px;
+    box-shadow: 0px 0px 5px rgb(23 24 24 / 5%), 0px 1px 2px rgb(0 0 0 / 15%);
 }
 table.dataTable thead th, table.dataTable td {
     padding: 8px 11px !important;
@@ -332,16 +336,20 @@ table.dataTable thead th, table.dataTable td {
 /* #DataTables_Table_0_paginate {
     display: none;
 } */
-
 .dataTables_filter input[type="search"] {
     background: url(../images/icon-search.svg) #fff no-repeat 15px center /18px;
     padding-left: 45px;
     border-radius: 5px;
     margin-left: 0;
     border: 1px solid rgba(0, 0, 0, 0.12);
+    height: 40px;
+    min-height: 40px;
+    line-height: 40px;
 }
 
-
+.dataTable  {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
 #DataTables_Table_0_length {
     float: right;
 }
@@ -412,4 +420,39 @@ table.dataTable tfoot th, table.dataTable tfoot td {
 }
 .small_btn:hover {
     box-shadow:0 2px 5px rgb(0 0 0 /20%);
+}
+
+body .select2-container--default .select2-selection--single {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 5px;
+    height: 40px;
+    line-height: 40px;
+}
+body .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #242424b0;
+    line-height: 40px;
+    padding-left: 0;
+}
+body .select2-container--default .select2-selection--single .select2-selection__arrow{
+    display: none;
+}
+ body .select2-container--default .select2-selection--single {
+    background: url(../images/down.svg) #fff no-repeat center right / 11px;
+    background-origin: content-box;
+    padding: 0 15px;
+}
+body .select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 5px;
+}
+body .select2-dropdown {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 5px;
+}
+body span.select2.select2-container.select2-container--default.select2-container--below.select2-container--open.select2-container--focus,
+body .select2-container--open .select2-dropdown--below {
+    box-shadow: 0 3px 10px rgb(0 0 0 / 8%);
+}
+table.dataTable thead .sorting {
+    padding-right: 25px !important;
 }

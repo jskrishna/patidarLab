@@ -121,7 +121,6 @@ body.modal-open {
 
 /* side nav css */
 .layoutSidenav_nav {
-    border-right: 1px solid #c9c9c959;
     height: 100%;
     left: 0;
     position: fixed;
@@ -177,13 +176,12 @@ body.modal-open {
     position: absolute;
     bottom: 0;
     left: 0;
-    box-sizing: border-box;
-    width: 250px;
-    padding: 20px;
     background: #fff;
+    border-top: 1px solid #c9c9c959;
+    width: 100%;
 }
 
-.sidenav-menu .nav-links {
+.sidenav-menu .nav-links, .sidenav-footer-content a {
     color: #242424;
     display: flex;
     align-items: center;
@@ -191,25 +189,71 @@ body.modal-open {
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;
+    position: relative;
+    transition: 300ms all;
+}
+.sidenav-footer-content a {
+    border: 1px solid #069a98;
+    border-radius: 5px;
+    color: #069a98;
+    justify-content: center;
+}
+.sidenav-footer-content {
+    padding: 20px;
+    text-align: center;
+}
+.sidenav-footer-content a:hover {
+    background: rgb(6 154 152 / 5%);
+}
+.sidenav-footer-content .nav-link-icon svg path {
+    stroke: #069a98;
+}
+.sidenav-footer-content .nav-link-icon {
+    margin-right: 10px;
+}
+.sidenav-menu .nav-links:hover {
+    background: rgb(244 246 248 / 30%);
+}
+.sidenav-menu .nav-links.nav-active{
+    background: rgb(244 246 248 / 30%);
 }
 
-.nav-active {
-    color: #04a29b;
-    border-right: 4px solid #04a29b;
-}
+.sidenav-menu .nav-links.nav-active:after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 3px;
+    background: #069a98;
+    right: 0;
 
+}
+.nav-link-icon svg path {
+    stroke: #bebebe;
+}
+.nav-links.nav-active svg path{
+stroke: #069a98
+}
+.btn.custom-btn.add-btn-patient svg path {
+    stroke: #fff;
+}
+.btn.custom-btn.add-btn-patient svg {
+    margin-right: 10px;
+    width: 20px;
+}
 .nav-link-icon {
     margin-right: 15px;
 }
-
-/* .sidenav-menu .nav-active {
-    color: #069a98;
-    background: rgba(4, 164, 156, 0.05);
-} */
-
-.nav-link-icon img {
-    width: 18px;
+.btn.custom-btn.add-btn-patient {
+    padding: 0 20px;
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    line-height: 40px;
+    font-weight: 400;
+    color: #fff;
+    opacity: 1;
 }
+
 
 .layoutSidenav_content {
     float: left;
@@ -226,7 +270,6 @@ body.modal-open {
 
 .layout_content_inr {
     min-height: calc(100vh - 63px);
-    background: #f9f9f9;
     padding: 30px;
     border-radius: 0;
     overflow: auto;
@@ -249,9 +292,8 @@ body.modal-open {
 }
 
 .patient-add-sec {
-    max-width: 600px;
+    max-width: 750px;
     margin: auto;
-    margin-top: 30px;
     padding: 40px;
     box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
     background: #fff;
@@ -613,8 +655,8 @@ body.modal-open {
     left: 251px;
     width: calc(100% - 251px);
     background: #fff;
-    border-bottom: 1px solid #c9c9c959;
     z-index: 91;
+    box-shadow: 0px 0px 5px rgb(23 24 24 / 5%), 0px 1px 2px rgb(0 0 0 / 5%);
 }
 
 .main-header+main {
@@ -647,10 +689,11 @@ body.modal-open {
     align-items: center;
     color: #242424;
     font-weight: 500;
+    font-size: 12px;
 }
 
 .header-right-w:hover {
-    color: #000;
+    color: #242424;
 }
 
 .current-u-avtr {
@@ -662,7 +705,7 @@ body.modal-open {
     border-radius: 50%;
     color: #069a98;
     font-weight: 600;
-    margin-right: 15px;
+    margin-right: 10px;
     border: 1px solid rgb(6 154 152 / 30%);
     text-transform: uppercase;
     font-size: 12px;
@@ -712,7 +755,6 @@ body.modal-open {
     font-weight: 600;
     white-space: nowrap;
 }
-
 .ava-r div {
     color: #898989;
     font-size: 12px;
@@ -721,15 +763,25 @@ body.modal-open {
 .test-name {
     font-size: 12px;
     font-weight: 500;
-    display: flex;
-    align-items: start;
-    margin-bottom: 5px;
+    /* margin-bottom: 4px; */
     position: relative;
+    display: block;
+    padding: 2px 3px;
+    border-radius: 4px;
+    /* border: 1px solid; */
 }
-
+/* .test-name.text-pending {
+    background: rgb(255 152 0 / 5%);
+    border-color: rgb(255 152 0 / 50%);
+} */
+.test-success {
+    color: #008060;
+    /* background: rgb(0 128 96 / 5%);
+    border-color: rgb(0 128 96 / 50%); */
+}
 .test-name label {
     position: relative;
-    padding-left: 25px;
+    padding-left: 20px;
 }
 
 .test-name label:after {
@@ -739,7 +791,7 @@ body.modal-open {
     height: 16px;
     background: url(../images/check-mark.svg) no-repeat center / 14px;
     left: 0;
-    top: 50%;
+    top: 49%;
     transform: translateY(-50%);
 }
 
@@ -748,11 +800,11 @@ body.modal-open {
 }
 
 .test-success {
-    color: #009688;
+    color: #008060;
 }
 
 .text-pending {
-    color: #ff9800;
+    color: #ffa800;
 }
 
 .bill_settle {
@@ -788,7 +840,7 @@ border: 1px solid #e0e0e0;
 }
 
 .bill_settle.btn-pay:hover {
-    background: rgb(0 0 0 / 6%);
+    background: rgb(244 246 248);
 }
 
 .btn-sml img {
@@ -799,11 +851,17 @@ border: 1px solid #e0e0e0;
 .report-filter {
     display: flex;
     align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 0 20px;
+    margin: 10px 0 20px;
+}
+.report-filter .filter-item+.filter-item {
+    margin-left: 20px;
 }
 
 .report-filter .filter-item {
-    padding: 8px 15px;
-    border-bottom: 2px solid transparent;
+    padding: 10px 0 14px;
+    border-bottom: 3px solid transparent;
     font-size: 14px;
     cursor: pointer;
     color: #242424b0;
@@ -812,4 +870,11 @@ border: 1px solid #e0e0e0;
 .filter-item.active {
     border-color: #069a98;
     color: #242424;
+}
+
+.c-datatable.px-0.py-0 .dataTables_wrapper {
+    padding: 0 20px 20px;
+}
+.tooltip {
+    font-size: 12px;
 }
