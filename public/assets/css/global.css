@@ -257,14 +257,22 @@ div#exportTable_filter label {
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button {
-    margin: 4px;
+    margin: 0;
     border: 1px solid #a7a7a7;
     color: #383838;
-    padding: 9px 15px;
+    padding: 5px 10px;
     border-radius: 3px;
     transition: 300ms all;
-    min-width: 40px;
+    min-width: 35px;
     display: inline-block;
+    font-size: 12px;
+}
+
+.dataTables_wrapper .dataTables_paginate  .paginate_button{
+    margin-right: 5px;
+}
+.dataTables_wrapper .dataTables_paginate  .paginate_button.next{
+    margin-right: 0px;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover, .dataTables_wrapper .dataTables_paginate .paginate_button:hover{
@@ -304,11 +312,18 @@ div#exportTable_filter label {
 
 table.dataTable.no-footer {
     border-bottom: 0;
-    border-radius: 5px;
+    
+}
+.dataTables_wrapper .dataTables_paginate {
+    padding: 20px 0 0;
+}
+.c-datatable{
+    background: #fff;
+border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+    padding: 20px;
 }
-
 table.dataTable thead th, table.dataTable td {
     padding: 8px 11px !important;
     font-size: 13px;
@@ -334,6 +349,13 @@ table.dataTable thead th, table.dataTable td {
 #DataTables_Table_0_filter {
     float: left;
     min-width: 500px;
+}
+table.dataTable tfoot th, table.dataTable tfoot td {
+    border-top: 0;
+    padding: 8px 11px;
+}
+.bill-edit .dataTables_empty {
+    display: none;
 }
 
 /* checkbox css */
@@ -364,6 +386,8 @@ table.dataTable thead th, table.dataTable td {
     vertical-align: middle;
     cursor: pointer;
     margin-right: 5px;
+    border-radius: 3px;
+    background: #fff;
   }
   
   .check-group input:checked + label:after {
@@ -378,3 +402,14 @@ table.dataTable thead th, table.dataTable td {
     border-width: 0 1px 1px 0;
     transform: rotate(45deg);
   }
+  .small_btn, .small_btn:hover {
+    background: #fff;
+    color: #242424;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 30px;
+    box-shadow:0 1px 2px rgb(0 0 0 / 20%);
+}
+.small_btn:hover {
+    box-shadow:0 2px 5px rgb(0 0 0 /20%);
+}

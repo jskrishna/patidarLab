@@ -9,9 +9,9 @@
             <div class="form-row">
             <div class="col-lg-12">
                 <ul class="report-filter">
-                    <li class="filter-item all-r btn btn-primary" data-value="">All</li>
-                    <li class="filter-item pending-r btn btn-secondary" data-value="pending">Pending</li>
-                    <li class="filter-item complete-r btn btn-secondary" data-value="completed">Completed</li>
+                    <li class="filter-item all-r active" data-value="">All</li>
+                    <li class="filter-item pending-r" data-value="pending">Pending</li>
+                    <li class="filter-item complete-r" data-value="completed">Completed</li>
                 </ul>
             </div>
                 <div class="col-lg-12">

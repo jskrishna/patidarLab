@@ -33,16 +33,17 @@
                                 Patients
                             </a>
                         </li>
-                        <li>
-                            <a class="nav-links <?php if (strpos($actual_link, "bill") !== false) {
-                                                                                echo "nav-active";
-                                                                            } ?>" href="<?php echo BASE_URL; ?>bill">
+                        <!-- <li>
+                            <a class="nav-links <?php //if (strpos($actual_link, "bill") !== false) {
+                                                                               // echo "nav-active";
+                                                                           // } ?>" href=" 
+                                                                           <?php // echo BASE_URL; ?>bill">
                                 <div class="nav-link-icon">
-                                    <img src="<?php echo BASE_URL ?>public/assets/images/icon-home.svg" alt="">
+                                    <img src="<?php //echo BASE_URL ?>public/assets/images/icon-home.svg" alt="">
                                 </div>
                                 Billing
                             </a>
-                        </li>
+                        </li> -->
                         <li>
                             <a class="nav-links <?php if (strpos($actual_link, "report") !== false) {
                                                                                 echo "nav-active";

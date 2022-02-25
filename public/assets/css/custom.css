@@ -12,12 +12,14 @@ body.modal-open {
 .form-group {
     margin-bottom: 20px;
 }
+
 .form-group .error {
     font-size: 10px;
     line-height: initial;
     display: block;
     margin-top: 5px;
 }
+
 .form-group label {
     font-size: 13px;
     line-height: 22px;
@@ -38,13 +40,27 @@ body.modal-open {
     font-family: 'Inter', sans-serif;
     min-height: 45px;
 }
+
+.header-add-p .form-control {
+    line-height: 40px;
+    min-height: 40px;
+    height: 40px;
+}
+
+.header-left .border-btn {
+    line-height: 40px;
+    min-height: 40px;
+    height: 40px;
+}
+
 .c-datatable .form-group input, .c-datatable .form-group select, .c-datatable .form-control {
     height: 36px;
     font-size: 12px;
     line-height: 36px;
     min-height: 36px;
 }
-.c-datatable textarea.form-control  {
+
+.c-datatable textarea.form-control {
     min-height: 100px;
     line-height: inherit;
     padding: 10px 15px;
@@ -141,7 +157,7 @@ body.modal-open {
 }
 
 .sidenav-menu {
-    max-height: calc(100vh - 200px);
+    max-height: calc(100vh - 190px);
     overflow: auto;
 }
 
@@ -178,7 +194,6 @@ body.modal-open {
 }
 
 .nav-active {
-    background: rgb(4 162 155 / 5%);
     color: #04a29b;
     border-right: 4px solid #04a29b;
 }
@@ -212,28 +227,27 @@ body.modal-open {
 .layout_content_inr {
     min-height: calc(100vh - 63px);
     background: #f9f9f9;
-    padding: 30px 45px;
+    padding: 30px;
     border-radius: 0;
     overflow: auto;
 }
 
 .page-head {
     padding-bottom: 30px;
-    margin-bottom: 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    border-bottom: 1px solid #c9c9c959;
 }
+
 .btn-group, .btn-group-vertical {
     width: 100%;
 }
+
 .page-head-border {
     padding-bottom: 25px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #c9c9c959;
 }
+
 .patient-add-sec {
     max-width: 600px;
     margin: auto;
@@ -243,11 +257,13 @@ body.modal-open {
     background: #fff;
     border-radius: 10px;
 }
+
 .age_type_div .btn, .gender_type_div .btn {
     height: 45px;
     border: 0;
     font-size: 14px;
 }
+
 .age_type_div .btn {
     width: 45px;
 }
@@ -258,6 +274,8 @@ body.modal-open {
     font-size: 18px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    height: 40px;
+    line-height: 40px;
 }
 
 .dashbord-box-main>h3 {
@@ -412,26 +430,37 @@ body.modal-open {
 .c-modal .modal-content .modal-body {
     padding: 0;
 }
-
+.flex-w {
+    display: flex;
+    align-items: center;
+}
+.flex-w .form-group {
+   margin: 0;
+}
 
 
 /* tabs css */
 .tabs {
     display: flex;
+}
+
+.fixed-save {
     margin-bottom: 80px;
 }
 
 .tabs ul {
     display: flex;
     flex-wrap: nowrap;
-    overflow-x: auto;
     margin: 0;
     background: #fff;
     margin-right: 20px;
     flex-direction: column;
     min-width: 300px;
     max-width: 300px;
-    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+    padding: 15px 0;
 }
 
 .tabs .tab-content {
@@ -443,16 +472,14 @@ body.modal-open {
 }
 
 .tab-link {
-    font-size: 13px;
-    color: #000000;
+    font-size: 12px;
+    color: #242424;
     font-weight: 600;
     display: flex;
     align-items: center;
     position: relative;
-    transition: 300ms all;
-    padding: 10px 15px;
+    padding: 10px 20px;
     border-right: 3px solid transparent;
-    border-bottom: 1px solid rgb(224 224 224);
     justify-content: space-between;
 }
 
@@ -595,15 +622,17 @@ body.modal-open {
 }
 
 .header-inr {
-    padding: 10px 20px;
+    padding: 10px 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-.header-inr > div {
+
+.header-inr>div {
     flex: 0 0 33.33%;
     max-width: 33.33%;
 }
+
 .header-logo a img {
     max-width: 130px;
 }
@@ -611,6 +640,34 @@ body.modal-open {
 .header-right {
     text-align: right;
 }
+
+.header-right-w {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    color: #242424;
+    font-weight: 500;
+}
+
+.header-right-w:hover {
+    color: #000;
+}
+
+.current-u-avtr {
+    height: 35px;
+    line-height: 35px;
+    width: 35px;
+    background: rgb(6 154 152 / 20%);
+    text-align: center;
+    border-radius: 50%;
+    color: #069a98;
+    font-weight: 600;
+    margin-right: 15px;
+    border: 1px solid rgb(6 154 152 / 30%);
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
 .user-btn {
     width: 40px;
     height: 40px;
@@ -742,5 +799,17 @@ border: 1px solid #e0e0e0;
 .report-filter {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+}
+
+.report-filter .filter-item {
+    padding: 8px 15px;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+    cursor: pointer;
+    color: #242424b0;
+}
+
+.filter-item.active {
+    border-color: #069a98;
+    color: #242424;
 }

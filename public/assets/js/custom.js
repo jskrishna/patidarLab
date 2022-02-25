@@ -31,6 +31,26 @@ $('.report-edit').DataTable({
     "bInfo": false,
     "ordering": false,
     columnDefs: [
+        { 
+            width: 200, 
+            targets: 0 ,
+            orderable: false,
+        className: 'select-checkbox',
+        },
+    ],
+    select: {
+        style:    'os',
+        selector: 'td:first-child'
+    },
+    order: [[ 1, 'asc' ]]
+});
+
+$('.bill-edit').DataTable({
+    "bPaginate": false,
+    "bFilter": false,
+    "bInfo": false,
+    "ordering": false,
+    columnDefs: [
         { width: 200, targets: 0 }
     ],
 });
