@@ -22,8 +22,6 @@
                                         </h3>
                                     </div>
                                     <div class="patient-name">
-                                        <input type="hidden" value="<?php echo $patientData->id; ?>" id="patientID" name="patientID">
-                                        <input type="hidden" name="bill_id" id="bill_id" value="<?php echo $billData->id; ?>">
                                         <h3><?php echo $patientData->title . '. ' . $patientData->patientname ?></h3>
                                         <div class="patient-dtl">
                                             <p>
@@ -64,7 +62,7 @@
                             </div>
                         </div>
                     </div>
-                    <form method="POST" action="<?php echo BASE_URL; ?>tcpdfexample/index" target="_blank" id="report">
+                    <form method="POST" action="<?php echo BASE_URL; ?>Outputpdf/index" target="_blank" id="report">
                         <div class="c-datatable fixed-save">
                             <table class="table report-edit" id="tablelist">
                                 <thead>
@@ -186,8 +184,6 @@
                                 </thead>
                                 <?php $testIds = explode(',', $billData->testId); ?>
                                 <tbody id="testArea" class="ui-sortable">
-                                    <input type="hidden" value="<?php echo $patientData->id; ?>" id="patientID" name="patientID">
-                                    <input type="hidden" value="<?php echo $billData->id; ?>" id="bill_id" name="bill_id">
                                     <?php foreach ($testIds as $test) {
                                         $testData = $pxthis->Report_model->getTestByID($test);
                                         $testData = $testData[0]; ?>
@@ -207,6 +203,7 @@
                                             <td>
                                                 <?php echo $testData->test_name; ?>
                                                 <input type="hidden" value="<?php echo $billData->id; ?>" id="bill_id" name="bill_id">
+                                    <input type="hidden" value="<?php echo $patientData->id; ?>" id="patientID" name="patientID">
                                             </td>
                                             <td>
                                                 <button type="button" class="btn btnupdate review-btn" data-id="<?php echo $testData->id; ?>" id="sub<?php echo $testData->id; ?>">Review</button>

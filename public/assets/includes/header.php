@@ -39,8 +39,12 @@
 						<input type="hidden" name="searchPatient" id="searchPatient" class="btn custom-btn btnupdate font-weight-bolder btn-primary" value="Go">
 					</div>
 					<div class="header-right">
+<<<<<<< Updated upstream
 						<div class="header-right-w">
 						<a href="" class="header-right-w-group">
+=======
+						<a href="<?php echo BASE_URL; ?>users" class="header-right-w">
+>>>>>>> Stashed changes
 							<div class="current-u-avtr">
 								PX
 							</div>
