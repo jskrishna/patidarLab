@@ -133,73 +133,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <?php
-                            foreach ($testIDS as $test) {
-                                foreach ($selecetdtestArray as $tid) {
-                                    if ($test == $tid) {
-                                        $testData = $this->Report_model->getTestByID($tid);
-                                        $testData =  $testData[0];
-                                        $depId = $testData->department;
-                                    }
-                                }
-                            }
-
-                            $departData = $this->Report_model->getdepartmentByID($depId);
-                            $departData = $departData[0];
-                            ?>
-                            <th colspan="3">
-                                <div class="text-center">
-                                    <h4><?php echo $departData->department; ?></h4>
-                                </div>
-
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>Test Description</th>
-                            <th>RESULT</th>
-                            <th>Reference Range</th>
-                        </tr>
-                        <tr>
-                            <th colspan="3">
-                                <?php
-                                foreach ($testIDS as $test) {
-                                    foreach ($selecetdtestArray as $tid) {
-                                        if ($test == $tid) {
-
-                                            $testData = $this->Report_model->getTestByID($tid);
-                                            echo '<h5>' . $testData[0]->test_name . '</h5>';
-                                        }
-                                    }
-                                }
-                                ?>
-                            </th>
-                        </tr>
-<?php
-                                        foreach ($parameter_ids as $index => $paramID) {
-                                            $paramData = $this->Report_model->getparameterBYID($tid, $paramID);
-                                            $paramData = $paramData[0];
-                                            if ($paramData->unit) {
-                                                $unitData = $this->Report_model->getunitBYID($paramData->unit);
-                                                $unitData = $unitData[0];
-                                                // unit working 
-                                            } else {
-                                            }
-                            ?>
-                                            <tr>
-                                                <td> <?php echo $paramData->name; ?></td>
-                                                <td><?php echo $input_values[$index]; ?> </td>
-                                                <td><?php if ($paramData->min_value) {
-                                                        echo  $paramData->min_value . ' -' . $paramData->max_value;
-                                                    } ?> </td>
-                                            </tr>
-                            <?php
-                                        }
-                              
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
                         <?php
                         foreach ($testIDS as $test) {
                             foreach ($selecetdtestArray as $tid) {
@@ -222,8 +155,6 @@
                                         } else {
                                             $unit = null;
                                         }
-
-
                         ?>
                                         <tr>
                                             <td> <?php echo $paramData->name; ?></td>
@@ -251,57 +182,4 @@
         <div id="bypassme"></div>
     </section>
 </body>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
-<script>
-
-function demoFromHTML() {
-    var pdf = new jsPDF('p', 'pt', 'letter');
-    // source can be HTML-formatted string, or a reference
-    // to an actual DOM element from which the text will be scraped.
-    source = $('#customers')[0];
-
-    // we support special element handlers. Register them with jQuery-style 
-    // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
-    // There is no support for any other type of selectors 
-    // (class, of compound) at this time.
-    specialElementHandlers = {
-        // element with id of "bypass" - jQuery style selector
-        '#bypassme': function (element, renderer) {
-            // true = "handled elsewhere, bypass text extraction"
-            return true
-        }
-    };
-    margins = {
-        top: 80,
-        bottom: 60,
-        left: 40,
-        width: 522
-    };
-    // all coords and widths are in jsPDF instance's declared units
-    // 'inches' in this case
-    pdf.fromHTML(
-    source, // HTML string or DOM elem ref.
-    margins.left, // x coord
-    margins.top, { // y coord
-        'width': margins.width, // max width of content on PDF
-        'elementHandlers': specialElementHandlers
-    },
-
-    function (dispose) {
-        // dispose: object with X, Y of the last line add to the PDF 
-        //          this allow the insertion of new lines after html
-        pdf.save('Test.pdf');
-    }, margins);
-}
-
-    $('#ignore').click(function(e) {
-        e.preventDefault();
-        demoFromHTML();
-    });
-
-    $('#ignore').click();
-</script>
-
 </html>

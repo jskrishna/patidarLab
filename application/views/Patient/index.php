@@ -52,6 +52,7 @@
                                                 <div class="ava-l">
                                                     <div class="patient-short-name">
                                                         <?php $name = explode(' ', $data->patientname);
+                                                        $name = array_filter($name);
                                                         foreach ($name as $n) {
                                                             echo $n[0];
                                                         } ?> </div>

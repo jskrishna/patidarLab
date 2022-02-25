@@ -80,8 +80,11 @@
                                     <label for="refered_by_nameAdd">Referred Dr<span class="text-danger">*</span></label>
                                     <?php
                                     ?>
-                                    <input type="hidden" id="refered_by_nameAdd" value="1" name="refered_by_name" class="required ui-autocomplete-input">
-                                    <input type="text" name="patientRef" placeholder="Search Dr..." id="patientRefAdd" value="Self" class="required form-control search-input">
+                                    <input type="hidden" id="refered_by_nameAdd" value="" name="refered_by_name" class="required ui-autocomplete-input">
+                                    <select name="patientRef" id="patientRefAdd" class="form-control search-input">
+                                    <option>Select Refered By </option>
+
+                                    </select>
                                     <span class='error'>This field is required.</span>
                                     <?php
                                     ?>
@@ -91,6 +94,9 @@
                                 <div class="col-lg-12 text-center" id="button">
                                     <button type="button" class="btn btnupdate custom-btn m-auto" id="patient_save" value="Add Patient">Add Patient</button>
                                 </div>
+                            </div>
+                            <div style="display: none;">
+                            <input type="reset" value="reset" id="add-from-reset">
                             </div>
                         </div>
                     </div>

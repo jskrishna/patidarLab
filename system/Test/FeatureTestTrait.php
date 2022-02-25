@@ -31,6 +31,7 @@ use ReflectionException;
  */
 trait FeatureTestTrait
 {
+    
     /**
      * Sets a RouteCollection that will override
      * the application's route collection.

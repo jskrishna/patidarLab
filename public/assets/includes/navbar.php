@@ -56,9 +56,9 @@
                         </li>
                         <hr/>
                         <li>
-                            <a class="nav-links <?php if (strpos($actual_link, "report") !== false) {
+                            <a class="nav-links <?php if (strpos($actual_link, "users") !== false) {
                                                                                 echo "nav-active";
-                                                                            } ?>" href="<?php echo BASE_URL; ?>report">
+                                                                            } ?>" href="<?php echo BASE_URL; ?>users">
                                 <div class="nav-link-icon">
                                     <img src="<?php echo BASE_URL ?>public/assets/images/icon-home.svg" alt="">
                                 </div>
@@ -70,7 +70,7 @@
             </div>
             <div class="sidenav-footer">
                 <div class="sidenav-footer-content">
-                    <a href="<?php //echo BASE_URL; ?>Logout" class="btn custom-btn">Logout</a>
+                    <a href="<?php echo BASE_URL; ?>Logout" class="btn custom-btn">Logout</a>
                 </div>
             </div>
         </nav>

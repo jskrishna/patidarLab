@@ -1,8 +1,4 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 class Users extends CI_Controller
 {
     function __construct()
@@ -14,30 +10,27 @@ class Users extends CI_Controller
     public function index()
     {
 
-        $id = $_SESSION['id'];
+        $id = 1;
         $UserData = $this->Users_model->getuserbyID($id);
         $userdetails = array('UserData' => $UserData[0]);
         $this->load->view('users/index.php', $userdetails);
     }
     public function update()
     {
-        if ($_FILES["profilePic"]["name"] == NULL) {
-            $logo =$this->input->post('oldprofile'); 
-        }else{
-            $ext = pathinfo($_FILES["profilePic"]["name"], PATHINFO_EXTENSION);
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $mobile = $_POST['mobile'];
+        $user_id = $_POST['user_id'];
+
+        if ($_FILES["user_logo"]["name"] == NULL) {
+            $logo = $_POST['oldprofile'];
+        } else {
+            $ext = pathinfo($_FILES["user_logo"]["name"], PATHINFO_EXTENSION);
             $logo = rand() . '.' . $ext;
-            $upload = "./public/assets/images/" . $logo;
-            move_uploaded_file($_FILES["profilePic"]["tmp_name"],  $upload);
+            move_uploaded_file($_FILES["user_logo"]["tmp_name"], "./public/assets/images/" . $logo);
         }
 
-        $data = array(
-            'name' => $this->input->post('name'),
-            'email' => $this->input->post('email'),
-            'profile' => $logo
-        );
-
-        if ($this->Users_model->updateData($data)) // call the method from the model
-        {
+        if ($this->Users_model->updateData($username,$email,$mobile,$logo,$user_id)) {
             $resultss = array('success' => 1, 'msg' => 'Update Sucess.');
             echo json_encode($resultss);
         } else {
