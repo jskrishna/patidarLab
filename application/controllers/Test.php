@@ -124,7 +124,8 @@ class Test extends CI_Controller
             $list = "";
             if (count($data) > 0) {
                 foreach ($data as $dd) {
-                    $list .= "<tr><td>" . $dd->test_name . "</td><td><input type='hidden' name='departmentId[]' id='departmentId' value='" . $dd->department . "' class='form-control testId' readonly><input type='text' name='testId[]' id='testId' value='" . $dd->id . "' class='form-control testId' readonly></td><td><input type='text' name='testAmount[]' id='testAmount' value='" . $dd->amount . "' class='form-control testAmount' readonly></td><td><input type='hidden' name='discount_value[]' id='discount_value' value='0'><input type='text' name='discountAmount[]' id='discountAmount' value='0' class='form-control testAmount' readonly></td><td><a href='#' class='remove_this btn btn-danger'>X</a></td></tr>";
+                    $list .= "<tr><td>" . $dd->test_name . "<input type='hidden' name='testId[]' id='testId' value='" . $dd->id . "' class='form-control testId' readonly></td>
+                    <td><input type='text' name='testAmount[]' id='testAmount' value='" . $dd->amount . "' class='form-control testAmount' readonly><input type='hidden' name='discount_value[]' id='discount_value' value='0'><input type='hidden' name='discountAmount[]' id='discountAmount' value='0' class='form-control testAmount' readonly></td><td><a href='#' class='remove_this btn btn-danger'>X</a></td></tr>";
                 }
             }
 

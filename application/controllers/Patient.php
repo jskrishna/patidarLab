@@ -43,7 +43,8 @@ class Patient extends CI_Controller
 			$registerPatient = $this->Patient_model->registerPatient($patientId, $title, $patientName, $mobileNo, $emailId, $gender, $refered_by, $address, $pin, $age, $age_type);
 
 			if ($registerPatient) {
-				$resultss = array('success' => 1, 'msg' => 'Patient registration successfully.', 'redirect_url' => BASE_URL);
+				$resultss = array('success' => 1, 'msg' => 'Patient registration successfully.', 'redirect_url' => BASE_URL .'bill?t='.$registerPatient);
+				
 				echo json_encode($resultss);
 				exit();
 			} else {

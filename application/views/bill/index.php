@@ -104,10 +104,7 @@
                                         <label for="test">Test Name <span class="text-danger">*</span></label>
                                         <input type="text" name="test" class="form-control tab_inp ui-autocomplete-input" id="test" tabindex="0" autocomplete="off">
                                         <input type="hidden" name="test_id" class="form-control" id="test_id">
-                                        <input type="hidden" name="group_code" class="form-control" id="group_code">
-                                        <input type="hidden" name="group_id" class="form-control" id="group_id">
                                         <input type="hidden" name="department_id" class="form-control" id="department_id">
-                                        <input type="hidden" name="test_specimen" class="form-control" id="test_specimen">
                                     </div>
                                     <div class="form-group col-lg-3">
                                         <label for="departments">Department <span class="text-danger">*</span></label>
@@ -140,9 +137,10 @@
                                                 <tfoot>
                                                     <tr>
                                                         <th colspan="1">Total</th>
-                                                        <th colspan="2"><input type="text" name="total" id="total" class="form-control" readonly="" value=""></th>
+                                                        <th colspan="2"><input type="hidden" name="total" id="total" class="form-control" readonly="" value="">
                                                         <input type="hidden" name="discount" id="discount" class="form-control" value="0" readonly="">
-                                                        <input type="hidden" name="final_total" id="final_total" class="form-control" value="0" readonly="">
+                                                        <input type="text" name="final_total" id="final_total" class="form-control" value="0" readonly="">
+                                                        </th>
                                                     </tr>
                                                     <tr>
                                                         <th colspan="1">
@@ -154,21 +152,9 @@
                                                         </th>
                                                         <th colspan="2"><input type="text" name="final_discount" value="" id="final_discount" class="form-control" readonly=""></th>
                                                     </tr>
-                                                    <input type="hidden" name="reason_otp" id="reason_otp" value="verified">
-                                                    <input type="hidden" name="testInfo[]" id="testInfo" value="X Ray"><input type="hidden" name="doctorInfo[]" id="doctorInfo" class="form-control tab_inp" tabindex="2" value="0">
-                                                    <input type="hidden" name="reward1" id="reward1" class="form-control" value="">
-                                                    <input type="hidden" name="reward" id="reward" class="form-control" value="" readonly="readonly">
-                                                    <tr class="bill_amount_only" style="display:none">
-                                                        <th colspan="1">Number of Persons</th>
-                                                        <th class="text-right"></th>
-                                                        <th colspan="2"><input type="number" name="persons" id="persons" class="form-control number_only" onkeypress="if(this.value.length==4) return false;">
-                                                        </th>
-                                                    </tr>
-                                                    <input type="hidden" name="rewardSaveAmount" id="rewardSaveAmount" class="form-control" value="">
-                                                    <input type="hidden" name="point" id="point" value="0">
-                                                    <input type="hidden" name="rewardpoint" id="points" value="">
-                                                    <input type="hidden" name="rewamount" id="rewamount" value="">
-                                                    <input type="hidden" name="rewamountupdate" id="rewamountupdate" value="">
+                                                   
+                                                    <input type="hidden" name="testInfo[]" id="testInfo" value="X Ray">
+                                                   
                                                     <input type="hidden" name="advance" id="advance" value="0" class="form-control number_only tab_inp" tabindex="6">
                                                     <tr>
                                                         <th colspan="1">Grand Total</th>
