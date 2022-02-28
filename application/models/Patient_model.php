@@ -12,7 +12,8 @@ class Patient_model extends CI_Model
     public function registerPatient($patientId, $title, $patientName, $mobileNo, $emailId, $gender, $refered_by, $address, $pin, $age, $age_type)
     {
         $sth = $this->db->query("INSERT INTO `patient`(`patientid`, `title`, `patientname`, `mobile`, `email`, `gender`, `refered_by`,`address`,`pin`, `age`, `age_type`) VALUES ('$patientId','$title','$patientName','$mobileNo','$emailId','$gender','$refered_by','$address','$pin','$age','$age_type')");
-        return $sth;
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
     }
     public function UpdatePatient($id, $title, $patientName, $mobileNo, $emailId, $gender, $refered_by, $address, $pin, $age, $age_type)
     {

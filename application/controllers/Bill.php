@@ -12,6 +12,9 @@ class Bill extends CI_Controller
     {
         if (isset($_GET['t'])) {
             $patientData = $this->Bill_model->patientInfo($_GET['t']);
+            if(empty($patientData)){
+            header('Location:' . BASE_URL . 'dashboard');
+            }
             $patientData = $patientData[0];
             $departmentData = $this->Bill_model->getneededDepartment();
             $doctorData = $this->Bill_model->getAllDoctor();
@@ -70,7 +73,13 @@ class Bill extends CI_Controller
         if (isset($_GET['bill'])) {
             $bill = $_GET['bill'];
             $billData = $this->Bill_model->getBillById($bill);
+            if(empty($billData)){
+                header('Location:' . BASE_URL . 'dashboard');
+                }
             $patientData = $this->Bill_model->patientInfo($billData[0]->patient_id);
+            if(empty($patientData)){
+                header('Location:' . BASE_URL . 'dashboard');
+                }
             $patientData = $patientData[0];
             $referedData = $this->Bill_model->getreferedData();
             $departmentData = $this->Bill_model->getneededDepartment();
@@ -99,6 +108,15 @@ class Bill extends CI_Controller
         $status = 'Paid';
         
        $resultss =  $this->Bill_model->paymentSettle($balance_received,$payment_mode,$final_discount,$status,$bill_id);
+      
+       if ($resultss) {
+        $resultss = array('success' => 1, 'msg' => 'Status update successfully.', 'redirect_url' => '');
         echo json_encode($resultss);
+        exit();
+    } else {
+        $resultss = array('success' => 0, 'msg' => 'Error occured.', 'redirect_url' => '');
+        echo json_encode($resultss);
+        exit();
+    }
     }
 }

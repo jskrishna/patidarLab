@@ -98,7 +98,6 @@
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery-ui.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery-growl.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.dataTables.min.js"></script>
 <!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.bootstrap.js"></script> -->
@@ -196,9 +195,9 @@
 		function calculation() {
 			var total = 0;
 			var totalTestExpanses = 0;
-			var rew = $("#point").val();
-			var rewamountupdate = $("#rewamountupdate").val();
-			var rewardpoint = $("#points").val();
+			var rew = 0;
+			var rewamountupdate = 0;
+			var rewardpoint = 0;
 			rewardpoint = Number(rewardpoint);
 
 			var rewpoint = 0;
@@ -212,7 +211,6 @@
 				totalTestExpanses = Number(totalTestExpanses) + Number(this.value);
 			});
 			var grandTotal = total - discount;
-			$("#totalTestExpanses").val(totalTestExpanses);
 			$("#total").val(total);
 			$("#discount").val(discount);
 			$("#final_total").val(grandTotal);
@@ -232,40 +230,17 @@
 			var gTotal = Number(grandTotal) - Number(final_discount);
 			var finAmount = Number(gTotal);
 			var finaAmount;
-			var rewarddiscount = $("#reward").val();
-			var rewardfinaldiscount = Number(rewarddiscount);
 			finaAmount = Number(gTotal);
-			var reward1 = Number(rewpoint);
-			var reward;
-			reward = reward1;
-			$("#points").val(reward);
-			var outside1 = "NO";
-			if (outside1 == 'YES') {
-				finAmount = Number(finAmount) + Number(outside);
-				finaAmount = Number(finaAmount) + Number(outside);
-			}
-			var homevisiting1 = "NO";
-			// console.log(homevisiting1);
-			if (homevisiting1 == 'YES') {
-				finAmount = Number(finAmount) + Number(homevisiting);
-				finaAmount = Number(finaAmount) + Number(homevisiting);
-			}
-			if (Number(total_persons) > 0) {
-				finAmount = Number(finAmount) * Number(total_persons);
-				finaAmount = Number(finaAmount) * Number(total_persons);
+		
 				$("#total").val(finAmount);
-			}
-			finAmount = Number(finAmount) - Number(rewardAmount);
-			finaAmount = Number(finaAmount) - Number(rewardAmount);
 			$("#grand_total").val(finAmount);
 			if ('NO' == 'YES' && '' == 'ENABLED') {
-				console.log('');
 				$("#advance").val(finAmount);
 			}
 			var paid = $("#paid").val();
 			var advance_paid = Number(advance) + Number(paid)
 			$("#advance").attr('max', finaAmount);
-			var balance = (finaAmount - advance_paid).toFixed(2);
+			var balance = finaAmount.toFixed(2);
 			if ('NO' == 'YES') {
 				$("#balance").val(0);
 			} else {
@@ -286,14 +261,8 @@
 
 			// discount()
 			if (total > 0) {
-				if ($("#reason_otp").val() == 'verified') {
 					$(".test_save").show();
 					$("#test_clear").show();
-				} else {
-					$(".test_save").hide();
-					$("#test_clear").hide();
-				}
-
 			} else {
 				$(".test_save").hide();
 				$("#test_clear").hide();
@@ -302,8 +271,6 @@
 		}
 		//discount
 		function discount() {
-			var reason_otp = $("#reason_otp").val();
-			if (reason_otp != 'verified') {
 				var discount = $('#discount').val();
 				var final_discount = $("#final_discount").val();
 				if (final_discount = '') {
@@ -322,7 +289,7 @@
 					$("#test_clear").show();
 					$("#send_otp").attr("disabled", "disabled");
 				}
-			}
+			
 		}
 
 		$('.age-type').click(function() {
@@ -452,16 +419,9 @@
 					success: function(res) {
 						$('#patientresetbtn').click();
 						if (res.success == 1) {
-							$.growl.notice({
-								title: "success",
-								message: "Patient added."
-							});
-							$('#add-from-reset').click();
+							location.href = res.redirect_url;
 						} else {
-							$.growl.error({
-								title: "error",
-								message: "Something went wrong."
-							});
+							alert('Something went wrong.');
 						}
 
 					}
@@ -519,17 +479,11 @@
 					},
 					success: function(res) {
 						if (res.success == 1) {
-							$.growl.notice({
-								title: "success",
-								message: "Patient updated."
-							});
+							
 							$(".modal .close").click();
 							location.reload();
 						} else {
-							$.growl.error({
-								title: "error",
-								message: "An error has occurred"
-							});
+							alert('Something went wrong.');
 
 						}
 					}
@@ -624,11 +578,7 @@
 					if (res.success == 1) {
 						location.reload();
 					} else {
-						$.growl.error({
-							title: "error",
-							message: "An error has occurred"
-						});
-
+						alert('Something went wrong.');
 					}
 				}
 			});
@@ -694,11 +644,7 @@
 					if (res.success == 1) {
 						location.reload();
 					} else {
-						$.growl.error({
-							title: "error",
-							message: "An error has occurred"
-						});
-
+alert('Something went wrong.');
 					}
 				}
 			});
@@ -715,10 +661,6 @@
 		// go funtion
 		$("#searchPatient").click(function() {
 			if ($("#search_patient_id").val() == '') {
-				$.growl.error({
-					title: "error",
-					message: "Please search or select patient"
-				});
 			} else {
 				var search_patient = $("#search_patient_id").val();
 				location.href = '<?php echo BASE_URL ?>bill?t=' + search_patient;
@@ -897,10 +839,7 @@
 			var testId = $("#test_id").val();
 			var test_in = $.inArray(testId, test);
 			if (test_in >= 0 || test_count > 0) {
-				$.growl.error({
-					title: "error",
-					message: "You selected test was already added kindly add other test"
-				});
+			alert("You selected test was already added kindly add other test");
 
 			} else {
 				test.push(testId);
@@ -1010,10 +949,7 @@
 			var final_discount = f_discount;
 
 			if (Number(final_discount) > Number(final_total)) {
-				$.growl.error({
-					title: "Discount",
-					message: "The discount amount is higher than the test amount..."
-				});
+				alert("The discount amount is higher than the test amount...");
 				$(".test_save").hide();
 				$("#test_clear").hide();
 			} else {
@@ -1029,20 +965,14 @@
 			if ($("#billDate").val() == '') {
 				$("#billDate").css("border", "1px solid red");
 				$("#billDate").focus();
-				$.growl.error({
-					title: "Error",
-					message: "Select bill date"
-				});
+				alert('Something is missing.');
 				return false;
 			} else {
 				$("#billDate").css("border", "1px solid lightgray");
 			}
 
 			if ($("#test_id").val() != '') {
-				$.growl.error({
-					title: "Error",
-					message: "add test process incomplete"
-				})
+				alert('Something went wrong.');
 
 			} else {
 				if ($("#payment_mode").val() == '') {
@@ -1054,10 +984,8 @@
 				}
 
 				if (!$.trim($('#grand_total').val())) {
-					$.growl.error({
-						title: "Error",
-						message: "Please Enter the Test Name"
-					})
+					alert('Please enter test names.');
+
 					return false;
 				}
 
@@ -1072,7 +1000,7 @@
 					billDate = billDate.concat(" " + time);
 				}
 				var patient_id = $("#editpatientid").val();
-				var total = $("#total").val();
+				var total = $("#final_total").val();
 				var discount = $("#discount").val();
 				var grandTotal = $("#grand_total").val();
 				var final_discount = $("#final_discount").val();
@@ -1083,10 +1011,7 @@
 				var discount_type = $("input[name='discount_type']:checked").val();
 				var final_discount_type = $("input[name='final_discount_type']").val();
 				var f_discount = $("#f_discount").val();
-				var advance = $("#advance").val();
-				if (advance == '') {
-					advance = 0;
-				}
+				var advance = 0;
 				var persons = $("#persons").val();
 				var balance = $("#balance").val();
 				var patientRef = $("#patientRefId").val();
@@ -1131,10 +1056,8 @@
 				var url = '<?php echo BASE_URL; ?>bill/billEntry';
 
 				if (testId.length === 0) {
-					$.growl.error({
-						title: "Error",
-						message: "Please Select Test"
-					})
+					alert('Please Select test first.');
+
 					return false;
 				}
 				$.ajax({
@@ -1158,10 +1081,7 @@
 						"payment_mode": payment_mode
 					},
 					success: function(res) {
-						$.growl.notice({
-							title: "SUCCESS",
-							message: "success"
-						});
+						
 						location.href = '<?php echo BASE_URL ?>report';
 					}
 				});
@@ -1217,10 +1137,6 @@
 				contentType: false,
 				success: function(res) {
 					console.log(res);
-					$.growl.notice({
-						title: "SUCCESS",
-						message: "Value Added Successfully"
-					});
 					$(".img" + test_id).html('<img src="<?php echo BASE_URL ?>public/assets/images/icon-thumbs-up-active.svg" alt="Report Completed!" width="32" align="right">');
 				},
 				error: function(err) {
@@ -1238,7 +1154,6 @@
 					"id": id
 				},
 				success: function(res) {
-					console.log(res);
 					$("#bill_settlement .modal-content").html(res);
 				}
 			});
@@ -1257,10 +1172,7 @@
 
 			var balance_received = $("#balance_received").val();
 			if (balance_received == 0) {
-				$.growl.error({
-					title: "Invalid",
-					message: "Invalid Amount"
-				});
+				alert('invalid amount');
 
 			} else {
 				var add_discount = $("input[name='add_discount']:checked").val();
@@ -1285,17 +1197,15 @@
 						"final_discount": final_discount
 					},
 					success: function(res) {
-						$.growl.notice({
-							title: "SUCCESS",
-							message: "The Balance Bill Amount Received"
-						});
-						window.reload();
+						if(res.success == 1){
+							location.reload();
+						}else{
+							alert(res.msg);
+						}
+						$('.close ').click();
 					},
 					error: function(err) {
-						$.growl.err({
-							title: "Error",
-							message: err
-						});
+						alert(err);
 					}
 				});
 			}
@@ -1371,18 +1281,12 @@
 						$(".errorTxt").removeClass("text-success");
 						$(".errorTxt").addClass("text-danger");
 						$(".errorTxt").html(res.msg);
-						$.growl.error({
-							title: "Error",
-							message: 'Something went wrong'
-						});
+						alert('Something went wrong');
 					} else {
 						$(".errorTxt").removeClass("text-danger");
 						$(".errorTxt").addClass("text-success");
 						$(".errorTxt").html(res.msg);
-						$.growl.notice({
-							title: "SUCCESS",
-							message: 'Update profile successfully'
-						});
+						
 					}
 				}
 
@@ -1403,10 +1307,7 @@
 				$('#searchPatientId').append(res);
 			},
 			error: function(err) {
-				$.growl.err({
-					title: "Error",
-					message: err
-				});
+				alert('Something went wrong');
 			}
 		});
 
@@ -1419,17 +1320,20 @@
 				$('#patientRefAdd').append(res);
 			},
 			error: function(err) {
-				$.growl.err({
-					title: "Error",
-					message: err
-				});
+				alert('Something went wrong');
 			}
 		});
 
 	}
-	$("#searchPatientId").select2();
-	$("#patientRef").select2();
-	$("#patientRefAdd").select2();
+	$('#searchPatientId,#patientRef, #patientRefAdd').select2({
+    // width: '100%', 
+    multiple: true,
+    maximumSelectionLength: 1,
+    placeholder: "Select or Search Here",   
+});
+
+	// $("#patientRef").select2();
+	// $("#patientRefAdd").select2();
 
 	$('#searchPatientId').on('change', function() {
 		var id = this.value;
@@ -1444,6 +1348,42 @@
 	$('#patientRefAdd').on('change', function() {
 		var id = this.value;
 		$('#refered_by_nameAdd').val(id);
+	});
+
+	// highlight 
+	$(".call").keyup(function(){
+		
+		var id=(this.id);
+		var id=id.substring(10,200);
+		var actual_value=$(this).val();
+		var min_range=$("#min_range"+id).val();
+		var max_range=$("#max_range"+id).val();
+		if(min_range!='' || max_range!=''){
+			if(Number(actual_value) > Number(max_range) || Number(actual_value) < Number(min_range)){
+				$(this).css("border","1px solid red");
+				$("#highlight"+id).prop('checked',true);
+				$("#checkValue"+id).val('Yes');
+			}
+			else{
+				$(this).css("border","1px solid lightgray");
+				$("#highlight"+id).prop('checked',false);
+				$("#checkValue"+id).val('No');
+			}
+		}
+	});
+
+	$(".high").click(function(){
+		var id=(this.id);
+		var id=id.substring(9,20);
+		if($("#highlight"+id).prop('checked')==true){
+			$("#checkValue"+id).val('Yes');
+			$("#inputValue"+id).css("border","1px solid red");
+		}
+		else if($("#highlight"+id).prop('checked')==false){
+			$("#checkValue"+id).val('No');
+			$("#inputValue"+id).css("border","1px solid lightgray");
+		}
+
 	});
 </script>
 </body>

@@ -28,92 +28,154 @@
         $tests = implode(',', $test_id);
         $testIDS = explode(',', $billData->testId);
         $selecetdtestArray = explode(',', $tests);
-
+        $signImage = BASE_URL . 'public/assets/images/sign.jpeg';
+        $headerImage = BASE_URL . 'public/assets/images/Letter_pad.jpg';
         $mpdf = new \Mpdf\Mpdf();
-        $mpdf->SetDefaultBodyCSS('background', "url('https://niglabs.com/uploads/customerLogo/934_Letter_pad.jpg')");
-        $mpdf->SetDefaultBodyCSS('background-image-resize', 6);
-        $mpdf->SetTitle('report-'.$patientData->patientid);
+
+        $print_header =  $this->input->post('print_header');
+        if(isset($print_header) && $print_header == 'Yes'){
+            $mpdf->SetDefaultBodyCSS('background', "url('".$headerImage."')");
+            $mpdf->SetDefaultBodyCSS('background-image-resize', 6);
+        }
+
+        $mpdf->SetTitle('report-' . $patientData->patientid);
         $mpdf->SetDefaultFont('Roboto');
         $mpdf->SetProtection(array('print', 'print-highres'), '', md5(time()), 128);
         $mpdf->SetAuthor('Patidar Diagnostic');
         $mpdf->SetCreator('Px');
 
-        foreach ($testIDS as $test) {
-            foreach ($selecetdtestArray as $key => $tid) {
-                if ($test == $tid) {
-
-                    $testData = $this->Outputpdf_model->getTestByID($tid);
-                    $testName =  $testData[0]->test_name;
 
 
-                    // header
-                    $tabledata = "<main ><table width='100%' cellspacing='5'><thead><tr><td style='height:100px' colspan='2'></td></tr>
-            <tr><td> Name :</td>
-            <th>" . ($patientData->patientname) . "</th>
-            </tr><tr><td> Patient no :</td>
-            <th>" . ($patientData->patientid) . "</th>
-            </tr><tr><td> Age/gender :</td>
-            <th>" . ($patientData->age . ' ' . $patientData->age_type . ' / ' . $patientData->gender) . "</th>
-            </tr><tr><td> Refered By :</td>
-            <th>" . ($doctorData->referral_name) . "</th>
-            </tr><tr><td>Reporting Date :</td>
-            <th>" . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th></tr>
-            <tr><td>Report Printed on :</td>
-            <th>" . (date("d-M-Y h:i:s")) . "</th></tr>
-            </thead></table><hr>";
+        foreach ($selecetdtestArray as $key => $tid) {
 
-                    // test name
-                    $tabledata .= '<table width="100%" cellspacing="5" ><thead><tr><th colspan="3"><h3>' . ($testName) . '</h3></th></tr><tr><th>Test Description</th><th>RESULT</th><th>Reference Range</th></tr></thead><tbody >';
+            $testData = $this->Outputpdf_model->getTestByID($tid);
+            $departData = $this->Outputpdf_model->getdepartmentByID($testData[0]->department);
+            $testName =  $testData[0]->test_name;
+            $departName =  $departData[0]->department;
 
-                    foreach ($testIDS as $test) {
-                        foreach ($selecetdtestArray as $tid) {
-                            if ($test == $tid) {
+            // header
+            $tabledata = "<main>
+                            <table width='100%' cellspacing='5'>
+                                <thead>
+                                    <tr>
+                                    <td style='height:100px' colspan='2'></td>
+                                    </tr>
+                                    <tr>
+                                    <td> Name :</td>
+                                    <th>" . ($patientData->patientname) . "</th>
+                                    </tr>
+                                    <tr>
+                                    <td> Patient no :</td>
+                                    <th>" . ($patientData->patientid) . "</th>
+                                    </tr>
+                                    <tr>
+                                    <td> Age/gender :</td>
+                                    <th>" . ($patientData->age . ' ' . $patientData->age_type . ' / ' . $patientData->gender) . "</th>
+                                    </tr>
+                                    <tr>
+                                    <td> Refered By :</td>
+                                    <th>" . ($doctorData->referral_name) . "</th>
+                                    </tr>
+                                    <tr>
+                                    <td>Reporting Date :</td>
+                                    <th>" . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>
+                                    </tr>
+                                    <tr>
+                                    <td>Report Printed on :</td>
+                                    <th>" . (date("d-M-Y h:i:s")) . "</th>
+                                    </tr>
+                                </thead>
+                            </table><hr>
+                            <table width='100%' cellspacing='5' >
+                                <thead>
+                                    <tr>
+                                     <th colspan='3'><h3>" . ($departName) . "</h3></th>
+                                    </tr>
+                                    <tr>
+                                     <th>Test Description</th><th>RESULT</th><th>Reference Range</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan'3'><b>" . ($testName) . "</b></td>
+                                    </tr>";
 
-                                $testData = $this->Outputpdf_model->getTestByID($tid);
-                                $reportData = $this->Outputpdf_model->getreportDataByBIllandTestId($bill_id, $tid);
-                                $reportData = $reportData[0];
-                                $parameter_ids = unserialize($reportData->parameter_ids);
-                                $input_values = unserialize($reportData->input_values);
 
-                                foreach ($parameter_ids as $index => $paramID) {
-                                    $paramData = $this->Outputpdf_model->getparameterBYID($tid, $paramID);
-                                    $paramData = $paramData[0];
-                                    if ($paramData->unit) {
-                                        $unitData = $this->Outputpdf_model->getunitBYID($paramData->unit);
-                                        $unitData = $unitData[0];
-                                        // unit working 
-                                        $unit = $unitData->unit;
-                                    } else {
-                                        $unit = null;
-                                    }
+            $testData = $this->Outputpdf_model->getTestByID($tid);
+            $reportData = $this->Outputpdf_model->getreportDataByBIllandTestId($bill_id, $tid);
+            $reportData = $reportData[0];
+            $parameter_ids = unserialize($reportData->parameter_ids);
+            $input_values = unserialize($reportData->input_values);
+            $highlights = unserialize($reportData->highlights);
 
-                                    if ($paramData->max_value) {
-                                        $minmaxunit = $paramData->min_value . ' - ' . $paramData->max_value . ' ' . $unit;
-                                    } else {
-                                        $minmaxunit = '';
-                                    }
-                                    if ($paramData->field_type == 'textarea') {
-                                        $value = $paramData->options;
-                                    } else {
-                                        $value = $input_values[$index] . ' ' . $unit;
-                                    }
-                                    $tabledata .= "<tr><td> " . ($paramData->name) . "</td>
-                                    <td>" . ($value) . " </td>
-                        <td>" . ($minmaxunit) . " </td>
-                     </tr>";
-                                }
-                            }
-                        }
-                    }
-
-                    $tabledata .= '</tbody></table>';
-                    $mpdf->AddPage();
-                    $mpdf->WriteHTML($tabledata);
+            foreach ($parameter_ids as $index => $paramID) {
+                $paramData = $this->Outputpdf_model->getparameterBYID($tid, $paramID);
+                $paramData = $paramData[0];
+                if ($paramData->unit) {
+                    $unitData = $this->Outputpdf_model->getunitBYID($paramData->unit);
+                    $unitData = $unitData[0];
+                    // unit working 
+                    $unit = $unitData->unit;
+                } else {
+                    $unit = null;
                 }
+
+                if ($paramData->max_value) {
+                    $minmaxunit = $paramData->min_value . ' - ' . $paramData->max_value . ' ' . $unit;
+                } else {
+                    $minmaxunit = '';
+                }
+                $paramName = $paramData->name;
+                if ($paramData->field_type == 'textarea') {
+                    $value = $paramData->options;
+                } else {
+                    $value = $input_values[$index] . ' ' . $unit;
+                }
+                $start = '';
+                $end = '';
+                if (!empty($highlights)) {
+                    if ($highlights[$index] == 'Yes') {
+                        $start = '<mark>';
+                        $end = '</mark>';
+                    }
+                }
+                $tabledata .= "<tr>
+                                            <td>" . ($start) . "" . ($paramName) . "" . ($end) . "</td>
+                                            <td>" . ($start) . "" . ($value) . "" . ($end) . " </td>
+                                            <td>" . ($start) . "" . ($minmaxunit) . "" . ($end) . " </td>
+                                        </tr>";
             }
+
+            $tabledata .= '</tbody>
+                        </table>';
+            $mpdf->defaultfooterline = 0;
+            $mpdf->SetFooter("<table style='margin-bottom:80px;'>
+            <tfoot>
+              
+            <tr>
+                <td style='height:30px;width:50px;' >Checked By <b>Technologist</b></td>
+                </tr>
+                <tr>
+                <td style='height:30px;width:160px;' >
+                <img style='height:60px;width:135px' src='" . ($signImage) . "'>
+                Dr.R.K.Tiwari,M.D.
+                Regd No.2511
+                Consultant Pathologist</td>
+                </tr>
+            </tfoot>
+            </table>");
+            $mpdf->AddPage();
+            $mpdf->WriteHTML($tabledata);
         }
 
-        $footer = "<table width='100%' cellspacing='5'><tfoot><tr><th style='height:30px'  colspan='3'>**** END OF REPORT ****</th></tr></tfoot></table></main>";
+        $footer = "<table width='100%' cellspacing='5'>
+                                <tfoot>
+                                    <tr>
+                                        <th style='height:30px'  colspan='3'>**** END OF REPORT ****</th>
+                                    </tr>
+                                </tfoot>
+                                </table>
+                    </main>";
         $mpdf->WriteHTML($footer);
 
         $mpdf->Output(); // opens in browser

@@ -165,6 +165,9 @@
                                         </th>
                                     </tr>
                                     <tr>
+                                    <span class="text-right "><input type="checkbox" name="print_header" id="print_header" value="Yes"><label for="print_header">Print Report With Header</label> </span>
+                                    </tr>
+                                    <tr>
                                         <th>
                                             <div class="check-group select">
                                                 <input type="checkbox" class="" id="select_all" name="select_all">
@@ -185,31 +188,39 @@
                                 <?php $testIds = explode(',', $billData->testId); ?>
                                 <tbody id="testArea" class="ui-sortable">
                                     <?php foreach ($testIds as $test) {
-                                        $testData = $pxthis->Report_model->getTestByID($test);
-                                        $testData = $testData[0]; ?>
-                                        <tr class="reportcnt" id="<?php echo $testData->id; ?>">
-                                            <td>
-                                                <div class="check-group single-select">
-                                                    <input type="checkbox" value="<?php echo $testData->id; ?>" class="chkbox" id="test<?php echo $testData->id; ?>" name="test_id[]">
-                                                    <label for="test<?php echo $testData->id; ?>"></label>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <?php
-                                                $departData = $pxthis->Report_model->getdepartmentByID($testData->department);
-                                                $departData = $departData[0];
-                                                echo $departData->department;
-                                                ?></td>
-                                            <td>
-                                                <?php echo $testData->test_name; ?>
-                                                <input type="hidden" value="<?php echo $billData->id; ?>" id="bill_id" name="bill_id">
-                                    <input type="hidden" value="<?php echo $patientData->id; ?>" id="patientID" name="patientID">
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btnupdate review-btn" data-id="<?php echo $testData->id; ?>" id="sub<?php echo $testData->id; ?>">Review</button>
-                                            </td>
-                                        </tr>
-                                    <?php  } ?>
+
+                                        $checkData = $this->Report_model->getreportDataByBIllandTestId($billData->id, $test);
+
+                                        if (!empty($checkData)) {
+
+
+                                            $testData = $pxthis->Report_model->getTestByID($test);
+                                            $testData = $testData[0]; ?>
+                                            <tr class="reportcnt" id="<?php echo $testData->id; ?>">
+                                                <td>
+                                                    <div class="check-group single-select">
+                                                        <input type="checkbox" value="<?php echo $testData->id; ?>" class="chkbox" id="test<?php echo $testData->id; ?>" name="test_id[]">
+                                                        <label for="test<?php echo $testData->id; ?>"></label>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                    $departData = $pxthis->Report_model->getdepartmentByID($testData->department);
+                                                    $departData = $departData[0];
+                                                    echo $departData->department;
+                                                    ?></td>
+                                                <td>
+                                                    <?php echo $testData->test_name; ?>
+                                                    <input type="hidden" value="<?php echo $billData->id; ?>" id="bill_id" name="bill_id">
+                                                    <input type="hidden" value="<?php echo $patientData->id; ?>" id="patientID" name="patientID">
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btnupdate review-btn" data-id="<?php echo $testData->id; ?>" id="sub<?php echo $testData->id; ?>">Review</button>
+                                                </td>
+                                            </tr>
+
+                                    <?php }
+                                    } ?>
                                     <input type="hidden" name="payment_status1" id="payment_status1" value="<?php echo $billData->status; ?>">
                                     <input type="hidden" name="count1" id="count1" value="1">
                                     <input type="hidden" name="bill_total" id="bill_total" value="<?php echo intval($billData->balance) - intval($billData->advance); ?>">

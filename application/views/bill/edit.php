@@ -92,7 +92,13 @@
                                         <?php } ?>
                                     </select>
                                 </div>
+                                <input type="hidden" id="nameTest" name="nameTest">
+                                <input type="hidden" name="test_amount" id="test_amount" class="form-control prc number_only">
+                                <div class="col-lg-2" style="display: none;">
+                                    <button type="button" name="add_list" id="add_list" class="btn custom-btn add-billing " value="Add" disabled="disabled">Add</button>
+                                </div>
                             </div>
+                         
                             <div class="form-row">
                                 <div class="col-lg-12">
                                     <div class="c-datatable">
@@ -127,7 +133,9 @@
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="1">Total</th>
-                                                    <th colspan="2"><input type="text" name="total" id="total" class="form-control" readonly="" value="<?php echo intval($billData[0]->total); ?>"></th>
+                                                    <th colspan="2"><input type="hidden" name="total" id="total" class="form-control" readonly="" value="<?php echo intval($billData[0]->total); ?>">
+                                                    <input type="hidden" name="discount" id="discount" class="form-control" value="<?php echo intval($billData[0]->final_discount); ?>" readonly="">
+                                                        <input type="text" name="final_total" id="final_total" class="form-control" value="<?php echo intval($billData[0]->total); ?>" readonly=""></th>
                                                 </tr>
                                                 <tr>
                                                     <th colspan="1">
@@ -137,12 +145,6 @@
                                                     </th>
                                                     <th colspan="2"><input type="text" name="final_discount" value="<?php echo intval($billData[0]->final_discount); ?>" id="final_discount" class="form-control" readonly=""></th>
                                                 </tr>
-                                                <input type="hidden" name="reason_otp" id="reason_otp" value="verified">
-                                                <input type="hidden" name="rewardSaveAmount" id="rewardSaveAmount" class="form-control" value="">
-                                                <input type="hidden" name="point" id="point" value="0">
-                                                <input type="hidden" name="rewardpoint" id="points" value="">
-                                                <input type="hidden" name="rewamount" id="rewamount" value="">
-                                                <input type="hidden" name="rewamountupdate" id="rewamountupdate" value="">
                                                 <tr>
                                                     <th colspan="1">Grand Total</th>
                                                     <th colspan="2">
@@ -150,6 +152,8 @@
                                                     </th>
                                                 </tr>
                                                 <input type="hidden" name="paid" id="paid" value="0" class="form-control number_only tab_inp" tabindex="6">
+                                                <input type="hidden" name="balance" id="balance" class="form-control" readonly="" value="<?php echo intval($billData[0]->balance); ?>">
+
                                                 <tr>
                                                     <th colspan="1">Payment Mode
                                                         <span class="text-danger">*</span>
@@ -159,30 +163,12 @@
                                                             <option <?php if ($billData[0]->payment_mode == 'Due') {
                                                                         echo 'selected';
                                                                     } ?> value="Due">Due </option>
-                                                            <option <?php if ($billData[0]->payment_mode == 'Credit') {
-                                                                        echo 'selected';
-                                                                    } ?> value="Credit">Credit </option>
                                                             <option <?php if ($billData[0]->payment_mode == 'Cash') {
                                                                         echo 'selected';
                                                                     } ?> value="Cash">Cash</option>
-                                                            <option <?php if ($billData[0]->payment_mode == 'Card') {
+                                                                     <option <?php if ($billData[0]->payment_mode == 'PhonePe') {
                                                                         echo 'selected';
-                                                                    } ?> value="Card">Card</option>
-                                                            <option <?php if ($billData[0]->payment_mode == 'Net Banking') {
-                                                                        echo 'selected';
-                                                                    } ?> value="Net Banking">Net Banking</option>
-                                                            <option <?php if ($billData[0]->payment_mode == 'Google Pay') {
-                                                                        echo 'selected';
-                                                                    } ?> value="Google Pay">Google Pay</option>
-                                                            <option <?php if ($billData[0]->payment_mode == 'PhonePe') {
-                                                                        echo 'selected';
-                                                                    } ?> value="PhonePe">PhonePe</option>
-                                                            <option <?php if ($billData[0]->payment_mode == 'PAYTM') {
-                                                                        echo 'selected';
-                                                                    } ?> value="PAYTM">PAYTM</option>
-                                                            <option <?php if ($billData[0]->payment_mode == 'Amazon Pay') {
-                                                                        echo 'selected';
-                                                                    } ?> value="Amazon Pay">Amazon Pay</option>
+                                                                    } ?> value="PhonePe">PhonePe UPI</option>
                                                         </select>
                                                     </th>
                                                 </tr>

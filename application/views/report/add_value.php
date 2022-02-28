@@ -152,6 +152,7 @@
                                                                         if ($thisData) {
                                                                             $inputArray = unserialize($thisData[0]->input_values);
                                                                             $parameterArray = unserialize($thisData[0]->parameter_ids);
+                                                                            $highlights = unserialize($thisData[0]->highlights);
                                                                             foreach ($parameterArray as $param => $px) {
                                                                                 if ($parameter->id == $px) {
                                                                                     // if if if if  field type codntion start
@@ -172,9 +173,39 @@
                                                                                         </td>
                                                                                     <?php } else { ?>
                                                                                         <td><input type="text" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php echo $inputArray[$param]; ?>" class="form-control call form form else">
-                                                                                    <?php }
-                                                                                    // if if if if  field type codntion end
-                                                                                }
+                                                                                    <?php } ?>
+                                                                                    <!-- // if if if if  field type codntion end -->
+                                                                                    <td>
+                                                                                            <?php foreach ($unitData as $unit) {
+                                                                                                if ($unit->id == $parameter->unit) {
+                                                                                                    echo $unit->unit;
+                                                                                                }
+                                                                                            } ?>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <div>
+                                                                                                <input type="hidden" id="min_range<?php echo $parameter->id; ?>" name="min_range[]" value="<?php echo $parameter->min_value; ?>">
+                                                                                                <input type="hidden" id="max_range<?php echo $parameter->id; ?>" name="max_range[]" value="<?php echo $parameter->max_value; ?>">
+                                                                                                <?php if ($parameter->min_value != null) {
+                                                                                                    echo $parameter->min_value . ' - ' . $parameter->max_value;
+                                                                                                } ?>
+                                                                                                <div class="checkbox i-checks pull-right check-group">
+                                                                                                    <?php
+                                                                                                    if(!empty($highlights)){ ?>
+                                                                                                        <input type="hidden" value="<?php echo $highlights[$param]; ?>" name="highlight[]" id="checkValue<?php echo $parameter->id; ?>">
+                                                                                                        <input type="checkbox" class="high" id="highlight<?php echo $parameter->id; ?>" <?php if($highlights[$param] == 'Yes'){echo 'checked'; } ?> value="Yes"><label for="highlight<?php echo $parameter->id; ?>"></label>
+                                                                                                   
+                                                                                                   <?php }else{ ?>
+                                                                                                    <input type="hidden" value="No" name="highlight[]" id="checkValue<?php echo $parameter->id; ?>">
+                                                                                                    <input type="checkbox" class="high" id="highlight<?php echo $parameter->id; ?>" value="Yes"><label for="highlight<?php echo $parameter->id; ?>"></label>
+                                                                                               
+                                                                                                  <?php }
+                                                                                                    ?>
+                                                                                                   </div>
+                                                                                            </div>
+                                                                                            
+                                                                                        </td>
+                                                                              <?php  }
                                                                             }
                                                                         } else {
                                                                             // if if if if  field type codntion start
@@ -194,9 +225,9 @@
                                                                                     <?php } else { ?>
                                                                                         <td><input type="text" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="" class="form-control call form form else">
                                                                                     <?php }
-                                                                                // if if if if  field type codntion end
-                                                                            } ?>
-                                                                                        <td>
+                                                                                    ?>
+                                                                                <!-- // if if if if  field type codntion end -->
+                                                                                <td>
                                                                                             <?php foreach ($unitData as $unit) {
                                                                                                 if ($unit->id == $parameter->unit) {
                                                                                                     echo $unit->unit;
@@ -213,10 +244,11 @@
                                                                                                 <div class="checkbox i-checks pull-right check-group">
                                                                                                     <input type="hidden" value="No" name="highlight[]" id="checkValue<?php echo $parameter->id; ?>">
                                                                                                     <input type="checkbox" class="high" id="highlight<?php echo $parameter->id; ?>" value="Yes"><label for="highlight<?php echo $parameter->id; ?>"></label>
-
                                                                                                 </div>
                                                                                             </div>
                                                                                         </td>
+                                                                           <?php } ?>
+                                                                                       
                                                                     </tr>
                                                             <?php  }
                                                         }

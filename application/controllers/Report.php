@@ -38,18 +38,21 @@ class Report extends CI_Controller
     {
         $parameter_id = $this->input->post('parameter_id');
         $inputValue = $this->input->post('inputValue');
+        $highlight = $this->input->post('highlight');
 
         $parameter_ids = serialize($parameter_id);
         $input_values = serialize($inputValue);
+        $highlights = serialize($highlight);
+
         $patient_id = $this->input->post('patientID');
         $test_id = $this->input->post('testId');
         $bill_id = $this->input->post('billId');
         $defult_value_status = $this->input->post('defult_value_status');
         $reportDataid = $this->input->post('reportDataid');
         if ($reportDataid == '') {
-            $insertData = $this->Report_model->insertReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values, $defult_value_status);
+            $insertData = $this->Report_model->insertReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values,$highlights, $defult_value_status);
         } else {
-            $insertData = $this->Report_model->updateReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values, $defult_value_status, $reportDataid);
+            $insertData = $this->Report_model->updateReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values,$highlights, $defult_value_status, $reportDataid);
         }
 
         if ($insertData) {
@@ -146,12 +149,7 @@ class Report extends CI_Controller
                         <div class='form-group col-lg-4'><select name='payment_mode' id='payment_mode' class='form-control'>
                                 <option value=''>Select Payment Mode </option>
                                 <option value='Cash'>Cash</option>
-                                <option value='Card'>Card</option>
-                                <option value='Net Banking'>Net Banking</option>
-                                <option value='Google Pay'>Google Pay</option>
-                                <option value='PhonePe'>PhonePe</option>
-                                <option value='PAYTM'>PAYTM</option>
-                                <option value='Amazon Pay'>Amazon Pay</option>
+                                <option value='PhonePe'>PhonePe UPI</option>
                             </select></div>
                         <div class='form-group col-lg-3'>Balance Received (₹)</div>
                         <div class='form-group col-lg-3'><input type='text' placeholder='Enter received amount' name='balance_received' id='balance_received' class='form-control' value=''></div>

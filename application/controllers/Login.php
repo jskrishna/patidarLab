@@ -1,4 +1,7 @@
 <?php
+// if(session_status() === PHP_SESSION_NONE){
+	// session_start();
+// }
 class Login extends CI_Controller
 {	
 	function __construct() {
@@ -12,14 +15,18 @@ class Login extends CI_Controller
 		if ($this->input->post('username')) {
 			$e = $this->input->post('username');
 			$p = $this->input->post('password');
+			$password = $this->input->post('password');
 			$p = md5($p);
 		$UserData = $this->Login_model->getlogininfo($e, $p);
 		$row = $UserData;
 			if ($row) {
-				setcookie("USERNAME", $e, time()+86400*30,"/");
-				setcookie("PASSWORD", $p, time()+86400*30,"/");
 				$row = $row[0];
-				$_SESSION['loggedIn'] = $row->id;
+				setcookie("USERNAME", $e, time()+86400,"/");
+				setcookie("PASSWORD", $password, time()+86400,"/");
+				setcookie("loggedIn", true, time()+86400,"/");
+				setcookie("loggedInId", $row->id, time()+86400,"/");
+				$_SESSION['loggedIn'] = true;
+				$_SESSION['loggedInId'] = $row->id;
 				$_SESSION['email'] = $row->email;
 				$_SESSION['id'] = $row->id;
 

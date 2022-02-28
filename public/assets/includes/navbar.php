@@ -1,3 +1,16 @@
+<?php
+// if(session_status() === PHP_SESSION_NONE){
+	// session_start();
+// }
+// if (isset($_SESSION['loggedIn']) && isset($_SESSION['loggedInId'])) {
+// } else {
+// 	header('Location:' . BASE_URL . 'login');
+// }
+if (isset($_COOKIE['loggedIn']) && isset($_COOKIE['loggedInId'])) {
+} else {
+	header('Location:' . BASE_URL . 'login');
+}
+?>
 <div class="layoutSidenav">
     <div class="layoutSidenav_nav">
         <nav class="sidenav shadow-right sidenav-light">
