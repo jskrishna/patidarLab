@@ -45,6 +45,9 @@
                                         <div class="tablesorter-header-inner">Payment Status</div>
                                     </th>
                                     <th>
+                                        <div class="tablesorter-header-inner">Print Invoice</div>
+                                    </th>
+                                    <th>
                                         <div class="tablesorter-header-inner">Actions</div>
                                     </th>
                                 </tr>
@@ -133,6 +136,11 @@
                                                 </div>
 
                                             <?php  }; ?>
+                                        </td>
+                                        <td>
+                                        <a data-toggle="tooltip" data-placement="top" title="Print Invoice" target="_blank"  href="printinvoice/index/<?php echo $report->id; ?>" class="btn btn-sml btnupdate">
+                                                        <img src="<?php echo BASE_URL ?>public/assets/images/printer.svg" alt="">
+                                                    </a>
                                         </td>
                                         <td>
                                             <ul class="action-list">

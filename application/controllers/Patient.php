@@ -13,21 +13,27 @@ class Patient extends CI_Controller
 	public function index()
 	{
 		$pp = $this->Patient_model->patientinfo();
-		$px = $this->Patient_model->patientId();
 		$referedData = $this->Patient_model->getreferedData();
-		$data = array('patientid' => $px[0]->id,'referedData'=>$referedData,'patientData' => $pp);
+		$data = array('referedData' => $referedData, 'patientData' => $pp);
 		$this->load->view('Patient/index', $data);
-
 	}
 	public function register_patient()
 	{
 		if ($this->input->post('title')) {
 			$px = $this->Patient_model->patientId();
-			$patientId = $px[0]->id+1;
-			if(strlen($patientId) > 3){
-				$patientId = 'PTD0'.$patientId;
-			}else{
-				$patientId = 'PTD00'.$patientId;
+			if (!empty($px)) {
+
+				$string = $px[0]->patientid;
+				$patientId = (int) filter_var($string, FILTER_SANITIZE_NUMBER_INT);
+				$patientId = $patientId + 1;
+			} else {
+				$patientId = 1;
+			}
+
+			if (strlen($patientId) > 3) {
+				$patientId = 'PTD0' . $patientId;
+			} else {
+				$patientId = 'PTD00' . $patientId;
 			}
 			$title = $this->input->post('title');
 			$patientName = $this->input->post('patientName');
@@ -43,8 +49,8 @@ class Patient extends CI_Controller
 			$registerPatient = $this->Patient_model->registerPatient($patientId, $title, $patientName, $mobileNo, $emailId, $gender, $refered_by, $address, $pin, $age, $age_type);
 
 			if ($registerPatient) {
-				$resultss = array('success' => 1, 'msg' => 'Patient registration successfully.', 'redirect_url' => BASE_URL .'bill?t='.$registerPatient);
-				
+				$resultss = array('success' => 1, 'msg' => 'Patient registration successfully.', 'redirect_url' => BASE_URL . 'bill?t=' . $registerPatient);
+
 				echo json_encode($resultss);
 				exit();
 			} else {
@@ -58,7 +64,7 @@ class Patient extends CI_Controller
 	}
 	public function patientinfo()
 	{
-		header("Location:" . BASE_URL."patient");
+		header("Location:" . BASE_URL . "patient");
 	}
 
 	public function patientEdit()
@@ -134,24 +140,24 @@ class Patient extends CI_Controller
 			exit;
 		}
 	}
-	
+
 	public function add_patient()
 	{
 		$this->load->view('Patient/add-patient');
 	}
 	public function patientList()
 	{
-		
+
 		$patientList = $this->Patient_model->patientinfo();
 		$data = '';
 
-		if($patientList){
-			foreach($patientList as $patient){
-				$data .= '<option value="'.$patient->id.'">'.$patient->patientname.' - '. $patient->patientid.'</option>';
+		if ($patientList) {
+			foreach ($patientList as $patient) {
+				$data .= '<option value="' . $patient->id . '">' . $patient->patientname . ' - ' . $patient->patientid . '</option>';
 			}
 		}
 		echo json_encode($data);
-			exit;
+		exit;
 		# code...
 	}
 }
