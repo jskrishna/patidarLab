@@ -19,12 +19,12 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-lg-9">
+                                <div class="form-group file-type col-lg-9">
                                     <label for="user_logo">User Profile Logo</label>
                                     <input type="file" name="user_logo" id="user_logo" class="form-control enterAsTab" placeholder="Enter user_logo" autocomplete="off">
                                <input type="hidden" name="oldprofile" id="oldprofile" value="<?php echo $UserData->logo; ?>">
                                <?php if($UserData->logo){ ?>
-                                <img style="width:150px" src="<?php echo BASE_URL .'public/assets/images/'.$UserData->logo; ?>" alt="">
+                                <img src="<?php echo BASE_URL .'public/assets/images/'.$UserData->logo; ?>" alt="">
                                <?php } ?>
                                 </div>
                             </div>
