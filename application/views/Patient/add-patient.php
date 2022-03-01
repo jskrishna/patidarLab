@@ -81,9 +81,8 @@
                                     <?php
                                     ?>
                                     <input type="hidden" id="refered_by_nameAdd" value="" name="refered_by_name" class="required ui-autocomplete-input">
-                                    <select name="patientRef" id="patientRefAdd" class="form-control search-input">
+                                    <select name="patientRef" id="patientRefAdd" class="form-control">
                                     <option>Select Refered By </option>
-
                                     </select>
                                     <span class='error'>This field is required.</span>
                                     <?php

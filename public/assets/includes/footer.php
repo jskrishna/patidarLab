@@ -77,7 +77,7 @@
 							<div class="form-group col-lg-12">
 								<label for="patientRef">Referred By<span class="text-danger">*</span></label>
 								<input type="hidden" id="refered_by_name" value="" name="refered_by_name" class="ui-autocomplete-input required">
-								<select name="patientRef" id="patientRef" class="form-control search-input">
+								<select name="patientRef" id="patientRef" class="form-control">
 									<option>Select Refered By </option>
 								</select>
 								<span class="error">This field is required.</span>
@@ -1323,17 +1323,16 @@ alert('Something went wrong.');
 				alert('Something went wrong');
 			}
 		});
-
 	}
-	$('#searchPatientId,#patientRef, #patientRefAdd').select2({
-    // width: '100%', 
-    multiple: true,
-    maximumSelectionLength: 1,
-    placeholder: "Select or Search Here",   
-});
 
-	// $("#patientRef").select2();
-	// $("#patientRefAdd").select2();
+	// select 2 js
+	$("#searchPatientId").select2();
+	$("#patientRef").select2();
+    $('#patientRefAdd').select2();
+	$(document).on('select2:open', () => {
+		// $(document).on('click', 'select2:open', function(){
+		document.querySelector('.select2-search__field').focus();
+	});
 
 	$('#searchPatientId').on('change', function() {
 		var id = this.value;
