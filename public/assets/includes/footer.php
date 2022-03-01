@@ -1,5 +1,5 @@
 </main>
-<div class="c-modal modal right fade" id="patientEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="c-modal modal right fade" id="patientEdit" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-md" role="document">
 		<div class="modal-content">
 			<div class="page-head">
@@ -89,7 +89,36 @@
 			</div>
 			<div class="form-row">
 				<div class="col-lg-12 text-center">
-					<input type="button" class="btn btnupdate custom-btn m-auto" id="gotoBilling" value="Update">
+					<div class="btn-flex">
+						<button data-bs-toggle="modal" data-title="" data-bs-target="#myDeletemodel" data-url="" id="patientdelete" class="btn btn-danger btn-delete" value="">
+							Delete
+						</button>
+						<input type="button" class="btn btnupdate custom-btn m-auto" id="gotoBilling" value="Update">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- //delete model  -->
+<div id="myDeletemodel" class="modal" tabindex="-1" data-backdrop="static" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Delete Patient</h4>
+				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="background:transparent; border:0;">
+					<img src="<?php echo BASE_URL ?>public/assets/images/remove.svg" alt="">
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="container">
+					<div class="form-row">
+						<div id="delete_model_msg" class="form-group col-lg-12 text-center">Are you sure you want to delete this patient?</div>
+						<div class="btn-flex">
+							<a id="confirmdeletepatient" href="" class="btn btn-danger">Confirm</a>
+							<button data-bs-dismiss="model" class="btn custom-btn m-auto">Cancel</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -187,7 +216,7 @@
 			}
 		}
 
-		$(function () {
+		$(function() {
 			$('[data-toggle="tooltip"]').tooltip()
 		})
 
@@ -231,8 +260,8 @@
 			var finAmount = Number(gTotal);
 			var finaAmount;
 			finaAmount = Number(gTotal);
-		
-				$("#total").val(finAmount);
+
+			$("#total").val(finAmount);
 			$("#grand_total").val(finAmount);
 			if ('NO' == 'YES' && '' == 'ENABLED') {
 				$("#advance").val(finAmount);
@@ -261,8 +290,8 @@
 
 			// discount()
 			if (total > 0) {
-					$(".test_save").show();
-					$("#test_clear").show();
+				$(".test_save").show();
+				$("#test_clear").show();
 			} else {
 				$(".test_save").hide();
 				$("#test_clear").hide();
@@ -271,25 +300,25 @@
 		}
 		//discount
 		function discount() {
-				var discount = $('#discount').val();
-				var final_discount = $("#final_discount").val();
-				if (final_discount = '') {
-					final_discount = 0;
-				}
-				var total = Number(discount) + Number(final_discount);
-				if (total > 0) {
-					$("#verification").show();
-					$(".test_save").hide();
-					$("#test_clear").hide();
-					$("#send_otp").removeAttr("disabled", "disabled");
-					$("#reason_discount").focus();
-				} else {
-					$("#verification").hide();
-					$(".test_save").show();
-					$("#test_clear").show();
-					$("#send_otp").attr("disabled", "disabled");
-				}
-			
+			var discount = $('#discount').val();
+			var final_discount = $("#final_discount").val();
+			if (final_discount = '') {
+				final_discount = 0;
+			}
+			var total = Number(discount) + Number(final_discount);
+			if (total > 0) {
+				$("#verification").show();
+				$(".test_save").hide();
+				$("#test_clear").hide();
+				$("#send_otp").removeAttr("disabled", "disabled");
+				$("#reason_discount").focus();
+			} else {
+				$("#verification").hide();
+				$(".test_save").show();
+				$("#test_clear").show();
+				$("#send_otp").attr("disabled", "disabled");
+			}
+
 		}
 
 		$('.age-type').click(function() {
@@ -479,7 +508,7 @@
 					},
 					success: function(res) {
 						if (res.success == 1) {
-							
+
 							$(".modal .close").click();
 							location.reload();
 						} else {
@@ -515,6 +544,9 @@
 					$('#address').val(res.address);
 					$('#pin').val(res.pin);
 					$("#emailId").val(res.email);
+					$('.btn-delete').data('title', res.patientname);
+					$('.btn-delete').data('url', "patient/patientDelete?id=" + res.id);
+					$('.btn-delete').val(res.id);
 					$('#' + res.age_type).addClass("btn-primary").removeClass("btn-secondary");
 				}
 			});
@@ -644,7 +676,7 @@
 					if (res.success == 1) {
 						location.reload();
 					} else {
-alert('Something went wrong.');
+						alert('Something went wrong.');
 					}
 				}
 			});
@@ -660,8 +692,7 @@ alert('Something went wrong.');
 
 		// go funtion
 		$("#searchPatient").click(function() {
-			if ($("#search_patient_id").val() == '') {
-			} else {
+			if ($("#search_patient_id").val() == '') {} else {
 				var search_patient = $("#search_patient_id").val();
 				location.href = '<?php echo BASE_URL ?>bill?t=' + search_patient;
 			}
@@ -839,7 +870,7 @@ alert('Something went wrong.');
 			var testId = $("#test_id").val();
 			var test_in = $.inArray(testId, test);
 			if (test_in >= 0 || test_count > 0) {
-			alert("You selected test was already added kindly add other test");
+				alert("You selected test was already added kindly add other test");
 
 			} else {
 				test.push(testId);
@@ -1081,7 +1112,7 @@ alert('Something went wrong.');
 						"payment_mode": payment_mode
 					},
 					success: function(res) {
-						
+
 						location.href = '<?php echo BASE_URL ?>report';
 					}
 				});
@@ -1197,9 +1228,9 @@ alert('Something went wrong.');
 						"final_discount": final_discount
 					},
 					success: function(res) {
-						if(res.success == 1){
+						if (res.success == 1) {
 							location.reload();
-						}else{
+						} else {
 							alert(res.msg);
 						}
 						$('.close ').click();
@@ -1286,7 +1317,7 @@ alert('Something went wrong.');
 						$(".errorTxt").removeClass("text-danger");
 						$(".errorTxt").addClass("text-success");
 						$(".errorTxt").html(res.msg);
-						
+
 					}
 				}
 
@@ -1327,11 +1358,14 @@ alert('Something went wrong.');
 
 	// select 2 js
 	$("#searchPatientId").select2();
-	$("#patientRef").select2();
-    $('#patientRefAdd').select2();
+	$('#patientRefAdd').select2();
 	$(document).on('select2:open', () => {
 		// $(document).on('click', 'select2:open', function(){
 		document.querySelector('.select2-search__field').focus();
+	});
+
+	$("#patientRef").select2({
+		dropdownParent: $('#patientEdit')
 	});
 
 	$('#searchPatientId').on('change', function() {
@@ -1350,37 +1384,35 @@ alert('Something went wrong.');
 	});
 
 	// highlight 
-	$(".call").keyup(function(){
-		
-		var id=(this.id);
-		var id=id.substring(10,200);
-		var actual_value=$(this).val();
-		var min_range=$("#min_range"+id).val();
-		var max_range=$("#max_range"+id).val();
-		if(min_range!='' || max_range!=''){
-			if(Number(actual_value) > Number(max_range) || Number(actual_value) < Number(min_range)){
-				$(this).css("border","1px solid red");
-				$("#highlight"+id).prop('checked',true);
-				$("#checkValue"+id).val('Yes');
-			}
-			else{
-				$(this).css("border","1px solid lightgray");
-				$("#highlight"+id).prop('checked',false);
-				$("#checkValue"+id).val('No');
+	$(".call").keyup(function() {
+
+		var id = (this.id);
+		var id = id.substring(10, 200);
+		var actual_value = $(this).val();
+		var min_range = $("#min_range" + id).val();
+		var max_range = $("#max_range" + id).val();
+		if (min_range != '' || max_range != '') {
+			if (Number(actual_value) > Number(max_range) || Number(actual_value) < Number(min_range)) {
+				$(this).css("border", "1px solid red");
+				$("#highlight" + id).prop('checked', true);
+				$("#checkValue" + id).val('Yes');
+			} else {
+				$(this).css("border", "1px solid lightgray");
+				$("#highlight" + id).prop('checked', false);
+				$("#checkValue" + id).val('No');
 			}
 		}
 	});
 
-	$(".high").click(function(){
-		var id=(this.id);
-		var id=id.substring(9,20);
-		if($("#highlight"+id).prop('checked')==true){
-			$("#checkValue"+id).val('Yes');
-			$("#inputValue"+id).css("border","1px solid red");
-		}
-		else if($("#highlight"+id).prop('checked')==false){
-			$("#checkValue"+id).val('No');
-			$("#inputValue"+id).css("border","1px solid lightgray");
+	$(".high").click(function() {
+		var id = (this.id);
+		var id = id.substring(9, 20);
+		if ($("#highlight" + id).prop('checked') == true) {
+			$("#checkValue" + id).val('Yes');
+			$("#inputValue" + id).css("border", "1px solid red");
+		} else if ($("#highlight" + id).prop('checked') == false) {
+			$("#checkValue" + id).val('No');
+			$("#inputValue" + id).css("border", "1px solid lightgray");
 		}
 
 	});

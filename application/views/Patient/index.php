@@ -132,27 +132,6 @@
                 </div>
             </div>
         </div>
-        <div id="myDeletemodel" class="modal" tabindex="-1" data-backdrop="static" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Delete Patient</h4>
-                        <button type="button" class="close" data-bs-dismiss="modal">×</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container">
-                            <div class="form-row">
-                                <div id="delete_model_msg" class="form-group col-lg-12">Are you sure you want to delete this patient?</div>
-                                <div class="form-group col-lg-6 text-center"><a id="confirmdeletepatient" href=""><button class="btn btn-danger">Confirm</button></a></div>
-                                <div class="col-lg-6 text-center"><button data-bs-dismiss="model" class="btn btn-primary">Cancel</button></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <div class="layoutRightSide">

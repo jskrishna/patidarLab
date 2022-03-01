@@ -34,7 +34,7 @@
                             <div class="row">
                                 <div class="form-group col-lg-3">
                                     <label for="ageAdd">Age<span class="text-danger">*</span></label>
-                                    <input type="number" name="age" id="ageAdd" value="" class="form-control enterAsTab required" autocomplete="off" onkeypress="if(this.value.length==6)return false;">
+                                    <input type="number" placeholder="Age" name="age" id="ageAdd" value="" class="form-control enterAsTab required" autocomplete="off" onkeypress="if(this.value.length==6)return false;">
                                     <span class="error">This field is required.</span>
                                 </div>
                                 <div class="form-group col-lg-4">
@@ -66,13 +66,13 @@
                                 </div>
                                 <div class="form-group col-lg-6">
                                     <label for="pinAdd">Pin Code</label>
-                                    <input type="number" name="pin" id="pinAdd" value="457773" rel="Pin" class="form-control enterAsTab number_only" onkeypress="if(this.value.length==6)return false;">
+                                    <input type="number" placeholder="Pincode" name="pin" id="pinAdd" value="457773" rel="Pin" class="form-control enterAsTab number_only" onkeypress="if(this.value.length==6)return false;">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-lg-12">
                                     <label for="addressAdd">Address</label>
-                                    <textarea type="text" name="address" id="addressAdd" class="form-control enterAsTab"></textarea>
+                                    <textarea type="text" placeholder="Address" name="address" id="addressAdd" class="form-control enterAsTab"></textarea>
                                 </div>
                             </div>
                             <div class="row">

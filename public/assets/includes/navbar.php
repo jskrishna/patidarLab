@@ -25,15 +25,11 @@ if (isset($_COOKIE['loggedIn']) && isset($_COOKIE['loggedInId'])) {
                         <li>
                             <?php
                             $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
                             ?>
                             <a class="nav-links <?php if (strpos($actual_link, "dashboard") !== false) {
                                                     echo "nav-active";
                                                 } ?>" href="<?php echo BASE_URL; ?>dashboard">
                                 <div class="nav-link-icon">
-
-
-
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path d="M10 3H3V10H10V3Z" stroke="black" stroke-width="2"
@@ -45,9 +41,6 @@ if (isset($_COOKIE['loggedIn']) && isset($_COOKIE['loggedInId'])) {
                                         <path d="M10 14H3V21H10V14Z" stroke="black" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
-
-
-
                                 </div>
                                 Dashboard
                             </a>

@@ -5,13 +5,11 @@
 */ -->
 <?php class Outputpdf extends CI_Controller
 {
-
     function __construct()
     {
         parent::__construct();
         $this->load->model('Outputpdf_model');
     }
-
     function index()
     {
         // post data 
@@ -24,30 +22,26 @@
         $doctorData = $doctorData[0];
         $billData = $this->Outputpdf_model->getbillinfoByID($bill_id);
         $billData = $billData[0];
-
         $tests = implode(',', $test_id);
         $testIDS = explode(',', $billData->testId);
         $selecetdtestArray = explode(',', $tests);
         $signImage = BASE_URL . 'public/assets/images/sign.jpeg';
-        $headerImage = BASE_URL . 'public/assets/images/Letter_pad.jpg';
-        $mpdf = new \Mpdf\Mpdf();
+        $headerImage = BASE_URL . 'public/assets/images/Letter_pad.png';
+        require_once 'vendor/autoload.php';
 
+        $mpdf = new \Mpdf\Mpdf();
         $print_header =  $this->input->post('print_header');
-        if(isset($print_header) && $print_header == 'Yes'){
-            $mpdf->SetDefaultBodyCSS('background', "url('".$headerImage."')");
+        if (isset($print_header) && $print_header == 'Yes') {
+            $mpdf->SetDefaultBodyCSS('background', "url('" . $headerImage . "')");
             $mpdf->SetDefaultBodyCSS('background-image-resize', 6);
         }
-
         $mpdf->SetTitle('report-' . $patientData->patientid);
         $mpdf->SetDefaultFont('Roboto');
         $mpdf->SetProtection(array('print', 'print-highres'), '', md5(time()), 128);
         $mpdf->SetAuthor('Patidar Diagnostic');
         $mpdf->SetCreator('Px');
-
-
-
+        date_default_timezone_set('Asia/Kolkata');
         foreach ($selecetdtestArray as $key => $tid) {
-
             $testData = $this->Outputpdf_model->getTestByID($tid);
             $departData = $this->Outputpdf_model->getdepartmentByID($testData[0]->department);
             $testName =  $testData[0]->test_name;
@@ -62,45 +56,48 @@
                                     </tr>
                                     <tr>
                                     <td> Name :</td>
-                                    <th>" . ($patientData->patientname) . "</th>
+                                    <th style='text-align:left;text-transform:capitalize;'>" . ($patientData->patientname) . "</th>
                                     </tr>
                                     <tr>
                                     <td> Patient no :</td>
-                                    <th>" . ($patientData->patientid) . "</th>
+                                    <th style='text-align:left;'>" . ($patientData->patientid) . "</th>
                                     </tr>
                                     <tr>
                                     <td> Age/gender :</td>
-                                    <th>" . ($patientData->age . ' ' . $patientData->age_type . ' / ' . $patientData->gender) . "</th>
+                                    <th style='text-align:left;text-transform:capitalize;'>" . ($patientData->age . ' ' . $patientData->age_type . ' / ' . $patientData->gender) . "</th>
                                     </tr>
                                     <tr>
                                     <td> Refered By :</td>
-                                    <th>" . ($doctorData->referral_name) . "</th>
+                                    <th style='text-align:left;text-transform:capitalize;'>" . ($doctorData->referral_name) . "</th>
                                     </tr>
                                     <tr>
                                     <td>Reporting Date :</td>
-                                    <th>" . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>
+                                    <th style='text-align:left;text-transform:capitalize;'>" . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>
                                     </tr>
                                     <tr>
                                     <td>Report Printed on :</td>
-                                    <th>" . (date("d-M-Y h:i:s")) . "</th>
+                                    <th style='text-align:left;text-transform:capitalize;'>" . (date("d-M-Y h:i:s")) . "</th>
                                     </tr>
                                 </thead>
                             </table><hr>
-                            <table width='100%' cellspacing='5' >
+                            <table width='100%' cellspacing='5'>
                                 <thead>
                                     <tr>
                                      <th colspan='3'><h3>" . ($departName) . "</h3></th>
                                     </tr>
                                     <tr>
-                                     <th>Test Description</th><th>RESULT</th><th>Reference Range</th>
+                                    <th colspan='3'></th>
+                                   </tr>
+                                    <tr>
+                                     <th style='text-align:left;'>Test Description</th>
+                                     <th style='text-align:left;'>RESULT</th>
+                                     <th style='text-align:left;'>Reference Range</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td colspan'3'><b>" . ($testName) . "</b></td>
                                     </tr>";
-
-
             $testData = $this->Outputpdf_model->getTestByID($tid);
             $reportData = $this->Outputpdf_model->getreportDataByBIllandTestId($bill_id, $tid);
             $reportData = $reportData[0];
@@ -149,21 +146,23 @@
             $tabledata .= '</tbody>
                         </table>';
             $mpdf->defaultfooterline = 0;
-            $mpdf->SetFooter("<table style='margin-bottom:80px;'>
-            <tfoot>
+
+            $mpdf->SetFooter("<table style='margin-bottom:80px; width:100%' cellspacing='5' >
+            <tfoot align='center'>
               
             <tr>
-                <td style='height:30px;width:50px;' >Checked By <b>Technologist</b></td>
-                </tr>
-                <tr>
-                <td style='height:30px;width:160px;' >
-                <img style='height:60px;width:135px' src='" . ($signImage) . "'>
-                Dr.R.K.Tiwari,M.D.
-                Regd No.2511
-                Consultant Pathologist</td>
+                <td style='text-align:center;' >Checked By <br> <b>Technologist</b></td>
+                <td style='text-align:center;' >
+                <img style='height:60px;width:135px; margin-bottom:5px;' src='" . ($signImage) . "'>
+                <p style='text-align:center;'>Dr.R.K.Tiwari,M.D. <br>
+                Regd No.2511 <br>
+                Consultant Pathologist
+                </p>
+                </td>
                 </tr>
             </tfoot>
             </table>");
+
             $mpdf->AddPage();
             $mpdf->WriteHTML($tabledata);
         }
