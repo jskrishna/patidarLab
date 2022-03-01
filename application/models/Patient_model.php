@@ -4,7 +4,7 @@ class Patient_model extends CI_Model
 
     public function patientId()
     {
-        $query = $this->db->select('id')->from('patient')->order_by('id', 'desc');
+        $query = $this->db->select('*')->from('patient')->order_by('id', 'desc');
         $query = $this->db->get();
         return $query->result();
     }

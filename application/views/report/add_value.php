@@ -184,11 +184,41 @@
                                                                                         </td>
                                                                                         <td>
                                                                                             <div>
-                                                                                                <input type="hidden" id="min_range<?php echo $parameter->id; ?>" name="min_range[]" value="<?php echo $parameter->min_value; ?>">
-                                                                                                <input type="hidden" id="max_range<?php echo $parameter->id; ?>" name="max_range[]" value="<?php echo $parameter->max_value; ?>">
+                                                                                                <?php
+                                                                                                if($parameter->min_value == null){
+
+                                                                                                    if($patientData->gender == 'Male'){
+                                                                                                        $min = $parameter->male_min_value;
+                                                                                                        $max = $parameter->male_max_value;
+                                                                                                    }else if($patientData->gender == 'Female'){
+                                                                                                        $min = $parameter->female_min_value;
+                                                                                                        $max = $parameter->female_max_value;
+                                                                                                    }else{
+                                                                                                        $min = $parameter->child_min_value;
+                                                                                                        $max = $parameter->child_max_value;
+                                                                                                    }
+
+                                                                                                }else{
+                                                                                                    $min = $parameter->min_value;
+                                                                                                    $max = $parameter->max_value;
+                                                                                                }
+                                                                                                ?>
+                                                                                                <input type="hidden" id="min_range<?php echo $parameter->id; ?>" name="min_range[]" value="<?php echo $min; ?>">
+                                                                                                <input type="hidden" id="max_range<?php echo $parameter->id; ?>" name="max_range[]" value="<?php echo $max; ?>">
                                                                                                 <?php if ($parameter->min_value != null) {
-                                                                                                    echo $parameter->min_value . ' - ' . $parameter->max_value;
-                                                                                                } ?>
+                                                                                                    echo $parameter->min_value . ' - ' . $parameter->max_value.'<br>';
+                                                                                                } 
+                                                                                                if ($parameter->male_min_value != null) {
+                                                                                                    echo 'Male -> '.$parameter->male_min_value . ' - ' . $parameter->male_max_value.'<br>';
+                                                                                                } 
+                                                                                                if ($parameter->female_min_value != null) {
+                                                                                                    echo 'Female -> '.$parameter->female_min_value . ' - ' . $parameter->female_max_value.'<br>';
+                                                                                                } 
+                                                                                                if ($parameter->child_min_value != null) {
+                                                                                                    echo 'Child -> '.$parameter->child_min_value . ' - ' . $parameter->child_max_value;
+                                                                                                } 
+                                                                                                
+                                                                                                ?>
                                                                                                 <div class="checkbox i-checks pull-right check-group">
                                                                                                     <?php
                                                                                                     if(!empty($highlights)){ ?>
@@ -223,7 +253,7 @@
                                                                                             </select>
                                                                                         </td>
                                                                                     <?php } else { ?>
-                                                                                        <td><input type="text" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="" class="form-control call form form else">
+                                                                                        <td><input type="text" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php echo $parameter->default_value; ?>" class="form-control call form form else">
                                                                                     <?php }
                                                                                     ?>
                                                                                 <!-- // if if if if  field type codntion end -->

@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="form-group col-lg-5">
                                     <label for="Male">Gender<span class="text-danger">*</span></label>
-                                    <input type="hidden" name="gender" id="genderAdd" class="gender-input" value="Male">
+                                    <input type="hidden" name="gender" id="genderAdd" class="gender gender-input" value="Male">
                                     <div class="btn-group btn-block gender_type_div">
                                         <button type="button" class="btn btn-primary btn-process " data-value="Male" id="MaleAdd">Male</button>
                                         <button type="button" class="btn btn-secondary btn-process" data-value="Female" id="FemaleAdd">Female</button>
