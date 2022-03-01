@@ -158,14 +158,20 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th class="align-top"><span class="text-right"><input type="checkbox" name="print_header" id="print_header" value="Yes"> Print Report With Header</span>
+                                        <th class="align-top">
+                                            <!-- <span class="text-right"><input type="checkbox" name="print_header" id="print_header" value="Yes"> Print Report With Header</span> -->
                                             <br>
                                             <span class="text-right"><input type="checkbox" name="barcode" id="barcode" value="Yes" checked="true"> Print Barcode </span><br>
                                             <span class="text-right"><input type="checkbox" checked="checked" name="qr_code" id="qr_code" value="Yes"> Qr Code </span><br>
                                         </th>
                                     </tr>
-                                    <tr>
-                                    <span class="text-right "><input type="checkbox" name="print_header" id="print_header" value="Yes"><label for="print_header">Print Report With Header</label> </span>
+                                    <tr class="border-0">
+                                    <th colspan="4">
+                                    <div class="check-group">
+                                                <input type="checkbox" class="" id="print_header" name="print_header" value="Yes" checked>
+                                                <label for="print_header">Print Report With Header</label>
+                                            </div>
+                                    </th>
                                     </tr>
                                     <tr>
                                         <th>

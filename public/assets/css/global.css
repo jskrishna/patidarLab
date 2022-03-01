@@ -379,6 +379,7 @@ table.dataTable tfoot th, table.dataTable tfoot td {
   .check-group label {
     position: relative;
     cursor: pointer;
+    display: flex;
   }
   
   .check-group label:before {
@@ -402,7 +403,7 @@ table.dataTable tfoot th, table.dataTable tfoot td {
     content: '';
     display: block;
     position: absolute;
-    top: 4px;
+    top: 2px;
     left: 6px;
     width: 6px;
     height: 10px;

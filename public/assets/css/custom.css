@@ -26,9 +26,10 @@ select#patientRef + .select2-container {
     border-radius: 0 0 5px 5px;
     z-index: 9999;
 }
-.file-type img {
-    max-width: 130px;
-    margin: 10px 0;
+.file-type-img img {
+    max-width: 150px;
+    max-height: 100px;
+    object-fit: contain;
 }
 .form-group {
     margin-bottom: 20px;
@@ -60,6 +61,14 @@ select#patientRef + .select2-container {
     line-height: 45px;
     font-family: 'Inter', sans-serif;
     min-height: 45px;
+}
+.btn-flex {
+    display: flex;
+    justify-content: center;
+}
+.btn-flex > * {
+    width: 50%;
+    margin: 0 15px !important;
 }
 
 .header-add-p .form-control {
