@@ -154,7 +154,7 @@
                                                     <?php foreach ($patientData as $patient) {
                                                         if ($patient->id == $report->patient_id) {
                                                     ?>
-                                                            <a data-toggle="tooltip" data-placement="top" title="View Test"  href="bill/edit?bill=<?php echo $report->id; ?>" class="btn btn-sml btnupdate btn-report">
+                                                            <a data-toggle="tooltip" data-placement="top" title="View Test"  href="bill?bill=<?php echo $report->id; ?>" class="btn btn-sml btnupdate btn-report">
                                                                 <img src="<?php echo BASE_URL ?>public/assets/images/billing.svg" alt="">
                                                             </a>
                                                     <?php }

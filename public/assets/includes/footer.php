@@ -245,7 +245,7 @@
 			$("#final_total").html(grandTotal);
 
 			var f_discount = $("#f_discount").val();
-			$("#final_discount").html(f_discount);
+			$("#final_discount").val(f_discount);
 			var final_discount = f_discount;
 			var advance = $("#advance").val();
 			if (advance == '') {
@@ -301,7 +301,7 @@
 		//discount
 		function discount() {
 			var discount = $('#discount').val();
-			var final_discount = $("#final_discount").html();
+			var final_discount = $("#final_discount").val();
 			if (final_discount = '') {
 				final_discount = 0;
 			}
@@ -1006,13 +1006,13 @@
 				alert('Something went wrong.');
 
 			} else {
-				if ($("#payment_mode").val() == '') {
-					$("#payment_mode").css("border", "1px solid red");
-					$("#payment_mode").focus();
-					return false;
-				} else {
-					$("#payment_mode").css("border", "1px solid lightgray");
-				}
+				// if ($("#payment_mode").val() == '') {
+				// 	$("#payment_mode").css("border", "1px solid red");
+				// 	$("#payment_mode").focus();
+				// 	return false;
+				// } else {
+				// 	$("#payment_mode").css("border", "1px solid lightgray");
+				// }
 
 				if (!$.trim($('#grand_total').html())) {
 					alert('Please enter test names.');
@@ -1034,7 +1034,7 @@
 				var total = $("#final_total").html();
 				var discount = $("#discount").val();
 				var grandTotal = $("#grand_total").html();
-				var final_discount = $("#final_discount").html();
+				var final_discount = $("#final_discount").val();
 				var reason_discount = $("#reason_discount").val();
 				if (final_discount == '') {
 					final_discount = 0;
@@ -1049,7 +1049,7 @@
 				var referralhospital = $("#refhospitalId option:selected").val();
 				var referralHos = $('#hospital_id').val();
 				var max_total = $("#max_total").val();
-				var payment_mode = $("#payment_mode").val();
+				var payment_mode = $("input[name='payment_mode']:checked").val();
 				var testAmount = Array();
 				var testId = Array();
 				var discountAmount = Array();
@@ -1201,16 +1201,13 @@
 			});
 		});
 
+		// pay model
 		$("body").on('click', '#postValue', function() {
-			if ($("#payment_mode").val() == '') {
-				$("#payment_mode").css("border", "1px solid red");
-				$("#payment_mode").focus();
-				return false;
-			}
+			
 			$("#add_balance").attr("disabled", "disabled");
 			var bill_id = $("#bill_id").val();
 			var balance = $("#balance").val();
-			var final_discount = $("#final_discount").html();
+			var final_discount = $("#final_discount").val();
 
 			var balance_received = $("#balance_received").val();
 			if (balance_received == 0) {
@@ -1219,7 +1216,7 @@
 			} else {
 				var add_discount = $("input[name='add_discount']:checked").val();
 				var max_total = $("#max_total").val();
-				var payment_mode = $("#payment_mode").val();
+				var payment_mode = $("input[name='payment_mode']:checked").val();
 				var totalBalance = balance - balance_received;
 				if (totalBalance == 0 || add_discount == 'Yes') {
 					var permission = true;
@@ -1263,15 +1260,18 @@
 			}
 		});
 
-		$('.single-select label').click(function() {
-			if ($(this).find('.chkbox').is(':checked')) {
-				$(this).prop('checked', false);
-				$('#submit_report').attr('disabled', 'disabled');
-			} else {
-				$(this).find('.chkbox').prop('checked', true);
-				$('#submit_report').removeAttr('disabled', 'disabled');
-			}
-		})
+		// $('.single-select label').click(function() {
+		// 	if ($(this).find('.chkbox').is(':checked')) {
+		// 		$(this).prop('checked', false);
+		// 		$('#submit_report').attr('disabled', 'disabled');
+		// 	} else {
+		// 		$(this).find('.chkbox').prop('checked', true);
+		// 		$('#submit_report').removeAttr('disabled', 'disabled');
+		// 	}
+		// })
+
+		
+
 		// review btn 
 		$("body").on('click', '.review-btn', function() {
 

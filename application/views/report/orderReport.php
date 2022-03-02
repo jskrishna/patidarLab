@@ -132,7 +132,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-8">
                                                             Collapse </div>
-                                                        <div class="col-lg-4"> : <input type="checkbox" name="collapse" id="collapse" value="YES"> Yes </div>
+                                                        <!-- <div class="col-lg-4"> : <input type="checkbox" name="collapse" id="collapse" value="YES"> Yes </div> -->
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-lg-8">
@@ -173,7 +173,11 @@
                                                 <input type="checkbox" class="" id="print_header" name="print_header" value="Yes" checked>
                                                 <label for="print_header">Print Report With Header</label>
                                             </div>
-                                        </th>
+                                            <div class="check-group">
+                                                <input type="checkbox" class="" id="collapse" name="collapse" value="Yes">
+                                                <label for="collapse">Collapse pdf</label>
+                                            </div>
+                                    </th>
                                     </tr>
                                     <tr>
                                         <th>
@@ -202,20 +206,24 @@
                                         if (!empty($checkData)) {
                                             $btn = true;
                                             $testData = $pxthis->Report_model->getTestByID($test);
-                                            $testData = $testData[0]; ?>
+                                            $testData = $testData[0]; 
+                                            $departData = $pxthis->Report_model->getdepartmentByID($testData->department);
+                                                    $departData = $departData[0];
+                                            
+                                            ?>
                                             <tr class="reportcnt" id="<?php echo $testData->id; ?>">
                                                 <td>
                                                     <div class="check-group single-select">
-                                                        <input type="checkbox" value="<?php echo $testData->id; ?>" class="chkbox" id="test<?php echo $testData->id; ?>" name="test_id[]">
-                                                        <label for="test<?php echo $testData->id; ?>"></label>
+                                                        <input type="checkbox" value="<?php echo $testData->id; ?>" onclick="myFunction('test<?php echo $testData->id; ?>')" class="chkbox" id="test<?php echo $testData->id; ?>" name="test_id[]">
+                                                       <label for="test<?php echo $testData->id; ?>"></label>
+                                                       <input type="checkbox" class="chkbox" id="department<?php echo $testData->id; ?>" value="<?php echo $departData->id; ?>" name="department[]">
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <?php
-                                                    $departData = $pxthis->Report_model->getdepartmentByID($testData->department);
-                                                    $departData = $departData[0];
                                                     echo $departData->department;
-                                                    ?></td>
+                                                    ?>
+                                                </td>
                                                 <td>
                                                     <?php echo $testData->test_name; ?>
                                                     <input type="hidden" value="<?php echo $billData->id; ?>" id="bill_id" name="bill_id">
@@ -250,3 +258,36 @@
 <?php
 include_once "./public/assets/includes/footer.php";
 ?>
+<script>
+    var check=[];
+			function myFunction(val){
+			var val1=val.substring(4,10);
+			if($("#"+val).prop("checked") == true){
+				check.push(val);
+
+			}
+			else if($("#"+val).prop("checked") == false){
+				check=$.grep(check, function(a){
+				return a !=val;
+				})
+
+			}
+				var count=check.length;
+			if(count>0){
+			$('#submit_report').removeAttr('disabled','disabled');
+			}
+			else{
+			$('#submit_report').attr('disabled','disabled');
+			}
+			if($("#"+val).prop("checked") == true){
+
+				console.log("Checkbox is checked." );
+					$('#department'+val1).prop('checked', true);
+				}
+				else if($("#"+val). prop("checked") == false){
+
+				console.log("Checkbox is unchecked." );
+				$('#department'+val1).prop('checked', false);
+				}
+			}
+</script>

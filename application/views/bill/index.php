@@ -8,6 +8,11 @@
                 <button class="btn custom-btn patientedit_btn" data-bs-toggle="modal" data-id="<?php echo $patientData->id; ?>" data-bs-target="#patientEdit"> Edit Patient</button>
             <?php } ?>
         </div>
+        <?php if(isset($billData)){ ?>
+            <script>
+            var test = Array();
+        </script>
+        <?php } ?>
         <div class="billing-sec">
             <div class="row">
                 <div class="col-lg-12">
@@ -66,27 +71,42 @@
                                             </p>
                                         </div>
                                         <div class="name-sec-right">
-                                            <!-- <p class="bill-add-d">
-                                                <img src="<?php //echo BASE_URL ?>public/assets/images/feather-clock-active.svg" alt="">
-                                               <span id="bdate"></span>
+                                        <?php if(isset($billData)){  ?>
+
+                                            <p class="edit-bill-d">
+                                        <img src="<?php echo BASE_URL ?>public/assets/images/feather-clock-active.svg" alt="">
+                                        <span><?php echo date_format(new DateTime($billData[0]->billDate), "d-m-Y"); ?></span>
+                                        <input type="hidden" name="billDate" id="billDate" class="form-control" value="<?php echo date_format(new DateTime($billData[0]->billDate), "Y-m-d"); ?>" onkeydown="return false">
+                                        <input type="hidden" name="time" id="time" class="form-control" value="<?php echo date_format(new DateTime($billData[0]->billDate), "H:i:s"); ?>">
+                                    </p>
+                                    <?php if ($patientData->mobile) { ?>
+                                                <p>
+                                                    <img src="<?php echo BASE_URL ?>public/assets/images/feather-phone-call.svg" alt="">
+                                                    <span><?php echo $patientData->mobile ?></span>
+                                                </p>
+                                            <?php  } ?>
+                                        <?php }else{ ?>
+                                            
+                                            <p class="bill-add-d">
+                                                <img src="<?php echo BASE_URL ?>public/assets/images/feather-clock-active.svg" alt="">
+                                                <span id="bdate"></span>
                                                 <input type="hidden" readonly name="billDate" id="billDate" class="form-control" value="" onkeydown="return false">
                                                 <input type="hidden" name="time" id="time" class="form-control" value="">
-                                            </p> -->
+                                            </p>
                                             <?php if ($patientData->mobile) { ?>
                                                 <p>
                                                     <img src="<?php echo BASE_URL ?>public/assets/images/feather-phone-call.svg" alt="">
                                                     <span><?php echo $patientData->mobile ?></span>
                                                 </p>
                                             <?php  } ?>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         <?php } ?>
                         <?php if (isset($patientData)) { ?>
-                            <div id="main" class="fixed-save" style="<?php if (!isset($_GET['t'])) {
-                                                                            echo 'display:none;';
-                                                                        } ?>">
+                            <div id="main" class="fixed-save">
                                 <input type="hidden" id="nameTest" name="nameTest">
                                 <input type="hidden" name="test_amount" id="test_amount" class="form-control prc number_only">
                                 <div class="col-lg-2" style="display: none;">
@@ -121,12 +141,33 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="testRequest">
+                                                    <?php if(isset($billData)){ 
+                                                $testIds = explode(',', $billData[0]->testId);
+                                                $discountAmounts = json_decode($billData[0]->discountAmount);
+                                                foreach ($testIds as $param => $test) {
+                                                    $testData =  $pxthis->Bill_model->getTestByID($test);
+                                                    $testData = $testData[0]; ?>
+                                                    <script>
+                                                        test.push(<?php echo $test; ?>);
+                                                    </script>
+                                                    <tr>
+                                                        <td><?php echo $testData->test_name; ?></td>
+                                                        <input type='hidden' name='testId[]' id='testId' value="<?php echo $testData->id; ?>" class='form-control testId' readonly>
+                                                        <td>
+                                                            <!-- <input type='text' name='testAmount[]' id='testAmount' value=<?php //echo intval($testData->amount); ?> class='form-control testAmount' readonly> -->
+                                                            <span id="testAmount"><?php echo intval($testData->amount); ?></span>
+
+                                                        </td>
+                                                        <input type='hidden' name='discountAmount[]' id='discountAmount' value=<?php echo $discountAmounts[$param]; ?> class='form-control testAmount' readonly>
+                                                        <td><a href='Javascript:void(0)' class='remove_this'><img src='<?php echo BASE_URL ?>public/assets/images/remove-white.svg' alt=''></a></td>
+                                                    </tr>
+                                                <?php  } } ?>
                                                 </tbody>
 
                                             </table>
                                         </div>
                                         <div class="form-footer test_save" style="display: none;">
-                                            <input type="hidden" id="bill_id" name="bill_id" value="">
+                                            <input type="hidden" id="bill_id" name="bill_id" value="<?php if(isset($billData)){ echo intval($billData[0]->id); }else{ echo '';} ?>">
                                             <th colspan="4" class="text-center">
                                                 <button name="test_save" type="button" tabindex="8" id="test_save" class="btn custom-btn btn-action tab_inp">Save</button>
                                             </th>
@@ -139,7 +180,7 @@
                                                     <span class="small-heading">Payment</span>
                                                     <div class="radio-wrap">
                                                         <span class="radio-group">
-                                                            <input type="radio" id="payment_due" name="payment_mode" value="Due" checked>
+                                                            <input type="radio" id="payment_due" name="payment_mode" value="Due" <?php if(isset($billData) && $billData[0]->payment_mode == 'Due'){ echo 'checked'; } ?> checked>
                                                             <label for="payment_due">
                                                                 <span>
                                                                 Due <img src="<?php echo BASE_URL ?>public/assets/images/payment-due.svg" alt="">
@@ -147,7 +188,7 @@
                                                             </label>
                                                         </span>
                                                         <span class="radio-group">
-                                                            <input type="radio" id="payment_cash" name="payment_mode" value="Cash">
+                                                            <input type="radio" id="payment_cash" name="payment_mode" value="Cash" <?php if(isset($billData) && $billData[0]->payment_mode == 'Cash'){ echo 'checked'; } ?>>
                                                             <label for="payment_cash">
                                                                 <span>
                                                                 Cash <img src="<?php echo BASE_URL ?>public/assets/images/payment-cash.svg" alt="">
@@ -155,7 +196,7 @@
                                                             </label>
                                                         </span>
                                                         <span class="radio-group">
-                                                            <input type="radio" id="payment_upi" name="payment_mode" value="PhonePe">
+                                                            <input type="radio" id="payment_upi" name="payment_mode" value="PhonePe" <?php if(isset($billData) && $billData[0]->payment_mode == 'PhonePe'){ echo 'checked'; } ?>>
                                                            <label for="payment_upi">
                                                                <span>
                                                            UPI <img src="<?php echo BASE_URL ?>public/assets/images/upi.svg" alt="">
@@ -171,26 +212,27 @@
                                                 <li>
                                                     <span>Total</span>
                                                     <div>
-                                                        <input type="hidden" name="total" id="total" class="form-control" readonly="" value="">
-                                                        <input type="hidden" name="discount" id="discount" class="form-control" value="0" readonly="">
+                                                        <input type="hidden" name="total" id="total" class="form-control" readonly="" value="<?php if(isset($billData)){ echo intval($billData[0]->total); }else{echo '0';} ?>">
+                                                        <input type="hidden" name="discount" id="discount" class="form-control" value="<?php if(isset($billData)){ echo intval($billData[0]->final_discount); }else{ echo '0';} ?>" readonly="">
 
-                                                        <span id="final_total">0</span>
+                                                        <span id="final_total"><?php if(isset($billData)){ echo intval($billData[0]->total); }else{ echo '0';} ?></span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <span>Final Discount</span>
                                                     <div>
                                                         <input type="hidden" name="final_discount_type" id="final_discount_type" value="Amount" checked="checked">
-                                                        <input type="number" name="f_discount" id="f_discount" value="" tabindex="1" class="form-control-sm number_only tab_inp">
+                                                        <input type="hidden" name="final_discount" id="final_discount" value="<?php if(isset($billData)){ echo intval($billData[0]->final_discount); }else{ echo '0';} ?>">
+                                                        <input type="number" name="f_discount" id="f_discount" value="<?php if(isset($billData)){ echo intval($billData[0]->final_discount); }else{ echo '0';} ?>" tabindex="1" class="form-control-sm number_only tab_inp">
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <span>Grand Total</span>
                                                     <div>
-                                                        <input type="hidden" name="paid" id="paid" value="0" class="form-control number_only tab_inp" tabindex="6">
-                                                        <input type="hidden" name="balance" id="balance" class="form-control" readonly="" value="">
+                                                    <input type="hidden" name="paid" id="paid" value="0" class="form-control number_only tab_inp" tabindex="6">
+                                                    <input type="hidden" name="balance" id="balance" class="form-control" readonly="" value="<?php if(isset($billData)){ echo intval($billData[0]->balance); }else{ echo '0';} ?>">
                                                         <span class="grand_total">₹</span>
-                                                        <span id="grand_total" class="grand_total">0</span>
+                                                        <span id="grand_total" class="grand_total"><?php if(isset($billData)){ echo intval($billData[0]->balance); }else{ echo '0';} ?></span>
                                                     </div>
                                                 </li>
                                             </ul>
