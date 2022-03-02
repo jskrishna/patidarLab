@@ -659,15 +659,24 @@ select#patientRef+.select2-container {
 .patient-name-sec {
     background: #fff;
     border-radius: 8px;
-    padding: 10px 20px;
+    padding: 15px 20px;
     box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
 }
-
+.name-sec-inr button {
+    margin-left: auto;
+}
 .name-sec-inr {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
+}
+.name-sec-center.bill-add-d {
+    display: flex;
+    background: #f3f3f3;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+.name-sec-center p+p {
+    margin-left: 30px;
 }
 
 .name-sec-left {
@@ -880,6 +889,10 @@ select#patientRef+.select2-container {
     padding-left: 20px;
 }
 
+
+.bill_settle.btn-pay:after {
+    background-color: #ff9800;
+}
 .test-name label:after {
     content: "";
     position: absolute;
@@ -912,6 +925,23 @@ select#patientRef+.select2-container {
     border-radius: 5px;
 }
 
+.test-counts button {
+    border: 1px solid #ccc;
+    padding: 5px 15px 5px 30px;
+}
+.test-counts > button:after {
+    background: url(../images/check-mark.svg) no-repeat center center / 16px;
+    height: 16px;
+    width: 16px;
+}
+.test-counts .bill_settle.btn-pay:after {
+    background-image: url(../images/feather-clock.svg);
+    background-color: transparent;
+}
+.test-counts {
+    display: flex;
+}
+
 .thumb-img img {
     width: 15px;
 }
@@ -931,10 +961,6 @@ border: 1px solid #e0e0e0;
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
-}
-
-.bill_settle.btn-pay:after {
-    background: #ff9800;
 }
 
 .bill_settle:hover {
@@ -1026,11 +1052,12 @@ input#f_discount:focus {
 
 .c-modal.center .modal-content .page-head {
     padding: 15px 40px;
-    border-bottom: 1px solid #e0e0e0;
+    /* border-bottom: 1px solid #e0e0e0; */
 }
 
 .c-modal.center .modal-footer {
     border-top: 1px solid #e0e0e0;
+    border-top: 0; 
     justify-content: center;
 }
 
@@ -1045,7 +1072,15 @@ input#f_discount:focus {
 input+label {
     user-select: none;
 }
-
+.c-modal.center .modal-content .modal-body {
+    background: #f4f6f8;
+}
+.c-modal.center .c-datatable .table {
+    border: 1px solid #e0e0e0;
+}
+.btn-paid {
+    background: transparent !important;
+}
 .tab-content {
     display: none;
 }

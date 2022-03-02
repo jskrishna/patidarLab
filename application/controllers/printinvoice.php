@@ -23,10 +23,16 @@
 
         $referData = $this->Outputpdf_model->getdoctorinfoByID($patientData->refered_by);
         $referData = $referData[0];
+        $headerImage = BASE_URL . 'public/assets/images/Letter_pad.png';
 
         $testIDS = explode(',', $billData->testId);
 
         $mpdf = new \Mpdf\Mpdf();
+        $print_header =  $this->input->post('print_header');
+        // if (isset($print_header) && $print_header == 'Yes') {
+            $mpdf->SetDefaultBodyCSS('background', "url('" . $headerImage . "')");
+            $mpdf->SetDefaultBodyCSS('background-image-resize', 6);
+        // }
         // $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [210, 297]]);
 
 
@@ -35,21 +41,35 @@
         $mpdf->SetAuthor('Patidar Diagnostic');
         $mpdf->SetCreator('Px');
         date_default_timezone_set('Asia/Kolkata');
-        $tabledata = "<main>
-        <table width='100%' cellspacing='5'>
+        $tabledata = "<style>
+        td, th {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 10px 11px !important;
+    font-size: 13px;
+        }
+        .table {
+            border-collapse:collapse;
+            border:1px solid #e0e0e0;
+        }
+        .table td, .table th, .table tbody td, .table tbody th {
+            padding:5px 10px;
+            font-size:12px;
+        }
+        </style><main>
+        <table width='100%' cellspacing='5' border:'0'>
+                    <thead>
+                        <tr>
+                        <td style='height:100px;border:0;' colspan='2'></td>
+                        </tr>
+                        </thead>
+                        </table>
+        <h3 style='margin:0;margin-bottom:20px;text-align:center;'>Bill Receipt</h3>
+        <table width='100%' cellspacing='5' class='table'>
             <thead>
-            <tr>
-        <th colspan='4'>
-        <h2>Bill Receipt</h2>
-        </th>
-            </tr>
-            <tr>
-            <th colspan='4'><hr></th>
-            </tr>
             <tr>
             <td> Receipt No :</td>
             <th style='text-align:left;'>" . '00' . ($patientData->id) . "</th>
-            <td>Date & Time :</td>
+            <td style=''>Date & Time :</td>
             <th style='text-align:left;'>" . (date("d-M-Y h:i:s")) . "</th>
             </tr>
             <tr>
@@ -65,7 +85,7 @@
                 <th style='text-align:left; text-transform:capitalize'>" . ($referData->referral_name) . "</th>
             </tr>
             </thead>
-        </table><hr><table width='100%'  >
+        </table><table width='100%' class='table' style='margin-top:15px;'>
         <thead>
             <tr>
              <th style='text-align:left;'>S.no</th>
@@ -91,32 +111,18 @@
         }
 
         $tabledata .= "
-        <tr>
-        <th colspan='3'>
-        <hr>
-        </th>
-            </tr>
                     <tr>
-                    <td></td>
-                        <th><b>Total</b></th>
+                        <td colspan='2'>Total</td>
                     <td style='text-align:right;'><b>" . ($total) . ".00</b></td>
                         </tr>
-                        <tr>
-                        <td colspan='2'>Total Paid (Rs.) </td>
-                    <td style='text-align:right;'><b>" . ($billData->received_amount) . ".00</b></td>
-                    </tr>
                     <tr>
-                    <td colspan='2'>Total Discount (Rs.) </td>
+                    <td colspan='2'>Total Discount (₹) </td>
                     <td style='text-align:right;'><b>" . ($billData->final_discount) . ".00</b></td>
                     </tr>
                     <tr>
-                    <td colspan='2'>Total Amount (Rs.) </td>
-                    <td style='text-align:right;'><b>" . ($total - $billData->final_discount - $billData->received_amount) . ".00</b></td>
-                    </tr>
-                    <tr>
-                    <td colspan='3'><hr></td>
-                    </tr>
-                                ";
+                        <td colspan='2'>Total Paid (₹) </td>
+                    <td style='text-align:right;'><b>" . ($billData->received_amount) . ".00</b></td>
+                    </tr>";
 
         $number = $total - $billData->final_discount - $billData->received_amount;
         $no = floor($number);
@@ -163,7 +169,7 @@
             "." . $words[$point / 10] . " " .
             $words[$point = $point % 10] : '';
         $tabledata .= "<tr>
-                                    <td colspan='3'>Payable Amount (in words) : " . ($result) . " Rupees only</td>
+                                    <td colspan='3'>Payable Amount (In words) : <b style='text-transform:uppercase;'>" . ($result) . " Rupees only</b></td>
                                     </tr>";
 
 
@@ -172,11 +178,11 @@
         $footer = "</tbody></table><table width='100%' cellspacing='5'>
                                 <tfoot>
                                 <tr>
-                                <td style='height:40px;'></td>
+                                <td style='height:40px;border:0;'></td>
                                 </tr>
                                     <tr>
-                                    <td style='width:65%'></td>
-                                        <td style='height:30px;text-align:center;'  colspan='3'>Signature<br><b>Patidar Diagnostic</b></td>
+                                    <td style='width:65%;border:0;'></td>
+                                        <td style='height:30px;text-align:center;border:0'  colspan='3'>Signature<br><b>Patidar Diagnostic</b></td>
                                     </tr>
                                 </tfoot>
                                 </table>

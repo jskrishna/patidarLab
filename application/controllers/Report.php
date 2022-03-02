@@ -78,68 +78,39 @@ class Report extends CI_Controller
         $discount = intval($billData->final_discount) + intval($billData->discount);
         $final_discount = intval($billData->final_discount);
 
-        $data = "<div class='page-head'><h2 id='billname'>$patientData->title.  $patientData->patientname</h2><button type='button' class='close' data-bs-dismiss='modal' aria-label='Close'><img src='".BASE_URL."/public/assets/images/remove.svg.' alt=''>
+        $data = "<div class='page-head'><h2 id='billname'>".$patientData->title.  $patientData->patientname . ' (' . ($patientData->patientid) . ')'."</h2><button type='button' class='close' data-bs-dismiss='modal' aria-label='Close'><img src='".BASE_URL."/public/assets/images/remove.svg.' alt=''>
         </button>
     </div><div class='modal-body'>
                     <div class='row'>
                         <div class='form-group col-lg-6'>Bill No <b>: 00$billData->id <input type='hidden' name='bill_id' id='bill_id' value='$billData->id'></b></div>
-                        <div class='form-group col-lg-6'>Bill Date : <b class='font-weight-bold bill_settle_date'>$date</b></div>
+                        <div class='form-group col-lg-6 text-right'>Bill Date : <b class='font-weight-bold bill_settle_date'>$date</b></div>
                     </div>
                     <div class='form-row'>
                         <div class='form-group col-lg-12'>
+                        <div class='c-datatable'>
+                        
                             <table class='table'>
-                                <thead>
-                                    <tr>
-                                        <th>Bill Amount</th>
-                                        <th>Discount</th>
-                                        <th>Payable</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>$billData->total</td>
-                                        <td>$discount</td>
-                                        <td>$billData->balance</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table class='table'>
-                                <thead>
-                                    <tr>
-                                        <th>S.No</th>
-                                        <th>Date &amp; Time</th>
-                                        <th>Description</th>
-                                        <th>Balance</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>$billData->billDate</td>
-                                        <td>Total Bill Amount</td>
-                                        <td class='text-right'>$billData->balance</td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan='2'>Total Paid (₹)</td>
-                                        <th></th>
-                                        <th class='text-right'>$billData->advance.00</th>
-                                    </tr>
-
-                                    <tr>
-                                        <td colspan='2'>Balance Amount (₹)</td>
-                                        <td></td>
-                                        <th class='text-right'><input type='hidden' name='balance' id='balance' value='$balance'>$balance.00</th>
-                                        <input type='hidden' name='final_discount' id='final_discount' value='$final_discount'>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                            <thead>
+                                <tr>
+                                    <th>Bill Amount</th>
+                                    <th>Discount</th>
+                                    <th>Payable</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>$billData->total</td>
+                                    <td>$discount</td>
+                                    <td>$billData->balance</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                            </div>
                         </div>
                     </div>
                     <div class='form-row'>
                             <span class='small-heading'>Payment Mode</span>
-                            <div class='radio-wrap' id='payment_mode'>
+                            <div class='radio-wrap'>
                                 <span class='radio-group'>
                                     <input type='radio' id='payment_due' name='payment_mode' value='Due' checked>
                                     <label for='payment_due'>
@@ -172,7 +143,6 @@ class Report extends CI_Controller
                     <div class='modal-footer'>
                         <div class='col-lg-2'><button class='btn custom-btn btnupdate btn-block' id='postValue'>Pay</button></div>
                     </div>";
-
         echo $data;
     }
 
@@ -205,37 +175,17 @@ class Report extends CI_Controller
 
         $testIDS = explode(',', $billData->testId);
         date_default_timezone_set('Asia/Kolkata');
-        $tabledata = "<div class='modal-body'><div class='container'>
-        <div class='form-row'>
+        $tabledata = "<div class='page-head'><h2 id='billname'>".$patientData->title.  $patientData->patientname . ' (' . ($patientData->patientid) . ')'."</h2><button type='button' class='close' data-bs-dismiss='modal' aria-label='Close'><img src='".BASE_URL."/public/assets/images/remove.svg.' alt=''>
+        </button>
+    </div><div class='modal-body'>
+    <div class='row'>
+                        <div class='form-group col-lg-6'>Bill No <b>" . '00' . ($patientData->id) . "</b></div>
+                        <div class='form-group col-lg-6 text-right'>Bill Date : <b class='font-weight-bold '>" . (date("d-M-Y h:i:s")) . "</b></div>
+                    </div>
+                    <div class='form-row'>
                         <div class='form-group col-lg-12'>
-                        <h3>Receipt</h3>
-                            <button type='button' class='close text-danger font-weight-bold' data-bs-dismiss='modal'>×</button>
-                        </div>
-                    </div><hr>
-        <table width='100%' cellspacing='5'>
-            <thead>
-                <tr>
-                <td> Name :</td>
-                <th>" . ($patientData->title . ' ' . $patientData->patientname) . ' ( ' . ($patientData->patientid) . ' )' . "</th>
-                </tr>
-                <tr>
-                <td> Gender / Age :</td>
-                <th>" . ($patientData->gender) . ' / ' . ($patientData->age) . ($patientData->age_type) . "</th>
-                </tr>
-                <tr>
-                <td> Receipt No :</td>
-                <th>" . '00' . ($patientData->id) . "</th>
-                </tr>
-                <tr>
-                <td> Referral :</td>
-                <th>" . ($referData->referral_name) . "</th>
-                </tr>
-                <tr>
-                <td>Date & Time :</td>
-                <th>" . (date("d-M-Y h:i:s")) . "</th>
-                </tr>
-            </thead>
-        </table><hr><table width='100%'  >
+                        <div class='c-datatable'>
+                    <table width='100%' class='table'>
         <thead>
             <tr>
              <th>S.no</th>
@@ -259,24 +209,35 @@ class Report extends CI_Controller
         }
 
         $tabledata .= "<tr>
-                        <td style='text-align:center' colspan='2'>Total</td>
+        <td></td>
+                        <td>Total</td>
                         <td><b>" . ($total) . ".00</b></td>
                     </tr>
                     <tr>
-                        <td colspan='2'>Total Paid (Rs.) </td>
+                    <td></td>
+                        <td>Total Paid (Rs.) </td>
                         <td><b>" . ($billData->received_amount) . ".00</b></td>
                     </tr>
                     <tr>
-                        <td colspan='2'>Total Discount (Rs.) </td>
+                    <td></td>
+                        <td>Total Discount (Rs.) </td>
                         <td><b>" . ($billData->final_discount) . ".00</b></td>
                     </tr>
                     <tr>
-                        <td colspan='2'>Remaining Amount (Rs.) </td>
+                    <td></td>
+                        <td>Remaining Amount (Rs.) </td>
                         <td><b>" . ($total - $billData->final_discount - $billData->received_amount) . ".00</b></td>
                     </tr>
                     </tbody>
                     </table>
-                    </div></div>";
+                    </div>
+                    </div>
+                    </div>
+                    </div></div>
+                    <div class='modal-footer'>
+                    <a target='_blank'  href='printinvoice/index/".$billData->id."' class='btn custom-btn btnupdate'>Print
+                </a>
+                    </div>";
 
         echo $tabledata;
     }

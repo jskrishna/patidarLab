@@ -219,7 +219,7 @@
 						"dmobile": dmobile,
 						"daddress": daddress,
 						"commission": commission,
-						'did':did
+						'did': did
 					},
 					success: function(res) {
 						if (res.success == 0) {
@@ -1501,7 +1501,7 @@
 
 		if (localStorage.getItem('activetab')) {
 			var id = localStorage.getItem('activetab');
-			$('#'+id).click();
+			$('#' + id).click();
 		}
 
 		$("body").on('click', '.doc-model-btn', function() {
@@ -1510,28 +1510,37 @@
 			var did = $(this).data('id');
 			$('#did').val(did);
 			$("#dname,#designation,#dmobile,#daddress,#commission").val('');
-			if(did != ''){
+			if (did != '') {
 				var url = "<?php echo BASE_URL; ?>Doctor/editDetails";
-			$.ajax({
-				type: 'POST',
-				url: url,
-				dataType: 'json',
-				data: {
-					"id": did
-				},
-				success: function(res) {
-					$("#did").val(res.id);
-					$("#dname").val(res.referral_name);
-					$('#designation').val(res.designation);
-					$("#dmobile").val(res.mobile_no);
-					$("#daddress").val(res.address);
-					$("#commission").val(res.commission);
-				}
-			});
+				$.ajax({
+					type: 'POST',
+					url: url,
+					dataType: 'json',
+					data: {
+						"id": did
+					},
+					success: function(res) {
+						$("#did").val(res.id);
+						$("#dname").val(res.referral_name);
+						$('#designation').val(res.designation);
+						$("#dmobile").val(res.mobile_no);
+						$("#daddress").val(res.address);
+						$("#commission").val(res.commission);
+					}
+				});
 			}
-		});
+		}).data('ui-autocomplete')._renderItem = function(ul, item) {
+			return $("<li class='ui-autocomplete-row'></li>")
+				.data("item.autocomplete", item)
+				.append(item.patientname + ' - ' + item.patientid)
+				.appendTo(ul);
+		};
+	})
 
-		
+	$('.dropdown').hover(function() {
+		$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+	}, function() {
+		$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
 	});
 </script>
 </body>

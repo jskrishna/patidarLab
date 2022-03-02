@@ -339,7 +339,7 @@ table.dataTable.no-footer {
     box-shadow: 0px 0px 5px rgb(23 24 24 / 5%), 0px 1px 2px rgb(0 0 0 / 15%);
 }
 
-table.dataTable thead th, table.dataTable td {
+table.dataTable thead th, table.dataTable td, .table td {
     padding: 8px 11px !important;
     font-size: 13px;
     height: 35px;
@@ -642,4 +642,10 @@ table.dataTable thead .sorting {
 }
 .modal-lg, .modal-xl {
     max-width: 710px;
+}
+.c-modal .radio-group label {
+    background: #fff;
+}
+.text-right {
+    text-align: right;
 }

@@ -4,9 +4,6 @@
     <div class="layout_content_inr">
         <div class="page-head page-head-border">
             <h2>Billing</h2>
-            <?php if (isset($patientData)) { ?>
-                <button class="btn custom-btn patientedit_btn" data-bs-toggle="modal" data-id="<?php echo $patientData->id; ?>" data-bs-target="#patientEdit"> Edit Patient</button>
-            <?php } ?>
         </div>
         <?php if(isset($billData)){ ?>
             <script>
@@ -18,7 +15,7 @@
                 <div class="col-lg-12">
                     <form onsubmit="return false">
                         <?php if (isset($patientData)) { ?>
-                            <div class="report-list-head">
+                            <div class="report-list-head pt-0">
                                 <div class="patient-name-sec">
                                     <div class="name-sec-inr">
                                         <div class="name-sec-left">
@@ -70,37 +67,18 @@
                                                 <input type="hidden" name="editpatientid" id="editpatientid" value="<?php echo $patientData->id; ?>">
                                             </p>
                                         </div>
-                                        <div class="name-sec-right">
+                                        <?php if (isset($patientData)) { ?>
+                <button class="btn custom-btn patientedit_btn" data-bs-toggle="modal" data-id="<?php echo $patientData->id; ?>" data-bs-target="#patientEdit"> Edit Patient</button>
+            <?php } ?>
+                                        <!-- <div class="name-sec-right"> -->
                                         <?php if(isset($billData)){  ?>
-
-                                            <p class="edit-bill-d">
-                                        <img src="<?php echo BASE_URL ?>public/assets/images/feather-clock-active.svg" alt="">
-                                        <span><?php echo date_format(new DateTime($billData[0]->billDate), "d-m-Y"); ?></span>
                                         <input type="hidden" name="billDate" id="billDate" class="form-control" value="<?php echo date_format(new DateTime($billData[0]->billDate), "Y-m-d"); ?>" onkeydown="return false">
                                         <input type="hidden" name="time" id="time" class="form-control" value="<?php echo date_format(new DateTime($billData[0]->billDate), "H:i:s"); ?>">
-                                    </p>
-                                    <?php if ($patientData->mobile) { ?>
-                                                <p>
-                                                    <img src="<?php echo BASE_URL ?>public/assets/images/feather-phone-call.svg" alt="">
-                                                    <span><?php echo $patientData->mobile ?></span>
-                                                </p>
-                                            <?php  } ?>
                                         <?php }else{ ?>
-                                            
-                                            <p class="bill-add-d">
-                                                <img src="<?php echo BASE_URL ?>public/assets/images/feather-clock-active.svg" alt="">
-                                                <span id="bdate"></span>
                                                 <input type="hidden" readonly name="billDate" id="billDate" class="form-control" value="" onkeydown="return false">
                                                 <input type="hidden" name="time" id="time" class="form-control" value="">
-                                            </p>
-                                            <?php if ($patientData->mobile) { ?>
-                                                <p>
-                                                    <img src="<?php echo BASE_URL ?>public/assets/images/feather-phone-call.svg" alt="">
-                                                    <span><?php echo $patientData->mobile ?></span>
-                                                </p>
-                                            <?php  } ?>
                                             <?php } ?>
-                                        </div>
+                                        <!-- </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -166,12 +144,21 @@
 
                                             </table>
                                         </div>
-                                        <div class="form-footer test_save" style="display: none;">
+                                        <?php if(isset($billData)){  ?>
+                                        <div class="form-footer test_save">
                                             <input type="hidden" id="bill_id" name="bill_id" value="<?php if(isset($billData)){ echo intval($billData[0]->id); }else{ echo '';} ?>">
                                             <th colspan="4" class="text-center">
                                                 <button name="test_save" type="button" tabindex="8" id="test_save" class="btn custom-btn btn-action tab_inp">Save</button>
                                             </th>
                                         </div>
+                                        <?php } else { ?>
+                                            <div class="form-footer test_save" style="display: none;">
+                                            <input type="hidden" id="bill_id" name="bill_id" value="<?php if(isset($billData)){ echo intval($billData[0]->id); }else{ echo '';} ?>">
+                                            <th colspan="4" class="text-center">
+                                                <button name="test_save" type="button" tabindex="8" id="test_save" class="btn custom-btn btn-action tab_inp">Save</button>
+                                            </th>
+                                        </div>
+                                            <?php } ?>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="c-datatable">
