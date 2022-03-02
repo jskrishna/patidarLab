@@ -98,7 +98,7 @@
                                     <button type="button" name="add_list" id="add_list" class="btn custom-btn add-billing " value="Add" disabled="disabled">Add</button>
                                 </div>
                             </div>
-                         
+
                             <div class="form-row">
                                 <div class="col-lg-12">
                                     <div class="c-datatable">
@@ -123,7 +123,11 @@
                                                     <tr>
                                                         <td><?php echo $testData->test_name; ?></td>
                                                         <input type='hidden' name='testId[]' id='testId' value="<?php echo $testData->id; ?>" class='form-control testId' readonly>
-                                                        <td><input type='text' name='testAmount[]' id='testAmount' value=<?php echo intval($testData->amount); ?> class='form-control testAmount' readonly></td>
+                                                        <td>
+                                                            <!-- <input type='text' name='testAmount[]' id='testAmount' value=<?php //echo intval($testData->amount); ?> class='form-control testAmount' readonly> -->
+                                                            <span id="testAmount"><?php echo intval($testData->amount); ?></span>
+
+                                                        </td>
                                                         <input type='hidden' name='discountAmount[]' id='discountAmount' value=<?php echo $discountAmounts[$param]; ?> class='form-control testAmount' readonly>
                                                         <td><a href='#' class='remove_this btn btn-danger'>X</a></td>
                                                     </tr>
@@ -132,23 +136,29 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th colspan="1">Total</th>
-                                                    <th colspan="2"><input type="hidden" name="total" id="total" class="form-control" readonly="" value="<?php echo intval($billData[0]->total); ?>">
-                                                    <input type="hidden" name="discount" id="discount" class="form-control" value="<?php echo intval($billData[0]->final_discount); ?>" readonly="">
-                                                        <input type="text" name="final_total" id="final_total" class="form-control" value="<?php echo intval($billData[0]->total); ?>" readonly=""></th>
+                                                    <td colspan="1">Total</td>
+                                                    <td colspan="2"><input type="hidden" name="total" id="total" class="form-control" readonly="" value="<?php echo intval($billData[0]->total); ?>">
+                                                        <input type="hidden" name="discount" id="discount" class="form-control" value="<?php echo intval($billData[0]->final_discount); ?>" readonly="">
+                                                        <span id="final_total"><?php echo intval($billData[0]->total); ?></span>
+                                                </td>
                                                 </tr>
                                                 <tr>
                                                     <th colspan="1">
                                                         <div class="flex-w">Final Discount &nbsp;&nbsp;<input type="hidden" name="final_discount_type" id="final_discount_type" value="Amount" checked="checked">
-                                                            <div class="form-group"> <input type="number" name="f_discount" id="f_discount" value="<?php echo intval($billData[0]->final_discount); ?>" tabindex="1" class="form-control-sm number_only tab_inp"> </div>&nbsp;&nbsp;₹
+                                                        ₹ &nbsp; &nbsp;
+                                                            <div class="form-group">
+                                                                <input type="number" name="f_discount" id="f_discount" value="<?php echo intval($billData[0]->final_discount); ?>" tabindex="1" class="form-control-sm number_only tab_inp">
+                                                            </div>
                                                         </div>
                                                     </th>
-                                                    <th colspan="2"><input type="text" name="final_discount" value="<?php echo intval($billData[0]->final_discount); ?>" id="final_discount" class="form-control" readonly=""></th>
+                                                    <td colspan="2">
+                                                        <span id="final_discount"><?php echo intval($billData[0]->final_discount); ?></span>
+                                                </td>
                                                 </tr>
                                                 <tr>
                                                     <th colspan="1">Grand Total</th>
                                                     <th colspan="2">
-                                                        <input type="text" name="grand_total" id="grand_total" class="form-control" value="<?php echo intval($billData[0]->balance); ?>" readonly>
+                                                        <span id="grand_total"><?php echo intval($billData[0]->balance); ?></span>
                                                     </th>
                                                 </tr>
                                                 <input type="hidden" name="paid" id="paid" value="0" class="form-control number_only tab_inp" tabindex="6">
@@ -166,11 +176,22 @@
                                                             <option <?php if ($billData[0]->payment_mode == 'Cash') {
                                                                         echo 'selected';
                                                                     } ?> value="Cash">Cash</option>
-                                                                     <option <?php if ($billData[0]->payment_mode == 'PhonePe') {
+                                                            <option <?php if ($billData[0]->payment_mode == 'PhonePe') {
                                                                         echo 'selected';
-                                                                    } ?> value="PhonePe">PhonePe UPI</option>
+                                                                   } ?> value="PhonePe">PhonePe UPI</option>
                                                         </select>
-                                                    </th>
+                                                      <div class="radio-wrap">
+                                                      <span class="radio-group">
+                                                            <input type="radio" id="payment_due" name="payment_mode" value="Due" checked> <label for="payment_due">Due </label>
+                                                        </span>
+                                                        <span class="radio-group">
+                                                            <input type="radio" id="payment_cash" name="payment_mode" value="Cash"> <label for="payment_cash">Cash </label>
+                                                        </span>
+                                                        <span class="radio-group">
+                                                            <input type="radio" id="payment_upi" name="payment_mode" value="PhonePe"> <label for="payment_upi">PhonePe UPI </label>
+                                                        </span>
+                                                      </div>
+                                                             </th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -187,22 +208,14 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="selectTest">
+    <div class="c-modal modal fade" id="selectTest">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <h5 class="modal-title" id="exampleModalLabel">Select Test</h5>
-                            </div>
-                            <div class="col-lg-4 text-right">
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-bs-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="page-head">
+                    <h5 class="modal-title" id="exampleModalLabel">Select Test</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <img src="<?php echo BASE_URL ?>public/assets/images/remove.svg" alt="">
+                    </button>
                 </div>
                 <form id="test_selected">
                     <div class="modal-body">
