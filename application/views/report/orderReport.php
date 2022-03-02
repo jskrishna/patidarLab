@@ -43,9 +43,9 @@
                                     <p>
                                         <label for="">Patient ID:</label><span><?php echo $patientData->patientid; ?></span>
                                     </p>
-                                    <p><label for="">Patient Create date:</label> <span><?php echo $patientData->created_at; ?></span></p>
+                                    <!-- <p><label for="">Patient Create:</label> <span><?php //echo $patientData->created_at; ?></span></p> -->
                                     <p>
-                                        <label for="">Referred by:</label>
+                                        <label for="">Referred By:</label>
                                         <span class="text-capitalize"><?php echo $doctorsData->referral_name; ?></span>
                                     </p>
                                 </div>
@@ -54,10 +54,12 @@
                                         <img src="<?php echo BASE_URL ?>public/assets/images/feather-clock-active.svg" alt="">
                                         <span><?php echo date_format(new DateTime($billData->billDate), "d-M-Y"); ?></span>
                                     </p>
-                                    <p>
-                                        <img src="<?php echo BASE_URL ?>public/assets/images/feather-phone-call.svg" alt="">
-                                        <span><?php echo $patientData->mobile ?></span>
-                                    </p>
+                                    <?php if ($patientData->mobile) { ?>
+                                        <p>
+                                            <img src="<?php echo BASE_URL ?>public/assets/images/feather-phone-call.svg" alt="">
+                                            <span><?php echo $patientData->mobile ?></span>
+                                        </p>
+                                    <?php  } ?>
                                 </div>
                             </div>
                         </div>
@@ -166,12 +168,12 @@
                                         </th>
                                     </tr>
                                     <tr class="border-0">
-                                    <th colspan="4">
-                                    <div class="check-group">
+                                        <th colspan="4">
+                                            <div class="check-group">
                                                 <input type="checkbox" class="" id="print_header" name="print_header" value="Yes" checked>
                                                 <label for="print_header">Print Report With Header</label>
                                             </div>
-                                    </th>
+                                        </th>
                                     </tr>
                                     <tr>
                                         <th>
@@ -196,11 +198,8 @@
                                 ?>
                                 <tbody id="testArea" class="ui-sortable">
                                     <?php foreach ($testIds as $test) {
-
                                         $checkData = $this->Report_model->getreportDataByBIllandTestId($billData->id, $test);
-
                                         if (!empty($checkData)) {
-
                                             $btn = true;
                                             $testData = $pxthis->Report_model->getTestByID($test);
                                             $testData = $testData[0]; ?>
@@ -223,10 +222,9 @@
                                                     <input type="hidden" value="<?php echo $patientData->id; ?>" id="patientID" name="patientID">
                                                 </td>
                                                 <td>
-                                                    <button type="button" class="btn btnupdate review-btn" data-id="<?php echo $testData->id; ?>" id="sub<?php echo $testData->id; ?>">Review</button>
+                                                    <button type="button" class="btnupdate review-btn bill_settle" data-id="<?php echo $testData->id; ?>" id="sub<?php echo $testData->id; ?>">Review</button>
                                                 </td>
                                             </tr>
-
                                     <?php }
                                     } ?>
                                     <input type="hidden" name="payment_status1" id="payment_status1" value="<?php echo $billData->status; ?>">

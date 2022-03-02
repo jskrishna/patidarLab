@@ -26,7 +26,7 @@ class Test extends CI_Controller
             $test_amount = $this->input->post('test_amount');
             $test_status = $this->input->post('test_status');
 
-            $add = $this->Test_model->addtest($department, $testName, $test_amount ,$test_status);
+            $add = $this->Test_model->addtest($department, $testName, $test_amount, $test_status);
 
             if ($add) {
                 $resultss = array('success' => 1, 'msg' => 'Test Added.', 'redirect_url' => '');
@@ -96,19 +96,17 @@ class Test extends CI_Controller
         if (!empty($department)) {
             $data = $this->Test_model->getTestByDepartment($department);
             if (count($data) > 0) {
-
-                $ulData = "<ul class='nav' style='overflow-y: scroll; height:350px;'>";
-
+                $ulData = "<ul class='test-list'>";
                 foreach ($data as $dd) {
                     if ($test && in_array($dd->id, $test)) {
-                        $ulData .= "<li class='nav-item' style='width:100%; padding:5;'><input type='checkbox' checked='true' disabled name='test_list[]' id='test_list' class='check_list' value='" . $dd->id . "'>" . $dd->test_name . "</li>";
+                        $ulData .= "<li class='check-group'><input type='checkbox' checked='true' disabled name='test_list[]' id='test_list" . $dd->id . "' class='check_list' value='" . $dd->id . "'><label for='test_list" . $dd->id . "'>" . $dd->test_name . "</label></li>";
                     } else {
-                        $ulData .= "<li class='nav-item' style='width:100%; padding:5;'><input type='checkbox' name='test_list[]' id='test_list' class='check_list' value='" . $dd->id . "'>" . $dd->test_name . "</li>";
+                        $ulData .= "<li class='check-group'><input type='checkbox' name='test_list[]' id='test_list" . $dd->id . "' class='check_list' value='" . $dd->id . "'><label for='test_list" . $dd->id . "'>" . $dd->test_name . "</label></li>";
                     }
                 }
                 $ulData .= "</ul>";
             } else {
-                $ulData = '<ul class="nav" style="overflow-y: scroll; height:350px;"><h6>No Test Found </h6></ul>';
+                $ulData = '<ul class="test-list"><h6>No Test Found </h6></ul>';
             }
             echo json_encode($ulData);
             exit;

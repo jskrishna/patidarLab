@@ -47,7 +47,7 @@
                                     <p>
                                         <label for="">Patient ID:</label><span><?php echo $patientData->patientid; ?></span>
                                     </p>
-                                    <p><label for="">Patient Create date:</label> <span><?php echo $patientData->created_at; ?></span></p>
+                                    <p><label for="">Bill:</label> <span><?php echo date_format(new DateTime($billData[0]->billDate), "d-m-Y"); ?></span></p>
                                     <p>
                                         <label for="">Referred by:</label>
                                         <input type="hidden" name="patientRefId" id="patientRefId" value="<?php echo $patientData->refered_by; ?>" class="form-control">
@@ -55,22 +55,24 @@
                                             if ($doctor->id == $patientData->refered_by) {
                                         ?>
                                                 <span class="text-capitalize"><?php echo $doctor->referral_name; ?></span>
-                                                <!-- <input type="text" name="patientRef" id="patientRef" class="form-control ui-autocomplete-input" value="<?php echo $doctor->referral_name; ?>" autocomplete="off"> -->
+                                                <!-- <input type="text" name="patientRef" id="patientRef" class="form-control ui-autocomplete-input" value="<?php //echo $doctor->referral_name; ?>" autocomplete="off"> -->
                                         <?php }
                                         } ?>
                                     </p>
                                 </div>
                                 <div class="name-sec-right">
-                                    <p class="edit-bill-d">
-                                        <img src="<?php echo BASE_URL ?>public/assets/images/feather-clock-active.svg" alt="">
-                                        <span><?php echo date_format(new DateTime($billData[0]->billDate), "d-m-Y"); ?></span>
-                                        <input type="hidden" name="billDate" id="billDate" class="form-control" value="<?php echo date_format(new DateTime($billData[0]->billDate), "Y-m-d"); ?>" onkeydown="return false">
-                                        <input type="hidden" name="time" id="time" class="form-control" value="<?php echo date_format(new DateTime($billData[0]->billDate), "H:i:s"); ?>">
-                                    </p>
-                                    <p>
-                                        <img src="<?php echo BASE_URL ?>public/assets/images/feather-phone-call.svg" alt="">
-                                        <span><?php echo $patientData->mobile ?></span>
-                                    </p>
+                                    <!-- <p class="edit-bill-d">
+                                        <img src="<?php //echo BASE_URL ?>public/assets/images/feather-clock-active.svg" alt="">
+                                        <span><?php //echo date_format(new DateTime($billData[0]->billDate), "d-m-Y"); ?></span>
+                                        <input type="hidden" name="billDate" id="billDate" class="form-control" value="<?php //echo date_format(new DateTime($billData[0]->billDate), "Y-m-d"); ?>" onkeydown="return false">
+                                        <input type="hidden" name="time" id="time" class="form-control" value="<?php //echo date_format(new DateTime($billData[0]->billDate), "H:i:s"); ?>">
+                                    </p> -->
+                                    <?php if ($patientData->mobile) { ?>
+                                        <p>
+                                            <img src="<?php echo BASE_URL ?>public/assets/images/feather-phone-call.svg" alt="">
+                                            <span><?php echo $patientData->mobile ?></span>
+                                        </p>
+                                    <?php  } ?>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +100,6 @@
                                     <button type="button" name="add_list" id="add_list" class="btn custom-btn add-billing " value="Add" disabled="disabled">Add</button>
                                 </div>
                             </div>
-
                             <div class="form-row">
                                 <div class="col-lg-12">
                                     <div class="c-datatable">
@@ -124,7 +125,8 @@
                                                         <td><?php echo $testData->test_name; ?></td>
                                                         <input type='hidden' name='testId[]' id='testId' value="<?php echo $testData->id; ?>" class='form-control testId' readonly>
                                                         <td>
-                                                            <!-- <input type='text' name='testAmount[]' id='testAmount' value=<?php //echo intval($testData->amount); ?> class='form-control testAmount' readonly> -->
+                                                            <!-- <input type='text' name='testAmount[]' id='testAmount' value=<?php //echo intval($testData->amount); 
+                                                                                                                                ?> class='form-control testAmount' readonly> -->
                                                             <span id="testAmount"><?php echo intval($testData->amount); ?></span>
 
                                                         </td>
@@ -140,12 +142,12 @@
                                                     <td colspan="2"><input type="hidden" name="total" id="total" class="form-control" readonly="" value="<?php echo intval($billData[0]->total); ?>">
                                                         <input type="hidden" name="discount" id="discount" class="form-control" value="<?php echo intval($billData[0]->final_discount); ?>" readonly="">
                                                         <span id="final_total"><?php echo intval($billData[0]->total); ?></span>
-                                                </td>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <th colspan="1">
                                                         <div class="flex-w">Final Discount &nbsp;&nbsp;<input type="hidden" name="final_discount_type" id="final_discount_type" value="Amount" checked="checked">
-                                                        ₹ &nbsp; &nbsp;
+                                                            ₹ &nbsp; &nbsp;
                                                             <div class="form-group">
                                                                 <input type="number" name="f_discount" id="f_discount" value="<?php echo intval($billData[0]->final_discount); ?>" tabindex="1" class="form-control-sm number_only tab_inp">
                                                             </div>
@@ -153,7 +155,7 @@
                                                     </th>
                                                     <td colspan="2">
                                                         <span id="final_discount"><?php echo intval($billData[0]->final_discount); ?></span>
-                                                </td>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <th colspan="1">Grand Total</th>
@@ -163,7 +165,6 @@
                                                 </tr>
                                                 <input type="hidden" name="paid" id="paid" value="0" class="form-control number_only tab_inp" tabindex="6">
                                                 <input type="hidden" name="balance" id="balance" class="form-control" readonly="" value="<?php echo intval($billData[0]->balance); ?>">
-
                                                 <tr>
                                                     <th colspan="1">Payment Mode
                                                         <span class="text-danger">*</span>
@@ -178,20 +179,20 @@
                                                                     } ?> value="Cash">Cash</option>
                                                             <option <?php if ($billData[0]->payment_mode == 'PhonePe') {
                                                                         echo 'selected';
-                                                                   } ?> value="PhonePe">PhonePe UPI</option>
+                                                                    } ?> value="PhonePe">PhonePe UPI</option>
                                                         </select>
-                                                      <div class="radio-wrap">
-                                                      <span class="radio-group">
-                                                            <input type="radio" id="payment_due" name="payment_mode" value="Due" checked> <label for="payment_due">Due </label>
-                                                        </span>
-                                                        <span class="radio-group">
-                                                            <input type="radio" id="payment_cash" name="payment_mode" value="Cash"> <label for="payment_cash">Cash </label>
-                                                        </span>
-                                                        <span class="radio-group">
-                                                            <input type="radio" id="payment_upi" name="payment_mode" value="PhonePe"> <label for="payment_upi">PhonePe UPI </label>
-                                                        </span>
-                                                      </div>
-                                                             </th>
+                                                        <div class="radio-wrap">
+                                                            <span class="radio-group">
+                                                                <input type="radio" id="payment_due" name="payment_mode" value="Due" checked> <label for="payment_due">Due </label>
+                                                            </span>
+                                                            <span class="radio-group">
+                                                                <input type="radio" id="payment_cash" name="payment_mode" value="Cash"> <label for="payment_cash">Cash </label>
+                                                            </span>
+                                                            <span class="radio-group">
+                                                                <input type="radio" id="payment_upi" name="payment_mode" value="PhonePe"> <label for="payment_upi">PhonePe UPI </label>
+                                                            </span>
+                                                        </div>
+                                                    </th>
                                                 </tr>
                                             </tfoot>
                                         </table>
@@ -208,11 +209,11 @@
             </div>
         </div>
     </div>
-    <div class="c-modal modal fade" id="selectTest">
+    <div class="c-modal modal center fade" id="selectTest">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="page-head">
-                    <h5 class="modal-title" id="exampleModalLabel">Select Test</h5>
+                    <h2 id="exampleModalLabel">Select Test</h2>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <img src="<?php echo BASE_URL ?>public/assets/images/remove.svg" alt="">
                     </button>
@@ -222,7 +223,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn custom-btn btnupdate" id="bottom" onclick="selectTest()">Submit</button>
-                        <button type="button" class="btn custom-btn btn-danger" data-bs-dismiss="modal">Close</button>
                     </div>
                 </form>
             </div>

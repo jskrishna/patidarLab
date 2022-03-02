@@ -711,7 +711,7 @@
 			day = '0' + day;
 		}
 
-		var today = year + "-" + month + "-" + day;
+		var today = day + "-" + month + "-" + year;
 		var time = output.getHours() + ":" + output.getMinutes() + ":" + output.getSeconds();
 		$(".bill-add-d #billDate").val(today);
 		$(".bill-add-d #time").val(time);
@@ -1368,7 +1368,7 @@
 	}
 
 	// select 2 js
-	$("#searchPatientId").select2();
+	// $("#searchPatientId").select2();
 	$('#patientRefAdd').select2();
 	$(document).on('select2:open', () => {
 		document.querySelector('.select2-search__field').focus();
@@ -1378,11 +1378,11 @@
 		dropdownParent: $('#patientEdit')
 	});
 
-	$('#searchPatientId').on('change', function() {
-		var id = this.value;
-		$('#search_patient_id').val(id);
-		$('#searchPatient').click();
-	});
+	// $('#searchPatientId').on('change', function() {
+	// 	var id = this.value;
+	// 	$('#search_patient_id').val(id);
+	// 	$('#searchPatient').click();
+	// });
 
 	$('#patientRef').on('change', function() {
 		var id = this.value;
@@ -1426,6 +1426,27 @@
 		}
 
 	});
+
+	$('#searchPatientId').keypress(function() {
+		$('#searchPatientId').autocomplete({
+			source: "<?php echo BASE_URL; ?>patient/searchPatient",
+			minLength: 1,
+			max: 10,
+			scroll: true,
+			autoFocus: true,
+			select: function(event, ui) {
+				event.preventDefault();
+				$('#search_patient_id').val(ui.item.id);
+				$('#searchPatientId').val(ui.item.patientname);
+				$('#searchPatient').click();
+			}
+		}).data('ui-autocomplete')._renderItem = function(ul, item) {
+			return $("<li class='ui-autocomplete-row'></li>")
+				.data("item.autocomplete", item)
+				.append(item.patientname + ' - ' + item.patientid)
+				.appendTo(ul);
+		};
+	})
 </script>
 </body>
 

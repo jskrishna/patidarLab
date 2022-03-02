@@ -160,15 +160,11 @@
                                                     <?php }
                                                     } ?>
                                                 </li>
-                                             
                                                 <li>
                                                     <a data-toggle="tooltip" data-placement="top" title="Print Report" href="report/orderReport/<?php echo $report->id; ?>" class="btn btn-sml btn-print">
                                                         <img src="<?php echo BASE_URL ?>public/assets/images/icon-report.svg" alt="">
                                                     </a>
                                                 </li>
-                                          
-                                               
-
                                             </ul>
                                         </td>
                                     </tr>
@@ -181,7 +177,7 @@
         </div>
         </div>
         <!-- //payment model  -->
-        <div class="modal fade" id="bill_settlement" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="c-modal modal center fade" id="bill_settlement" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                 </div>

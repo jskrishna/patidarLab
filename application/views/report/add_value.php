@@ -47,7 +47,7 @@
                                 <p>
                                     <label for="">Patient ID:</label><span><?php echo $patientData->patientid; ?></span>
                                 </p>
-                                <p><label for="">Patient Create date:</label> <span><?php echo $patientData->created_at; ?></span></p>
+                                <!-- <p><label for="">Patient Create date:</label> <span><?php //echo $patientData->created_at; ?></span></p> -->
                                 <p>
                                     <label for="">Referred by:</label>
                                     <span class="text-capitalize"><?php echo $doctorData->referral_name; ?></span>
@@ -58,10 +58,12 @@
                                     <img src="<?php echo BASE_URL ?>public/assets/images/feather-clock-active.svg" alt="">
                                     <span><?php echo date_format(new DateTime($billData->billDate), "d-M-Y"); ?></span>
                                 </p>
+                                <?php if ($patientData->mobile) { ?>
                                 <p>
                                     <img src="<?php echo BASE_URL ?>public/assets/images/feather-phone-call.svg" alt="">
                                     <span><?php echo $patientData->mobile ?></span>
                                 </p>
+                                <?php  } ?>
                             </div>
                         </div>
                     </div>
