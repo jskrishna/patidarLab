@@ -56,11 +56,14 @@
         if (isset($collapse) && $collapse == 'Yes') {
             $departmentarray_unique = array_unique($departmentArray);
 
+            // if($selecetdtestArray[$key] == '1'){
+            //     $mpdf->AddPage();
+            //         }
+
             foreach ($departmentarray_unique as $p => $departmentId) {
 
                 $departData = $this->Outputpdf_model->getdepartmentByID($departmentId);
                 $departName = $departData[0]->department;
-
 
                 $tabledata = "<main>
                 <table width='100%' cellspacing='5'>
@@ -94,7 +97,7 @@
                         </tr>
                     </thead>
                 </table><hr>
-                <table width='100%' cellspacing='5'>
+                <table width='100%' cellspacing='5' >
                     <thead>
                         <tr>
                          <th colspan='3'><h3>" . ($departName) . "</h3></th>
@@ -113,6 +116,7 @@
                 $arkey = array_keys($departmentArray, $departmentId);
                 foreach ($arkey as $key) {
 
+                  
                     $testData = $this->Outputpdf_model->getTestByID($selecetdtestArray[$key]);
                     $testName = $testData[0]->test_name . '<br>';
                     $tabledata .= "<tr>
@@ -163,6 +167,7 @@
                                                 <td>" . ($minmaxunit) . "</td>
                                             </tr>";
                     }
+
                 }
                 $tabledata .= '</tbody>
                 </table>';

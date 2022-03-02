@@ -185,6 +185,62 @@
 			return false;
 		});
 
+		$('#addDoctor').click(function() {
+			var $btn = $(this);
+			var submit_form = true;
+			$('#add_doctor .required').each(function() {
+				if ($(this).val() == "" && !$(this).val()) {
+					$(this).focus();
+					$(this).parent('.form-group').addClass('error');
+					$(this).siblings('.error').show();
+					submit_form = false;
+				} else {
+					$(this).siblings('.error').hide();
+					$(this).parent('.form-group').removeClass('error');
+				}
+			});
+
+			var dname = $("#dname").val();
+			var designation = $("#designation").val();
+			var dmobile = $("#dmobile").val();
+			var daddress = $("#daddress").val();
+			var commission = $("#commission").val();
+			var did = $("#did").val();
+
+			var storeUrl = '<?php echo BASE_URL; ?>Doctor/store';
+			if (submit_form) {
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: storeUrl,
+					data: {
+						"dname": dname,
+						"designation": designation,
+						"dmobile": dmobile,
+						"daddress": daddress,
+						"commission": commission,
+						'did':did
+					},
+					success: function(res) {
+						if (res.success == 0) {
+							$(".errorTxt").removeClass("text-success");
+							$(".errorTxt").addClass("text-danger");
+							$(".errorTxt").html(res.msg);
+						} else {
+							$(".errorTxt").removeClass("text-danger");
+							$(".errorTxt").addClass("text-success");
+							$(".errorTxt").html(res.msg);
+							location.reload();
+						}
+					}
+
+				});
+			}
+			return false;
+		});
+
+
+
 
 		function isEmail(email) {
 			var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -1203,7 +1259,7 @@
 
 		// pay model
 		$("body").on('click', '#postValue', function() {
-			
+
 			$("#add_balance").attr("disabled", "disabled");
 			var bill_id = $("#bill_id").val();
 			var balance = $("#balance").val();
@@ -1260,18 +1316,6 @@
 			}
 		});
 
-		// $('.single-select label').click(function() {
-		// 	if ($(this).find('.chkbox').is(':checked')) {
-		// 		$(this).prop('checked', false);
-		// 		$('#submit_report').attr('disabled', 'disabled');
-		// 	} else {
-		// 		$(this).find('.chkbox').prop('checked', true);
-		// 		$('#submit_report').removeAttr('disabled', 'disabled');
-		// 	}
-		// })
-
-		
-
 		// review btn 
 		$("body").on('click', '.review-btn', function() {
 
@@ -1286,167 +1330,209 @@
 		$("#submit_report").click(function() {
 			$("#report").submit();
 		});
-	});
 
-	$(".report-filter li").on('click', function() {
-		$(".report-filter li").removeClass('active');
-		$(this).addClass('active');
-	});
+		$('#update_profile').click(function() {
+			var submit_form = true;
+			$('#profile .required').each(function() {
+				if ($(this).val() == "" && !$(this).val()) {
+					$(this).focus();
+					$(this).parent('.form-group').addClass('error');
+					$(this).siblings('.error').show();
+					submit_form = false;
+				} else {
+					$(this).siblings('.error').hide();
+					$(this).parent('.form-group').removeClass('error');
+				}
+			});
 
+			var formData = new FormData($('#profile-form')[0]);
 
-	$('#update_profile').click(function() {
-		var submit_form = true;
-		$('#profile .required').each(function() {
-			if ($(this).val() == "" && !$(this).val()) {
-				$(this).focus();
-				$(this).parent('.form-group').addClass('error');
-				$(this).siblings('.error').show();
-				submit_form = false;
-			} else {
-				$(this).siblings('.error').hide();
-				$(this).parent('.form-group').removeClass('error');
+			var updateurl = '<?php echo BASE_URL; ?>Users/update';
+			if (submit_form) {
+				$.ajax({
+					type: "POST",
+					url: updateurl,
+					processData: false,
+					contentType: false,
+					data: formData,
+					success: function(res) {
+						if (res.success == 0) {
+							$(".errorTxt").removeClass("text-success");
+							$(".errorTxt").addClass("text-danger");
+							$(".errorTxt").html(res.msg);
+							alert('Something went wrong');
+						} else {
+							$(".errorTxt").removeClass("text-danger");
+							$(".errorTxt").addClass("text-success");
+							$(".errorTxt").html(res.msg);
+
+						}
+					}
+
+				});
 			}
+			return false;
 		});
+		// onload select 
 
-		var formData = new FormData($('#profile-form')[0]);
+		onloadSelect();
 
-		var updateurl = '<?php echo BASE_URL; ?>Users/update';
-		if (submit_form) {
+		function onloadSelect() {
 			$.ajax({
 				type: "POST",
-				url: updateurl,
-				processData: false,
-				contentType: false,
-				data: formData,
+				url: '<?php echo BASE_URL; ?>Patient/patientList',
+				dataType: "json",
 				success: function(res) {
-					if (res.success == 0) {
-						$(".errorTxt").removeClass("text-success");
-						$(".errorTxt").addClass("text-danger");
-						$(".errorTxt").html(res.msg);
-						alert('Something went wrong');
-					} else {
-						$(".errorTxt").removeClass("text-danger");
-						$(".errorTxt").addClass("text-success");
-						$(".errorTxt").html(res.msg);
-
-					}
+					$('#searchPatientId').append(res);
+				},
+				error: function(err) {
+					alert('Something went wrong');
 				}
+			});
 
+			$.ajax({
+				type: "POST",
+				url: '<?php echo BASE_URL; ?>Doctor/referedList',
+				dataType: "json",
+				success: function(res) {
+					$('#patientRef').append(res);
+					$('#patientRefAdd').append(res);
+				},
+				error: function(err) {
+					alert('Something went wrong');
+				}
 			});
 		}
-		return false;
-	});
-	// onload select 
 
-	onloadSelect();
+		// select 2 js
+		// $("#searchPatientId").select2();
+		$('#patientRefAdd').select2();
+		$(document).on('select2:open', () => {
+			document.querySelector('.select2-search__field').focus();
+		});
 
-	function onloadSelect() {
-		$.ajax({
-			type: "POST",
-			url: '<?php echo BASE_URL; ?>Patient/patientList',
-			dataType: "json",
-			success: function(res) {
-				$('#searchPatientId').append(res);
-			},
-			error: function(err) {
-				alert('Something went wrong');
+		$("#patientRef").select2({
+			dropdownParent: $('#patientEdit')
+		});
+
+		// $('#searchPatientId').on('change', function() {
+		// 	var id = this.value;
+		// 	$('#search_patient_id').val(id);
+		// 	$('#searchPatient').click();
+		// });
+
+		$('#patientRef').on('change', function() {
+			var id = this.value;
+			$('#refered_by_name').val(id);
+		});
+		$('#patientRefAdd').on('change', function() {
+			var id = this.value;
+			$('#refered_by_nameAdd').val(id);
+		});
+
+		// highlight 
+		$(".call").keyup(function() {
+
+			var id = (this.id);
+			var id = id.substring(10, 200);
+			var actual_value = $(this).val();
+			var min_range = $("#min_range" + id).val();
+			var max_range = $("#max_range" + id).val();
+			if (min_range != '' || max_range != '') {
+				if (Number(actual_value) > Number(max_range) || Number(actual_value) < Number(min_range)) {
+					$(this).css("border", "1px solid red");
+					$("#highlight" + id).prop('checked', true);
+					$("#checkValue" + id).val('Yes');
+				} else {
+					$(this).css("border", "1px solid lightgray");
+					$("#highlight" + id).prop('checked', false);
+					$("#checkValue" + id).val('No');
+				}
 			}
 		});
 
-		$.ajax({
-			type: "POST",
-			url: '<?php echo BASE_URL; ?>Doctor/referedList',
-			dataType: "json",
-			success: function(res) {
-				$('#patientRef').append(res);
-				$('#patientRefAdd').append(res);
-			},
-			error: function(err) {
-				alert('Something went wrong');
-			}
-		});
-	}
-
-	// select 2 js
-	// $("#searchPatientId").select2();
-	$('#patientRefAdd').select2();
-	$(document).on('select2:open', () => {
-		document.querySelector('.select2-search__field').focus();
-	});
-
-	$("#patientRef").select2({
-		dropdownParent: $('#patientEdit')
-	});
-
-	// $('#searchPatientId').on('change', function() {
-	// 	var id = this.value;
-	// 	$('#search_patient_id').val(id);
-	// 	$('#searchPatient').click();
-	// });
-
-	$('#patientRef').on('change', function() {
-		var id = this.value;
-		$('#refered_by_name').val(id);
-	});
-	$('#patientRefAdd').on('change', function() {
-		var id = this.value;
-		$('#refered_by_nameAdd').val(id);
-	});
-
-	// highlight 
-	$(".call").keyup(function() {
-
-		var id = (this.id);
-		var id = id.substring(10, 200);
-		var actual_value = $(this).val();
-		var min_range = $("#min_range" + id).val();
-		var max_range = $("#max_range" + id).val();
-		if (min_range != '' || max_range != '') {
-			if (Number(actual_value) > Number(max_range) || Number(actual_value) < Number(min_range)) {
-				$(this).css("border", "1px solid red");
-				$("#highlight" + id).prop('checked', true);
+		$(".high").click(function() {
+			var id = (this.id);
+			var id = id.substring(9, 20);
+			if ($("#highlight" + id).prop('checked') == true) {
 				$("#checkValue" + id).val('Yes');
-			} else {
-				$(this).css("border", "1px solid lightgray");
-				$("#highlight" + id).prop('checked', false);
+				$("#inputValue" + id).css("border", "1px solid red");
+			} else if ($("#highlight" + id).prop('checked') == false) {
 				$("#checkValue" + id).val('No');
+				$("#inputValue" + id).css("border", "1px solid lightgray");
 			}
+
+		});
+
+		$('#searchPatientId').keypress(function() {
+			$('#searchPatientId').autocomplete({
+				source: "<?php echo BASE_URL; ?>patient/searchPatient",
+				minLength: 1,
+				max: 10,
+				scroll: true,
+				autoFocus: true,
+				select: function(event, ui) {
+					event.preventDefault();
+					$('#search_patient_id').val(ui.item.id);
+					$('#searchPatientId').val(ui.item.patientname);
+					$('#searchPatient').click();
+				}
+			}).data('ui-autocomplete')._renderItem = function(ul, item) {
+				return $("<li class='ui-autocomplete-row'></li>")
+					.data("item.autocomplete", item)
+					.append(item.patientname + ' - ' + item.patientid)
+					.appendTo(ul);
+			};
+		})
+
+		$('ul.tabs li').click(function() {
+			var tab_id = $(this).attr('data-tab');
+			$('ul.tabs li').removeClass('active');
+			$('.tab-content').removeClass('active');
+
+			$(this).addClass('active');
+			$("#" + tab_id).addClass('active');
+		})
+
+		$("body").on('click', '.tabs li', function() {
+			var tabid = $(this).attr('id');
+			localStorage.setItem('activetab', tabid);
+		})
+
+		if (localStorage.getItem('activetab')) {
+			var id = localStorage.getItem('activetab');
+			$('#'+id).click();
 		}
-	});
 
-	$(".high").click(function() {
-		var id = (this.id);
-		var id = id.substring(9, 20);
-		if ($("#highlight" + id).prop('checked') == true) {
-			$("#checkValue" + id).val('Yes');
-			$("#inputValue" + id).css("border", "1px solid red");
-		} else if ($("#highlight" + id).prop('checked') == false) {
-			$("#checkValue" + id).val('No');
-			$("#inputValue" + id).css("border", "1px solid lightgray");
-		}
-
-	});
-
-	$('#searchPatientId').keypress(function() {
-		$('#searchPatientId').autocomplete({
-			source: "<?php echo BASE_URL; ?>patient/searchPatient",
-			minLength: 1,
-			max: 10,
-			scroll: true,
-			autoFocus: true,
-			select: function(event, ui) {
-				event.preventDefault();
-				$('#search_patient_id').val(ui.item.id);
-				$('#searchPatientId').val(ui.item.patientname);
-				$('#searchPatient').click();
+		$("body").on('click', '.doc-model-btn', function() {
+			var model_title = $(this).data('title');
+			$('#doc-title').html(model_title);
+			var did = $(this).data('id');
+			$('#did').val(did);
+			$("#dname,#designation,#dmobile,#daddress,#commission").val('');
+			if(did != ''){
+				var url = "<?php echo BASE_URL; ?>Doctor/editDetails";
+			$.ajax({
+				type: 'POST',
+				url: url,
+				dataType: 'json',
+				data: {
+					"id": did
+				},
+				success: function(res) {
+					$("#did").val(res.id);
+					$("#dname").val(res.referral_name);
+					$('#designation').val(res.designation);
+					$("#dmobile").val(res.mobile_no);
+					$("#daddress").val(res.address);
+					$("#commission").val(res.commission);
+				}
+			});
 			}
-		}).data('ui-autocomplete')._renderItem = function(ul, item) {
-			return $("<li class='ui-autocomplete-row'></li>")
-				.data("item.autocomplete", item)
-				.append(item.patientname + ' - ' + item.patientid)
-				.appendTo(ul);
-		};
-	})
+		});
+
+		
+	});
 </script>
 </body>
 
