@@ -242,10 +242,10 @@
 			var grandTotal = total - discount;
 			$("#total").val(total);
 			$("#discount").val(discount);
-			$("#final_total").val(grandTotal);
+			$("#final_total").html(grandTotal);
 
 			var f_discount = $("#f_discount").val();
-			$("#final_discount").val(f_discount);
+			$("#final_discount").html(f_discount);
 			var final_discount = f_discount;
 			var advance = $("#advance").val();
 			if (advance == '') {
@@ -262,7 +262,7 @@
 			finaAmount = Number(gTotal);
 
 			$("#total").val(finAmount);
-			$("#grand_total").val(finAmount);
+			$("#grand_total").html(finAmount);
 			if ('NO' == 'YES' && '' == 'ENABLED') {
 				$("#advance").val(finAmount);
 			}
@@ -301,7 +301,7 @@
 		//discount
 		function discount() {
 			var discount = $('#discount').val();
-			var final_discount = $("#final_discount").val();
+			var final_discount = $("#final_discount").html();
 			if (final_discount = '') {
 				final_discount = 0;
 			}
@@ -880,7 +880,7 @@
 				var discountAmount = 0;
 				var discountAmount1 = 0;
 				var nameTest = $("#nameTest").val();
-				$("#testRequest").append("<tr><td>" + nameTest + "<input type='hidden' name='testId[]' id='testId' value=" + testId + " class='form-control testId' readonly></td><td><input type='text' name='testAmount[]' id='testAmount' value=" + testAmount + " class='form-control testAmount' readonly><input type='hidden' name='discount_value[]' id='discount_value' value='" + discountAmount1 + "'><input type='hidden' name='discountAmount[]' id='discountAmount' value=" + discountAmount + " class='form-control testAmount' readonly></td><td><a href='#' class='remove_this btn btn-danger'>X</a></td></tr>");
+				$("#testRequest").append("<tr><td>" + nameTest + "<input type='hidden' name='testId[]' id='testId' value=" + testId + " class='form-control testId' readonly></td><td><input class='testAmount' type='text' name='testAmount[]' id='testAmount' value=" + testAmount + " class='form-control testAmount' readonly> <input type='hidden' name='discount_value[]' id='discount_value' value='" + discountAmount1 + "'><input type='hidden' name='discountAmount[]' id='discountAmount' value=" + discountAmount + " class='form-control testAmount' readonly></td><td><a href='javascript:void(0)' class='remove_this'><img src='<?php echo BASE_URL ?>public/assets/images/remove-white.svg' alt=''></a></td></tr>");
 				$("#test_id").val('');
 				$("#test_amount").val('');
 				$("#test_expanses").val('');
@@ -968,14 +968,14 @@
 			test = [];
 			$("#testRequest").empty();
 			$("#balance").val('');
-			$("#grand_total").val('');
+			$("#grand_total").html(0);
 			$("#advance").val('');
 		});
 
 		$("#f_discount").keyup(function() {
 			discount();
 			calculation();
-			var final_total = $("#final_total").val();
+			var final_total = $("#final_total").html();
 			var f_discount = $("#f_discount").val();
 			var final_discount = f_discount;
 
@@ -984,7 +984,7 @@
 				$(".test_save").hide();
 				$("#test_clear").hide();
 			} else {
-				if ($.trim($('#grand_total').val()))
+				if ($.trim($('#grand_total').html()))
 					$("#test_save").show("disabled", "disabled");
 				$("#test_clear").show("disabled", "disabled");
 			}
@@ -1014,7 +1014,7 @@
 					$("#payment_mode").css("border", "1px solid lightgray");
 				}
 
-				if (!$.trim($('#grand_total').val())) {
+				if (!$.trim($('#grand_total').html())) {
 					alert('Please enter test names.');
 
 					return false;
@@ -1031,10 +1031,10 @@
 					billDate = billDate.concat(" " + time);
 				}
 				var patient_id = $("#editpatientid").val();
-				var total = $("#final_total").val();
+				var total = $("#final_total").html();
 				var discount = $("#discount").val();
-				var grandTotal = $("#grand_total").val();
-				var final_discount = $("#final_discount").val();
+				var grandTotal = $("#grand_total").html();
+				var final_discount = $("#final_discount").html();
 				var reason_discount = $("#reason_discount").val();
 				if (final_discount == '') {
 					final_discount = 0;
@@ -1167,7 +1167,7 @@
 				processData: false,
 				contentType: false,
 				success: function(res) {
-					console.log(res);
+					location.reload();
 					$(".img" + test_id).html('<img src="<?php echo BASE_URL ?>public/assets/images/icon-thumbs-up-active.svg" alt="Report Completed!" width="32" align="right">');
 				},
 				error: function(err) {
@@ -1199,7 +1199,7 @@
 			$("#add_balance").attr("disabled", "disabled");
 			var bill_id = $("#bill_id").val();
 			var balance = $("#balance").val();
-			var final_discount = $("#final_discount").val();
+			var final_discount = $("#final_discount").html();
 
 			var balance_received = $("#balance_received").val();
 			if (balance_received == 0) {
@@ -1360,7 +1360,6 @@
 	$("#searchPatientId").select2();
 	$('#patientRefAdd').select2();
 	$(document).on('select2:open', () => {
-		// $(document).on('click', 'select2:open', function(){
 		document.querySelector('.select2-search__field').focus();
 	});
 

@@ -34,36 +34,41 @@
         $mpdf->SetCreator('Px');
         date_default_timezone_set('Asia/Kolkata');
         $tabledata = "<main>
-        <h3>Receipt</h3><hr>
         <table width='100%' cellspacing='5'>
             <thead>
-                <tr>
-                <td> Name :</td>
-                <th>" . ($patientData->title.' '.$patientData->patientname) .' ( '.($patientData->patientid).' )'. "</th>
-                </tr>
-                <tr>
-                <td> Gender / Age :</td>
-                <th>" . ($patientData->gender).' / '.($patientData->age).($patientData->age_type). "</th>
-                </tr>
-                <tr>
-                <td> Receipt No :</td>
-                <th>" .'00'. ($patientData->id) . "</th>
-                </tr>
-                <tr>
+            <tr>
+        <th colspan='4'>
+        <h2>Bill Receipt</h2>
+        </th>
+            </tr>
+            <tr>
+            <th colspan='4'><hr></th>
+            </tr>
+            <tr>
+            <td> Receipt No :</td>
+            <th style='text-align:left;'>" . '00' . ($patientData->id) . "</th>
+            <td>Date & Time :</td>
+            <th style='text-align:left;'>" . (date("d-M-Y h:i:s")) . "</th>
+            </tr>
+            <tr>
+            <td> Name :</td>
+            <th style='text-align:left;'>" . ($patientData->title . ' ' . $patientData->patientname) ."</th>          
+            <td>Patient ID :</td>
+            <th style='text-align:left;'>"  . ($patientData->patientid) .  "</th>
+            </tr>
+            <tr>
+            <td> Gender / Age :</td>
+                <th style='text-align:left;'>" . ($patientData->gender[0]) . ' / ' . ($patientData->age) . ($patientData->age_type) . "</th>
                 <td> Referral :</td>
-                <th>" . ($referData->referral_name) . "</th>
-                </tr>
-                <tr>
-                <td>Date & Time :</td>
-                <th>" . (date("d-M-Y h:i:s")) . "</th>
-                </tr>
+                <th style='text-align:left; text-transform:capitalize'>" . ($referData->referral_name) . "</th>
+            </tr>
             </thead>
         </table><hr><table width='100%'  >
         <thead>
             <tr>
-             <th>S.no</th>
-             <th>Test Name</th>
-            <th>Test price</th>
+             <th style='text-align:left;'>S.no</th>
+             <th style='text-align:left;'>Test Name</th>
+            <th style='text-align:right;'>Test price</th>
            </tr>
         </thead><tbody>";
         $total = 0;
@@ -77,84 +82,99 @@
             // header
             $tabledata .= "
                                     <tr>
-                                        <td>" . ($key+1) . "</td>
+                                        <td>" . ($key + 1) . "</td>
                                     <td>" . ($testName) . "</td>
-                                <td>" . ($price) . ".00</td>
+                                <td style='text-align:right;'>" . ($price) . ".00</td>
                             </tr>";
         }
-       
+
         $tabledata .= "
+        <tr>
+        <th colspan='3'>
+        <hr>
+        </th>
+            </tr>
                     <tr>
-                        <td style='text-align:center' colspan='2'>Total</td>
-                    <td><b>" . ($total) . ".00</b></td>
+                    <td></td>
+                        <th><b>Total</b></th>
+                    <td style='text-align:right;'><b>" . ($total) . ".00</b></td>
                         </tr>
                         <tr>
                         <td colspan='2'>Total Paid (Rs.) </td>
-                    <td><b>" . ($billData->received_amount) . ".00</b></td>
+                    <td style='text-align:right;'><b>" . ($billData->received_amount) . ".00</b></td>
                     </tr>
                     <tr>
                     <td colspan='2'>Total Discount (Rs.) </td>
-                    <td><b>" . ($billData->final_discount) . ".00</b></td>
+                    <td style='text-align:right;'><b>" . ($billData->final_discount) . ".00</b></td>
                     </tr>
                     <tr>
                     <td colspan='2'>Total Amount (Rs.) </td>
-                    <td><b>" . ($total - $billData->final_discount - $billData->received_amount) . ".00</b></td>
+                    <td style='text-align:right;'><b>" . ($total - $billData->final_discount - $billData->received_amount) . ".00</b></td>
+                    </tr>
+                    <tr>
+                    <td colspan='3'><hr></td>
                     </tr>
                                 ";
 
-                                $number = $total - $billData->final_discount - $billData->received_amount;
-                            $no = floor($number);
-                            $point = round($number - $no, 2) * 100;
-                            $hundred = null;
-                            $digits_1 = strlen($no);
-                            $i = 0;
-                            $str = array();
-                            $words = array('0' => '', '1' => 'one', '2' => 'two',
-                                '3' => 'three', '4' => 'four', '5' => 'five', '6' => 'six',
-                                '7' => 'seven', '8' => 'eight', '9' => 'nine',
-                                '10' => 'ten', '11' => 'eleven', '12' => 'twelve',
-                                '13' => 'thirteen', '14' => 'fourteen',
-                                '15' => 'fifteen', '16' => 'sixteen', '17' => 'seventeen',
-                                '18' => 'eighteen', '19' =>'nineteen', '20' => 'twenty',
-                                '30' => 'thirty', '40' => 'forty', '50' => 'fifty',
-                                '60' => 'sixty', '70' => 'seventy',
-                                '80' => 'eighty', '90' => 'ninety');
-                            $digits = array('', 'hundred', 'thousand', 'lakh', 'crore');
-                            while ($i < $digits_1) {
-                                $divider = ($i == 2) ? 10 : 100;
-                                $number = floor($no % $divider);
-                                $no = floor($no / $divider);
-                                $i += ($divider == 10) ? 1 : 2;
-                                if ($number) {
-                                    $plural = (($counter = count($str)) && $number > 9) ? 's' : null;
-                                    $hundred = ($counter == 1 && $str[0]) ? ' and ' : null;
-                                    $str [] = ($number < 21) ? $words[$number] .
-                                        " " . $digits[$counter] . $plural . " " . $hundred
-                                        :
-                                        $words[floor($number / 10) * 10]
-                                        . " " . $words[$number % 10] . " "
-                                        . $digits[$counter] . $plural . " " . $hundred;
-                                } else $str[] = null;
-                            }
-                            $str = array_reverse($str);
-                            $result = implode('', $str);
-                            if($result == ''){
-                            $result = 'Zero';
-                            }
-                            $points = ($point) ?
-                                "." . $words[$point / 10] . " " . 
-                                    $words[$point = $point % 10] : '';
-                                    $tabledata .= "<tr>
-                                    <td colspan='3'>Payable Amount (in words) : ".( $result)." Rupees only</td>
+        $number = $total - $billData->final_discount - $billData->received_amount;
+        $no = floor($number);
+        $point = round($number - $no, 2) * 100;
+        $hundred = null;
+        $digits_1 = strlen($no);
+        $i = 0;
+        $str = array();
+        $words = array(
+            '0' => '', '1' => 'one', '2' => 'two',
+            '3' => 'three', '4' => 'four', '5' => 'five', '6' => 'six',
+            '7' => 'seven', '8' => 'eight', '9' => 'nine',
+            '10' => 'ten', '11' => 'eleven', '12' => 'twelve',
+            '13' => 'thirteen', '14' => 'fourteen',
+            '15' => 'fifteen', '16' => 'sixteen', '17' => 'seventeen',
+            '18' => 'eighteen', '19' => 'nineteen', '20' => 'twenty',
+            '30' => 'thirty', '40' => 'forty', '50' => 'fifty',
+            '60' => 'sixty', '70' => 'seventy',
+            '80' => 'eighty', '90' => 'ninety'
+        );
+        $digits = array('', 'hundred', 'thousand', 'lakh', 'crore');
+        while ($i < $digits_1) {
+            $divider = ($i == 2) ? 10 : 100;
+            $number = floor($no % $divider);
+            $no = floor($no / $divider);
+            $i += ($divider == 10) ? 1 : 2;
+            if ($number) {
+                $plural = (($counter = count($str)) && $number > 9) ? 's' : null;
+                $hundred = ($counter == 1 && $str[0]) ? ' and ' : null;
+                $str[] = ($number < 21) ? $words[$number] .
+                    " " . $digits[$counter] . $plural . " " . $hundred
+                    :
+                    $words[floor($number / 10) * 10]
+                    . " " . $words[$number % 10] . " "
+                    . $digits[$counter] . $plural . " " . $hundred;
+            } else $str[] = null;
+        }
+        $str = array_reverse($str);
+        $result = implode('', $str);
+        if ($result == '') {
+            $result = 'Zero';
+        }
+        $points = ($point) ?
+            "." . $words[$point / 10] . " " .
+            $words[$point = $point % 10] : '';
+        $tabledata .= "<tr>
+                                    <td colspan='3'>Payable Amount (in words) : " . ($result) . " Rupees only</td>
                                     </tr>";
-                            
+
 
 
         $mpdf->WriteHTML($tabledata);
         $footer = "</tbody></table><table width='100%' cellspacing='5'>
                                 <tfoot>
-                                    <tr >
-                                        <td style='height:30px'  colspan='3'>Signature<br><b>Patidar Diagnostic</b></td>
+                                <tr>
+                                <td style='height:40px;'></td>
+                                </tr>
+                                    <tr>
+                                    <td style='width:65%'></td>
+                                        <td style='height:30px;text-align:center;'  colspan='3'>Signature<br><b>Patidar Diagnostic</b></td>
                                     </tr>
                                 </tfoot>
                                 </table>

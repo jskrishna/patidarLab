@@ -22,9 +22,20 @@ select#patientRef + .select2-container {
 }
 /* form css */
 .ui-widget-content {
-    border: 1px solid #C9C9C9;
-    border-radius: 0 0 5px 5px;
     z-index: 9999;
+    padding: 0;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 8%);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 0 0 5px 5px;
+    height: 300px;
+    overflow: auto;
+}
+.ui-menu .ui-menu-item {
+    margin: 0;
+    padding: 5px 10px;
+    width: 100%;
+    font-size: 14px;
+    font-family: 'Inter';
 }
 .file-type-img img {
     max-width: 150px;
@@ -563,15 +574,14 @@ stroke: #069a98
 .tab-link:hover {
     color: #000;
 }
-
 .form-footer {
     position: fixed;
     bottom: 0;
-    left: 252px;
+    left: 251px;
     background: #fff;
     padding: 15px;
-    border-top: 1px solid #ececec;
     width: calc(100% - 250px);
+    box-shadow: 0px 0px 5px rgb(23 24 24 / 5%), 0 -2px 2px rgb(0 0 0 / 5%);
 }
 
 .form-footer .custom-btn {
@@ -907,4 +917,42 @@ border: 1px solid #e0e0e0;
 }
 .tooltip {
     font-size: 12px;
+}
+
+
+.checkout-wrap li+li {
+    margin-top: 20px;
+}
+.checkout-wrap li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.small-heading {
+    margin-bottom: 20px;
+    display: block;
+    font-weight: 600;
+}
+.checkout-wrap li > span{
+    display: block;
+    font-weight: 600;
+}
+.checkout-wrap li span + span {
+    margin-top: 20px;
+}
+input#f_discount {
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    max-width: 150px;
+    height: 40px;
+    text-align: right;
+}
+input#f_discount:focus {
+    box-shadow: 0 3px 10px rgb(0 0 0 / 8%) !important;
+    border: 1px solid #C9C9C9 !important;
+    outline: none;
+}
+#final_total {
+    font-weight: 600;
+    font-size: 20px;
 }
