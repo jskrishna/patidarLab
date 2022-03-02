@@ -132,14 +132,14 @@
                 $end = '';
                 if (!empty($highlights)) {
                     if ($highlights[$index] == 'Yes') {
-                        $start = '<mark>';
-                        $end = '</mark>';
+                        $start = '<b>';
+                        $end = '</b>';
                     }
                 }
                 $tabledata .= "<tr>
-                                            <td>" . ($start) . "" . ($paramName) . "" . ($end) . "</td>
+                                            <td>" . ($paramName) . "</td>
                                             <td>" . ($start) . "" . ($value) . "" . ($end) . " </td>
-                                            <td>" . ($start) . "" . ($minmaxunit) . "" . ($end) . " </td>
+                                            <td>" . ($minmaxunit) . "</td>
                                         </tr>";
             }
 

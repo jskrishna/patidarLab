@@ -131,9 +131,10 @@
                                                 </button>
 
                                             <?php   } else { ?>
-                                                <div class="bill_settle" disabled data-status="Paid" data-id="<?php echo $report->id; ?>" value="<?php echo $report->id; ?>" id="status<?php echo $report->id; ?>">
-                                                    Paid
-                                                </div>
+                                                
+                                                <button class="bill_paid bill_settle" data-status="Paid" data-id="<?php echo $report->id; ?>" value="<?php echo $report->id; ?>" id="status<?php echo $report->id; ?>" data-bs-toggle="modal" data-bs-target="#bill_paid">
+                                                Paid    
+                                                </button>
 
                                             <?php  }; ?>
                                         </td>
@@ -181,6 +182,12 @@
         </div>
         <!-- //payment model  -->
         <div class="modal fade" id="bill_settlement" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="bill_paid" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                 </div>

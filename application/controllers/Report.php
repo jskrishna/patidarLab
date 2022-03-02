@@ -16,7 +16,7 @@ class Report extends CI_Controller
         $departmentData = $this->Report_model->getdepartmentinfo();
         $doctorsData = $this->Report_model->getdoctorsinfo();
 
-        $data = array('reportData' => $reportData, 'patientData' => $patientData, 'testData' => $testData, 'departmentData' => $departmentData, 'doctorsData' => $doctorsData,'pxthis'=>$this);
+        $data = array('reportData' => $reportData, 'patientData' => $patientData, 'testData' => $testData, 'departmentData' => $departmentData, 'doctorsData' => $doctorsData, 'pxthis' => $this);
         $this->load->view('report/index.php', $data);
     }
     public function add_value($id)
@@ -50,9 +50,9 @@ class Report extends CI_Controller
         $defult_value_status = $this->input->post('defult_value_status');
         $reportDataid = $this->input->post('reportDataid');
         if ($reportDataid == '') {
-            $insertData = $this->Report_model->insertReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values,$highlights, $defult_value_status);
+            $insertData = $this->Report_model->insertReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values, $highlights, $defult_value_status);
         } else {
-            $insertData = $this->Report_model->updateReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values,$highlights, $defult_value_status, $reportDataid);
+            $insertData = $this->Report_model->updateReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values, $highlights, $defult_value_status, $reportDataid);
         }
 
         if ($insertData) {
@@ -75,7 +75,7 @@ class Report extends CI_Controller
         $patientData = $patientData[0];
         $date = date_format(new DateTime($billData->billDate), 'd-M-Y');
         $balance = intval($billData->balance) - intval($billData->advance);
-        $discount = intval($billData->final_discount)+ intval($billData->discount);
+        $discount = intval($billData->final_discount) + intval($billData->discount);
         $final_discount = intval($billData->final_discount);
 
         $data = "<div class='modal-body'><div class='container'>
@@ -166,40 +166,106 @@ class Report extends CI_Controller
 
     public function orderReport($id)
     {
-        if($id){
+        if ($id) {
 
-        $billData = $this->Report_model->getbillinfoByID($id);
-        $patientData = $this->Report_model->getpatientinfoByID($billData[0]->patient_id);
-        $doctorsData = $this->Report_model->getdoctorinfoByID($patientData[0]->refered_by);
-        $data = array('billData' => $billData[0], 'patientData' => $patientData[0],'doctorsData' => $doctorsData[0],'pxthis'=>$this);
-        $this->load->view('report/orderReport.php', $data);
-    }else{
-        header('location:' . BASE_URL.'report');
-
+            $billData = $this->Report_model->getbillinfoByID($id);
+            $patientData = $this->Report_model->getpatientinfoByID($billData[0]->patient_id);
+            $doctorsData = $this->Report_model->getdoctorinfoByID($patientData[0]->refered_by);
+            $data = array('billData' => $billData[0], 'patientData' => $patientData[0], 'doctorsData' => $doctorsData[0], 'pxthis' => $this);
+            $this->load->view('report/orderReport.php', $data);
+        } else {
+            header('location:' . BASE_URL . 'report');
+        }
     }
-
-    }
-        public function outputpdf()
+    public function paid_details()
     {
 
-        $bill_id = $this->input->post('bill_id');
-        $test_id = $this->input->post('test_id');
-        $patientID = $this->input->post('patientID');
-        $patientData = $this->Report_model->getpatientinfoByID($patientID);
-        $patientData = $patientData[0];
-        $doctorData = $this->Report_model->getdoctorinfoByID($patientData->refered_by);
-        $doctorData = $doctorData[0];
+        $bill_id = $this->input->post('id');
         $billData = $this->Report_model->getbillinfoByID($bill_id);
         $billData = $billData[0];
 
-        $tests = implode(',', $test_id);
+        $patient_id = $billData->patient_id;
+        $patientData = $this->Report_model->getpatientinfoByID($patient_id);
+        $patientData = $patientData[0];
+
+        $referData = $this->Report_model->getdoctorinfoByID($patientData->refered_by);
+        $referData = $referData[0];
+
         $testIDS = explode(',', $billData->testId);
-        $selecetdtestArray = explode(',',$tests);
+        date_default_timezone_set('Asia/Kolkata');
+        $tabledata = "<div class='modal-body'><div class='container'>
+        <div class='form-row'>
+                        <div class='form-group col-lg-12'>
+                        <h3>Receipt</h3>
+                            <button type='button' class='close text-danger font-weight-bold' data-bs-dismiss='modal'>×</button>
+                        </div>
+                    </div><hr>
+        <table width='100%' cellspacing='5'>
+            <thead>
+                <tr>
+                <td> Name :</td>
+                <th>" . ($patientData->title . ' ' . $patientData->patientname) . ' ( ' . ($patientData->patientid) . ' )' . "</th>
+                </tr>
+                <tr>
+                <td> Gender / Age :</td>
+                <th>" . ($patientData->gender) . ' / ' . ($patientData->age) . ($patientData->age_type) . "</th>
+                </tr>
+                <tr>
+                <td> Receipt No :</td>
+                <th>" . '00' . ($patientData->id) . "</th>
+                </tr>
+                <tr>
+                <td> Referral :</td>
+                <th>" . ($referData->referral_name) . "</th>
+                </tr>
+                <tr>
+                <td>Date & Time :</td>
+                <th>" . (date("d-M-Y h:i:s")) . "</th>
+                </tr>
+            </thead>
+        </table><hr><table width='100%'  >
+        <thead>
+            <tr>
+             <th>S.no</th>
+             <th>Test Name</th>
+            <th>Test price</th>
+           </tr>
+        </thead><tbody>";
+        $total = 0;
 
-        $data = array('billData' => $billData, 'patientData' => $patientData, 'doctorData' => $doctorData, 'bill_id' => $bill_id,'testIDS'=>$testIDS, 'selecetdtestArray'=>$selecetdtestArray);
-        $this->load->view('report/outputpdf.php', $data);
+        foreach ($testIDS as $key => $tid) {
 
-        // exit;
+            $testData = $this->Report_model->getTestByID($tid);
+            $testName =  $testData[0]->test_name;
+            $price =  $testData[0]->amount;
+            $total += $testData[0]->amount;
+            $tabledata .= "<tr>
+                            <td>" . ($key + 1) . "</td>
+                            <td>" . ($testName) . "</td>
+                            <td>" . ($price) . ".00</td>
+                        </tr>";
+        }
+
+        $tabledata .= "<tr>
+                        <td style='text-align:center' colspan='2'>Total</td>
+                        <td><b>" . ($total) . ".00</b></td>
+                    </tr>
+                    <tr>
+                        <td colspan='2'>Total Paid (Rs.) </td>
+                        <td><b>" . ($billData->received_amount) . ".00</b></td>
+                    </tr>
+                    <tr>
+                        <td colspan='2'>Total Discount (Rs.) </td>
+                        <td><b>" . ($billData->final_discount) . ".00</b></td>
+                    </tr>
+                    <tr>
+                        <td colspan='2'>Remaining Amount (Rs.) </td>
+                        <td><b>" . ($total - $billData->final_discount - $billData->received_amount) . ".00</b></td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    </div></div>";
+
+        echo $tabledata;
     }
-
 }
