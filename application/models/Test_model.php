@@ -40,7 +40,9 @@ class Test_model extends CI_Model
     }
     public function testSearch($search)
     {
+        $array_Ids= array(1,2,3,4,5);
         $query = $this->db->select('*')->from('test');
+        $query = $this->db->where_in('department', $array_Ids);
         $query = $this->db->like('test_name',$search);
         $query = $this->db->get();
         return $query->result();

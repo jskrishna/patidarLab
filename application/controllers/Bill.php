@@ -12,8 +12,8 @@ class Bill extends CI_Controller
     {
         if (isset($_GET['t'])) {
             $patientData = $this->Bill_model->patientInfo($_GET['t']);
-            if(empty($patientData)){
-            header('Location:' . BASE_URL . 'dashboard');
+            if (empty($patientData)) {
+                header('Location:' . BASE_URL . 'dashboard');
             }
             $patientData = $patientData[0];
             $departmentData = $this->Bill_model->getneededDepartment();
@@ -21,11 +21,25 @@ class Bill extends CI_Controller
             $referedData = $this->Bill_model->getreferedData();
             $data = array('patientData' => $patientData, 'departmentData' => $departmentData, 'doctorData' => $doctorData, 'referedData' => $referedData);
             $this->load->view('bill/index.php', $data);
-        } else {
-            $departmentData = $this->Bill_model->getAlldepart();
+        } else if (isset($_GET['bill'])) {
+            $bill = $_GET['bill'];
+            $billData = $this->Bill_model->getBillById($bill);
+            if (empty($billData)) {
+                header('Location:' . BASE_URL . 'dashboard');
+            }
+            $patientData = $this->Bill_model->patientInfo($billData[0]->patient_id);
+            if (empty($patientData)) {
+                header('Location:' . BASE_URL . 'dashboard');
+            }
+            $patientData = $patientData[0];
+            $referedData = $this->Bill_model->getreferedData();
+            $departmentData = $this->Bill_model->getneededDepartment();
             $doctorData = $this->Bill_model->getAllDoctor();
-            $data = array('departmentData' => $departmentData, 'doctorData' => $doctorData);
+
+            $data = array('patientData' => $patientData, 'departmentData' => $departmentData, 'doctorData' => $doctorData, 'billData' => $billData, 'referedData' => $referedData, 'pxthis' => $this);
             $this->load->view('bill/index.php', $data);
+        } else {
+            header('Location:' . BASE_URL . 'dashboard');
         }
     }
     public function getAllDepartment()
@@ -73,13 +87,13 @@ class Bill extends CI_Controller
         if (isset($_GET['bill'])) {
             $bill = $_GET['bill'];
             $billData = $this->Bill_model->getBillById($bill);
-            if(empty($billData)){
+            if (empty($billData)) {
                 header('Location:' . BASE_URL . 'dashboard');
-                }
+            }
             $patientData = $this->Bill_model->patientInfo($billData[0]->patient_id);
-            if(empty($patientData)){
+            if (empty($patientData)) {
                 header('Location:' . BASE_URL . 'dashboard');
-                }
+            }
             $patientData = $patientData[0];
             $referedData = $this->Bill_model->getreferedData();
             $departmentData = $this->Bill_model->getneededDepartment();
@@ -98,25 +112,25 @@ class Bill extends CI_Controller
         $balance_received = $this->input->post('balance_received');
         $payment_mode = $this->input->post('payment_mode');
         $final_discount = $this->input->post('final_discount');
-        
+
         $balance = $this->input->post('balance');
 
         $permission = $this->input->post('permission');
-        if($permission){
-            $final_discount += intval($balance)-intval($balance_received);
+        if ($permission) {
+            $final_discount += intval($balance) - intval($balance_received);
         }
         $status = 'Paid';
-        
-       $resultss =  $this->Bill_model->paymentSettle($balance_received,$payment_mode,$final_discount,$status,$bill_id);
-      
-       if ($resultss) {
-        $resultss = array('success' => 1, 'msg' => 'Status update successfully.', 'redirect_url' => '');
-        echo json_encode($resultss);
-        exit();
-    } else {
-        $resultss = array('success' => 0, 'msg' => 'Error occured.', 'redirect_url' => '');
-        echo json_encode($resultss);
-        exit();
-    }
+
+        $resultss =  $this->Bill_model->paymentSettle($balance_received, $payment_mode, $final_discount, $status, $bill_id);
+
+        if ($resultss) {
+            $resultss = array('success' => 1, 'msg' => 'Status update successfully.', 'redirect_url' => '');
+            echo json_encode($resultss);
+            exit();
+        } else {
+            $resultss = array('success' => 0, 'msg' => 'Error occured.', 'redirect_url' => '');
+            echo json_encode($resultss);
+            exit();
+        }
     }
 }
