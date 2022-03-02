@@ -12,7 +12,8 @@ class Users extends CI_Controller
 
         $id = 1;
         $UserData = $this->Users_model->getuserbyID($id);
-        $userdetails = array('UserData' => $UserData[0]);
+        $referralData = $this->Users_model->referralData();
+        $userdetails = array('UserData' => $UserData[0],'referralData'=>$referralData);
         $this->load->view('users/index.php', $userdetails);
     }
     public function update()

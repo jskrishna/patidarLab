@@ -14,4 +14,11 @@ class Users_model extends CI_Model
         $sth = $this->db->query("UPDATE `users` SET `username`='$username',`email`='$email',`mobile`='$mobile',`logo`='$logo' WHERE `id`= '$user_id'");
         return $sth;
     }
+    public function referralData()
+    {
+        $query = $this->db->select('*')->from('referral');
+        $query = $this->db->where('id !=','1');
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

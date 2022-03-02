@@ -9,7 +9,7 @@
         <div class="c-datatable px-0 py-0">
             <div class="form-row">
             <div class="col-lg-12">
-                <ul class="report-filter">
+                <ul class="report-filter tabs">
                     <li class="filter-item all-r active" data-value="">All Reports</li>
                     <li class="filter-item pending-r" data-value="pending">Pending</li>
                     <li class="filter-item complete-r" data-value="completed">Completed</li>

@@ -1,6 +1,7 @@
 body.modal-open {
     overflow: hidden;
 }
+
 html {
     overflow-x: hidden;
 }
@@ -10,17 +11,24 @@ input.select2-search__field:focus {
     border: 1px solid #C9C9C9 !important;
     outline: none !important;
 }
-.select2-container, .select2-selection--single {
+
+.select2-container,
+.select2-selection--single {
     outline: none !important;
     z-index: 9911;
 }
-.header-add-p .select2-container{
+
+.header-add-p .select2-container {
     max-width: 300px;
 }
-select#patientRef + .select2-container {
+
+select#patientRef+.select2-container {
     width: 100% !important;
 }
+
+
 /* form css */
+
 .ui-widget-content {
     z-index: 9999;
     padding: 0;
@@ -30,6 +38,7 @@ select#patientRef + .select2-container {
     max-height: 300px;
     overflow: auto;
 }
+
 .ui-menu .ui-menu-item {
     margin: 0;
     padding: 5px 10px;
@@ -37,11 +46,13 @@ select#patientRef + .select2-container {
     font-size: 14px;
     font-family: 'Inter';
 }
+
 .file-type-img img {
     max-width: 150px;
     max-height: 100px;
     object-fit: contain;
 }
+
 .form-group {
     margin-bottom: 20px;
 }
@@ -62,7 +73,12 @@ select#patientRef + .select2-container {
     letter-spacing: 0.3px;
 }
 
-.form-group input, .form-group textarea, .form-group select, .form-control, .dataTables_filter input, .dataTables_length select {
+.form-group input,
+.form-group textarea,
+.form-group select,
+.form-control,
+.dataTables_filter input,
+.dataTables_length select {
     width: 100%;
     height: 45px;
     border-radius: 5px;
@@ -73,11 +89,13 @@ select#patientRef + .select2-container {
     font-family: 'Inter', sans-serif;
     min-height: 45px;
 }
+
 .btn-flex {
     display: flex;
     justify-content: center;
 }
-.btn-flex > * {
+
+.btn-flex>* {
     width: 50%;
     margin: 0 15px !important;
 }
@@ -94,7 +112,9 @@ select#patientRef + .select2-container {
     height: 40px;
 }
 
-.c-datatable .form-group input, .c-datatable .form-group select, .c-datatable .form-control {
+.c-datatable .form-group input,
+.c-datatable .form-group select,
+.c-datatable .form-control {
     height: 36px;
     font-size: 12px;
     line-height: 36px;
@@ -107,11 +127,17 @@ select#patientRef + .select2-container {
     padding: 10px 15px;
 }
 
-.form-group input:focus, .form-group textarea:focus, .form-group select:focus, .form-control:focus, .dataTables_filter input:focus, .dataTables_length select:focus {
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus,
+.form-control:focus,
+.dataTables_filter input:focus,
+.dataTables_length select:focus {
     box-shadow: 0 3px 10px rgb(0 0 0 / 8%) !important;
     border: 1px solid #C9C9C9 !important;
     outline: none;
 }
+
 
 /* form css */
 
@@ -160,7 +186,9 @@ select#patientRef + .select2-container {
     padding-top: 20px;
 }
 
+
 /* side nav css */
+
 .layoutSidenav_nav {
     height: 100%;
     left: 0;
@@ -222,7 +250,8 @@ select#patientRef + .select2-container {
     width: 100%;
 }
 
-.sidenav-menu .nav-links, .sidenav-footer-content a {
+.sidenav-menu .nav-links,
+.sidenav-footer-content a {
     color: #242424;
     display: flex;
     align-items: center;
@@ -233,29 +262,36 @@ select#patientRef + .select2-container {
     position: relative;
     transition: 300ms all;
 }
+
 .sidenav-footer-content a {
     border: 1px solid #069a98;
     border-radius: 5px;
     color: #069a98;
     justify-content: center;
 }
+
 .sidenav-footer-content {
     padding: 20px;
     text-align: center;
 }
+
 .sidenav-footer-content a:hover {
     background: rgb(6 154 152 / 5%);
 }
+
 .sidenav-footer-content .nav-link-icon svg path {
     stroke: #069a98;
 }
+
 .sidenav-footer-content .nav-link-icon {
     margin-right: 10px;
 }
+
 .sidenav-menu .nav-links:hover {
     background: rgb(244 246 248 / 30%);
 }
-.sidenav-menu .nav-links.nav-active{
+
+.sidenav-menu .nav-links.nav-active {
     background: rgb(244 246 248 / 30%);
 }
 
@@ -266,24 +302,29 @@ select#patientRef + .select2-container {
     width: 3px;
     background: #069a98;
     right: 0;
-
 }
+
 .nav-link-icon svg path {
     stroke: #bebebe;
 }
-.nav-links.nav-active svg path{
-stroke: #069a98
+
+.nav-links.nav-active svg path {
+    stroke: #069a98
 }
+
 .btn.custom-btn.add-btn-patient svg path {
     stroke: #fff;
 }
+
 .btn.custom-btn.add-btn-patient svg {
     margin-right: 10px;
     width: 20px;
 }
+
 .nav-link-icon {
     margin-right: 15px;
 }
+
 .btn.custom-btn.add-btn-patient {
     padding: 0 20px;
     display: inline-flex;
@@ -294,7 +335,6 @@ stroke: #069a98
     color: #fff;
     opacity: 1;
 }
-
 
 .layoutSidenav_content {
     float: left;
@@ -324,7 +364,8 @@ stroke: #069a98
     flex-wrap: wrap;
 }
 
-.btn-group, .btn-group-vertical {
+.btn-group,
+.btn-group-vertical {
     width: 100%;
 }
 
@@ -341,7 +382,8 @@ stroke: #069a98
     border-radius: 10px;
 }
 
-.age_type_div .btn, .gender_type_div .btn {
+.age_type_div .btn,
+.gender_type_div .btn {
     height: 45px;
     border: 0;
     font-size: 14px;
@@ -414,7 +456,8 @@ stroke: #069a98
     display: block;
 }
 
-.blue-box .dashbord-content h4, .blue-box .test-count {
+.blue-box .dashbord-content h4,
+.blue-box .test-count {
     color: #fff;
 }
 
@@ -443,7 +486,10 @@ stroke: #069a98
     right: 20px;
 }
 
+
 /* patient page css */
+
+
 /* .reg-span img {
     margin-right: 5px;
 }
@@ -513,16 +559,19 @@ stroke: #069a98
 .c-modal .modal-content .modal-body {
     padding: 0;
 }
+
 .flex-w {
     display: flex;
     align-items: center;
 }
+
 .flex-w .form-group {
-   margin: 0;
+    margin: 0;
 }
 
 
 /* tabs css */
+
 .tabs {
     display: flex;
 }
@@ -574,6 +623,7 @@ stroke: #069a98
 .tab-link:hover {
     color: #000;
 }
+
 .form-footer {
     position: fixed;
     bottom: 0;
@@ -599,7 +649,9 @@ stroke: #069a98
     justify-content: center;
 }
 
+
 /* report list-head */
+
 .report-list-head {
     padding: 20px 0 40px;
 }
@@ -679,7 +731,9 @@ stroke: #069a98
     line-height: 30px;
 }
 
-.patient-dtl p span, .name-sec-right p span, .name-sec-center p span {
+.patient-dtl p span,
+.name-sec-right p span,
+.name-sec-center p span {
     margin-left: 10px;
     font-weight: 600;
 }
@@ -688,7 +742,9 @@ stroke: #069a98
     display: flex;
 }
 
+
 /* header css */
+
 .main-header {
     position: fixed;
     top: 0;
@@ -790,6 +846,7 @@ stroke: #069a98
     font-weight: 600;
     white-space: nowrap;
 }
+
 .ava-r div {
     color: #898989;
     font-size: 12px;
@@ -805,15 +862,19 @@ stroke: #069a98
     border-radius: 4px;
     /* border: 1px solid; */
 }
+
+
 /* .test-name.text-pending {
     background: rgb(255 152 0 / 5%);
     border-color: rgb(255 152 0 / 50%);
 } */
+
 .test-success {
     color: #008060;
     /* background: rgb(0 128 96 / 5%);
     border-color: rgb(0 128 96 / 50%); */
 }
+
 .test-name label {
     position: relative;
     padding-left: 20px;
@@ -855,9 +916,11 @@ stroke: #069a98
     width: 15px;
 }
 
+
 /* .btn-pay {
 border: 1px solid #e0e0e0;
 } */
+
 .bill_settle:after {
     content: "";
     position: absolute;
@@ -890,6 +953,7 @@ border: 1px solid #e0e0e0;
     padding: 0 20px;
     margin: 10px 0 20px;
 }
+
 .report-filter .filter-item+.filter-item {
     margin-left: 20px;
 }
@@ -907,34 +971,40 @@ border: 1px solid #e0e0e0;
     color: #242424;
 }
 
-.c-datatable.px-0.py-0 .dataTables_wrapper {
+.c-datatable.px-0.py-0 .dataTables_wrapper,
+.docter-sec {
     padding: 0 20px 20px;
 }
+
 .tooltip {
     font-size: 12px;
 }
 
-
 .checkout-wrap li+li {
     margin-top: 20px;
 }
+
 .checkout-wrap li {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .small-heading {
     margin-bottom: 20px;
     display: block;
     font-weight: 600;
 }
-.checkout-wrap li > span{
+
+.checkout-wrap li>span {
     display: block;
     font-weight: 600;
 }
-.checkout-wrap li span + span {
+
+.checkout-wrap li span+span {
     margin-top: 20px;
 }
+
 input#f_discount {
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.12);
@@ -942,29 +1012,48 @@ input#f_discount {
     height: 40px;
     text-align: right;
 }
+
 input#f_discount:focus {
     box-shadow: 0 3px 10px rgb(0 0 0 / 8%) !important;
     border: 1px solid #C9C9C9 !important;
     outline: none;
 }
+
 .c-modal.center .modal-content {
     border-radius: 10px !important;
     padding: 0;
 }
+
 .c-modal.center .modal-content .page-head {
     padding: 15px 40px;
     border-bottom: 1px solid #e0e0e0;
 }
+
 .c-modal.center .modal-footer {
-    border-top: 1px solid #e0e0e0; 
+    border-top: 1px solid #e0e0e0;
     justify-content: center;
 }
+
 .c-modal.center .modal-content .modal-body {
     padding: 20px 40px;
 }
+
 .test-list li {
     line-height: 37px;
 }
-input+label{
+
+input+label {
     user-select: none;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: inherit;
+}
+
+.c-datatable.px-0.py-0 .docter-sec .dataTables_wrapper {
+    padding: 0;
 }
