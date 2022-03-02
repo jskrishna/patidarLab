@@ -1178,14 +1178,25 @@
 
 		$("body").on('click', '.bill_settle', function() {
 			var id = $(this).data("id");
+			var status = $(this).data('status');
+			if (status == 'Pending') {
+				var url = '<?php echo BASE_URL; ?>report/bill_settle';
+			} else {
+				var url = '<?php echo BASE_URL; ?>report/paid_details';
+			}
 			$.ajax({
 				type: "POST",
-				url: '<?php echo BASE_URL; ?>report/bill_settle',
+				url: url,
 				data: {
 					"id": id
 				},
 				success: function(res) {
-					$("#bill_settlement .modal-content").html(res);
+					if (status == 'Pending') {
+						$("#bill_settlement .modal-content").html(res);
+					} else {
+						$("#bill_paid .modal-content").html(res);
+					}
+
 				}
 			});
 		});

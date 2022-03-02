@@ -191,7 +191,9 @@
                                         </th>
                                     </tr>
                                 </thead>
-                                <?php $testIds = explode(',', $billData->testId); ?>
+                                <?php $testIds = explode(',', $billData->testId);
+                                $btn = false;
+                                ?>
                                 <tbody id="testArea" class="ui-sortable">
                                     <?php foreach ($testIds as $test) {
 
@@ -199,7 +201,7 @@
 
                                         if (!empty($checkData)) {
 
-
+                                            $btn = true;
                                             $testData = $pxthis->Report_model->getTestByID($test);
                                             $testData = $testData[0]; ?>
                                             <tr class="reportcnt" id="<?php echo $testData->id; ?>">
@@ -235,7 +237,10 @@
                             </table>
                         </div>
                         <div class="form-footer">
-                            <input type="submit" class="btn custom-btn" id="submit_report" value="Submit" disabled="disabled">
+                            <?php if($btn){ ?>
+                                <input type="submit" class="btn custom-btn" id="submit_report" value="Submit" disabled="disabled">
+
+                            <?php } ?>
                         </div>
                     </form>
                 </div>

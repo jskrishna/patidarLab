@@ -27,6 +27,8 @@
         $testIDS = explode(',', $billData->testId);
 
         $mpdf = new \Mpdf\Mpdf();
+        // $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [210, 297]]);
+
 
         $mpdf->SetTitle('Invoice-' . $patientData->patientid);
         $mpdf->SetDefaultFont('Roboto');
