@@ -26,8 +26,8 @@ select#patientRef + .select2-container {
     padding: 0;
     box-shadow: 0 3px 10px rgb(0 0 0 / 8%);
     border: 1px solid rgba(0, 0, 0, 0.12);
-    border-radius: 0 0 5px 5px;
-    height: 300px;
+    border-radius: 5px;
+    max-height: 300px;
     overflow: auto;
 }
 .ui-menu .ui-menu-item {
@@ -710,11 +710,6 @@ stroke: #069a98
     justify-content: space-between;
 }
 
-.header-inr>div {
-    flex: 0 0 33.33%;
-    max-width: 33.33%;
-}
-
 .header-logo a img {
     max-width: 130px;
 }
@@ -879,7 +874,7 @@ border: 1px solid #e0e0e0;
     background: #ff9800;
 }
 
-.bill_settle.btn-pay:hover {
+.bill_settle:hover {
     background: rgb(244 246 248);
 }
 
@@ -952,7 +947,24 @@ input#f_discount:focus {
     border: 1px solid #C9C9C9 !important;
     outline: none;
 }
-#final_total {
-    font-weight: 600;
-    font-size: 20px;
+.c-modal.center .modal-content {
+    border-radius: 10px !important;
+    padding: 0;
+}
+.c-modal.center .modal-content .page-head {
+    padding: 15px 40px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.c-modal.center .modal-footer {
+    border-top: 1px solid #e0e0e0; 
+    justify-content: center;
+}
+.c-modal.center .modal-content .modal-body {
+    padding: 20px 40px;
+}
+.test-list li {
+    line-height: 37px;
+}
+input+label{
+    user-select: none;
 }

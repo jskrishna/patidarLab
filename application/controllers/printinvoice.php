@@ -54,7 +54,7 @@
             </tr>
             <tr>
             <td> Name :</td>
-            <th style='text-align:left;'>" . ($patientData->title . ' ' . $patientData->patientname) ."</th>          
+            <th style='text-align:left;'>" . ($patientData->title . ' ' . $patientData->patientname) . "</th>          
             <td>Patient ID :</td>
             <th style='text-align:left;'>"  . ($patientData->patientid) .  "</th>
             </tr>
