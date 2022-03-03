@@ -288,7 +288,7 @@
 			return false;
 		});
 
-		
+
 
 
 
@@ -386,7 +386,7 @@
 			}
 
 			if (final_discount > grandTotal) {
-				$(".test_save").hide();
+
 				$("#test_clear").hide();
 				$("#f_discount").css("border", "1px solid red");
 				return false;
@@ -402,7 +402,7 @@
 				$(".test_save").show();
 				$("#test_clear").show();
 			} else {
-				$(".test_save").hide();
+
 				$("#test_clear").hide();
 			}
 
@@ -417,7 +417,7 @@
 			var total = Number(discount) + Number(final_discount);
 			if (total > 0) {
 				$("#verification").show();
-				$(".test_save").hide();
+				// $(".test_save").hide();
 				$("#test_clear").hide();
 				$("#send_otp").removeAttr("disabled", "disabled");
 				$("#reason_discount").focus();
@@ -980,7 +980,7 @@
 			var test_in = $.inArray(testId, test);
 			if (test_in >= 0 || test_count > 0) {
 				alert("You selected test was already added kindly add other test");
-
+				$('#test,#test_id,#department_id,#test_amount,#nameTest').val('');
 			} else {
 				test.push(testId);
 				$("#add_list").attr("disabled", "disabled");
@@ -1221,7 +1221,6 @@
 						"payment_mode": payment_mode
 					},
 					success: function(res) {
-
 						location.href = '<?php echo BASE_URL ?>report';
 					}
 				});
@@ -1582,26 +1581,18 @@
 					}
 				});
 			}
-		}).data('ui-autocomplete')._renderItem = function(ul, item) {
-			return $("<li class='ui-autocomplete-row'></li>")
-				.data("item.autocomplete", item)
-				.append(item.patientname + ' - ' + item.patientid)
-				.appendTo(ul);
-		};
+		})
+
+		// var fixmeTop = $('.test-parameters').offset().top;
+		// $(window).scroll(function() {
+		// 	var currentScroll = $(window).scrollTop();
+		// 	if (currentScroll >= fixmeTop) {
+		// 		$('.test-parameters').addClass('test');
+		// 	} else {
+		// 		$('.test-parameters').removeClass('test');
+		// 	}
+		// });
 	})
-
-
-	var fixmeTop = $('.test-parameters').offset().top;
-$(window).scroll(function() {
-    var currentScroll = $(window).scrollTop();
-    if (currentScroll >= fixmeTop) {
-        $('.test-parameters').addClass('test');
-    } else {
-        $('.test-parameters').removeClass('test');
-    }
-});
-
-
 </script>
 </body>
 

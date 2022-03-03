@@ -6,16 +6,16 @@
             <h2>Reports</h2>
         </div>
         <div class="report-sec">
-        <div class="c-datatable px-0 py-0">
-            <div class="form-row">
-            <div class="col-lg-12">
-                <ul class="report-filter tabs">
-                    <li class="filter-item all-r active" data-value="">All Reports</li>
-                    <li class="filter-item pending-r" data-value="pending">Pending</li>
-                    <li class="filter-item complete-r" data-value="completed">Completed</li>
-                </ul>
-            </div>
-                <div class="col-lg-12">
+            <div class="c-datatable px-0 py-0">
+                <div class="form-row">
+                    <div class="col-lg-12">
+                        <ul class="report-filter tabs">
+                            <li class="filter-item all-r active" data-value="">All Reports</li>
+                            <li class="filter-item pending-r" data-value="pending">Pending</li>
+                            <li class="filter-item complete-r" data-value="completed">Completed</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-12">
                         <table class="table dt-responsive" role="grid">
                             <thead>
                                 <tr role="row" class="tablesorter-headerRow">
@@ -58,25 +58,22 @@
                                     <tr>
                                         <td>
                                             <div class="patient-avator">
-                                                <!-- <div class="ava-l">
-                                                    <div class="patient-short-name">
-                                                       <?php foreach ($patientData as $patient) {
-                                                            if ($patient->id == $report->patient_id) {
-                                                                $name = explode(' ', $patient->patientname);
+                                                <?php foreach ($patientData as $patient) {
+                                                    if ($patient->id == $report->patient_id) {
+                                                        $name = explode(' ', $patient->patientname);
                                                         $name = array_filter($name);
-                                                                foreach ($name as $n) {
-                                                                    // echo $n[0];
-                                                                }
-                                                        ?> </div>
-                                                </div> -->
-                                                <div class="ava-r">
-                                                    <span><?php echo $patient->patientname; ?></span>
-                                                    <div>
-                                                        <?php echo $patient->gender[0]; ?> / <?php echo $patient->age . ' ' . $patient->age_type;
-                                                                                            }
-                                                                                        } ?>
-                                                    </div>
-                                                </div>
+                                                        foreach ($name as $n) {
+                                                            // echo $n[0];
+                                                        }
+                                                ?>
+                                                        <div class="ava-r">
+                                                            <span><?php echo $patient->patientname; ?></span>
+                                                            <div>
+                                                                <?php echo $patient->gender[0]; ?> / <?php echo $patient->age . ' ' . $patient->age_type;
+                                                                                                    }
+                                                                                                } ?>
+                                                            </div>
+                                                        </div>
                                             </div>
                                         </td>
                                         <td>
@@ -96,31 +93,30 @@
                                         <?php }
                                         } ?>
                                         <td>
-
-
                                             <?php
                                             $testIDs = explode(',', $report->testId);
                                             $done = '';
                                             $pending = '';
-                                            $dCount= $pCount = 0;
+                                            $dCount = $pCount = 0;
                                             foreach ($testIDs as $id) {
                                                 $testData = $pxthis->Report_model->getTestByID($id);
                                                 $reportValues = $pxthis->Report_model->getreportDataByBIllandTestId($report->id, $id);
                                                 if (count($reportValues) > 0) {
-                                                    $done .= '<li>'.$testData[0]->test_name.'</li>';
-                                                    $dCount +=1;
+                                                    $done .= '<li>' . $testData[0]->test_name . '</li>';
+                                                    $dCount += 1;
                                                 } else {
-                                                    $pending .=  '<li>'.$testData[0]->test_name.'</li>';
-                                                    $pCount +=1;
+                                                    $pending .=  '<li>' . $testData[0]->test_name . '</li>';
+                                                    $pCount += 1;
                                                 }
                                                 $reportValues = null;
                                             }
                                             ?>
                                             <div class="test-counts">
-                                            <?php if($pending) { ?>
-                                                    <button data-container="body" class="bill_settle btn-pay" data-toggle="tooltip" data-bs-html="true" data-placement="top" title="<?php echo $pending ?>">Pending <?php echo $pCount ?></button>   
-                                                   <?php } if($done) { ?>                                             
-                                                <button data-container="body" class="bill_settle btn-paid" href="javascript:void(0)" data-bs-html="true" data-toggle="tooltip" data-placement="top" title="<?php echo $done ?>">Done <?php echo $dCount ?></button>
+                                                <?php if ($pending) { ?>
+                                                    <button data-container="body" class="bill_settle btn-pay" data-toggle="tooltip" data-bs-html="true" data-placement="top" title="<?php echo $pending ?>">Pending <?php echo $pCount ?></button>
+                                                <?php }
+                                                if ($done) { ?>
+                                                    <button data-container="body" class="bill_settle btn-paid" href="javascript:void(0)" data-bs-html="true" data-toggle="tooltip" data-placement="top" title="<?php echo $done ?>">Done <?php echo $dCount ?></button>
                                                 <?php } ?>
                                             </div>
                                         </td>
@@ -128,26 +124,21 @@
                                             <?php
                                             $testIDs = explode(',', $report->testId);
                                             $reportcount = $pxthis->Report_model->getReportByBillAndPatientId($report->id, $report->patient_id);
-
                                             if (count($testIDs) == count($reportcount)) {
                                                 echo 'completed';
                                             } else {
                                                 echo 'pending';
                                             } ?>
-
                                         </td>
                                         <td>
                                             <?php if ($report->status == 'Pending') { ?>
                                                 <button class="patientedit-btn bill_settle btn-pay" data-status="Pending" data-id="<?php echo $report->id; ?>" value="<?php echo $report->id; ?>" id="status<?php echo $report->id; ?>" data-bs-toggle="modal" data-bs-target="#bill_settlement">
                                                     Pay
                                                 </button>
-
                                             <?php   } else { ?>
-
                                                 <span class="bill_paid bill_settle btn-paid" data-status="Paid" data-id="<?php echo $report->id; ?>" value="<?php echo $report->id; ?>" id="status<?php echo $report->id; ?>">
                                                     Paid
                                                 </span>
-
                                             <?php  }; ?>
                                         </td>
                                         <td>
@@ -183,26 +174,24 @@
                                 <?php } ?>
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
         </div>
-        <!-- //payment model  -->
-        <div class="c-modal modal center fade" id="bill_settlement" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                </div>
-            </div>
-        </div>
-        <div class="c-modal modal center fade" id="bill_paid" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                </div>
+    </div>
+    <!-- //payment model  -->
+    <div class="c-modal modal center fade" id="bill_settlement" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
             </div>
         </div>
     </div>
-</div>
+    <div class="c-modal modal center fade" id="bill_paid" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
 </div>
 <?php
 include_once "./public/assets/includes/footer.php";

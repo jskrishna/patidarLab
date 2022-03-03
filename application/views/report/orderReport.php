@@ -49,7 +49,7 @@
                                         <span class="text-capitalize"><?php echo $doctorsData->referral_name; ?></span>
                                     </p>
                                 </div>
-                                <a class="btn custom-btn" href="<?php echo BASE_URL . 'report' ?>">All Report</a>
+                                <a class="btn custom-btn" href="<?php echo BASE_URL . 'report' ?>">All Reports</a>
                                 <!-- <div class="name-sec-right"> -->
                                 <!-- <p>
                                         <img src="<?php //echo BASE_URL 
@@ -73,109 +73,6 @@
                     </div>
                     <form method="POST" action="<?php echo BASE_URL; ?>Outputpdf/index" target="_blank" id="report">
                         <div class="c-datatable fixed-save">
-                            <table class="table report-edit" id="tablelist">
-                                <thead>
-                                    <tr style="display: none;">
-                                        <th colspan="3">
-                                            <div class="form-row">
-                                                <div class="col-lg-2">
-                                                    <i>Font Size </i> <select name="font_size" id="font_size" class="form-control">
-                                                        <option value="8">8</option>
-                                                        <option value="9">9</option>
-                                                        <option value="10">10</option>
-                                                        <option value="11">11</option>
-                                                        <option selected="selected" value="12">12</option>
-                                                        <option value="13">13</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <i>font style</i> <select name="fontstyle" class="form-control">
-                                                        <option selected="selected" value="times">Times Roman</option>
-                                                        <option value="courier">Courier</option>
-                                                        <option value="helvetica">Helvetica</option>
-                                                        <option value="dejavusans">Dejavusans</option>
-                                                        <option value="Merlin">Merlin</option>
-                                                        <option value="comic">Comic</option>
-                                                        <option value="BLKCHCRY"> Black Chancery</option>
-                                                        <option value="bookmanoldstyle"> Bookman Old Style</option>
-                                                        <option value="verdana">Verdana</option>
-                                                        <option value="serifa">SerifaBT</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <i>Letter Space</i> <select name="cell_padding" class="form-control">
-                                                        <option selected="selected" value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                        <option value="6">6</option>
-                                                        <option value="7">7</option>
-                                                        <option value="8">8</option>
-                                                        <option value="9">9</option>
-                                                        <option value="10">10</option>
-                                                        <option value="11">11</option>
-                                                        <option value="12">12</option>
-                                                        <option value="13">13</option>
-                                                        <option value="14">14</option>
-                                                        <option value="15">15</option>
-                                                        <option value="16">16</option>
-                                                        <option value="17">17</option>
-                                                        <option value="18">18</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    Paper Size : <select id="select_paper_size" name="paper_size" class="form-control">
-                                                        <option value="A4">A4</option>&gt;
-                                                        <option value="A4-L">A4(Landscape)</option>&gt;
-                                                        <option value="A5">A5</option>&gt;
-                                                    </select>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <div class="row">
-                                                        <div class="col-lg-8">
-                                                            Border </div>
-                                                        <div class="col-lg-4">: <input type="checkbox" name="field_border" id="field_border" value="YES"> Yes </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-8">
-                                                            Collapse </div>
-                                                        <!-- <div class="col-lg-4"> : <input type="checkbox" name="collapse" id="collapse" value="YES"> Yes </div> -->
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-8">
-                                                            Checked By </div>
-                                                        <div class="col-lg-4">: <input checked="checked" type="checkbox" name="checked_by" id="checked_by" value="YES"> Yes</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <select name="letter_pad_custom" id="letter_pad_custom" class="form-control" style="display:none">
-                                                    <option value="letter_pad1" selected="selected">Letter Pad1</option>
-                                                    <option value="letter_pad2">Letter Pad2</option>
-                                                    <option value="letter_pad3">Letter Pad3</option>
-                                                </select>
-                                                <div class="col-lg-6">
-                                                    <div class="row">
-                                                        <div class="col-lg-6 mt-4">
-                                                            <!-- <input type="button" class="btn btn-primary btn-sm select" id="select_all" value="Select All">
-                                                            <input type="button" class="btn btn-sm btn-primary deselect" id="deselect_All" value="Deselect All"> -->
-                                                        </div>
-                                                        <div class="col-lg-7"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                </div>
-                                            </div>
-                                        </th>
-                                        <th class="align-top">
-                                            <!-- <span class="text-right"><input type="checkbox" name="print_header" id="print_header" value="Yes"> Print Report With Header</span> -->
-                                            <br>
-                                            <span class="text-right"><input type="checkbox" name="barcode" id="barcode" value="Yes" checked="true"> Print Barcode </span><br>
-                                            <span class="text-right"><input type="checkbox" checked="checked" name="qr_code" id="qr_code" value="Yes"> Qr Code </span><br>
-                                        </th>
-                                    </tr>
-                                    <tr class="border-0">
-                                        <th colspan="4">
                                             <div class="print-option">
                                                 <div class="check-group">
                                                     <input type="checkbox" class="" id="print_header" name="print_header" value="Yes" checked>
@@ -186,8 +83,8 @@
                                                     <label for="collapse">Collapse pdf</label>
                                                 </div>
                                             </div>
-                                        </th>
-                                    </tr>
+                            <table class="table report-edit" id="tablelist">
+                                <thead>
                                     <tr>
                                         <th>
                                             <div class="check-group select">
