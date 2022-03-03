@@ -44,34 +44,34 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="name-sec-center">
+                            <div class="name-sec-center bill-add-d">
                                 <p>
                                     <label for="">Patient ID:</label><span><?php echo $patientData->patientid; ?></span>
                                 </p>
-                                <!-- <p><label for="">Patient Create date:</label> <span><?php //echo $patientData->created_at; ?></span></p> -->
+                                <p><label for="">Bill:</label> <span><?php echo date_format(new DateTime($billData->billDate), "d-M-Y"); ?></span></p>
                                 <p>
                                     <label for="">Referred by:</label>
                                     <span class="text-capitalize"><?php echo $doctorData->referral_name; ?></span>
                                 </p>
                             </div>
-                            <div class="name-sec-right">
+                            <!-- <div class="name-sec-right"> -->
+                                <!-- <p>
+                                    <img src="<?php //echo BASE_URL ?>public/assets/images/feather-clock-active.svg" alt="">
+                                    <span><?php //echo date_format(new DateTime($billData->billDate), "d-M-Y"); ?></span>
+                                </p> -->
+                                <!-- <?php // if ($patientData->mobile) { ?>
                                 <p>
-                                    <img src="<?php echo BASE_URL ?>public/assets/images/feather-clock-active.svg" alt="">
-                                    <span><?php echo date_format(new DateTime($billData->billDate), "d-M-Y"); ?></span>
+                                    <img src="<?php //echo BASE_URL ?>public/assets/images/feather-phone-call.svg" alt="">
+                                    <span><?php // echo $patientData->mobile ?></span>
                                 </p>
-                                <?php if ($patientData->mobile) { ?>
-                                <p>
-                                    <img src="<?php echo BASE_URL ?>public/assets/images/feather-phone-call.svg" alt="">
-                                    <span><?php echo $patientData->mobile ?></span>
-                                </p>
-                                <?php  } ?>
-                            </div>
+                                <?php  //} ?> -->
+                            <!-- </div> -->
                         </div>
                     </div>
                 </div>
                 <div class="tabs fixed-save">
                     <!-- tabs menu  -->
-                    <div>
+                    <div class="test-parameters">
                     <ul class="nav nav-tab" role="tablist">
                         <?php $testIds = explode(',', $billData->testId);
                         $count = 1;
@@ -186,7 +186,7 @@
                                                                                             } ?>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <div>
+                                                                                            <div class="approv-check">
                                                                                                 <?php
                                                                                                 if($parameter->min_value == null){
 
@@ -209,7 +209,7 @@
                                                                                                 <input type="hidden" id="min_range<?php echo $parameter->id; ?>" name="min_range[]" value="<?php echo $min; ?>">
                                                                                                 <input type="hidden" id="max_range<?php echo $parameter->id; ?>" name="max_range[]" value="<?php echo $max; ?>">
                                                                                                 <?php if ($parameter->min_value != null) {
-                                                                                                    echo $parameter->min_value . ' - ' . $parameter->max_value.'<br>';
+                                                                                                    ?><span><?php echo $parameter->min_value . ' - ' . $parameter->max_value. '<br>'; ?></span> <?php
                                                                                                 } 
                                                                                                 if ($parameter->male_min_value != null) {
                                                                                                     echo 'Male -> '.$parameter->male_min_value . ' - ' . $parameter->male_max_value.'<br>';
@@ -268,11 +268,11 @@
                                                                                             } ?>
                                                                                         </td>
                                                                                         <td>
-                                                                                            <div>
+                                                                                            <div class="approv-check">
                                                                                                 <input type="hidden" id="min_range<?php echo $parameter->id; ?>" name="min_range[]" value="<?php echo $parameter->min_value; ?>">
                                                                                                 <input type="hidden" id="max_range<?php echo $parameter->id; ?>" name="max_range[]" value="<?php echo $parameter->max_value; ?>">
                                                                                                 <?php if ($parameter->min_value != null) {
-                                                                                                    echo $parameter->min_value . ' - ' . $parameter->max_value;
+                                                                                                   ?><span><?php echo $parameter->min_value . ' - ' . $parameter->max_value; ?></span> <?php
                                                                                                 } ?>
                                                                                                 <div class="checkbox i-checks pull-right check-group">
                                                                                                     <input type="hidden" value="No" name="highlight[]" id="checkValue<?php echo $parameter->id; ?>">
