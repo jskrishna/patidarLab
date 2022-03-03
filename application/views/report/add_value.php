@@ -17,6 +17,7 @@
                                 <div class="name-icon">
                                     <h3>
                                         <?php $name = explode(' ', $patientData->patientname);
+                                                        $name = array_filter($name);
                                         foreach ($name as $n) {
                                             echo $n[0];
                                         } ?>

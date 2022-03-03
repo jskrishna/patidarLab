@@ -63,6 +63,7 @@
                                                        <?php foreach ($patientData as $patient) {
                                                             if ($patient->id == $report->patient_id) {
                                                                 $name = explode(' ', $patient->patientname);
+                                                        $name = array_filter($name);
                                                                 foreach ($name as $n) {
                                                                     // echo $n[0];
                                                                 }
