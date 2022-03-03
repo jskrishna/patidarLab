@@ -135,6 +135,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <!-- JavaScript Bundle with Popper -->
 <script type="text/javascript">
+
 	$(document).ready(function() {
 
 		$('#login_btn').click(function() {
@@ -243,6 +244,7 @@
 		$('#update_password').click(function() {
 			var $btn = $(this);
 			var submit_form = true;
+			$("#password-form .errorTxt").html('');
 			$('#password-form .required').each(function() {
 				if ($(this).val() == "" && !$(this).val()) {
 					$(this).focus();
@@ -272,13 +274,13 @@
 					},
 					success: function(res) {
 						if (res.success == 0) {
-							$(".errorTxt").removeClass("text-success");
-							$(".errorTxt").addClass("text-danger");
-							$(".errorTxt").html(res.msg);
+							$("#password-form .errorTxt").removeClass("text-success");
+							$("#password-form .errorTxt").addClass("text-danger");
+							$("#password-form .errorTxt").html(res.msg);
 						} else {
-							$(".errorTxt").removeClass("text-danger");
-							$(".errorTxt").addClass("text-success");
-							$(".errorTxt").html(res.msg);
+							$("#password-form .errorTxt").removeClass("text-danger");
+							$("#password-form .errorTxt").addClass("text-success");
+							$("#password-form .errorTxt").html(res.msg);
 							location.reload();
 						}
 					}
@@ -1417,6 +1419,7 @@
 							$(".errorTxt").removeClass("text-danger");
 							$(".errorTxt").addClass("text-success");
 							$(".errorTxt").html(res.msg);
+							location.reload();
 
 						}
 					}
@@ -1592,7 +1595,7 @@
 		// 		$('.test-parameters').removeClass('test');
 		// 	}
 		// });
-	})
+	});
 </script>
 </body>
 

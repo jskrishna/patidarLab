@@ -95,6 +95,13 @@ class Outputpdf_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    public function getuserbyID($id)
+    {
+        $array = array('id' => $id);
+        $query = $this->db->select('*')->from('users')->where($array);
+        $query = $this->db->get();
+        return $query->result();
+    }
     
     public function insertReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values, $defult_value_status)
     {

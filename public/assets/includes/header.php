@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <meta>
+
 <head>
 	<meta charset="utf-8">
 	<title>Nextige Lab</title>
@@ -11,6 +12,7 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 	<!-- CSS only -->
 </head>
+
 <body>
 	<header class="main-header">
 		<div class="container-fluid">
@@ -34,10 +36,15 @@
 					</div>
 					<div class="header-right col-3">
 						<a href="<?php echo BASE_URL; ?>users" class="header-right-w">
-							<div class="current-u-avtr">
-								PX
-							</div>
-							<span>Current User</span>
+							<div class="current-u-avtr nav-avtar"><?php
+							 if(isset($loggedData)){ 
+							 $name = explode(' ', $loggedData->username);
+							 $name = array_filter($name);
+							 foreach ($name as $n) {
+								 echo $n[0];
+							 } }?> 
+							 </div>
+							<span id="nav-name"><?php if(isset($loggedData)){ echo $loggedData->username;} ?></span>
 						</a>
 					</div>
 				</div>

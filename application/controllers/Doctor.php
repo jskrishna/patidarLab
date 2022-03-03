@@ -64,4 +64,5 @@ class Doctor extends CI_Controller
 		echo json_encode($DocData);
         
     }
+    
 }

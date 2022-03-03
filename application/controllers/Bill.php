@@ -10,6 +10,9 @@ class Bill extends CI_Controller
 
     public function index()
     {
+        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedData = $this->Bill_model->getuserbyID($loggedInId);
+        $loggedData = $loggedData[0];
         if (isset($_GET['t'])) {
             $patientData = $this->Bill_model->patientInfo($_GET['t']);
             if (empty($patientData)) {
@@ -19,7 +22,7 @@ class Bill extends CI_Controller
             $departmentData = $this->Bill_model->getneededDepartment();
             $doctorData = $this->Bill_model->getAllDoctor();
             $referedData = $this->Bill_model->getreferedData();
-            $data = array('patientData' => $patientData, 'departmentData' => $departmentData, 'doctorData' => $doctorData, 'referedData' => $referedData);
+            $data = array('patientData' => $patientData, 'departmentData' => $departmentData, 'doctorData' => $doctorData, 'referedData' => $referedData,'loggedData'=>$loggedData);
             $this->load->view('bill/index.php', $data);
         } else if (isset($_GET['bill'])) {
             $bill = $_GET['bill'];
@@ -36,7 +39,7 @@ class Bill extends CI_Controller
             $departmentData = $this->Bill_model->getneededDepartment();
             $doctorData = $this->Bill_model->getAllDoctor();
 
-            $data = array('patientData' => $patientData, 'departmentData' => $departmentData, 'doctorData' => $doctorData, 'billData' => $billData, 'referedData' => $referedData, 'pxthis' => $this);
+            $data = array('patientData' => $patientData, 'departmentData' => $departmentData, 'doctorData' => $doctorData, 'billData' => $billData, 'referedData' => $referedData, 'loggedData'=>$loggedData,'pxthis' => $this);
             $this->load->view('bill/index.php', $data);
         } else {
             header('Location:' . BASE_URL . 'dashboard');
@@ -49,6 +52,8 @@ class Bill extends CI_Controller
     }
     public function billEntry()
     {
+
+
 
         $billDate = $this->input->post('billDate');
         $patient_id = $this->input->post('patient_id');
@@ -84,6 +89,9 @@ class Bill extends CI_Controller
     public function edit()
     {
 
+        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedData = $this->Bill_model->getuserbyID($loggedInId);
+        $loggedData = $loggedData[0];
         if (isset($_GET['bill'])) {
             $bill = $_GET['bill'];
             $billData = $this->Bill_model->getBillById($bill);
@@ -99,7 +107,7 @@ class Bill extends CI_Controller
             $departmentData = $this->Bill_model->getneededDepartment();
             $doctorData = $this->Bill_model->getAllDoctor();
 
-            $data = array('patientData' => $patientData, 'departmentData' => $departmentData, 'doctorData' => $doctorData, 'billData' => $billData, 'referedData' => $referedData, 'pxthis' => $this);
+            $data = array('patientData' => $patientData,'loggedData'=>$loggedData, 'departmentData' => $departmentData, 'doctorData' => $doctorData, 'billData' => $billData, 'referedData' => $referedData, 'pxthis' => $this);
             $this->load->view('bill/edit.php', $data);
         } else {
             header('Location:' . BASE_URL . 'report');

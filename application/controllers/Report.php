@@ -15,12 +15,18 @@ class Report extends CI_Controller
         $testData = $this->Report_model->gettestinfo();
         $departmentData = $this->Report_model->getdepartmentinfo();
         $doctorsData = $this->Report_model->getdoctorsinfo();
-
-        $data = array('reportData' => $reportData, 'patientData' => $patientData, 'testData' => $testData, 'departmentData' => $departmentData, 'doctorsData' => $doctorsData, 'pxthis' => $this);
+        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedData = $this->Report_model->getuserbyID($loggedInId);
+        $loggedData = $loggedData[0];
+        $data = array('reportData' => $reportData, 'loggedData' => $loggedData, 'patientData' => $patientData, 'testData' => $testData, 'departmentData' => $departmentData, 'doctorsData' => $doctorsData, 'pxthis' => $this);
         $this->load->view('report/index.php', $data);
     }
     public function add_value($id)
     {
+        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedData = $this->Report_model->getuserbyID($loggedInId);
+        $loggedData = $loggedData[0];
+
         $billData = $this->Report_model->getbillinfoByID($id);
         $referedData = $this->Report_model->getreferedData();
         $patientData = $this->Report_model->getpatientinfoByID($billData[0]->patient_id);
@@ -30,7 +36,7 @@ class Report extends CI_Controller
         $unitData = $this->Report_model->getunitinfo();
         $reportData = $this->Report_model->getreportDatainfo($id);
 
-        $data = array('reportData' => $reportData, 'patientData' => $patientData[0], 'referedData' => $referedData, 'unitData' => $unitData, 'billData' => $billData[0], 'testData' => $testData, 'doctorData' => $doctorData[0], 'parameterData' => $parameterData, 'pxthis' => $this);
+        $data = array('reportData' => $reportData, 'loggedData' => $loggedData, 'patientData' => $patientData[0], 'referedData' => $referedData, 'unitData' => $unitData, 'billData' => $billData[0], 'testData' => $testData, 'doctorData' => $doctorData[0], 'parameterData' => $parameterData, 'pxthis' => $this);
         $this->load->view('report/add_value.php', $data);
     }
 
@@ -149,11 +155,14 @@ class Report extends CI_Controller
     public function orderReport($id)
     {
         if ($id) {
+            $loggedInId = $_COOKIE['loggedInId'];
+            $loggedData = $this->Report_model->getuserbyID($loggedInId);
+            $loggedData = $loggedData[0];
 
             $billData = $this->Report_model->getbillinfoByID($id);
             $patientData = $this->Report_model->getpatientinfoByID($billData[0]->patient_id);
             $doctorsData = $this->Report_model->getdoctorinfoByID($patientData[0]->refered_by);
-            $data = array('billData' => $billData[0], 'patientData' => $patientData[0], 'doctorsData' => $doctorsData[0], 'pxthis' => $this);
+            $data = array('billData' => $billData[0], 'loggedData'=>$loggedData,'patientData' => $patientData[0], 'doctorsData' => $doctorsData[0], 'pxthis' => $this);
             $this->load->view('report/orderReport.php', $data);
         } else {
             header('location:' . BASE_URL . 'report');
