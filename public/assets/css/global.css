@@ -107,11 +107,11 @@ textarea {
 
 /* button css */
 .custom-btn {
-    line-height: 45px;
-    padding: 0 40px;
+    line-height: 40px;
+    padding: 0 20px;
     border: 0;
     border-radius: 5px;
-    height: 45px;
+    height: 40px;
     color: #fff;
     font-size: 14px;
     display: block;
@@ -121,6 +121,7 @@ textarea {
     cursor: pointer;
     background: #018c6a;
     text-decoration: none;
+    min-width: 100px;
 }
 
 .btn-primary:hover, .btn-check:focus+.btn-primary, .btn-primary:focus {
@@ -132,7 +133,7 @@ textarea {
 .custom-btn:hover, .custom-btn:focus {
     box-shadow: 0 5px 20px rgb(0 0 0 / 5%);
     color: #fff;
-    background: #018c6a;
+    background: #04765a;
 }
 
 .btn-sml {
@@ -149,7 +150,7 @@ textarea {
 }
 
 .btn-sml:hover {
-    background: rgb(244 246 248);
+    background: rgb(240 242 244);
 }
 
 .header-right-w-group {
@@ -572,9 +573,10 @@ table.dataTable thead .sorting {
 }
 .radio-group label span {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     align-items: center;
+    font-weight: 600;
 }
 
 .radio-group label span img {

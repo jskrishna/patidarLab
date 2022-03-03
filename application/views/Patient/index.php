@@ -4,9 +4,6 @@
     <div class="layout_content_inr">
         <div class="page-head page-head-border">
             <h2>Patient List</h2>
-            <!-- <a class="btn custom-btn" href="#" data-bs-target="#patientAdd" data-bs-toggle="modal" data-bs-dismiss="modal">
-                Add Patient
-            </a> -->
         </div>
         <div class="patient-sec">
             <div class="form-row">
@@ -15,10 +12,6 @@
                         <table width="100%" class="table dt-responsive">
                             <thead>
                                 <tr role="row" class="tablesorter-headerRow">
-                                    <!-- <th data-column="1" class="" style="width:50px;">
-                                        <div class="tablesorter-header-inner">No.</div>
-                                    </th> -->
-
                                     <th data-column="2" class="">
                                         <div class="tablesorter-header-inner">Name</div>
                                     </th>
@@ -44,9 +37,6 @@
                                 $count = 1;
                                 foreach ($patientData as $data) { ?>
                                     <tr role="row">
-                                        <!-- <td style="width:50px;"><?php //echo $count++ 
-                                                                        ?></td> -->
-
                                         <td>
                                             <div class="patient-avator">
                                                 <div class="ava-l">
@@ -67,13 +57,9 @@
                                         </td>
                                         <td>
                                             <span class="reg-span date">
-                                            <p style="display: none;"><?php echo date_format(new DateTime($data->created_at), "Ymd"); ?></p>
-
+                                                <p style="display: none;"><?php echo date_format(new DateTime($data->created_at), "Ymd"); ?></p>
                                                 <span class="nowwrap-text"><?php echo date_format(new DateTime($data->created_at), "d/m/Y"); ?></span>
-                                                <?php //echo date_format(new DateTime($data->created_at), "h:i A"); 
-                                                ?>
                                             </span>
-
                                         </td>
                                         <td><?php echo $data->patientid; ?></td>
                                         <?php foreach ($referedData as $doc) {
@@ -88,28 +74,16 @@
                                         <td>
                                             <ul class="action-list">
                                                 <li>
-                                                
-              
+                                                    <a href="<?php echo BASE_URL ?>bill?t=<?php echo $data->id; ?>" data-toggle="tooltip" data-placement="top" title="Billing" class="btn btn-sml btn-billing">
+                                                        <img src="<?php echo BASE_URL ?>public/assets/images/billing.svg" alt="">
+                                                    </a>
+                                                </li>
+                                                <li>
                                                     <button data-toggle="tooltip" data-placement="top" title="Edit Patient" data-bs-target="#patientEdit" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-sml patientedit_btn patientedit-btn" namse="test_edit" data-id="<?php echo $data->id; ?>" value="<?php echo $data->id; ?>">
                                                         <img src="<?php echo BASE_URL ?>public/assets/images/icon-edit.svg" alt="">
                                                     </button>
                                                 </li>
-                                                <li>
-                                                    <a href="<?php echo BASE_URL ?>bill?t=<?php echo $data->id; ?>" data-toggle="tooltip" data-placement="top" title="Billing"  class="btn btn-sml btn-billing">
-                                                        <img src="<?php echo BASE_URL ?>public/assets/images/billing.svg" alt="">
-                                                    </a>
-                                                </li>
                                             </ul>
-
-
-                                            <!-- <button data-bs-toggle="modal" data-title="<?php //echo $data->patientname; 
-                                                                                            ?>" data-bs-target="#myDeletemodel" data-url="patient/patientDelete?id=<?php //echo $data->id; 
-                                                                                                                                                                    ?>" id="patientdelete" class="btn btn-sml btn-delete" value="<?php //echo $data->id; 
-                                                                                                                                                                                                                                                                    ?>">
-                                                <img src="<?php //echo BASE_URL 
-                                                            ?>public/assets/images/trash.svg" alt="">
-                                            </button> -->
-
                                         </td>
                                     </tr>
                                 <?php } ?>

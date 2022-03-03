@@ -171,7 +171,7 @@
                                                             <input type="radio" id="payment_due" name="payment_mode" value="Due" <?php if(isset($billData) && $billData[0]->payment_mode == 'Due'){ echo 'checked'; } ?> checked>
                                                             <label for="payment_due">
                                                                 <span>
-                                                                Due <img src="<?php echo BASE_URL ?>public/assets/images/payment-due.svg" alt="">
+                                                                Due 
                                                                 </span>
                                                             </label>
                                                         </span>
@@ -179,7 +179,7 @@
                                                             <input type="radio" id="payment_cash" name="payment_mode" value="Cash" <?php if(isset($billData) && $billData[0]->payment_mode == 'Cash'){ echo 'checked'; } ?>>
                                                             <label for="payment_cash">
                                                                 <span>
-                                                                Cash <img src="<?php echo BASE_URL ?>public/assets/images/payment-cash.svg" alt="">
+                                                                Cash 
                                                                 </span>
                                                             </label>
                                                         </span>
@@ -187,7 +187,7 @@
                                                             <input type="radio" id="payment_upi" name="payment_mode" value="PhonePe" <?php if(isset($billData) && $billData[0]->payment_mode == 'PhonePe'){ echo 'checked'; } ?>>
                                                            <label for="payment_upi">
                                                                <span>
-                                                           UPI <img src="<?php echo BASE_URL ?>public/assets/images/upi.svg" alt="">
+                                                           UPI 
                                                            </span>
                                                         </label>
                                                         </span>

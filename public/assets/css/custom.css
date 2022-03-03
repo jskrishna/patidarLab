@@ -48,8 +48,9 @@
 
         .file-type-img img {
             max-width: 150px;
-            max-height: 100px;
-            object-fit: contain;
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
         }
 
         .form-group {
@@ -57,10 +58,11 @@
         }
 
         .form-group .error {
-            font-size: 10px;
+            font-size: 12px;
             line-height: initial;
             display: block;
             margin-top: 5px;
+            color: red;
         }
 
         .form-group label {
@@ -70,6 +72,7 @@
             font-weight: 600;
             margin-bottom: 5px;
             letter-spacing: 0.3px;
+            text-transform: capitalize;
         }
 
         .form-group input,
@@ -111,13 +114,11 @@
             height: 40px;
         }
 
-        .c-datatable .form-group input,
-        .c-datatable .form-group select,
-        .c-datatable .form-control {
-            height: 36px;
+        .c-datatable .form-group input, .c-datatable .form-group select, .c-datatable .form-control {
+            height: 40px;
             font-size: 12px;
-            line-height: 36px;
-            min-height: 36px;
+            line-height: 40px;
+            min-height: 40px;
         }
 
         .c-datatable textarea.form-control {
@@ -203,7 +204,6 @@
 
         .sidenav-header a {
             display: block;
-            text-align: center;
         }
 
         .sidenav-header a img {
@@ -246,7 +246,7 @@
             color: #242424;
             display: flex;
             align-items: center;
-            padding: 10px 20px;
+            padding: 12px 20px;
             font-size: 14px;
             font-weight: 600;
             text-decoration: none;
@@ -259,6 +259,7 @@
             border-radius: 5px;
             color: #018c6a;
             justify-content: center;
+            padding: 7px 20px
         }
 
         .sidenav-footer-content {
@@ -641,7 +642,7 @@
         /* report list-head */
 
         .report-list-head {
-            padding: 20px 0 40px;
+            padding:0 0 20px 0;
         }
 
         .patient-name-sec {
@@ -685,20 +686,25 @@
         }
 
         .name-icon {
-            background: #018c6a;
             width: 50px;
             height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
+            background: rgb(1 140 106 / 10%);
+            color: #018c6a;
+            font-weight: 600;
+            border: 1px solid rgb(1 140 106 / 20%);
         }
 
         .name-icon h3 {
-            color: #fff;
             text-transform: uppercase;
             font-size: 18px;
             margin: 0;
+            color: #018c6a;
+            font-weight: 600;
+            line-height: 1;
         }
 
         .patient-name h3 {
@@ -1129,6 +1135,7 @@ border: 1px solid #e0e0e0;
 
         .print-option {
             display: flex;
+            margin-bottom: 20px;
         }
 
         .print-option .check-group+.check-group {
@@ -1213,4 +1220,55 @@ border: 1px solid #e0e0e0;
         }
         .approv-check span {
             margin-right: 10px;
+        }
+        .report-wrap {
+            padding: 0 20px;
+        }
+        .print-option .check-group label {
+            padding: 6px 8px;
+            border: 1px solid #e0e0e0;
+            border-radius: 3px;
+            background: #f3f3f3;
+            color: rgb(36 36 36 / 60%);
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        .print-option .check-group input:checked+label:after {
+            top: 8px;
+            left: 14px;
+            border-color: #018c6a;
+        }
+        .print-option .check-group label:before {
+            border-color: #e0e0e0;
+            background: #fff;
+            box-shadow: none;
+        }
+        .print-option .check-group input:checked+label {
+            border: 1px solid #018c6a;
+            background: rgb(1 140 106 / 10%);
+            color: #018c6a;
+        }
+        .print-option .check-group input:checked+label:before {
+            background: rgb(229 243 240);
+            border-color: #018c6a;
+        }
+        .file-type .file-type-input {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: #f4f6f8;
+            border-radius: 5px;
+            border: 1px dashed #018c6a;
+            margin-bottom: 10px;
+            color: #018c6a;
+            font-weight: 500;
+        }
+        .file-type-input + input{
+            display: none;
+        }
+        .file-type-input img {
+            opacity: 0.2;
+            width: 40px;
         }

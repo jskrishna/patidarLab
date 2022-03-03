@@ -115,7 +115,7 @@ class Report extends CI_Controller
                                     <input type='radio' id='payment_due' name='payment_mode' value='Due' checked>
                                     <label for='payment_due'>
                                         <span>
-                                        Due <img src='".BASE_URL."public/assets/images/payment-due.svg' alt=''>
+                                        Due 
                                         </span>
                                     </label>
                                 </span>
@@ -123,7 +123,7 @@ class Report extends CI_Controller
                                     <input type='radio' id='payment_cash' name='payment_mode' value='Cash'>
                                     <label for='payment_cash'>
                                         <span>
-                                        Cash <img src='".BASE_URL."public/assets/images/payment-cash.svg' alt=''>
+                                        Cash 
                                         </span>
                                     </label>
                                 </span>
@@ -131,7 +131,7 @@ class Report extends CI_Controller
                                     <input type='radio' id='payment_upi' name='payment_mode' value='PhonePe'>
                                    <label for='payment_upi'>
                                        <span>
-                                   UPI <img src='".BASE_URL."public/assets/images/upi.svg' alt=''>
+                                   UPI 
                                    </span>
                                 </label>
                                 </span>

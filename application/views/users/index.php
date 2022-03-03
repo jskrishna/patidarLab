@@ -2,7 +2,6 @@
 <?php include_once "./public/assets/includes/navbar.php";   ?>
 <div class="layoutSidenav_content">
     <div class="layout_content_inr profile-page">
-       
         <div class="report-sec">
             <div class="c-datatable px-0 py-0">
                 <div class="form-row">
@@ -16,55 +15,112 @@
                     <div class="profile-info">
                         <div id="tab-1" class="tab-content active">
                             <div class="docter-sec">
-                                <div class="page-head page-head-border">
-                                    <h2>Profile</h2>
-                                </div>
-                                <form method="POST" id="profile-form" name="profile" enctype="multipart/form-data">
-                                    <div class="row">
-                                        <div id="profile">
-                                            <div class="errorTxt text-danger text-center mb-3"></div>
-                                            <div class="form-row">
-                                                <div class="row">
-                                                    <div class="form-group col-lg-12">
-                                                        <label for="username">Full Name<span class="text-danger">*</span></label>
-                                                        <input type="text" name="username" id="username" value="<?php echo $UserData->username; ?>" class="form-control enterAsTab required" placeholder="Enter Full Name" autocomplete="off">
-                                                        <span class="error">This field is required.</span>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group file-type col-lg-6">
-                                                        <label for="user_logo">User Profile Logo</label>
-                                                        <input type="file" name="user_logo" id="user_logo" class="form-control enterAsTab" placeholder="Enter user_logo" autocomplete="off">
-                                                        <input type="hidden" name="oldprofile" id="oldprofile" value="<?php echo $UserData->logo; ?>">
-                                                    </div>
-                                                    <div class="form-group file-type-img col-lg-6">
-                                                        <label for="user_logo"></label>
-                                                        <?php if ($UserData->logo) { ?>
-                                                            <img src="<?php echo BASE_URL . 'public/assets/images/' . $UserData->logo; ?>" alt="">
-                                                        <?php } ?>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="form-group col-lg-6">
-                                                        <label for="email">Email</label>
-                                                        <input type="text" name="email" id="email" value="<?php echo $UserData->email; ?>" class="form-control enterAsTab" placeholder="Enter Email" autocomplete="off">
-                                                    </div>
-                                                    <div class="form-group col-lg-6">
-                                                        <label for="mobile">mobile</label>
-                                                        <input type="number" name="mobile" id="mobile" value="<?php echo $UserData->mobile; ?>" class="form-control enterAsTab" placeholder="Enter mobile number" autocomplete="off">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="page-head page-head-border">
+                                            <h2>Profile</h2>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <form method="POST" id="profile-form" name="profile" enctype="multipart/form-data">
+                                            <div class="row">
+                                                <div id="profile">
+                                                    <div class="errorTxt text-danger text-center mb-3"></div>
+                                                    <div class="form-row">
+                                                        <div class="row">
+                                                            <div class="form-group col-lg-6">
+                                                                <label for="username">Full Name<span class="text-danger">*</span></label>
+                                                                <input type="text" name="username" id="username" value="<?php echo $UserData->username; ?>" class="form-control enterAsTab required" placeholder="Enter Full Name" autocomplete="off">
+                                                                <span class="error">This field is required.</span>
+                                                            </div>
+                                                            <div class="form-group col-lg-6">
+                                                                <label for="username">User Name<span class="text-danger">*</span></label>
+                                                                <input type="text" name="usname" id="usname" value="<?php echo $UserData->username; ?>" class="form-control enterAsTab required" autocomplete="off">
+                                                                <span class="error">This field is required.</span>
+                                                            </div>
+                                                        </div>
+                                                        <!-- <div class="row">
+                                                            <div class="form-group file-type col-lg-6">
+                                                                <label for="user_logo">User Profile Logo</label>
+                                                                <input type="file" name="user_logo" id="user_logo" class="form-control enterAsTab" placeholder="Enter user_logo" autocomplete="off">
+                                                                <input type="hidden" name="oldprofile" id="oldprofile" value="<?php //echo $UserData->logo; 
+                                                                                                                                ?>">
+                                                            </div>
+                                                            <div class="form-group file-type-img col-lg-6">
+                                                                <label for="user_logo"></label>
+                                                                <?php //if ($UserData->logo) { 
+                                                                ?>
+                                                                    <img src="<?php //echo BASE_URL . 'public/assets/images/' . $UserData->logo; 
+                                                                                ?>" alt="">
+                                                                <?php //} 
+                                                                ?>
+                                                            </div>
+                                                        </div> -->
+                                                        <div class="row">
+                                                            <div class="form-group col-lg-6">
+                                                                <label for="email">Email</label>
+                                                                <input type="text" name="email" id="email" value="<?php echo $UserData->email; ?>" class="form-control enterAsTab" placeholder="Enter Email" autocomplete="off">
+                                                            </div>
+                                                            <div class="form-group col-lg-6">
+                                                                <label for="mobile">Mobile</label>
+                                                                <input type="number" name="mobile" id="mobile" value="<?php echo $UserData->mobile; ?>" class="form-control enterAsTab" placeholder="Enter mobile number" autocomplete="off">
 
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-12 text-center" id="button">
-                                                        <button type="button" class="btn btnupdate custom-btn m-auto" data-id="<?php echo $UserData->id; ?>" id="update_profile" value="update_profile">Update Profile</button>
-                                                        <input type="hidden" name="user_id" id="user_id" value="<?php echo $UserData->id; ?>">
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="row">
+                                                            <div class="col-lg-12" id="button">
+                                                                <button type="button" class="btn btnupdate custom-btn" data-id="<?php echo $UserData->id; ?>" id="update_profile" value="update_profile">Update Profile</button>
+                                                                <input type="hidden" name="user_id" id="user_id" value="<?php echo $UserData->id; ?>">
+                                                            </div>
+                                                        </div>
+                                                        <div style="display: none;">
+                                                            <input type="reset" value="reset" id="update-profile-form-reset">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="page-head page-head-border">
+                                            <h2>Password</h2>
                                         </div>
                                     </div>
-                                </form>
+                                    <div class="col-lg-6">
+                                        <form method="POST" id="password-form" name="profile" enctype="multipart/form-data">
+                                            <div class="row">
+                                                <div id="password">
+                                                    <div class="errorTxt text-danger text-center mb-3"></div>
+                                                    <div class="form-row">
+                                                        <div class="row">
+                                                            <div class="form-group col-lg-6">
+                                                                <label for="currentpass">Current Password</label>
+                                                                <input type="password" name="currentpass" id="currentpass" value="" class="form-control enterAsTab required" placeholder="Enter Current Password" autocomplete="off">
+                                                                <span class="error">This field is required.</span>
+                                                            </div>
+                                                            <div class="form-group col-lg-6">
+                                                                <label for="newpass">New Password</label>
+                                                                <input type="password" name="newpass" id="newpass" value="" class="form-control enterAsTab required" placeholder="Enter New Password" autocomplete="off">
+                                                                <span class="error">This field is required.</span>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="row">
+                                                            <div class="col-lg-12" id="button">
+                                                                <button type="button" class="btn btnupdate custom-btn" data-id="<?php echo $UserData->id; ?>" id="update_password" value="update_password">Update Password</button>
+                                                                <input type="hidden" name="passuser_id" id="passuser_id" value="<?php echo $UserData->id; ?>">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div id="tab-2" class="tab-content">
@@ -73,7 +129,6 @@
                                     <h2>Doctors</h2>
                                     <button class="btn custom-btn patientedit_btn doc-model-btn" data-bs-toggle="modal" data-id="" data-title="Add Doctor" data-bs-target="#adddoctor">Add Doctor</button>
                                 </div>
-
                                 <div class="form-row">
                                     <div class="col-lg-12">
                                         <table width="100%" class="table dt-responsives">
@@ -129,59 +184,78 @@
                                                 <?php } ?>
                                             </tbody>
                                         </table>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div id="tab-3" class="tab-content">
                             <div class="docter-sec">
-                                <li>layout setting</li>
-                                <li>Logo setting</li>
-                                <li>Role manage</li>
-                                <li>SMS/wp</li>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="page-head page-head-border">
+                                            <h2>Layout Setting</h2>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <form method="POST" id="update_layout-form" name="profile" action="<?php echo BASE_URL; ?>Users/updateLayout" enctype="multipart/form-data">
+                                            <div class="row">
+                                                <div id="layout">
+                                                    <div class="errorTxt text-danger text-center mb-3"></div>
+                                                    <div class="form-row">
+                                                        <div class="row">
+                                                            <div class="form-group file-type col-lg-12 mb-0">
+                                                                <label for="lab_logo">Lab Logo</label>
+                                                               <label for="lab_logo" class="file-type-input">
+                                                                   <img src="<?php echo BASE_URL  ?>public/assets/images/upload.svg" alt="">
+                                                                   <span>Upload your Logo here..</span>
+                                                               </label>
+                                                               <input type="file" name="lab_logo" id="lab_logo" class="form-control enterAsTab" placeholder="Enter lab_logo" autocomplete="off">
+                                                                <input type="hidden" name="old_lab_logo" id="old_lab_logo" value="<?php echo $UserData->lab_logo; ?>">
+                                                            </div>
+                                                            <div class="form-group file-type-img col-lg-12">
+                                                                <label for="lab_logo"></label>
+                                                                <?php if ($UserData->lab_logo) { ?>
+                                                                    <img src="<?php echo BASE_URL . 'public/assets/images/' . $UserData->lab_logo; ?>" alt="">
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="row">
+                                                            <div class="form-group file-type col-lg-12 mb-0">
+                                                                <label for="letter_pad">Letter head</label>
+                                                                <label for="lab_logo" class="file-type-input">
+                                                                <img src="<?php echo BASE_URL  ?>public/assets/images/upload.svg" alt=""> 
+                                                                   <span>Upload your Letter head here..</span>
+                                                               </label>
+                                                                <input type="file" name="letter_pad" id="letter_pad" class="form-control enterAsTab" placeholder="Enter letter_pad" autocomplete="off">
+                                                                <input type="hidden" name="old_letter_pad" id="old_letter_pad" value="<?php echo $UserData->letter_pad; ?>">
+                                                            </div>
+                                                            <div class="form-group file-type-img col-lg-12">
+                                                                <label for="letter_pad"></label>
+                                                                <?php if ($UserData->letter_pad) { ?>
+                                                                    <img src="<?php echo BASE_URL . 'public/assets/images/' . $UserData->letter_pad; ?>" alt="">
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="row">
+                                                            <div class="col-lg-12" id="button">
+                                                                <input type="submit" class="btn btnupdate custom-btn" data-id="<?php echo $UserData->id; ?>" id="update_layout" value="Update Layout">
+                                                                <input type="hidden" name="layout_id" id="layout_id" value="<?php echo $UserData->id; ?>">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
-        <div class="page-head page-head-border">
-            <h2>Password</h2>
-        </div>
-        <form method="POST" id="password-form" name="profile" enctype="multipart/form-data">
-                <div class="row">
-                    <div id="password">
-                        <div class="errorTxt text-danger text-center mb-3"></div>
-                        <div class="form-row">
-                            <div class="row">
-                                <div class="form-group col-lg-12">
-                                    <label for="currentpass">Current Password</label>
-                                    <input type="password" name="currentpass" id="currentpass" value="" class="form-control enterAsTab required" placeholder="Enter Current Password" autocomplete="off">
-                                    <span class="error">This field is required.</span>
-                                </div>
-                                <div class="form-group col-lg-12">
-                                    <label for="newpass">New Password</label>
-                                    <input type="password" name="newpass" id="newpass" value="" class="form-control enterAsTab required" placeholder="Enter New Password" autocomplete="off">
-                                    <span class="error">This field is required.</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 text-center" id="button">
-                                    <button type="button" class="btn btnupdate custom-btn m-auto" data-id="<?php echo $UserData->id; ?>" id="update_password" value="update_password">Update Password</button>
-                                    <input type="hidden" name="passuser_id" id="passuser_id" value="<?php echo $UserData->id; ?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-		</div>
-        </div>
-
-	<div id="tab-2" class="tab-content">
-    <div class="docter-sec">
-    <div class="page-head page-head-border">
-            <h2>Doctors</h2>
-            <button class="btn custom-btn patientedit_btn doc-model-btn" data-bs-toggle="modal" data-id="" data-title="Add Doctor"  data-bs-target="#adddoctor">Add Doctor</button>
+            </div>
         </div>
         <div class="c-modal modal right fade" id="adddoctor" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-md" role="document">
@@ -237,9 +311,7 @@
                     </div>
                     <div class="form-row">
                         <div class="col-lg-12 text-center">
-                            <div class="btn-flex">
-                                <input type="button" class="btn btnupdate custom-btn m-auto" id="addDoctor" value="Save">
-                            </div>
+                            <input type="button" class="btn btnupdate custom-btn m-auto" id="addDoctor" value="Save">
                         </div>
                     </div>
                 </div>
