@@ -1,7 +1,7 @@
 <?php include_once "./public/assets/includes/header.php"; ?>
 <?php include_once "./public/assets/includes/navbar.php";   ?>
 <div class="layoutSidenav_content">
-    <div class="layout_content_inr">
+    <div class="layout_content_inr profile-page">
        
         <div class="report-sec">
         <div class="c-datatable px-0 py-0">
@@ -65,6 +65,36 @@
                             </div>
                             <div style="display: none;">
                                 <input type="reset" value="reset" id="update-profile-form-reset">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        <div class="page-head page-head-border">
+            <h2>Password</h2>
+        </div>
+        <form method="POST" id="password-form" name="profile" enctype="multipart/form-data">
+                <div class="row">
+                    <div id="password">
+                        <div class="errorTxt text-danger text-center mb-3"></div>
+                        <div class="form-row">
+                            <div class="row">
+                                <div class="form-group col-lg-12">
+                                    <label for="currentpass">Current Password</label>
+                                    <input type="password" name="currentpass" id="currentpass" value="" class="form-control enterAsTab required" placeholder="Enter Current Password" autocomplete="off">
+                                    <span class="error">This field is required.</span>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <label for="newpass">New Password</label>
+                                    <input type="password" name="newpass" id="newpass" value="" class="form-control enterAsTab required" placeholder="Enter New Password" autocomplete="off">
+                                    <span class="error">This field is required.</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 text-center" id="button">
+                                    <button type="button" class="btn btnupdate custom-btn m-auto" data-id="<?php echo $UserData->id; ?>" id="update_password" value="update_password">Update Password</button>
+                                    <input type="hidden" name="passuser_id" id="passuser_id" value="<?php echo $UserData->id; ?>">
+                                </div>
                             </div>
                         </div>
                     </div>

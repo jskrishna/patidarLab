@@ -240,6 +240,56 @@
 		});
 
 
+		$('#update_password').click(function() {
+			var $btn = $(this);
+			var submit_form = true;
+			$('#password-form .required').each(function() {
+				if ($(this).val() == "" && !$(this).val()) {
+					$(this).focus();
+					$(this).parent('.form-group').addClass('error');
+					$(this).siblings('.error').show();
+					submit_form = false;
+				} else {
+					$(this).siblings('.error').hide();
+					$(this).parent('.form-group').removeClass('error');
+				}
+			});
+
+			var currentpass = $("#currentpass").val();
+			var newpass = $("#newpass").val();
+			var user_id = $("#passuser_id").val();
+
+			var updatepasseUrl = '<?php echo BASE_URL; ?>Users/updatePass';
+			if (submit_form) {
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: updatepasseUrl,
+					data: {
+						"currentpass": currentpass,
+						"newpass": newpass,
+						"user_id": user_id,
+					},
+					success: function(res) {
+						if (res.success == 0) {
+							$(".errorTxt").removeClass("text-success");
+							$(".errorTxt").addClass("text-danger");
+							$(".errorTxt").html(res.msg);
+						} else {
+							$(".errorTxt").removeClass("text-danger");
+							$(".errorTxt").addClass("text-success");
+							$(".errorTxt").html(res.msg);
+							location.reload();
+						}
+					}
+
+				});
+			}
+			return false;
+		});
+
+		
+
 
 
 		function isEmail(email) {
@@ -1318,9 +1368,9 @@
 
 		// review btn 
 		$("body").on('click', '.review-btn', function() {
-
 			var val = $(this).data('id');
 			$("#test" + val).prop("checked", true);
+			$("#department" + val).prop("checked", true);
 			$('#submit_report').removeAttr('disabled', 'disabled');
 			$("#report").submit();
 

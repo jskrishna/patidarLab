@@ -1,8 +1,16 @@
 
 	<?php
+	// if(session_status() === PHP_SESSION_NONE){
+		// session_start();
+	// }
+	// if (isset($_SESSION['loggedIn']) && isset($_SESSION['loggedInId'])) {
+		// header('Location:' . BASE_URL . 'dashboard');
+	// } 
+	if (isset($_COOKIE['loggedIn']) && isset($_COOKIE['loggedInId'])) {
+		header('Location:' . BASE_URL . 'dashboard');
+	}
 	include_once "./public/assets/includes/header.php";
 	?>
-		
 	<style>
 		header {
 			display: none;

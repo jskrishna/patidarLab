@@ -23,9 +23,10 @@
 
         $referData = $this->Outputpdf_model->getdoctorinfoByID($patientData->refered_by);
         $referData = $referData[0];
-        $headerImage = BASE_URL . 'public/assets/images/Letter_pad.png';
+        $headerImage = BASE_URL.'public/assets/images/Letter_pad.png';
 
         $testIDS = explode(',', $billData->testId);
+        require_once 'vendor/autoload.php';
 
         $mpdf = new \Mpdf\Mpdf();
         $print_header =  $this->input->post('print_header');
