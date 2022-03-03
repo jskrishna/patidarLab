@@ -15,8 +15,12 @@ if (isset($_COOKIE['loggedIn']) && isset($_COOKIE['loggedInId'])) {
     <div class="layoutSidenav_nav">
         <nav class="sidenav shadow-right sidenav-light">
             <div class="sidenav-header">
-                <a href="/">
-                    <img src="<?php echo BASE_URL ?>public/assets/images/logo.svg" alt="logo">
+                <a href="<?php echo BASE_URL; ?>">
+                <?php if(isset($loggedData->lab_logo)){ ?>
+                    <img src="<?php echo BASE_URL .'public/assets/images/' . $loggedData->lab_logo; ?>" alt="">
+               <?php }else{
+                   echo $loggedData->username;
+               } ?>
                 </a>
             </div>
             <div class="sidenav-menu">

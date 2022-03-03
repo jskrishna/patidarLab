@@ -27,6 +27,13 @@ class Test_model extends CI_Model
         $sth = $this->db->query("INSERT INTO `test`(`department`, `test_name`, `amount`, `status`) VALUES ('$department','$testName','$test_amount','$test_status')");
         return $sth;
     }
+    public function getuserbyID($id)
+    {
+        $array = array('id' => $id);
+        $query = $this->db->select('*')->from('users')->where($array);
+        $query = $this->db->get();
+        return $query->result();
+    }
     public function testEdit($id)
     {
         $query = $this->db->select('*')->from('test')->where('id', $id);

@@ -9,6 +9,10 @@ class Dashboard extends CI_Controller
 
 	public function index()
 	{
-		$this->load->view('dashboard/Index.php');
+		$loggedInId = $_COOKIE['loggedInId'];
+        $loggedData = $this->Dashboard_model->getuserbyID($loggedInId);
+        $loggedData = $loggedData[0];
+		$data = array('loggedData' => $loggedData);
+		$this->load->view('dashboard/Index.php', $data);
 	}
 }

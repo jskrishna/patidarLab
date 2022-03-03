@@ -14,7 +14,11 @@ class Test extends CI_Controller
         $Allunit = $this->Test_model->getAllunit();
         $Alldepartment = $this->Test_model->getAlldepartment();
 
-        $data = array('Alltest' => $Alltest, 'Allunit' => $Allunit, 'Alldepartment' => $Alldepartment);
+        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedData = $this->Test_model->getuserbyID($loggedInId);
+        $loggedData = $loggedData[0];
+
+        $data = array('Alltest' => $Alltest,'loggedData'=>$loggedData, 'Allunit' => $Allunit, 'Alldepartment' => $Alldepartment);
         $this->load->view('test/index.php', $data);
     }
     public function addTest()

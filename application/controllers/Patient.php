@@ -12,9 +12,12 @@ class Patient extends CI_Controller
 
 	public function index()
 	{
+		$loggedInId = $_COOKIE['loggedInId'];
+        $loggedData = $this->Patient_model->getuserbyID($loggedInId);
+        $loggedData = $loggedData[0];
 		$pp = $this->Patient_model->patientinfo();
 		$referedData = $this->Patient_model->getreferedData();
-		$data = array('referedData' => $referedData, 'patientData' => $pp);
+		$data = array('referedData' => $referedData,'loggedData'=>$loggedData, 'patientData' => $pp);
 		$this->load->view('Patient/index', $data);
 	}
 	public function register_patient()
@@ -143,7 +146,11 @@ class Patient extends CI_Controller
 
 	public function add_patient()
 	{
-		$this->load->view('Patient/add-patient');
+		$loggedInId = $_COOKIE['loggedInId'];
+        $loggedData = $this->Patient_model->getuserbyID($loggedInId);
+        $loggedData = $loggedData[0];
+		$data = array('loggedData' => $loggedData);
+		$this->load->view('Patient/add-patient', $data);
 	}
 	public function patientList()
 	{

@@ -10,7 +10,9 @@
                             <li class="filter-item all-r active" id="1" data-tab="tab-1">Profile</li>
                             <li class="filter-item pending-r" id="2" data-tab="tab-2">Doctors</li>
                             <li class="filter-item complete-r" id="3" data-tab="tab-3">Lab Management</li>
+                            <li class="filter-item complete-r" id="4" data-tab="tab-4">Role Management</li>
                         </ul>
+
                     </div>
                     <div class="profile-info">
                         <div id="tab-1" class="tab-content active">
@@ -249,6 +251,75 @@
                                                 </div>
                                             </div>
                                         </form>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                        <div id="tab-4" class="tab-content">
+                            <div class="docter-sec">
+                                <div class="page-head page-head-border">
+                                    <h2>Role Manage</h2>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-lg-12">
+
+                                        <table width="100%" class="table dt-responsives">
+                                            <thead>
+                                                <tr role="row" class="tablesorter-headerRow">
+                                                    <th data-column="1" class="">
+                                                        <div class="tablesorter-header-inner">Name</div>
+                                                    </th>
+                                                    <th data-column="2" class="">
+                                                        <div class="tablesorter-header-inner"> Mobile</div>
+                                                    </th>
+                                                    <th data-column="3" class="">
+                                                        <div class="tablesorter-header-inner">Email</div>
+                                                    </th>
+                                                    <th data-column="4" class="">
+                                                        <div class="tablesorter-header-inner">Role</div>
+                                                    </th>
+                                                    <th data-column="6" class="">
+                                                        <div class="tablesorter-header-inner">Action</div>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <?php
+                                                foreach ($AllUserData as $data) { ?>
+
+                                                    <tr>
+                                                        <td>
+                                                            <div class="patient-avator">
+                                                                <div class="ava-l">
+                                                                    <div class="patient-short-name">
+                                                                        <?php $name = explode(' ', $data->username);
+                                                                        $name = array_filter($name);
+                                                                        foreach ($name as $n) {
+                                                                            echo $n[0];
+                                                                        } ?> </div>
+                                                                </div>
+                                                                <div class="ava-r">
+                                                                    <span><?php echo $data->username; ?></span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><?php echo $data->mobile; ?></td>
+                                                        <td><?php echo $data->email;  ?></td>
+                                                        <td><?php echo $data->role;  ?></td>
+                                                        <td>
+                                                            <!-- <button data-toggle="tooltip" data-placement="top" title="" data-bs-target="#adddoctor" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-sml patientedit-btn doc-model-btn" namse="doctoredit" data-id="<?php echo $ref->id;  ?>" value="<?php echo $ref->id;  ?>" data-title="Edit Doctor" data-bs-original-title="Edit Doctor"> -->
+                                                            <img src="http://localhost/patidarLab/public/assets/images/icon-edit.svg" alt="">
+                                                            <!-- </button> -->
+                                                        </td>
+                                                    </tr>
+
+
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+
                                     </div>
                                 </div>
                             </div>
