@@ -44,7 +44,6 @@
         );
 
         $mpdf = new \Mpdf\Mpdf($mpdfConfig);
-
         $print_header =  $this->input->post('print_header');
         if (isset($print_header) && $print_header == 'Yes') {
             $mpdf->SetDefaultBodyCSS('background', "url('" . $headerImage . "')");
@@ -209,7 +208,7 @@
         $footer = "<table width='100%' cellspacing='5'>
                                 <tfoot>
                                     <tr>
-                                        <th style='height:30px'  colspan='3'>**** END OF REPORT ****</th>
+                                        <th style='height:20px'  colspan='3'>**** END OF REPORT ****</th>
                                     </tr>
                                 </tfoot>
                                 </table>

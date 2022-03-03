@@ -1,5 +1,7 @@
 $(document).ready(function() {
     var table = $('.dt-responsive').DataTable({
+        
+        
         language: {
             search: "_INPUT_",
             searchPlaceholder: "Search Patient..."
@@ -13,10 +15,15 @@ $(document).ready(function() {
         "bInfo": false,
         "bAutoWidth": false,
         "lengthMenu": [
-            [7, 20, 50, -1],
-            [7, 20, 50, "All"]
+            [20, 50, -1],
+            [20, 50, "All"]
         ],
         "ordering": true,
+        "fnDrawCallback": function (data, type, full, meta) {
+            $('[data-toggle="tooltip"]').tooltip({ placement: 'right', container: 'body', html: true });
+        },
+        
+        
     });
     var tables = $('.dt-responsives').DataTable({
         language: {
@@ -32,10 +39,14 @@ $(document).ready(function() {
         "bInfo": false,
         "bAutoWidth": false,
         "lengthMenu": [
-            [7, 20, 50, -1],
-            [7, 20, 50, "All"]
+            [20, 50, -1],
+            [20, 50, "All"]
         ],
         "ordering": true,
+        "fnDrawCallback": function (data, type, full, meta) {
+            $('[data-toggle="tooltip"]').tooltip({ placement: 'right', container: 'body', html: true });
+        },
+        
     });
 
     //report-filter

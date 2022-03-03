@@ -4,7 +4,6 @@
     <div class="layout_content_inr">
         <div class="page-head page-head-border">
             <h2>Reports</h2>
-            <a class="btn custom-btn" href="<?php echo BASE_URL . 'report' ?>">All Report</a>
         </div>
         <div class="reports-sec">
             <div class="form-row">
@@ -16,7 +15,7 @@
                                     <div class="name-icon">
                                         <h3>
                                             <?php $name = explode(' ', $patientData->patientname);
-                                                        $name = array_filter($name);
+                                            $name = array_filter($name);
                                             foreach ($name as $n) {
                                                 echo $n[0];
                                             } ?>
@@ -40,28 +39,35 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="name-sec-center">
+                                <div class="name-sec-center bill-add-d">
                                     <p>
                                         <label for="">Patient ID:</label><span><?php echo $patientData->patientid; ?></span>
                                     </p>
-                                    <!-- <p><label for="">Patient Create:</label> <span><?php //echo $patientData->created_at; ?></span></p> -->
+                                    <p><label for="">Bill:</label> <span><?php echo date_format(new DateTime($billData->billDate), "d-M-Y"); ?></span></p>
                                     <p>
                                         <label for="">Referred By:</label>
                                         <span class="text-capitalize"><?php echo $doctorsData->referral_name; ?></span>
                                     </p>
                                 </div>
-                                <div class="name-sec-right">
-                                    <p>
-                                        <img src="<?php echo BASE_URL ?>public/assets/images/feather-clock-active.svg" alt="">
-                                        <span><?php echo date_format(new DateTime($billData->billDate), "d-M-Y"); ?></span>
+                                <a class="btn custom-btn" href="<?php echo BASE_URL . 'report' ?>">All Report</a>
+                                <!-- <div class="name-sec-right"> -->
+                                <!-- <p>
+                                        <img src="<?php //echo BASE_URL 
+                                                    ?>public/assets/images/feather-clock-active.svg" alt="">
+                                        <span><?php //echo date_format(new DateTime($billData->billDate), "d-M-Y"); 
+                                                ?></span>
                                     </p>
-                                    <?php if ($patientData->mobile) { ?>
+                                    <?php //if ($patientData->mobile) { 
+                                    ?>
                                         <p>
-                                            <img src="<?php echo BASE_URL ?>public/assets/images/feather-phone-call.svg" alt="">
-                                            <span><?php echo $patientData->mobile ?></span>
+                                            <img src="<?php //echo BASE_URL 
+                                                        ?>public/assets/images/feather-phone-call.svg" alt="">
+                                            <span><?php //echo $patientData->mobile 
+                                                    ?></span>
                                         </p>
-                                    <?php  } ?>
-                                </div>
+                                    <?php  //} 
+                                    ?> -->
+                                <!-- </div> -->
                             </div>
                         </div>
                     </div>
@@ -170,15 +176,17 @@
                                     </tr>
                                     <tr class="border-0">
                                         <th colspan="4">
-                                            <div class="check-group">
-                                                <input type="checkbox" class="" id="print_header" name="print_header" value="Yes" checked>
-                                                <label for="print_header">Print Report With Header</label>
+                                            <div class="print-option">
+                                                <div class="check-group">
+                                                    <input type="checkbox" class="" id="print_header" name="print_header" value="Yes" checked>
+                                                    <label for="print_header">Print Report With Header</label>
+                                                </div>
+                                                <div class="check-group">
+                                                    <input type="checkbox" class="" id="collapse" name="collapse" value="Yes">
+                                                    <label for="collapse">Collapse pdf</label>
+                                                </div>
                                             </div>
-                                            <div class="check-group">
-                                                <input type="checkbox" class="" id="collapse" name="collapse" value="Yes">
-                                                <label for="collapse">Collapse pdf</label>
-                                            </div>
-                                    </th>
+                                        </th>
                                     </tr>
                                     <tr>
                                         <th>
@@ -207,17 +215,17 @@
                                         if (!empty($checkData)) {
                                             $btn = true;
                                             $testData = $pxthis->Report_model->getTestByID($test);
-                                            $testData = $testData[0]; 
+                                            $testData = $testData[0];
                                             $departData = $pxthis->Report_model->getdepartmentByID($testData->department);
-                                                    $departData = $departData[0];
-                                            
-                                            ?>
+                                            $departData = $departData[0];
+
+                                    ?>
                                             <tr class="reportcnt" id="<?php echo $testData->id; ?>">
                                                 <td>
                                                     <div class="check-group single-select">
                                                         <input type="checkbox" value="<?php echo $testData->id; ?>" onclick="myFunction('test<?php echo $testData->id; ?>')" class="chkbox" id="test<?php echo $testData->id; ?>" name="test_id[]">
-                                                       <label for="test<?php echo $testData->id; ?>"></label>
-                                                       <input type="checkbox" class="chkbox" id="department<?php echo $testData->id; ?>" value="<?php echo $departData->id; ?>" name="department[]">
+                                                        <label for="test<?php echo $testData->id; ?>"></label>
+                                                        <input type="checkbox" class="chkbox" id="department<?php echo $testData->id; ?>" value="<?php echo $departData->id; ?>" name="department[]">
                                                     </div>
                                                 </td>
                                                 <td>
@@ -244,7 +252,7 @@
                             </table>
                         </div>
                         <div class="form-footer">
-                            <?php if($btn){ ?>
+                            <?php if ($btn) { ?>
                                 <input type="submit" class="btn custom-btn" id="submit_report" value="Submit" disabled="disabled">
 
                             <?php } ?>
@@ -260,35 +268,33 @@
 include_once "./public/assets/includes/footer.php";
 ?>
 <script>
-    var check=[];
-			function myFunction(val){
-			var val1=val.substring(4,10);
-			if($("#"+val).prop("checked") == true){
-				check.push(val);
+    var check = [];
 
-			}
-			else if($("#"+val).prop("checked") == false){
-				check=$.grep(check, function(a){
-				return a !=val;
-				})
+    function myFunction(val) {
+        var val1 = val.substring(4, 10);
+        if ($("#" + val).prop("checked") == true) {
+            check.push(val);
 
-			}
-				var count=check.length;
-			if(count>0){
-			$('#submit_report').removeAttr('disabled','disabled');
-			}
-			else{
-			$('#submit_report').attr('disabled','disabled');
-			}
-			if($("#"+val).prop("checked") == true){
+        } else if ($("#" + val).prop("checked") == false) {
+            check = $.grep(check, function(a) {
+                return a != val;
+            })
 
-				console.log("Checkbox is checked." );
-					$('#department'+val1).prop('checked', true);
-				}
-				else if($("#"+val). prop("checked") == false){
+        }
+        var count = check.length;
+        if (count > 0) {
+            $('#submit_report').removeAttr('disabled', 'disabled');
+        } else {
+            $('#submit_report').attr('disabled', 'disabled');
+        }
+        if ($("#" + val).prop("checked") == true) {
 
-				console.log("Checkbox is unchecked." );
-				$('#department'+val1).prop('checked', false);
-				}
-			}
+            console.log("Checkbox is checked.");
+            $('#department' + val1).prop('checked', true);
+        } else if ($("#" + val).prop("checked") == false) {
+
+            console.log("Checkbox is unchecked.");
+            $('#department' + val1).prop('checked', false);
+        }
+    }
 </script>

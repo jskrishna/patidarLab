@@ -323,8 +323,11 @@
 		}
 
 		$(function() {
-			$('[data-toggle="tooltip"]').tooltip()
+			$('[data-toggle="tooltip"]').tooltip({
+				container: 'body'
+			});
 		})
+		// $('[data-toggle="tooltip"]').tooltip({placement: 'bottom',trigger: 'manual'}).tooltip('show');
 
 		//calculation
 		function calculation() {
@@ -1587,11 +1590,18 @@
 		};
 	})
 
-	$('.dropdown').hover(function() {
-		$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
-	}, function() {
-		$(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
-	});
+
+	var fixmeTop = $('.test-parameters').offset().top;
+$(window).scroll(function() {
+    var currentScroll = $(window).scrollTop();
+    if (currentScroll >= fixmeTop) {
+        $('.test-parameters').addClass('test');
+    } else {
+        $('.test-parameters').removeClass('test');
+    }
+});
+
+
 </script>
 </body>
 

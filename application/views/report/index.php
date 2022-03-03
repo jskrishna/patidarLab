@@ -35,7 +35,7 @@
                                         <div class="tablesorter-header-inner">Referral</div>
                                     </th>
                                     <th>
-                                        <div class="tablesorter-header-inner">Test Name</div>
+                                        <div class="tablesorter-header-inner">Test Status</div>
                                     </th>
                                     <th style="display: none;">
                                         <div class="tablesorter-header-inner">Report Status</div>
@@ -102,35 +102,26 @@
                                             $testIDs = explode(',', $report->testId);
                                             $done = '';
                                             $pending = '';
+                                            $dCount= $pCount = 0;
                                             foreach ($testIDs as $id) {
                                                 $testData = $pxthis->Report_model->getTestByID($id);
                                                 $reportValues = $pxthis->Report_model->getreportDataByBIllandTestId($report->id, $id);
                                                 if (count($reportValues) > 0) {
-                                                    $done .= $testData[0]->test_name;
+                                                    $done .= '<li>'.$testData[0]->test_name.'</li>';
+                                                    $dCount +=1;
                                                 } else {
-                                                    $pending .=  $testData[0]->test_name;
+                                                    $pending .=  '<li>'.$testData[0]->test_name.'</li>';
+                                                    $pCount +=1;
                                                 }
                                                 $reportValues = null;
                                             }
                                             ?>
                                             <div class="test-counts">
-                                                <div class="dropdown">
-                                                    <button class="bill_settle btn-pay dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" >Pending </button>
-                                                    <ul class="dropdown-menu">
-                                                    <?php foreach ($testIDs as $id) {
-                                                $testData = $pxthis->Report_model->getTestByID($id);
-                                                $reportValues = $pxthis->Report_model->getreportDataByBIllandTestId($report->id, $id);
-                                                if (count($reportValues) > 0) {
-                                                     ?>
-                                                     <li><?php echo $testData[0]->test_name; ?></li> <?php
-                                                } else { ?>
-                                                    <li><?php echo $testData[0]->test_name; ?></li> <?php
-                                                }
-                                                $reportValues = null;
-                                            } ?>
-                                                    </ul>
-                                                </div>
-                                                <button class="bill_settle btn-paid" href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="<?php echo $done ?>">Done </button>
+                                            <?php if($pending) { ?>
+                                                    <button data-container="body" class="bill_settle btn-pay" data-toggle="tooltip" data-bs-html="true" data-placement="top" title="<?php echo $pending ?>">Pending <?php echo $pCount ?></button>   
+                                                   <?php } if($done) { ?>                                             
+                                                <button data-container="body" class="bill_settle btn-paid" href="javascript:void(0)" data-bs-html="true" data-toggle="tooltip" data-placement="top" title="<?php echo $done ?>">Done <?php echo $dCount ?></button>
+                                                <?php } ?>
                                             </div>
                                         </td>
                                         <td style="display: none;">
