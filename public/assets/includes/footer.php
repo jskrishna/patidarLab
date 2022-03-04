@@ -1849,26 +1849,26 @@
 
 	});
 
+	$('.print-invoice-btn').click(function(){
+		var id = $(this).data('id');
+		$('#printinvoiceid').val(id);
+
+	});
 	$("#withHeader").click(function() {
-
-		var id = $("#id").val();
-
+		var id = $("#printinvoiceid").val();
 		var format = $("#format").val();
-		// console.log(format);
 		if ($("#format").val() == '') {
 			$('#format').css("border", "1px solid red");
 			$('#format').focus();
 			return false;
 		}
-
 		var url = '<?php echo BASE_URL; ?>printinvoice/index/' + id + '?format=' + format;
 		window.open(url, '_blank');
-		//window.location='reports.php';
 		$(".modal .close").click();
 	});
 
 	$("#printOut").click(function() {
-		var id = $("#id").val();
+		var id = $("#printinvoiceid").val();
 		var format = $("#format").val();
 		if ($("#format").val() == '') {
 			$('#format').css("border", "1px solid red");

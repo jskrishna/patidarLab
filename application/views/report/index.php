@@ -143,7 +143,7 @@
                                             <?php  }; ?>
                                         </td>
                                         <td>
-                                            <a data-toggle="tooltip" data-placement="top" title="Print Invoice" target="_blank" href="printinvoice/index/<?php echo $report->id; ?>" class="btn btn-sml btnupdate" data-bs-toggle="modal" data-bs-target="#printReport">
+                                            <a data-toggle="tooltip" data-placement="top" title="Print Invoice" target="_blank" href="printinvoice/index/<?php echo $report->id; ?>" class="btn btn-sml btnupdate print-invoice-btn" data-id="<?php echo $report->id; ?>" data-bs-toggle="modal" data-bs-target="#printReport">
                                                 <img src="<?php echo BASE_URL ?>public/assets/images/printer.svg" alt="">
                                             </a>
                                         </td>
@@ -222,7 +222,7 @@
                                 </span>
                             </label>
                         </span>
-                        <input type="hidden" value="41" id="id">
+                        <input type="hidden" value="41" id="printinvoiceid">
                     </div>
                     </div>
                     <!-- <select name="cars" id="format" class="form-control">
