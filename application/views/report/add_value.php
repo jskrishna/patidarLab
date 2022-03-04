@@ -302,7 +302,7 @@
                                                 <?php  }
                                                 ?>
                                                 <input type="hidden" name="defult_value_status" id="defult_value_status" value="0">
-                                                <input type="button" class="btn custom-btn save-parameter submit_report enterkey" data-testid="<?php echo $test->id; ?>" id="saveReport<?php echo $test->id; ?>" name="card<?php echo $test->id; ?>" value="Save">
+                                                <input type="button" class="btn custom-btn save-parameter submit_report enterkey" data-testid="<?php echo $test->id; ?>" id="saveReport<?php echo $test->id; ?>" data-testname="<?php echo $test->test_name; ?>" name="card<?php echo $test->id; ?>" value="Save">
                                             </div>
                                         </form>
                                     </div>

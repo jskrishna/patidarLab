@@ -134,6 +134,16 @@ textarea {
     background-color: #bb2d3b;
     border-color: #b02a37;
 }
+.toast {
+    z-index: 9999;
+    position: absolute;
+    right: 30px;
+    top: 65px;
+    background: #018c6a;
+}
+.toast.toast-error {
+    background-color: #dc3545;
+}
 
 .btn-primary:hover, .btn-check:focus+.btn-primary, .btn-primary:focus {
     color: #fff;
