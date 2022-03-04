@@ -28,7 +28,7 @@ include_once "./public/assets/includes/header.php";
 		<div class="login-left">
 			<div class="login-left-top">
 				<a href=""> 
-					<img src="./public/assets/images/labify.svg" alt="">
+					<img src="./public/assets/images/logo-white.svg" alt="">
 				</a>
 			</div>
 			<div class="login-left-bottom">
@@ -82,3 +82,8 @@ include_once "./public/assets/includes/header.php";
 <?php
 include_once "./public/assets/includes/footer.php";
 ?>
+
+<script>
+	$('header.main-header').remove();
+	
+</script>

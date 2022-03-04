@@ -142,7 +142,7 @@
                                             <?php  }; ?>
                                         </td>
                                         <td>
-                                            <a data-toggle="tooltip" data-placement="top" title="Print Invoice" target="_blank" href="printinvoice/index/<?php echo $report->id; ?>" class="btn btn-sml btnupdate">
+                                            <a data-toggle="tooltip" data-placement="top" title="Print Invoice" target="_blank" href="printinvoice/index/<?php echo $report->id; ?>" class="btn btn-sml btnupdate" data-bs-toggle="modal" data-bs-target="#printReport">
                                                 <img src="<?php echo BASE_URL ?>public/assets/images/printer.svg" alt="">
                                             </a>
                                         </td>
@@ -189,6 +189,56 @@
     <div class="c-modal modal center fade" id="bill_paid" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    <div class="c-modal modal center fade" id="printReport" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="page-head">
+                    <h2>Select Report Type</h2>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <img src="<?php echo BASE_URL ?>public/assets/images/remove.svg" alt="">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                    <label>Select Invoice Format</label>
+                    <div class="radio-wrap">
+                        <span class="radio-group">
+                            <input type="radio" id="a4" name="invoice_type" value="A4" checked="">
+                            <label for="a4">
+                                <span>
+                                A4 PDF
+                                </span>
+                            </label>
+                        </span>
+                        <span class="radio-group">
+                            <input type="radio" id="3inch" name="invoice_type" value="3" >
+                            <label for="3inch">
+                                <span>
+                                3 Inch
+                                </span>
+                            </label>
+                        </span>
+                        <input type="hidden" value="41" id="id">
+                    </div>
+                    </div>
+                    <!-- <select name="cars" id="format" class="form-control">
+                        <option value="">Select Invoice Type</option>
+                        <option value="3">3inch</option>
+                        <option value="A4">A4 PDF</option>
+                        <option value="A5P">A5 Portrait PDF</option>
+                        <option value="A5">A5 LandScape PDF</option>
+                    </select> -->
+                    <div class="form-group"> 
+                    <label>Print Invoice With</label>
+                   <div class="d-flex">
+                   <button class="btn custom-btn btnupdate" id="withHeader">Header</button>
+                    <button class="btn custom-btn btnupdate mx-2" id="printOut">Without Header</button>
+                   </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
