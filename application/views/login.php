@@ -46,13 +46,13 @@ include_once "./public/assets/includes/header.php";
 					<div class="errorTxt text-danger text-center mb-3"></div>
 					<div class="form-group">
 						<label class="" for="leadCapFirstName">Username</label>
-						<input class="form-control required" placeholder="Enter your username" id="username" type="text" name="username" />
+						<input class="form-control required" placeholder="Enter your username" value="<?php if(isset($_COOKIE['user'])){ echo $_COOKIE['user']; } ?>" id="username" type="text" name="username" />
 						<span class='error'>This field is required.</span>
 					</div>
 					<div class="form-group">
 						<label class="" for="leadCapEmail">Password</label>
 						<div class="input-group " id="logPassword">
-							<input class="form-control required" placeholder="Enter your password" type="password" name="password" id="password">
+							<input class="form-control required" placeholder="Enter your password" value="<?php if(isset($_COOKIE['pass'])){ echo $_COOKIE['pass']; } ?>" type="password" name="password" id="password">
 							<span class='error'>This field is required.</span>
 
 							<!-- <div class="input-group-append">
@@ -69,7 +69,7 @@ include_once "./public/assets/includes/header.php";
 							<input type="checkbox" class="" id="remember_me" name="remember_me" value="Yes" checked>
 							<label for="remember_me">Remember Me</label>
 						</div>
-					<a href="">Forgot Password</a>
+					<a href="<?php echo BASE_URL; ?>forgot">Forgot Password</a>
 					</div>
 					<div class="btn-wrap">
 						<button type="submit" id="login_btn" class="btn custom-btn login-btn" value="">Log In</button>

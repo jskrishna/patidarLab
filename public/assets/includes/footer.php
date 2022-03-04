@@ -125,6 +125,7 @@
 	</div>
 </div>
 
+
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery-ui.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/bootstrap.bundle.min.js"></script>
@@ -158,6 +159,7 @@
 
 			var username = $("#username").val();
 			var password = $("#password").val();
+			var remember_me = $('#remember_me').is(':checked');
 			var loginurl = '<?php echo BASE_URL; ?>login';
 			if (submit_form) {
 				$.ajax({
@@ -166,7 +168,8 @@
 					url: loginurl,
 					data: {
 						"username": username,
-						"password": password
+						"password": password,
+						"remember_me": remember_me,
 					},
 					success: function(res) {
 						if (res.success == 0) {
@@ -289,7 +292,155 @@
 			}
 			return false;
 		});
+		$('#verify').click(function() {
+			var $btn = $(this);
+			var submit_form = true;
+			$('#forgot-form .required').each(function() {
+				if ($(this).val() == "" && !$(this).val()) {
+					$(this).focus();
+					$(this).parent('.form-group').addClass('error');
+					$(this).siblings('.error').show();
+					submit_form = false;
+				} else {
+					$(this).siblings('.error').hide();
+					$(this).parent('.form-group').removeClass('error');
+				}
+			});
 
+			var number = $("#number").val();
+
+			var verifyurl = '<?php echo BASE_URL; ?>Forgot/verify';
+			if (submit_form) {
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: verifyurl,
+					data: {
+						"number": number,
+					},
+					success: function(res) {
+						if (res.success == 0) {
+							$(".forgot-page .errorTxt").removeClass("text-success");
+							$(".forgot-page .errorTxt").addClass("text-danger");
+							$(".forgot-page .errorTxt").html(res.msg);
+						} else {
+							$(".forgot-page .errorTxt").removeClass("text-danger");
+							$(".forgot-page .errorTxt").addClass("text-success");
+							$(".forgot-page .errorTxt").html(res.msg);
+							$('#otp-form').show();
+							$('.forgot-page .login-heading').html('Verify OTP');
+							$('#forgot-form').hide();
+							var ei = '<?php if (isset($_COOKIE['ei'])) {
+											echo $_COOKIE['ei'];
+										} ?>';
+							$('#ei').val(ei);
+						}
+					}
+
+				});
+			}
+			return false;
+		});
+
+		$('#verifyotp').click(function() {
+			var $btn = $(this);
+			var submit_form = true;
+			$('#otp-form .required').each(function() {
+				if ($(this).val() == "" && !$(this).val()) {
+					$(this).focus();
+					$(this).parent('.form-group').addClass('error');
+					$(this).siblings('.error').show();
+					submit_form = false;
+				} else {
+					$(this).siblings('.error').hide();
+					$(this).parent('.form-group').removeClass('error');
+				}
+			});
+
+			var otp = $("#otp").val();
+			var user_id = $("#ei").val();
+
+			var otpverify = '<?php echo BASE_URL; ?>Forgot/verifyOtp';
+			if (submit_form) {
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: otpverify,
+					data: {
+						"otp": otp,
+						"user_id": user_id,
+					},
+					success: function(res) {
+						if (res.success == 0) {
+							$(".forgot-page .errorTxt").removeClass("text-success");
+							$(".forgot-page .errorTxt").addClass("text-danger");
+							$(".forgot-page .errorTxt").html(res.msg);
+						} else {
+							$(".forgot-page .errorTxt").removeClass("text-danger");
+							$(".forgot-page .errorTxt").addClass("text-success");
+							$(".forgot-page .errorTxt").html(res.msg);
+							$('#otp-form').hide();
+							$('.forgot-page .login-heading').html('Set New Password');
+							$('#reset-pass-form').show();
+						}
+					}
+
+				});
+			}
+			return false;
+		});
+
+		$('#resetpass').click(function() {
+			var $btn = $(this);
+			var submit_form = true;
+			$('#reset-pass-from .required').each(function() {
+				if ($(this).val() == "" && !$(this).val()) {
+					$(this).focus();
+					$(this).parent('.form-group').addClass('error');
+					$(this).siblings('.error').show();
+					submit_form = false;
+				} else {
+					$(this).siblings('.error').hide();
+					$(this).parent('.form-group').removeClass('error');
+				}
+			});
+			if ($('#newpass').val() != $('#cnewpass').val()) {
+				submit_form = false;
+				$(".forgot-page .errorTxt").removeClass("text-success");
+				$(".forgot-page .errorTxt").addClass("text-danger");
+				$(".forgot-page .errorTxt").html('Password does not match.');
+			}
+
+			var newpass = $("#newpass").val();
+			var user_id = $("#ei").val();
+
+			var resetpassurl = '<?php echo BASE_URL; ?>Forgot/resetPass';
+			if (submit_form) {
+				$.ajax({
+					type: "POST",
+					dataType: "json",
+					url: resetpassurl,
+					data: {
+						"newpass": newpass,
+						"user_id": user_id,
+					},
+					success: function(res) {
+						if (res.success == 0) {
+							$(".forgot-page .errorTxt").removeClass("text-success");
+							$(".forgot-page .errorTxt").addClass("text-danger");
+							$(".forgot-page .errorTxt").html(res.msg);
+						} else {
+							$(".forgot-page .errorTxt").removeClass("text-danger");
+							$(".forgot-page .errorTxt").addClass("text-success");
+							$(".forgot-page .errorTxt").html(res.msg);
+							location.href = '<?php echo BASE_URL; ?>login';
+						}
+					}
+
+				});
+			}
+			return false;
+		});
 
 
 
@@ -311,7 +462,7 @@
 		});
 
 
-		var test = Array();
+		// var test = Array();
 		var id = 1;
 		var total_persons = 0;
 
@@ -344,7 +495,6 @@
 			var discount = 0;
 			$("input[name^=testAmount]").each(function() {
 				total = Number(total) + Number(this.value);
-				rewpoint += Number(this.value) * Number(rew);
 			});
 
 			$("input[name^=testExpanses]").each(function() {
@@ -365,7 +515,7 @@
 			var outside = $("#outside").val();
 			var homevisiting = $("#homevisiting").val();
 			var rewardAmount = $("#reward").val();
-			console.log(final_discount);
+			console.log(total);
 
 			var gTotal = Number(grandTotal) - Number(final_discount);
 			var finAmount = Number(gTotal);
@@ -561,7 +711,10 @@
 						if (res.success == 1) {
 							location.href = res.redirect_url;
 						} else {
-							alert('Something went wrong.');
+							new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html('Something went wrong.');
 						}
 
 					}
@@ -623,7 +776,10 @@
 							$(".modal .close").click();
 							location.reload();
 						} else {
-							alert('Something went wrong.');
+							new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html('Something went wrong.');
 
 						}
 					}
@@ -721,7 +877,10 @@
 					if (res.success == 1) {
 						location.reload();
 					} else {
-						alert('Something went wrong.');
+						new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html('Something went wrong.');
 					}
 				}
 			});
@@ -787,7 +946,10 @@
 					if (res.success == 1) {
 						location.reload();
 					} else {
-						alert('Something went wrong.');
+						new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html('Something went wrong.');
 					}
 				}
 			});
@@ -976,12 +1138,15 @@
 			} else {
 				$("#test_amount").css("border", "1px solid lightgray");
 			}
-
-			var test_count = 0;
 			var testId = $("#test_id").val();
-			var test_in = $.inArray(testId, test);
-			if (test_in >= 0 || test_count > 0) {
-				alert("You selected test was already added kindly add other test");
+			testId = parseInt(testId);
+			var test_in = jQuery.inArray(testId, test);  
+			if (test_in != -1) {
+				
+				new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html('You selected test was already added kindly add other test');
 				$('#test,#test_id,#department_id,#test_amount,#nameTest').val('');
 			} else {
 				test.push(testId);
@@ -1091,7 +1256,10 @@
 			var final_discount = f_discount;
 
 			if (Number(final_discount) > Number(final_total)) {
-				alert("The discount amount is higher than the test amount...");
+				new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html('The discount amount is higher than the test amount.');
 				$(".test_save").hide();
 				$("#test_clear").hide();
 			} else {
@@ -1107,14 +1275,20 @@
 			if ($("#billDate").val() == '') {
 				$("#billDate").css("border", "1px solid red");
 				$("#billDate").focus();
-				alert('Something is missing.');
+				new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html('Something went wrong.');
 				return false;
 			} else {
 				$("#billDate").css("border", "1px solid lightgray");
 			}
 
 			if ($("#test_id").val() != '') {
-				alert('Something went wrong.');
+				new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html('Something went wrong.');
 
 			} else {
 				// if ($("#payment_mode").val() == '') {
@@ -1126,7 +1300,10 @@
 				// }
 
 				if (!$.trim($('#grand_total').html())) {
-					alert('Please enter test names.');
+					new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html('Enter test name.');
 
 					return false;
 				}
@@ -1198,8 +1375,10 @@
 				var url = '<?php echo BASE_URL; ?>bill/billEntry';
 
 				if (testId.length === 0) {
-					alert('Please Select test first.');
-
+					new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html('Please Select test first.');
 					return false;
 				}
 				$.ajax({
@@ -1252,9 +1431,10 @@
 			}
 		});
 
-		// btn-action
-		$(".btn-action").click(function() {
+		// save-parameter
+		$(".save-parameter").click(function() {
 			var id = (this.id);
+			var testname = $(this).data('testname');
 			var test_id = id.substring(10, 200);
 			var position1 = (this.name);
 			if ($(".card-link").last().attr('id') == position1) {
@@ -1277,8 +1457,35 @@
 				processData: false,
 				contentType: false,
 				success: function(res) {
-					location.reload();
+
+					if(res.success == 1){
+
+					new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-success');
+				$('#basicToast').removeClass('toast-error');
+				$('.toast-body').html(testname+' saved.');
 					$(".img" + test_id).html('<img src="<?php echo BASE_URL ?>public/assets/images/icon-thumbs-up-active.svg" alt="Report Completed!" width="32" align="right">');
+					
+					if($('#'+position1).parent().next().is('li')) {
+					}
+					else {
+						// location.href = '<?php //echo BASE_URL; ?>report';
+					}
+					
+					var href = $('#'+position1).parent().next().children().attr('href');
+					var thishref = $('#'+position1).attr('href');
+
+					$('#'+position1).parent().next().children().addClass('active');
+					$(href).addClass('active');
+					$(thishref).removeClass('active');
+					$('#'+position1).removeClass('active');
+				}else{
+					new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html(res.msg);
+				}
+
 				},
 				error: function(err) {
 					console.dir(err);
@@ -1321,8 +1528,10 @@
 
 			var balance_received = $("#balance_received").val();
 			if (balance_received == 0) {
-				alert('invalid amount');
-
+				new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html('invalid amount.');
 			} else {
 				var add_discount = $("input[name='add_discount']:checked").val();
 				var max_total = $("#max_total").val();
@@ -1349,12 +1558,18 @@
 						if (res.success == 1) {
 							location.reload();
 						} else {
-							alert(res.msg);
+							new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html(res.msg);
 						}
 						$('.close ').click();
 					},
 					error: function(err) {
-						alert(err);
+						new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html(err);
 					}
 				});
 			}
@@ -1414,7 +1629,11 @@
 							$(".errorTxt").removeClass("text-success");
 							$(".errorTxt").addClass("text-danger");
 							$(".errorTxt").html(res.msg);
-							alert('Something went wrong');
+						
+							new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html('Something went wrong.');
 						} else {
 							$(".errorTxt").removeClass("text-danger");
 							$(".errorTxt").addClass("text-success");
@@ -1441,7 +1660,10 @@
 					$('#searchPatientId').append(res);
 				},
 				error: function(err) {
-					alert('Something went wrong');
+					new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html('Something went wrong.');
 				}
 			});
 
@@ -1454,7 +1676,10 @@
 					$('#patientRefAdd').append(res);
 				},
 				error: function(err) {
-					alert('Something went wrong');
+					new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html('Something went wrong.');
 				}
 			});
 		}
@@ -1597,6 +1822,14 @@
 		// });
 	});
 </script>
+<div id="basicToast" class="toast align-items-center text-white border-0" role="alert" data-bs-animation="true" data-bs-delay="3000" aria-live="assertive" aria-atomic="true">
+  <div class="d-flex">
+    <div class="toast-body">
+      Hello, world! This is a toast message.
+    </div>
+    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-bs-label="Close"></button>
+  </div>
+</div>
 </body>
 
 </html>

@@ -15,6 +15,15 @@ class Login extends CI_Controller
 		if ($this->input->post('username')) {
 			$e = $this->input->post('username');
 			$p = $this->input->post('password');
+			$remember_me = $this->input->post('remember_me');
+			
+			if($remember_me === 'true'){
+				setcookie("user", $e, time()+86400*30,"/");
+				setcookie("pass", $p, time()+86400*30,"/");
+			}else{
+				setcookie("user", '', time()-1000,"/");
+				setcookie("pass", '', time()-1000,"/");
+			}
 			$password = $this->input->post('password');
 			$p = md5($p);
 		$UserData = $this->Login_model->getlogininfo($e, $p);
@@ -30,7 +39,7 @@ class Login extends CI_Controller
 				$_SESSION['email'] = $row->email;
 				$_SESSION['id'] = $row->id;
 
-				$resultss = array('success' => 1, 'msg' => 'You are successfully logged in.','redirect_url' => BASE_URL.'patient/patientInfo');
+				$resultss = array('success' => 1, 'msg' => 'You are successfully logged in.','redirect_url' => BASE_URL.'patient');
 				echo json_encode($resultss);
 				exit();
 			} else {
