@@ -1157,7 +1157,8 @@
 				new bootstrap.Toast(document.querySelector('#basicToast')).show();
 				$('#basicToast').addClass('toast-error');
 				$('#basicToast').removeClass('toast-success');
-				$('.toast-body').html('You selected test was already added kindly add other test');
+				var testname = $('#nameTest').val();
+				$('.toast-body').html('You already selected '+ testname);
 				$('#test,#test_id,#department_id,#test_amount,#nameTest').val('');
 			} else {
 				test.push(testId);
@@ -1848,26 +1849,26 @@
 
 	});
 
+	$('.print-invoice-btn').click(function(){
+		var id = $(this).data('id');
+		$('#printinvoiceid').val(id);
+
+	});
 	$("#withHeader").click(function() {
-
-		var id = $("#id").val();
-
+		var id = $("#printinvoiceid").val();
 		var format = $("#format").val();
-		// console.log(format);
 		if ($("#format").val() == '') {
 			$('#format').css("border", "1px solid red");
 			$('#format').focus();
 			return false;
 		}
-
 		var url = '<?php echo BASE_URL; ?>printinvoice/index/' + id + '?format=' + format;
 		window.open(url, '_blank');
-		//window.location='reports.php';
 		$(".modal .close").click();
 	});
 
 	$("#printOut").click(function() {
-		var id = $("#id").val();
+		var id = $("#printinvoiceid").val();
 		var format = $("#format").val();
 		if ($("#format").val() == '') {
 			$('#format').css("border", "1px solid red");
