@@ -23,41 +23,98 @@
 
         $referData = $this->Outputpdf_model->getdoctorinfoByID($patientData->refered_by);
         $referData = $referData[0];
-        $headerImage = BASE_URL.'public/assets/images/Letter_pad.png';
+        $headerImage = BASE_URL . 'public/assets/images/Letter_pad.png';
 
         $testIDS = explode(',', $billData->testId);
         require_once 'vendor/autoload.php';
 
-        $mpdf = new \Mpdf\Mpdf();
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => [75, 190],
+            'default_font' => 'dejavusans',
+            'margin_header' => 0,
+            'margin_footer' => 0,
+            'default_font_size' => 9,
+            'margin_bottom' => 0,
+            'margin_top' => 0,
+            'margin_left' => 2,
+            'margin_right' => 2,
+        ]);
+
+        // $mpdf = new \Mpdf\Mpdf([
+        //     'mode' => 'utf-8', 
+        //     'format' => 'A4',  
+        //     'default_font' => 'dejavusans', ]);
+
+
         $print_header =  $this->input->post('print_header');
         // if (isset($print_header) && $print_header == 'Yes') {
-            $mpdf->SetDefaultBodyCSS('background', "url('" . $headerImage . "')");
-            $mpdf->SetDefaultBodyCSS('background-image-resize', 6);
-        // }
-        // $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => [210, 297]]);
+        // $mpdf->SetDefaultBodyCSS('background', "url('" . $headerImage . "')");
+        // $mpdf->SetDefaultBodyCSS('background-image-resize', 6);
+        // // }
 
 
         $mpdf->SetTitle('Invoice-' . $patientData->patientid);
-        $mpdf->SetDefaultFont('Roboto');
-        $mpdf->SetAuthor('Patidar Diagnostic');
-        $mpdf->SetCreator('Px');
+        // $mpdf->SetDefaultFont('Roboto');
         date_default_timezone_set('Asia/Kolkata');
         $tabledata = "<style>
         td, th {
-            border-bottom: 1px solid #e0e0e0;
-            padding: 10px 11px !important;
-    font-size: 13px;
+            border-bottom: 0;
+            padding: 3px 5px !important;
+            white-space:nowrap;
         }
         .table {
             border-collapse:collapse;
-            border:1px solid #e0e0e0;
+            border:0;
         }
         .table td, .table th, .table tbody td, .table tbody th {
-            padding:5px 10px;
-            font-size:12px;
+            padding:3px 5px;
         }
-        </style><main>
-        <table width='100%' cellspacing='5' border:'0'>
+        </style>";
+
+        // $tabledata = "<style>
+        // td, th {
+        //     border-bottom: 1px solid #e0e0e0;
+        //     padding: 10px 11px !important;
+        //     font-size: 12px;
+        // }
+        // .table {
+        //     border-collapse:collapse;
+        //     border:1px solid #e0e0e0;
+        // }
+        // .table td, .table th, .table tbody td, .table tbody th {
+        //     padding:3px 7px;
+        //     font-size:12px;
+        // }
+        // </style>";
+
+          //     <table width='100%' cellspacing='2' class='table'>
+    //     <thead>
+    //     <tr>
+    //     <td> Receipt No :</td>
+    //     <th style='text-align:left;'>" . '00' . ($patientData->id) . "</th>
+    //     <td style=''>Date & Time :</td>
+    //     <th style='text-align:left;'>" . (date("d-M-Y h:i:s")) . "</th>
+    //     </tr>
+    //     <tr>
+    //     <td> Name :</td>
+    //     <th style='text-align:left;'>" . ($patientData->title . ' ' . $patientData->patientname) . "</th>          
+    //     <td>Patient ID :</td>
+    //     <th style='text-align:left;'>"  . ($patientData->patientid) .  "</th>
+    //     </tr>
+    //     <tr>
+    //     <td> Gender / Age :</td>
+    //         <th style='text-align:left;'>" . ($patientData->gender[0]) . ' / ' . ($patientData->age) . ($patientData->age_type) . "</th>
+    //         <td> Referral :</td>
+    //         <th style='text-align:left; text-transform:capitalize'>" . ($referData->referral_name) . "</th>
+    //     </tr>
+    //     </thead>
+    // </table>
+
+
+        $tabledata .= "
+        <main>
+        <table width='100%' cellspacing='2' border:'0'>
                     <thead>
                         <tr>
                         <td style='height:100px;border:0;' colspan='2'></td>
@@ -65,31 +122,27 @@
                         </thead>
                         </table>
         <h3 style='margin:0;margin-bottom:20px;text-align:center;'>Bill Receipt</h3>
-        <table width='100%' cellspacing='5' class='table'>
+        <table width='100%' cellspacing='2' class='table' style='font-size:18px;'>
             <thead>
             <tr>
-            <td> Receipt No :</td>
-            <th style='text-align:left;'>" . '00' . ($patientData->id) . "</th>
-            <td style=''>Date & Time :</td>
-            <th style='text-align:left;'>" . (date("d-M-Y h:i:s")) . "</th>
+            <td> Name : <b style='text-transform:capitalize'>" . ($patientData->title . ' ' . $patientData->patientname) . "</b></td>          
+            <td> Receipt No :<b>" . '00' . ($patientData->id) . "</b></td>        
             </tr>
             <tr>
-            <td> Name :</td>
-            <th style='text-align:left;'>" . ($patientData->title . ' ' . $patientData->patientname) . "</th>          
-            <td>Patient ID :</td>
-            <th style='text-align:left;'>"  . ($patientData->patientid) .  "</th>
+            <td style=''>Date & Time : <b>" . (date("d-M-Y h:i:s")) . "</b></td>         
+            <td> Gender / Age : <b>" . ($patientData->gender[0]) . ' / ' . ($patientData->age) . ($patientData->age_type) . "</b></td>
             </tr>
             <tr>
-            <td> Gender / Age :</td>
-                <th style='text-align:left;'>" . ($patientData->gender[0]) . ' / ' . ($patientData->age) . ($patientData->age_type) . "</th>
-                <td> Referral :</td>
-                <th style='text-align:left; text-transform:capitalize'>" . ($referData->referral_name) . "</th>
+            <td>ID : <b>"  . ($patientData->patientid) .  "</b></td>
+                <td> Referral Dr : <b>" . ($referData->referral_name) . "</b></td>
             </tr>
             </thead>
-        </table><table width='100%' class='table' style='margin-top:15px;'>
+        </table>
+  
+        <table width='100%' class='table' style='margin-top:15px;'>
         <thead>
             <tr>
-             <th style='text-align:left;'>S.no</th>
+             <th style='text-align:left; width:30px;' >S.no</th>
              <th style='text-align:left;'>Test Name</th>
             <th style='text-align:right;'>Test price</th>
            </tr>
@@ -105,7 +158,7 @@
             // header
             $tabledata .= "
                                     <tr>
-                                        <td>" . ($key + 1) . "</td>
+                                        <td style='width:30px;'>" . ($key + 1) . "</td>
                                     <td>" . ($testName) . "</td>
                                 <td style='text-align:right;'>" . ($price) . ".00</td>
                             </tr>";
@@ -176,14 +229,14 @@
 
 
         $mpdf->WriteHTML($tabledata);
-        $footer = "</tbody></table><table width='100%' cellspacing='5'>
+        $footer = "</tbody></table><table class='table' width='100%' cellspacing='5'>
                                 <tfoot>
                                 <tr>
-                                <td style='height:40px;border:0;'></td>
+                                <td style='height:30px;border:0;'></td>
                                 </tr>
                                     <tr>
                                     <td style='width:65%;border:0;'></td>
-                                        <td style='height:30px;text-align:center;border:0'  colspan='3'>Signature<br><b>Patidar Diagnostic</b></td>
+                                        <td style='text-align:center;border:0;font-size:11px'  colspan='3'>Signature<br><b>Patidar Diagnostic</b></td>
                                     </tr>
                                 </tfoot>
                                 </table>

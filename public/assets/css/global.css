@@ -2,8 +2,11 @@
 @import url(./font-awesome.min.css);
 @import url(./jquery.growl.css);
 @import url(./jquery.datatable.min.css);
-@import url(./custom.css);
+@import url(./select2.min.css); 
+@import url(./jquery-ui.css); 
+@import url(./summernote.min.css); 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
+@import url(./custom.css);
 
 body {
     margin: 0;
@@ -122,6 +125,14 @@ textarea {
     background: #018c6a;
     text-decoration: none;
     min-width: 100px;
+}
+.custom-btn.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.custom-btn.btn-danger:hover {
+    background-color: #bb2d3b;
+    border-color: #b02a37;
 }
 
 .btn-primary:hover, .btn-check:focus+.btn-primary, .btn-primary:focus {
@@ -340,10 +351,13 @@ table.dataTable.no-footer {
     box-shadow: 0px 0px 5px rgb(23 24 24 / 5%), 0px 1px 2px rgb(0 0 0 / 15%);
 }
 
-table.dataTable thead th, table.dataTable td, .table td {
+table.dataTable thead th, table.dataTable td{
     padding: 8px 11px !important;
     font-size: 13px;
     height: 35px;
+}
+.btn-block {
+    width: 100%;
 }
 
 /* #DataTables_Table_0_paginate {
@@ -590,7 +604,6 @@ table.dataTable thead .sorting {
 }
 
 .remove_this {
-    background: #ff4e4e;
     width: 35px;
     height: 35px;
     display: flex;
@@ -598,10 +611,6 @@ table.dataTable thead .sorting {
     justify-content: center;
     border-radius: 5px;
     transition: 300ms all;
-}
-
-.remove_this:hover, .remove_this:focus {
-    background: #df0000;
 }
 
 .c-datatable .normal-input input, .c-datatable .normal-input select {

@@ -160,8 +160,9 @@
                                                                                 if ($parameter->id == $px) {
                                                                                     // if if if if  field type codntion start
                                                                                     if ($parameter->field_type == 'textarea') { ?>
-                                                                                        <td><input type="hidden" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php echo $inputArray[$param]; ?>" class="form-control call form form else">
-                                                                                            <textarea name="options" id="inputValue<?php echo $parameter->id; ?>" class="form-control" oninput="auto_grow(this)"><?php echo $parameter->options; ?></textarea>
+                                                                                        <td>
+                                                                                            <!-- <input type="hidden" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php //echo $inputArray[$param]; ?>" class="form-control call form form else"> -->
+                                                                                            <textarea name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" class="summernote form-control px" oninput="auto_grow(this)"><?php echo $inputArray[$param]; ?></textarea>
                                                                                         </td>
                                                                                     <?php  } else if ($parameter->field_type == 'option') { ?>
                                                                                         <td>
@@ -244,7 +245,7 @@
                                                                             // if if if if  field type codntion start
                                                                             if ($parameter->field_type == 'textarea') {   ?>
                                                                                         <td ><input type="hidden" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="" class="form-control call form form else">
-                                                                                            <textarea name="options" id="inputValue<?php echo $parameter->id; ?>" class="summernote form-control"><?php echo $parameter->options; ?></textarea>
+                                                                                            <textarea name="options" id="inputValue<?php echo $parameter->id; ?>" class="summernote form-control "><?php echo $parameter->options; ?></textarea>
                                                                                         </td>
                                                                                     <?php  } else if ($parameter->field_type == 'option') { ?>
                                                                                         <td>
@@ -301,7 +302,7 @@
                                                 <?php  }
                                                 ?>
                                                 <input type="hidden" name="defult_value_status" id="defult_value_status" value="0">
-                                                <input type="button" class="btn custom-btn btn-action submit_report enterkey" data-testid="<?php echo $test->id; ?>" id="saveReport<?php echo $test->id; ?>" name="card<?php echo $test->id; ?>" value="Save">
+                                                <input type="button" class="btn custom-btn save-parameter submit_report enterkey" data-testid="<?php echo $test->id; ?>" id="saveReport<?php echo $test->id; ?>" name="card<?php echo $test->id; ?>" value="Save">
                                             </div>
                                         </form>
                                     </div>

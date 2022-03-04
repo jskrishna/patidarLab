@@ -5,11 +5,9 @@
         <div class="page-head page-head-border">
             <h2>Billing</h2>
         </div>
-        <?php if(isset($billData)){ ?>
             <script>
             var test = Array();
         </script>
-        <?php } ?>
         <div class="billing-sec">
             <div class="row">
                 <div class="col-lg-12">
@@ -133,12 +131,12 @@
                                                         <td><?php echo $testData->test_name; ?></td>
                                                         <input type='hidden' name='testId[]' id='testId' value="<?php echo $testData->id; ?>" class='form-control testId' readonly>
                                                         <td>
-                                                            <!-- <input type='text' name='testAmount[]' id='testAmount' value=<?php //echo intval($testData->amount); ?> class='form-control testAmount' readonly> -->
+                                                            <input type='hidden' name='testAmount[]' id='testAmount' value=<?php echo intval($testData->amount); ?> class='form-control testAmount' readonly>
                                                             <span id="testAmount"><?php echo intval($testData->amount); ?></span>
 
                                                         </td>
                                                         <input type='hidden' name='discountAmount[]' id='discountAmount' value=<?php echo $discountAmounts[$param]; ?> class='form-control testAmount' readonly>
-                                                        <td><a href='Javascript:void(0)' class='remove_this'><img src='<?php echo BASE_URL ?>public/assets/images/remove-white.svg' alt=''></a></td>
+                                                        <td><a href='Javascript:void(0)' class='remove_this btn-danger'><img src='<?php echo BASE_URL ?>public/assets/images/remove-white.svg' alt=''></a></td>
                                                     </tr>
                                                 <?php  } } ?>
                                                 </tbody>

@@ -89,11 +89,15 @@
 			</div>
 			<div class="form-row">
 				<div class="col-lg-12 text-center">
-					<div class="btn-flex">
-						<button data-bs-toggle="modal" data-title="" data-bs-target="#myDeletemodel" data-url="" id="patientdelete" class="btn btn-danger btn-delete" value="">
-							Delete
-						</button>
-						<input type="button" class="btn btnupdate custom-btn m-auto" id="gotoBilling" value="Update">
+					<div class="row">
+						<div class="col-lg-6">
+							<button data-bs-toggle="modal" data-title="" data-bs-target="#myDeletemodel" data-url="" id="patientdelete" class="btn btn-block custom-btn btn-danger" value="">
+								Delete
+							</button>
+						</div>
+						<div class="col-lg-6">
+							<input type="button" class="btn btnupdate btn-block custom-btn" id="gotoBilling" value="Update">
+						</div>
 					</div>
 				</div>
 			</div>
@@ -132,12 +136,19 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.dataTables.min.js"></script>
 <!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.bootstrap.js"></script> -->
 <!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.responsive.js"></script> -->
+<script src="<?php echo BASE_URL; ?>public/assets/js/select2.min.js"></script>
+<script src="<?php echo BASE_URL; ?>public/assets/js/tinymce.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/custom.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <!-- JavaScript Bundle with Popper -->
 <script type="text/javascript">
-
 	$(document).ready(function() {
+		tinymce.init({
+			selector: 'textarea.summernote',
+			skin: 'bootstrap',
+			plugins: 'lists, link, image, media',
+			toolbar: 'bold italic strikethrough blockquote bullist numlist color backcolor | link image media | removeformat help',
+			menubar: false
+		});
 
 		$('#login_btn').click(function() {
 			var $btn = $(this);
@@ -1156,7 +1167,7 @@
 				var discountAmount = 0;
 				var discountAmount1 = 0;
 				var nameTest = $("#nameTest").val();
-				$("#testRequest").append("<tr><td>" + nameTest + "<input type='hidden' name='testId[]' id='testId' value=" + testId + " class='form-control testId' readonly></td><td><input class='testAmount' type='text' name='testAmount[]' id='testAmount' value=" + testAmount + " class='form-control testAmount' readonly> <input type='hidden' name='discount_value[]' id='discount_value' value='" + discountAmount1 + "'><input type='hidden' name='discountAmount[]' id='discountAmount' value=" + discountAmount + " class='form-control testAmount' readonly></td><td><a href='javascript:void(0)' class='remove_this'><img src='<?php echo BASE_URL ?>public/assets/images/remove-white.svg' alt=''></a></td></tr>");
+				$("#testRequest").append("<tr><td>" + nameTest + "<input type='hidden' name='testId[]' id='testId' value=" + testId + " class='form-control testId' readonly></td><td><input class='testAmount' type='text' name='testAmount[]' id='testAmount' value=" + testAmount + " class='form-control testAmount' readonly> <input type='hidden' name='discount_value[]' id='discount_value' value='" + discountAmount1 + "'><input type='hidden' name='discountAmount[]' id='discountAmount' value=" + discountAmount + " class='form-control testAmount' readonly></td><td><a href='javascript:void(0)' class='remove_this btn-danger'><img src='<?php echo BASE_URL ?>public/assets/images/remove-white.svg' alt=''></a></td></tr>");
 				$("#test_id").val('');
 				$("#test_amount").val('');
 				$("#test_expanses").val('');
@@ -1821,7 +1832,54 @@
 		// 	}
 		// });
 	});
+	
+	$("#format").on('change', function() {
+		var format = $(this).val();
+		if (format == 3) {
+			$("#withHeader").html('Print Invoice');
+			$("#printOut").hide();
+		} else if (format == 'A5') {
+			$("#withHeader").html('Print Invoice with Header');
+			$("#printOut").hide();
+		} else {
+			$("#withHeader").html('Print Invoice with Header');
+			$("#printOut").show();
+		}
+
+	});
+
+	$("#withHeader").click(function() {
+
+		var id = $("#id").val();
+
+		var format = $("#format").val();
+		// console.log(format);
+		if ($("#format").val() == '') {
+			$('#format').css("border", "1px solid red");
+			$('#format').focus();
+			return false;
+		}
+
+		var url = '<?php echo BASE_URL; ?>printinvoice/index/' + id + '?format=' + format;
+		window.open(url, '_blank');
+		//window.location='reports.php';
+		$(".modal .close").click();
+	});
+
+	$("#printOut").click(function() {
+		var id = $("#id").val();
+		var format = $("#format").val();
+		if ($("#format").val() == '') {
+			$('#format').css("border", "1px solid red");
+			$('#format').focus();
+			return false;
+		}
+		var url = '<?php echo BASE_URL; ?>printinvoice/index/' + id + '?format=' + format;
+		window.open(url, '_blank');
+		$(".modal .close").click();
+	});
 </script>
+
 <div id="basicToast" class="toast align-items-center text-white border-0" role="alert" data-bs-animation="true" data-bs-delay="3000" aria-live="assertive" aria-atomic="true">
   <div class="d-flex">
     <div class="toast-body">

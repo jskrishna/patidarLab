@@ -5,7 +5,12 @@
         html {
             overflow-x: hidden;
         }
-
+        .tox-notifications-container {
+            display: none;
+        }
+        .tox-statusbar__branding {
+            display: none;
+        }
         input.select2-search__field:focus {
             box-shadow: 0 3px 10px rgb(0 0 0 / 10%) !important;
             border: 1px solid #C9C9C9 !important;
@@ -144,6 +149,7 @@
             background-color: #018c6a;
             border-color: #018c6a;
         }
+
         .login-inr {
             height: 100vh;
             display: flex;
@@ -535,7 +541,18 @@
             height: 100%;
             border: 0;
             border-radius: 0;
+            overflow: hidden;
+        }
+
+        .c-modal.right .modal-content {
             overflow-y: auto;
+        }
+
+        input#testAmount {
+            background: transparent;
+            padding: 0;
+            border: 0;
+            border-radius: 0;
         }
 
         .c-modal .close {
@@ -642,7 +659,7 @@
         /* report list-head */
 
         .report-list-head {
-            padding:0 0 20px 0;
+            padding: 0 0 20px 0;
         }
 
         .patient-name-sec {
@@ -904,6 +921,15 @@
             padding: 5px 15px 5px 30px;
         }
 
+        .review-btn {
+            border: 1px solid #018c6a;
+            color: #018c6a;
+            padding: 8px 20px;
+            font-weight: 500;
+        }
+        .review-btn:after {
+          display: none;
+        }
         .test-counts .bill_settle.btn-paid:after {
             background: url(../images/check-mark.svg) no-repeat center center / 16px;
             height: 16px;
@@ -1155,6 +1181,7 @@ border: 1px solid #e0e0e0;
             position: relative;
             background: url(../images/login-bg.jpg) no-repeat center / cover;
         }
+
         .login-left:after {
             content: "";
             position: absolute;
@@ -1164,6 +1191,7 @@ border: 1px solid #e0e0e0;
             height: 100%;
             background: rgb(1 140 106 / 80%);
         }
+
         .login-left * {
             position: relative;
             z-index: 9;
@@ -1176,20 +1204,24 @@ border: 1px solid #e0e0e0;
             flex-direction: column;
             align-items: center;
         }
+
         .login-left-bottom p {
             margin: 0;
             color: #fff;
             font-size: 12px;
         }
+
         .login-left-bottom a {
             color: #fff;
         }
+
         .login-heading {
             font-weight: 600;
             text-align: center;
             text-transform: capitalize;
             margin-bottom: 20px;
         }
+
         .login-head p {
             padding: 0px 20px;
             color: rgb(0 0 0 / 40%);
@@ -1199,31 +1231,39 @@ border: 1px solid #e0e0e0;
             max-width: 300px;
             margin: auto;
         }
+
         .login-head {
             margin-bottom: 20px;
         }
+
         .from-group.from-wrap {
             display: flex;
             justify-content: space-between;
         }
+
         .from-wrap a {
             color: #242424;
         }
+
         .from-wrap a:hover {
-        text-decoration: underline;
+            text-decoration: underline;
         }
+
         .pull-right.check-group {
             position: absolute;
             right: 0;
             top: 50%;
             transform: translateY(-50%);
         }
+
         .approv-check span {
             margin-right: 10px;
         }
+
         .report-wrap {
             padding: 0 20px;
         }
+
         .print-option .check-group label {
             padding: 6px 8px;
             border: 1px solid #e0e0e0;
@@ -1234,25 +1274,30 @@ border: 1px solid #e0e0e0;
             font-weight: 600;
             font-size: 12px;
         }
+
         .print-option .check-group input:checked+label:after {
             top: 8px;
             left: 14px;
             border-color: #018c6a;
         }
+
         .print-option .check-group label:before {
             border-color: #e0e0e0;
             background: #fff;
             box-shadow: none;
         }
+
         .print-option .check-group input:checked+label {
             border: 1px solid #018c6a;
             background: rgb(1 140 106 / 10%);
             color: #018c6a;
         }
+
         .print-option .check-group input:checked+label:before {
             background: rgb(229 243 240);
             border-color: #018c6a;
         }
+
         .file-type .file-type-input {
             display: flex;
             flex-direction: column;
@@ -1265,9 +1310,11 @@ border: 1px solid #e0e0e0;
             color: #018c6a;
             font-weight: 500;
         }
-        .file-type-input + input{
+
+        .file-type-input+input {
             display: none;
         }
+
         .file-type-input img {
             opacity: 0.2;
             width: 40px;
