@@ -1157,7 +1157,8 @@
 				new bootstrap.Toast(document.querySelector('#basicToast')).show();
 				$('#basicToast').addClass('toast-error');
 				$('#basicToast').removeClass('toast-success');
-				$('.toast-body').html('You selected test was already added kindly add other test');
+				var testname = $('#nameTest').val();
+				$('.toast-body').html('You already selected '+ testname);
 				$('#test,#test_id,#department_id,#test_amount,#nameTest').val('');
 			} else {
 				test.push(testId);

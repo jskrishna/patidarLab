@@ -111,6 +111,7 @@
                                                 $reportValues = null;
                                             }
                                             ?>
+
                                             <div class="test-counts">
                                                 <?php if ($pending) { ?>
                                                     <button data-container="body" class="bill_settle btn-pay" data-toggle="tooltip" data-bs-html="true" data-placement="top" title="<?php echo $pending ?>">Pending <?php echo $pCount ?></button>
