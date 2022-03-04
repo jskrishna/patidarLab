@@ -46,6 +46,8 @@ class Report extends CI_Controller
         $inputValue = $this->input->post('inputValue');
         $highlight = $this->input->post('highlight');
 
+        if(isset($parameter_id)){
+
         $parameter_ids = serialize($parameter_id);
         $input_values = serialize($inputValue);
         $highlights = serialize($highlight);
@@ -70,6 +72,12 @@ class Report extends CI_Controller
             echo json_encode($resultss);
             exit();
         }
+        }else{
+            $resultss = array('success' => 0, 'msg' => 'No parameter found.');
+            echo json_encode($resultss);
+            exit();
+        }
+
     }
     public function bill_settle()
     {
