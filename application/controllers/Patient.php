@@ -34,9 +34,9 @@ class Patient extends CI_Controller
 			}
 
 			if (strlen($patientId) > 3) {
-				$patientId = 'PTD0' . $patientId;
+				$patientId = 'PTID0' . $patientId;
 			} else {
-				$patientId = 'PTD00' . $patientId;
+				$patientId = 'PTID00' . $patientId;
 			}
 			$title = $this->input->post('title');
 			$patientName = $this->input->post('patientName');
@@ -72,7 +72,6 @@ class Patient extends CI_Controller
 
 	public function patientEdit()
 	{
-
 		$id = $this->input->post('id');
 		$patientData = $this->Patient_model->patientEdit($id);
 		$patientData = $patientData[0];
@@ -114,6 +113,8 @@ class Patient extends CI_Controller
 	{
 		$id = $_GET['id'];
 		$delete = $this->Patient_model->Deletepatient($id);
+		$deletebill = $this->Patient_model->Deletebill($id);
+		$deletereport = $this->Patient_model->DeleteReport($id);
 		if ($delete) {
 			$resultss = array('success' => 1, 'msg' => 'Patient delete successfully.', 'redirect_url' => '');
 			echo json_encode($resultss);

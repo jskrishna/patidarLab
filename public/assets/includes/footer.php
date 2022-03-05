@@ -85,7 +85,7 @@
 				<div class="col-lg-12 text-center">
 					<div class="row">
 						<div class="col-lg-6">
-							<button data-bs-toggle="modal" data-title="" data-bs-target="#myDeletemodel" data-url="" id="patientdelete" class="btn btn-block custom-btn btn-danger" value="">
+							<button data-bs-toggle="modal" data-title="" data-bs-target="#myDeletemodel" data-url="" id="patientdelete" class="btn btn-delete btn-block custom-btn btn-danger" value="">
 								Delete
 							</button>
 						</div>
@@ -717,9 +717,9 @@
 							location.href = res.redirect_url;
 						} else {
 							new bootstrap.Toast(document.querySelector('#basicToast')).show();
-				$('#basicToast').addClass('toast-error');
-				$('#basicToast').removeClass('toast-success');
-				$('.toast-body').html('Something went wrong.');
+							$('#basicToast').addClass('toast-error');
+							$('#basicToast').removeClass('toast-success');
+							$('.toast-body').html('Something went wrong.');
 						}
 
 					}
@@ -782,9 +782,9 @@
 							location.reload();
 						} else {
 							new bootstrap.Toast(document.querySelector('#basicToast')).show();
-				$('#basicToast').addClass('toast-error');
-				$('#basicToast').removeClass('toast-success');
-				$('.toast-body').html('Something went wrong.');
+							$('#basicToast').addClass('toast-error');
+							$('#basicToast').removeClass('toast-success');
+							$('.toast-body').html('Something went wrong.');
 
 						}
 					}
@@ -883,9 +883,9 @@
 						location.reload();
 					} else {
 						new bootstrap.Toast(document.querySelector('#basicToast')).show();
-				$('#basicToast').addClass('toast-error');
-				$('#basicToast').removeClass('toast-success');
-				$('.toast-body').html('Something went wrong.');
+						$('#basicToast').addClass('toast-error');
+						$('#basicToast').removeClass('toast-success');
+						$('.toast-body').html('Something went wrong.');
 					}
 				}
 			});
@@ -952,9 +952,9 @@
 						location.reload();
 					} else {
 						new bootstrap.Toast(document.querySelector('#basicToast')).show();
-				$('#basicToast').addClass('toast-error');
-				$('#basicToast').removeClass('toast-success');
-				$('.toast-body').html('Something went wrong.');
+						$('#basicToast').addClass('toast-error');
+						$('#basicToast').removeClass('toast-success');
+						$('.toast-body').html('Something went wrong.');
 					}
 				}
 			});
@@ -1145,14 +1145,14 @@
 			}
 			var testId = $("#test_id").val();
 			testId = parseInt(testId);
-			var test_in = jQuery.inArray(testId, test);  
+			var test_in = jQuery.inArray(testId, test);
 			if (test_in != -1) {
-				
+
 				new bootstrap.Toast(document.querySelector('#basicToast')).show();
 				$('#basicToast').addClass('toast-error');
 				$('#basicToast').removeClass('toast-success');
 				var testname = $('#nameTest').val();
-				$('.toast-body').html('You already selected '+ testname);
+				$('.toast-body').html('You already selected ' + testname);
 				$('#test,#test_id,#department_id,#test_amount,#nameTest').val('');
 			} else {
 				test.push(testId);
@@ -1307,9 +1307,9 @@
 
 				if (!$.trim($('#grand_total').html())) {
 					new bootstrap.Toast(document.querySelector('#basicToast')).show();
-				$('#basicToast').addClass('toast-error');
-				$('#basicToast').removeClass('toast-success');
-				$('.toast-body').html('Enter test name.');
+					$('#basicToast').addClass('toast-error');
+					$('#basicToast').removeClass('toast-success');
+					$('.toast-body').html('Enter test name.');
 
 					return false;
 				}
@@ -1382,9 +1382,9 @@
 
 				if (testId.length === 0) {
 					new bootstrap.Toast(document.querySelector('#basicToast')).show();
-				$('#basicToast').addClass('toast-error');
-				$('#basicToast').removeClass('toast-success');
-				$('.toast-body').html('Please Select test first.');
+					$('#basicToast').addClass('toast-error');
+					$('#basicToast').removeClass('toast-success');
+					$('.toast-body').html('Please Select test first.');
 					return false;
 				}
 				$.ajax({
@@ -1464,33 +1464,32 @@
 				contentType: false,
 				success: function(res) {
 
-					if(res.success == 1){
+					if (res.success == 1) {
 
-					new bootstrap.Toast(document.querySelector('#basicToast')).show();
-				$('#basicToast').addClass('toast-success');
-				$('#basicToast').removeClass('toast-error');
-				$('.toast-body').html(testname+' saved.');
-					$(".img" + test_id).html('<img src="<?php echo BASE_URL ?>public/assets/images/icon-thumbs-up-active.svg" alt="Report Completed!" width="32" align="right">');
-					
-					if($('#'+position1).parent().next().is('li')) {
-					}
-					else {
-						// location.href = '<?php //echo BASE_URL; ?>report';
-					}
-					
-					var href = $('#'+position1).parent().next().children().attr('href');
-					var thishref = $('#'+position1).attr('href');
+						new bootstrap.Toast(document.querySelector('#basicToast')).show();
+						$('#basicToast').addClass('toast-success');
+						$('#basicToast').removeClass('toast-error');
+						$('.toast-body').html(testname + ' saved.');
+						$(".img" + test_id).html('<img src="<?php echo BASE_URL ?>public/assets/images/icon-thumbs-up-active.svg" alt="Report Completed!" width="32" align="right">');
 
-					$('#'+position1).parent().next().children().addClass('active');
-					$(href).addClass('active');
-					$(thishref).removeClass('active');
-					$('#'+position1).removeClass('active');
-				}else{
-					new bootstrap.Toast(document.querySelector('#basicToast')).show();
-				$('#basicToast').addClass('toast-error');
-				$('#basicToast').removeClass('toast-success');
-				$('.toast-body').html(res.msg);
-				}
+						if ($('#' + position1).parent().next().is('li')) {} else {
+							// location.href = '<?php //echo BASE_URL; 
+												?>report';
+						}
+
+						var href = $('#' + position1).parent().next().children().attr('href');
+						var thishref = $('#' + position1).attr('href');
+
+						$('#' + position1).parent().next().children().addClass('active');
+						$(href).addClass('active');
+						$(thishref).removeClass('active');
+						$('#' + position1).removeClass('active');
+					} else {
+						new bootstrap.Toast(document.querySelector('#basicToast')).show();
+						$('#basicToast').addClass('toast-error');
+						$('#basicToast').removeClass('toast-success');
+						$('.toast-body').html(res.msg);
+					}
 
 				},
 				error: function(err) {
@@ -1565,17 +1564,17 @@
 							location.reload();
 						} else {
 							new bootstrap.Toast(document.querySelector('#basicToast')).show();
-				$('#basicToast').addClass('toast-error');
-				$('#basicToast').removeClass('toast-success');
-				$('.toast-body').html(res.msg);
+							$('#basicToast').addClass('toast-error');
+							$('#basicToast').removeClass('toast-success');
+							$('.toast-body').html(res.msg);
 						}
 						$('.close ').click();
 					},
 					error: function(err) {
 						new bootstrap.Toast(document.querySelector('#basicToast')).show();
-				$('#basicToast').addClass('toast-error');
-				$('#basicToast').removeClass('toast-success');
-				$('.toast-body').html(err);
+						$('#basicToast').addClass('toast-error');
+						$('#basicToast').removeClass('toast-success');
+						$('.toast-body').html(err);
 					}
 				});
 			}
@@ -1635,11 +1634,11 @@
 							$(".errorTxt").removeClass("text-success");
 							$(".errorTxt").addClass("text-danger");
 							$(".errorTxt").html(res.msg);
-						
+
 							new bootstrap.Toast(document.querySelector('#basicToast')).show();
-				$('#basicToast').addClass('toast-error');
-				$('#basicToast').removeClass('toast-success');
-				$('.toast-body').html('Something went wrong.');
+							$('#basicToast').addClass('toast-error');
+							$('#basicToast').removeClass('toast-success');
+							$('.toast-body').html('Something went wrong.');
 						} else {
 							$(".errorTxt").removeClass("text-danger");
 							$(".errorTxt").addClass("text-success");
@@ -1667,9 +1666,9 @@
 				},
 				error: function(err) {
 					new bootstrap.Toast(document.querySelector('#basicToast')).show();
-				$('#basicToast').addClass('toast-error');
-				$('#basicToast').removeClass('toast-success');
-				$('.toast-body').html('Something went wrong.');
+					$('#basicToast').addClass('toast-error');
+					$('#basicToast').removeClass('toast-success');
+					$('.toast-body').html('Something went wrong.');
 				}
 			});
 
@@ -1683,9 +1682,9 @@
 				},
 				error: function(err) {
 					new bootstrap.Toast(document.querySelector('#basicToast')).show();
-				$('#basicToast').addClass('toast-error');
-				$('#basicToast').removeClass('toast-success');
-				$('.toast-body').html('Something went wrong.');
+					$('#basicToast').addClass('toast-error');
+					$('#basicToast').removeClass('toast-success');
+					$('.toast-body').html('Something went wrong.');
 				}
 			});
 		}
@@ -1827,61 +1826,49 @@
 		// 	}
 		// });
 	});
-	
-	$("#format").on('change', function() {
-		var format = $(this).val();
-		if (format == 3) {
-			$("#withHeader").html('Print Invoice');
-			$("#printOut").hide();
-		} else if (format == 'A5') {
-			$("#withHeader").html('Print Invoice with Header');
-			$("#printOut").hide();
-		} else {
-			$("#withHeader").html('Print Invoice with Header');
-			$("#printOut").show();
-		}
 
-	});
-
-	$('.print-invoice-btn').click(function(){
+	$('.print-invoice-btn').click(function() {
 		var id = $(this).data('id');
 		$('#printinvoiceid').val(id);
-
 	});
-	$("#withHeader").click(function() {
-		var id = $("#printinvoiceid").val();
-		var format = $("#format").val();
-		if ($("#format").val() == '') {
-			$('#format').css("border", "1px solid red");
-			$('#format').focus();
-			return false;
+
+
+	$('.radio-group').click(function(){
+
+		if($("input[name='invoice_type']:checked").val() == '3'){
+			$('#withHeader').hide();
+		}else{
+			$('#withHeader').show();
 		}
-		var url = '<?php echo BASE_URL; ?>printinvoice/index/' + id + '?format=' + format;
+	});
+
+	var format = $("input[name='invoice_type']:checked").val();
+
+
+	$('body').on('click', '#withHeader', function() {
+		var id = $("#printinvoiceid").val();
+		var format = $("input[name='invoice_type']:checked").val();
+		var url = '<?php echo BASE_URL; ?>printinvoice/index/' + id + '?format=' + format+'&header=true';
 		window.open(url, '_blank');
 		$(".modal .close").click();
 	});
 
-	$("#printOut").click(function() {
+	$('body').on('click', '#withoutHeader', function() {
 		var id = $("#printinvoiceid").val();
-		var format = $("#format").val();
-		if ($("#format").val() == '') {
-			$('#format').css("border", "1px solid red");
-			$('#format').focus();
-			return false;
-		}
-		var url = '<?php echo BASE_URL; ?>printinvoice/index/' + id + '?format=' + format;
+		var format = $("input[name='invoice_type']:checked").val();
+		var url = '<?php echo BASE_URL; ?>printinvoice/index/' + id + '?format=' + format + '&header=false';
 		window.open(url, '_blank');
 		$(".modal .close").click();
 	});
 </script>
 
 <div id="basicToast" class="toast align-items-center text-white border-0" role="alert" data-bs-animation="true" data-bs-delay="3000" aria-live="assertive" aria-atomic="true">
-  <div class="d-flex">
-    <div class="toast-body">
-      Hello, world! This is a toast message.
-    </div>
-    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-bs-label="Close"></button>
-  </div>
+	<div class="d-flex">
+		<div class="toast-body">
+			Hello, world! This is a toast message.
+		</div>
+		<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-bs-label="Close"></button>
+	</div>
 </div>
 </body>
 
