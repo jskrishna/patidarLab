@@ -53,8 +53,6 @@ class Bill extends CI_Controller
     public function billEntry()
     {
 
-
-
         $billDate = $this->input->post('billDate');
         $patient_id = $this->input->post('patient_id');
         $total = $this->input->post('total');
@@ -69,11 +67,18 @@ class Bill extends CI_Controller
         $balance = $this->input->post('balance');
         $patientRef = $this->input->post('patientRef');
         $payment_mode = $this->input->post('payment_mode');
+        if($payment_mode !='Due'){
+            $received_amount = $grandTotal;
+            $status = 'Paid';
+        }else{
+            $received_amount = 0;
+            $status = 'Pending';
+        }
         $bill_id = $this->input->post('bill_id');
         if ($bill_id == '') {
-            $billEntry = $this->Bill_model->insertBillEntry($billDate, $patient_id, $total, $discount, $grandTotal, $testAmount, $testId, $discountAmount, $final_discount, $advance, $balance, $patientRef, $payment_mode);
+            $billEntry = $this->Bill_model->insertBillEntry($billDate, $patient_id, $total, $discount, $grandTotal, $testAmount, $testId, $discountAmount, $final_discount, $advance, $balance, $patientRef, $payment_mode, $received_amount,$status );
         } else {
-            $billEntry = $this->Bill_model->updateBillEntry($billDate, $patient_id, $total, $discount, $grandTotal, $testAmount, $testId, $discountAmount, $final_discount, $advance, $balance, $patientRef, $payment_mode, $bill_id);
+            $billEntry = $this->Bill_model->updateBillEntry($billDate, $patient_id, $total, $discount, $grandTotal, $testAmount, $testId, $discountAmount, $final_discount, $advance, $balance, $patientRef, $payment_mode, $received_amount,$status,$bill_id);
         }
 
         if ($billEntry) {
@@ -121,15 +126,19 @@ class Bill extends CI_Controller
         $payment_mode = $this->input->post('payment_mode');
         $final_discount = $this->input->post('final_discount');
 
+        $previous_amount = $this->input->post('previous_amount');
+
         $balance = $this->input->post('balance');
+        $markaspaid = $this->input->post('markaspaid');
 
-        $permission = $this->input->post('permission');
-        if ($permission) {
-            $final_discount += intval($balance) - intval($balance_received);
+        if($markaspaid == 'Yes'){
+            $status = 'Paid';
+        }else{
+            $status = 'Pending';
         }
-        $status = 'Paid';
 
-        $resultss =  $this->Bill_model->paymentSettle($balance_received, $payment_mode, $final_discount, $status, $bill_id);
+        $received = intval($balance_received)+intval($previous_amount);
+        $resultss =  $this->Bill_model->paymentSettle($received, $payment_mode, $final_discount, $status, $bill_id);
 
         if ($resultss) {
             $resultss = array('success' => 1, 'msg' => 'Status update successfully.', 'redirect_url' => '');

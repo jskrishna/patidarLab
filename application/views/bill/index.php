@@ -164,7 +164,7 @@
                                                     <span class="small-heading">Payment</span>
                                                     <div class="radio-wrap">
                                                         <span class="radio-group">
-                                                            <input type="radio" id="payment_due" name="payment_mode" value="Due" <?php if(isset($billData) && $billData[0]->payment_mode == 'Due'){ echo 'checked'; } ?> checked>
+                                                            <input type="radio" id="payment_due" name="payment_mode" value="Due" checked>
                                                             <label for="payment_due">
                                                                 <span>
                                                                 Due 
@@ -172,7 +172,7 @@
                                                             </label>
                                                         </span>
                                                         <span class="radio-group">
-                                                            <input type="radio" id="payment_cash" name="payment_mode" value="Cash" <?php if(isset($billData) && $billData[0]->payment_mode == 'Cash'){ echo 'checked'; } ?>>
+                                                            <input type="radio" id="payment_cash" name="payment_mode" value="Cash">
                                                             <label for="payment_cash">
                                                                 <span>
                                                                 Cash 
@@ -180,7 +180,7 @@
                                                             </label>
                                                         </span>
                                                         <span class="radio-group">
-                                                            <input type="radio" id="payment_upi" name="payment_mode" value="PhonePe" <?php if(isset($billData) && $billData[0]->payment_mode == 'PhonePe'){ echo 'checked'; } ?>>
+                                                            <input type="radio" id="payment_upi" name="payment_mode" value="PhonePe">
                                                            <label for="payment_upi">
                                                                <span>
                                                            UPI 
@@ -195,15 +195,21 @@
                                             <ul class="checkout-wrap">
                                                 <li>
                                                     <span>Total</span>
-                                                    <div>
+                                                    <div class="grand_total">
                                                         <input type="hidden" name="total" id="total" class="form-control" readonly="" value="<?php if(isset($billData)){ echo intval($billData[0]->total); }else{echo '0';} ?>">
                                                         <input type="hidden" name="discount" id="discount" class="form-control" value="<?php if(isset($billData)){ echo intval($billData[0]->final_discount); }else{ echo '0';} ?>" readonly="">
-
+                                                            ₹
                                                         <span id="final_total"><?php if(isset($billData)){ echo intval($billData[0]->total); }else{ echo '0';} ?></span>
                                                     </div>
                                                 </li>
+                                                <li class="advance-li">
+                                                    <span>Advance</span>
+                                                    <div>
+                                                      <input type="number" name="advance" id="advance" value="<?php if(isset($billData)){ echo intval($billData[0]->advance); }else{ echo '0';} ?>" tabindex="1" class="form-control-sm number_only tab_inp">
+                                                    </div>
+                                                </li>
                                                 <li>
-                                                    <span>Final Discount</span>
+                                                    <span>Discount</span>
                                                     <div>
                                                         <input type="hidden" name="final_discount_type" id="final_discount_type" value="Amount" checked="checked">
                                                         <input type="hidden" name="final_discount" id="final_discount" value="<?php if(isset($billData)){ echo intval($billData[0]->final_discount); }else{ echo '0';} ?>">
@@ -211,7 +217,7 @@
                                                     </div>
                                                 </li>
                                                 <li>
-                                                    <span>Grand Total</span>
+                                                    <span class="remain-li-span">Remaining Amount</span>
                                                     <div>
                                                     <input type="hidden" name="paid" id="paid" value="0" class="form-control number_only tab_inp" tabindex="6">
                                                     <input type="hidden" name="balance" id="balance" class="form-control" readonly="" value="<?php if(isset($billData)){ echo intval($billData[0]->balance); }else{ echo '0';} ?>">

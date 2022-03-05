@@ -88,9 +88,15 @@ class Report extends CI_Controller
         $billData = $billData[0];
         $patientData = $patientData[0];
         $date = date_format(new DateTime($billData->billDate), 'd-M-Y');
-        $balance = intval($billData->balance) - intval($billData->advance);
+        $balance = intval($billData->balance) - intval($billData->received_amount) ;
         $discount = intval($billData->final_discount) + intval($billData->discount);
+        $advance = intval($billData->advance);
         $final_discount = intval($billData->final_discount);
+
+        $previous = '';
+        if(intval($billData->received_amount) !== 0){
+            $previous = 'Previous Received<b> ₹ '.$billData->received_amount.'</b>';
+        }
 
         $data = "<div class='page-head'><h2 id='billname'>".$patientData->title.' '. $patientData->patientname . ' (' . ($patientData->patientid) . ')'."</h2><button type='button' class='close' data-bs-dismiss='modal' aria-label='Close'><img src='".BASE_URL."/public/assets/images/remove.svg.' alt=''>
         </button>
@@ -106,35 +112,36 @@ class Report extends CI_Controller
                             <table class='table'>
                             <thead>
                                 <tr>
-                                    <th>Bill Amount</th>
+                                    <th>Total Amount</th>
                                     <th>Discount</th>
+                                    <th>Advance</th>
                                     <th>Payable</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>$billData->total</td>
-                                    <td>$discount</td>
-                                    <td>$billData->balance</td>
+                                    <td>₹ $billData->total </td>
+                                    <td>₹ $discount </td>
+                                    <td>₹ $advance </td>
+                                    <td><b>₹ $balance</b> </td>
                                 </tr>
                             </tbody>
                         </table>
                             </div>
+                    $previous
+
                         </div>
+                    </div>
+                    <div class='form-row'>
+                    <span class='small-heading'>Received Amount (₹)</span>
+                    <input type='hidden' value='$billData->received_amount' name='previous_amount' id='previous_amount'>
+                    <input type='number' placeholder='Enter Received Amount' max='$balance' name='balance_received' id='balance_received' class='form-control' value=>
                     </div>
                     <div class='form-row'>
                             <span class='small-heading'>Payment Mode</span>
                             <div class='radio-wrap'>
                                 <span class='radio-group'>
-                                    <input type='radio' id='payment_due' name='payment_mode' value='Due' checked>
-                                    <label for='payment_due'>
-                                        <span>
-                                        Due 
-                                        </span>
-                                    </label>
-                                </span>
-                                <span class='radio-group'>
-                                    <input type='radio' id='payment_cash' name='payment_mode' value='Cash'>
+                                    <input type='radio' id='payment_cash' name='payment_mode' value='Cash' checked>
                                     <label for='payment_cash'>
                                         <span>
                                         Cash 
@@ -150,10 +157,13 @@ class Report extends CI_Controller
                                 </label>
                                 </span>
                             </div>
-                            <input type='hidden' placeholder='Enter received amount' name='balance_received' id='balance_received' class='form-control' value='$balance'>
                             <input type='hidden' name='add_discount' id='add_discount' value=''>
                     </div>
                     </div>
+                    <div class='modal-footer'>
+                    <input type='checkbox' name='markaspaid' id='markaspaid' value='Yes'>
+                    <label for='markaspaid'>Mark as Paid</label>
+                </div>
                     <div class='modal-footer'>
                         <div class='col-lg-3'><button class='btn custom-btn btnupdate btn-block' id='postValue'>Pay</button></div>
                     </div>";

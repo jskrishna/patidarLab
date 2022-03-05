@@ -1,11 +1,11 @@
 $(document).ready(function() {
-    var table = $('.dt-responsive').DataTable({        
+    var table = $('.dt-responsive').DataTable({
         language: {
             search: "_INPUT_",
             searchPlaceholder: "Search Patient..."
         },
         "order": [
-            [1, "desc"]
+            [2, "desc"]
         ],
         "bPaginate": true,
         "bLengthChange": true,
@@ -17,6 +17,10 @@ $(document).ready(function() {
             [20, 50, "All"]
         ],
         "ordering": true,
+        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
+            $("td:first", nRow).html(iDisplayIndex + 1);
+            return nRow;
+        },
     });
     var tables = $('.dt-responsives').DataTable({
         language: {
@@ -41,7 +45,7 @@ $(document).ready(function() {
     //report-filter
     $('.report-filter .filter-item').click(function() {
         var value = $(this).data('value');
-        table.columns(6).search(value).draw();
+        table.columns(7).search(value).draw();
     })
 
     $('.report-edit').DataTable({

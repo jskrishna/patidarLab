@@ -14,6 +14,9 @@
 
     function index($bill_id)
     {
+        if(!isset($bill_id)){
+            header('location:' . BASE_URL . 'login');
+        }
         $billData = $this->Outputpdf_model->getbillinfoByID($bill_id);
         $billData = $billData[0];
 

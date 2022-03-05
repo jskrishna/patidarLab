@@ -491,7 +491,7 @@
 		})
 		// $('[data-toggle="tooltip"]').tooltip({placement: 'bottom',trigger: 'manual'}).tooltip('show');
 
-		//calculation
+		//calculation fun
 		function calculation() {
 			var total = 0;
 			var totalTestExpanses = 0;
@@ -499,7 +499,6 @@
 			var rewamountupdate = 0;
 			var rewardpoint = 0;
 			rewardpoint = Number(rewardpoint);
-
 			var rewpoint = 0;
 			var discount = 0;
 			$("input[name^=testAmount]").each(function() {
@@ -524,13 +523,9 @@
 			var outside = $("#outside").val();
 			var homevisiting = $("#homevisiting").val();
 			var rewardAmount = $("#reward").val();
-			console.log(total);
-
 			var gTotal = Number(grandTotal) - Number(final_discount);
-			var finAmount = Number(gTotal);
 			var finaAmount;
-			finaAmount = Number(gTotal);
-
+			finAmount = Number(gTotal) - Number(advance);
 			$("#total").val(finAmount);
 			$("#grand_total").html(finAmount);
 			if ('NO' == 'YES' && '' == 'ENABLED') {
@@ -538,14 +533,13 @@
 			}
 			var paid = $("#paid").val();
 			var advance_paid = Number(advance) + Number(paid)
-			$("#advance").attr('max', finaAmount);
-			var balance = finaAmount.toFixed(2);
+			$("#advance").attr('max', finAmount);
+			var balance = finAmount.toFixed(2);
 			if ('NO' == 'YES') {
 				$("#balance").val(0);
 			} else {
 				$("#balance").val(balance);
 			}
-
 			if (final_discount > grandTotal) {
 
 				$("#test_clear").hide();
@@ -557,7 +551,6 @@
 				$("#f_discount").css("border", "1px solid lightgray");
 
 			}
-
 			// discount()
 			if (total > 0) {
 				$(".test_save").show();
@@ -1261,6 +1254,28 @@
 		$("#f_discount").keyup(function() {
 			discount();
 			calculation();
+			var advance = $('#advance').val();
+			var final_total = $("#final_total").html();
+			var f_discount = $("#f_discount").val();
+			var final_discount = f_discount;
+
+			if (Number(final_discount) > Number(final_total)) {
+				new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html('The discount amount is higher than the test amount.');
+				$(".test_save").hide();
+				$("#test_clear").hide();
+			} else {
+				if ($.trim($('#grand_total').html()))
+					$("#test_save").show("disabled", "disabled");
+				$("#test_clear").show("disabled", "disabled");
+			}
+		});
+		$("#advance").keyup(function() {
+			discount();
+			calculation();
+			var advance = $('#advance').val();
 			var final_total = $("#final_total").html();
 			var f_discount = $("#f_discount").val();
 			var final_discount = f_discount;
@@ -1301,13 +1316,6 @@
 				$('.toast-body').html('Something went wrong.');
 
 			} else {
-				// if ($("#payment_mode").val() == '') {
-				// 	$("#payment_mode").css("border", "1px solid red");
-				// 	$("#payment_mode").focus();
-				// 	return false;
-				// } else {
-				// 	$("#payment_mode").css("border", "1px solid lightgray");
-				// }
 
 				if (!$.trim($('#grand_total').html())) {
 					new bootstrap.Toast(document.querySelector('#basicToast')).show();
@@ -1340,7 +1348,7 @@
 				var discount_type = $("input[name='discount_type']:checked").val();
 				var final_discount_type = $("input[name='final_discount_type']").val();
 				var f_discount = $("#f_discount").val();
-				var advance = 0;
+				var advance = $("#advance").val(); 
 				var persons = $("#persons").val();
 				var balance = $("#balance").val();
 				var patientRef = $("#patientRefId").val();
@@ -1400,7 +1408,7 @@
 						"billDate": billDate,
 						"patient_id": patient_id,
 						"total": total,
-						"discount": discount,
+						"discount": 0,
 						"grandTotal": grandTotal,
 						"testAmount": testAmount,
 						"testId": testId,
@@ -1534,8 +1542,10 @@
 			var bill_id = $("#bill_id").val();
 			var balance = $("#balance").val();
 			var final_discount = $("#final_discount").val();
-
+var previous_amount = $('#previous_amount').val();
 			var balance_received = $("#balance_received").val();
+			var markaspaid = $("input[name='markaspaid']:checked").val();
+			
 			if (balance_received == 0) {
 				new bootstrap.Toast(document.querySelector('#basicToast')).show();
 				$('#basicToast').addClass('toast-error');
@@ -1561,7 +1571,9 @@
 						"payment_mode": payment_mode,
 						'permission': permission,
 						'balance': balance,
-						"final_discount": final_discount
+						"final_discount": final_discount,
+						"previous_amount":previous_amount,
+						'markaspaid':markaspaid
 					},
 					success: function(res) {
 						if (res.success == 1) {
@@ -1844,7 +1856,16 @@
 		} else {
 			$('#withHeader').show();
 		}
+		if($("input[name='payment_mode']:checked").val() != 'Due'){
+			$('.advance-li').hide();
+			$('.remain-li-span').html('Total Amount');
+		}else{
+			$('.advance-li').show();
+			$('.remain-li-span').html('Remaining Amount');
+		}
+
 	});
+
 
 	var format = $("input[name='invoice_type']:checked").val();
 

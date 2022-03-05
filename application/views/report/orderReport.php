@@ -176,6 +176,7 @@ include_once "./public/assets/includes/footer.php";
 
         }
         var count = check.length;
+        
         if (count > 0) {
             $('#submit_report').removeAttr('disabled', 'disabled');
         } else {
@@ -190,5 +191,9 @@ include_once "./public/assets/includes/footer.php";
             console.log("Checkbox is unchecked.");
             $('#department' + val1).prop('checked', false);
         }
+
+        if ($('#select_all').is(':checked')) {
+				$('#submit_report').removeAttr('disabled');
+			}
     }
 </script>

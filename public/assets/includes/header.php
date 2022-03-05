@@ -28,7 +28,7 @@
 					    </div>
 					<div class="search-top">
 					    	<input type="hidden" name="search_patient_id" id="search_patient_id">
-						<input type="text" name="searchPatientId" id="searchPatientId" placeholder="Search by Patient Name / Mobile Number" class="search__field txt_stle form-control ui-autocomplete-input" autocomplete="off">
+						<input type="text" name="searchPatientId" id="searchPatientId" placeholder="Search by Patient Name / Mobile Number / PTID" class="search__field txt_stle form-control ui-autocomplete-input" autocomplete="off">
 						<input type="hidden" name="searchPatient" id="searchPatient" class="btn btnupdate font-weight-bolder btn-primary" value="Go">
 					</div>
 					</div>
