@@ -224,7 +224,7 @@
                     <label>Select Invoice Format</label>
                     <div class="radio-wrap">
                         <span class="radio-group">
-                            <input type="radio" id="a4" name="invoice_type" value="A4" checked="">
+                            <input type="radio" id="a4" name="invoice_type" value="A4" checked>
                             <label for="a4">
                                 <span>
                                 A4 PDF
@@ -239,21 +239,14 @@
                                 </span>
                             </label>
                         </span>
-                        <input type="hidden" value="41" id="printinvoiceid">
+                        <input type="hidden" value="" id="printinvoiceid">
                     </div>
                     </div>
-                    <!-- <select name="cars" id="format" class="form-control">
-                        <option value="">Select Invoice Type</option>
-                        <option value="3">3inch</option>
-                        <option value="A4">A4 PDF</option>
-                        <option value="A5P">A5 Portrait PDF</option>
-                        <option value="A5">A5 LandScape PDF</option>
-                    </select> -->
                     <div class="form-group"> 
                     <label>Print Invoice With</label>
                    <div class="d-flex">
                    <button class="btn custom-btn btnupdate" id="withHeader">Header</button>
-                    <button class="btn custom-btn btnupdate mx-2" id="printOut">Without Header</button>
+                    <button class="btn custom-btn btnupdate mx-2" id="withoutHeader">Without Header</button>
                    </div>
                     </div>
                 </div>

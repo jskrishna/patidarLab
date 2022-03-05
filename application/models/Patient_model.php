@@ -52,12 +52,23 @@ class Patient_model extends CI_Model
         $sth = $this->db->query("DELETE FROM `patient` WHERE `id`='$id'");
         return $sth;
     }
+    public function Deletebill($id)
+    {
+        $sth = $this->db->query("DELETE FROM `bill` WHERE `patient_id`='$id'");
+        return $sth;
+    }
+    public function DeleteReport($id)
+    {
+        $sth = $this->db->query("DELETE FROM `reportdata` WHERE `patient_id`='$id'");
+        return $sth;
+    }
     public function patientSearch($search)
     {
         $query = $this->db->select('*')->from('patient');
         $query = $this->db->like('patientname',$search);
         $query = $this->db->or_like('email',$search);
         $query = $this->db->or_like('mobile',$search);
+        $query = $this->db->or_like('patientid',$search);
         $query = $this->db->get();
         return $query->result();
     }
