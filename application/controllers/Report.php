@@ -92,7 +92,7 @@ class Report extends CI_Controller
         $discount = intval($billData->final_discount) + intval($billData->discount);
         $final_discount = intval($billData->final_discount);
 
-        $data = "<div class='page-head'><h2 id='billname'>".$patientData->title.  $patientData->patientname . ' (' . ($patientData->patientid) . ')'."</h2><button type='button' class='close' data-bs-dismiss='modal' aria-label='Close'><img src='".BASE_URL."/public/assets/images/remove.svg.' alt=''>
+        $data = "<div class='page-head'><h2 id='billname'>".$patientData->title.' '. $patientData->patientname . ' (' . ($patientData->patientid) . ')'."</h2><button type='button' class='close' data-bs-dismiss='modal' aria-label='Close'><img src='".BASE_URL."/public/assets/images/remove.svg.' alt=''>
         </button>
     </div><div class='modal-body'>
                     <div class='row'>
@@ -101,7 +101,7 @@ class Report extends CI_Controller
                     </div>
                     <div class='form-row'>
                         <div class='form-group col-lg-12'>
-                        <div class='c-datatable'>
+                        <div class='c-datatable pd-0'>
                         
                             <table class='table'>
                             <thead>
@@ -155,7 +155,7 @@ class Report extends CI_Controller
                     </div>
                     </div>
                     <div class='modal-footer'>
-                        <div class='col-lg-2'><button class='btn custom-btn btnupdate btn-block' id='postValue'>Pay</button></div>
+                        <div class='col-lg-3'><button class='btn custom-btn btnupdate btn-block' id='postValue'>Pay</button></div>
                     </div>";
         echo $data;
     }
@@ -192,7 +192,7 @@ class Report extends CI_Controller
 
         $testIDS = explode(',', $billData->testId);
         date_default_timezone_set('Asia/Kolkata');
-        $tabledata = "<div class='page-head'><h2 id='billname'>".$patientData->title.  $patientData->patientname . ' (' . ($patientData->patientid) . ')'."</h2><button type='button' class='close' data-bs-dismiss='modal' aria-label='Close'><img src='".BASE_URL."/public/assets/images/remove.svg.' alt=''>
+        $tabledata = "<div class='page-head'><h2 id='billname'>".$patientData->title .  $patientData->patientname . ' (' . ($patientData->patientid) . ')'."</h2><button type='button' class='close' data-bs-dismiss='modal' aria-label='Close'><img src='".BASE_URL."/public/assets/images/remove.svg.' alt=''>
         </button>
     </div><div class='modal-body'>
     <div class='row'>

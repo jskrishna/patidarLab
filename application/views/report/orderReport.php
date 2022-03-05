@@ -2,9 +2,6 @@
 <?php include_once "./public/assets/includes/navbar.php";   ?>
 <div class="layoutSidenav_content">
     <div class="layout_content_inr">
-        <div class="page-head page-head-border">
-            <h2>Reports</h2>
-        </div>
         <div class="reports-sec">
             <div class="form-row">
                 <div class="col-lg-12">
