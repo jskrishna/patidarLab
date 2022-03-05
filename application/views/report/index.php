@@ -86,7 +86,7 @@
                                         <td style="display:none"><?php echo $patient->patientid; ?></td>
                                         <td>
                                             <span>Total - ₹ <?php echo  intval($report->total); ?> </span><br>
-                                            <span>Due - ₹ <?php echo  intval($report->balance) - intval($report->received_amount); ?></span>
+                                            <span>Due - ₹ <?php echo  intval($report->balance) - intval($report->received_amount) - intval($report->discount); ?></span>
                                         </td>
                                         <?php foreach ($doctorsData as $doc) {
                                             if ($doc->id == $report->patientRef) {
@@ -99,14 +99,20 @@
                                             $testIDs = explode(',', $report->testId);
                                             $done = '';
                                             $pending = '';
-                                            $dCount = $pCount = 0;
+                                            $red = '';
+                                            $dCount = $pCount = $rCount = 0;
                                             foreach ($testIDs as $id) {
                                                 $testData = $pxthis->Report_model->getTestByID($id);
                                                 $reportValues = $pxthis->Report_model->getreportDataByBIllandTestId($report->id, $id);
-                                                if (count($reportValues) > 0) {
+                                                if (count($reportValues) > 0 && $reportValues[0]->status == 'authorised' && $reportValues[0]->status == 'printed') {
                                                     $done .= '<label>' . $testData[0]->test_name . '</label>';
                                                     $dCount += 1;
-                                                } else {
+                                                } else if(count($reportValues) > 0 && $reportValues[0]->status == 'authorised'){
+                                                   
+                                                    $red .= '<label>' . $testData[0]->test_name . '</label>';
+                                                    $rCount += 1;
+                                                }
+                                                else {
                                                     $pending .=  '<label>' . $testData[0]->test_name . '</label>';
                                                     $pCount += 1;
                                                 }
@@ -116,7 +122,9 @@
                                             
                                             <span class="test-process test-success">
                                                 <?php echo $done ?>
-                                                
+                                            </span>
+                                            <span class="test-process test-authorised text-danger">
+                                                <?php echo $red ?>
                                             </span>
                                             <span class="test-process test-pending">
                                                 <?php echo $pending ?>

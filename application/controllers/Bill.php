@@ -130,15 +130,15 @@ class Bill extends CI_Controller
 
         $balance = $this->input->post('balance');
         $markaspaid = $this->input->post('markaspaid');
-
+        $received = intval($balance_received)+intval($previous_amount);
         if($markaspaid == 'Yes'){
             $status = 'Paid';
+        $discount = intval($balance)-intval($received)-intval($final_discount);
         }else{
             $status = 'Pending';
+            $discount = 0;
         }
-
-        $received = intval($balance_received)+intval($previous_amount);
-        $resultss =  $this->Bill_model->paymentSettle($received, $payment_mode, $final_discount, $status, $bill_id);
+        $resultss =  $this->Bill_model->paymentSettle($received, $payment_mode, $discount, $status, $bill_id);
 
         if ($resultss) {
             $resultss = array('success' => 1, 'msg' => 'Status update successfully.', 'redirect_url' => '');

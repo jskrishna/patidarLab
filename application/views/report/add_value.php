@@ -63,12 +63,20 @@
                                 foreach ($testData as $test) {
                                     if ($test->id == $p) { ?>
                                         <h2 class="accordion-header" id="panelsStayOpen-<?php echo $test->id ?>">
-                                        <div class="authorise-sec print-option">
-                                                    <div class="check-group">
-                                                    <input type="checkbox" class="" id="authorise<?php echo $test->id ?>" name="authorise" value="Yes">
-                                                    <label for="authorise<?php echo $test->id ?>"><span>Authorized</span></label>
+                                            <div class="authorise-sec print-option">
+                                                <div class="check-group">
+                                                    <?php
+                                                    $thisData = $pxthis->Report_model->getreportDataByBIllandTestId($billData->id, $test->id);
+                                                    if ($thisData && $thisData[0]->status == 'authorised') { ?>
+                                                        <input type="checkbox" class=""  id="authorise<?php echo $test->id ?>" name="authorise" value="Yes" checked>
+                                                        <label data-testname="<?php echo $test->test_name; ?>" data-status="" data-id="<?php echo $test->id ?>" for="authorise<?php echo $test->id ?>"><span>Authorised</span></label>
+                                                    <?php } else { ?>
+                                                        <input type="checkbox" class=""  id="authorise<?php echo $test->id ?>" name="authorise" value="Yes">
+                                                        <label data-testname="<?php echo $test->test_name; ?>" data-status="authorised" data-id="<?php echo $test->id ?>" for="authorise<?php echo $test->id ?>"><span>Authorised</span></label>
+                                                    <?php } ?>
+
                                                 </div>
-                                                    </div>
+                                            </div>
                                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse<?php echo $test->id ?>" aria-expanded="true" aria-controls="panelsStayOpen-collapse<?php echo $test->id ?>">
                                                 <span><?php echo $test->test_name; ?>
                                                     <?php
@@ -124,7 +132,7 @@
                                                                                 <th colspan="5">DIFFERENTIAL COUNT</th>
                                                                             <?php  } ?>
                                                                             <tr class="reportcnt" id="<?php echo $parameter->id; ?>">
-                                                                                
+
                                                                                 <?php if ($parameter->id == '1' || $parameter->id == '2' || $parameter->id == '4' || $parameter->id == '13') { ?>
                                                                                     <td><input type="hidden" id="parameter_id<?php echo $parameter->id; ?>" name="parameter_id[]" value="<?php echo $parameter->id; ?>"><b><?php echo $parameter->name; ?></b></td>
 
@@ -191,18 +199,18 @@
                                                                                                     <input type="hidden" id="max_range<?php echo $parameter->id; ?>" name="max_range[]" value="<?php echo $max; ?>">
                                                                                                     <?php if ($parameter->min_value != null) {
                                                                                                     ?><span><?php echo $parameter->min_value . ' - ' . $parameter->max_value . '<br>'; ?></span> <?php
-                                                                                                                                                                                                    }
-                                                                                                                                                                                                    if ($parameter->male_min_value != null) {
-                                                                                                                                                                                                        echo 'Male -> ' . $parameter->male_min_value . ' - ' . $parameter->male_max_value . '<br>';
-                                                                                                                                                                                                    }
-                                                                                                                                                                                                    if ($parameter->female_min_value != null) {
-                                                                                                                                                                                                        echo 'Female -> ' . $parameter->female_min_value . ' - ' . $parameter->female_max_value . '<br>';
-                                                                                                                                                                                                    }
-                                                                                                                                                                                                    if ($parameter->child_min_value != null) {
-                                                                                                                                                                                                        echo 'Child -> ' . $parameter->child_min_value . ' - ' . $parameter->child_max_value;
-                                                                                                                                                                                                    }
+                                                                                                                                                                                                }
+                                                                                                                                                                                                if ($parameter->male_min_value != null) {
+                                                                                                                                                                                                    echo 'Male -> ' . $parameter->male_min_value . ' - ' . $parameter->male_max_value . '<br>';
+                                                                                                                                                                                                }
+                                                                                                                                                                                                if ($parameter->female_min_value != null) {
+                                                                                                                                                                                                    echo 'Female -> ' . $parameter->female_min_value . ' - ' . $parameter->female_max_value . '<br>';
+                                                                                                                                                                                                }
+                                                                                                                                                                                                if ($parameter->child_min_value != null) {
+                                                                                                                                                                                                    echo 'Child -> ' . $parameter->child_min_value . ' - ' . $parameter->child_max_value;
+                                                                                                                                                                                                }
 
-                                                                                                                                                                                                        ?>
+                                                                                                                                                                                                    ?>
                                                                                                     <div class="checkbox i-checks pull-right check-group">
                                                                                                         <?php
                                                                                                         if (!empty($highlights)) { ?>
@@ -255,7 +263,7 @@
                                                                                             <input type="hidden" id="max_range<?php echo $parameter->id; ?>" name="max_range[]" value="<?php echo $parameter->max_value; ?>">
                                                                                             <?php if ($parameter->min_value != null) {
                                                                                             ?><span><?php echo $parameter->min_value . ' - ' . $parameter->max_value; ?></span> <?php
-                                                                                                                                                                                    } ?>
+                                                                                                                                                                            } ?>
                                                                                             <div class="checkbox i-checks pull-right check-group">
                                                                                                 <input type="hidden" value="No" name="highlight[]" id="checkValue<?php echo $parameter->id; ?>">
                                                                                                 <input type="checkbox" class="high" id="highlight<?php echo $parameter->id; ?>" value="Yes"><label for="highlight<?php echo $parameter->id; ?>"></label>
@@ -270,20 +278,20 @@
                                                                     ?>
                                                                     <tr>
                                                                         <td colspan="4">
-                                                                       <div class="save-report">
-                                                                       <?php
-                                                            $thisData = $pxthis->Report_model->getreportDataByBIllandTestId($billData->id, $test->id);
-                                                            if (($thisData)) { ?>
-                                                                <input type="hidden" value="<?php echo $thisData[0]->id; ?>" name="reportid" id="reportid<?php echo $test->id; ?>">
-                                                            <?php
-                                                            } else { ?>
-                                                                <input type="hidden" value="" name="reportid" id="reportid<?php echo $test->id; ?>">
+                                                                            <div class="save-report">
+                                                                                <?php
+                                                                                $thisData = $pxthis->Report_model->getreportDataByBIllandTestId($billData->id, $test->id);
+                                                                                if (($thisData)) { ?>
+                                                                                    <input type="hidden" value="<?php echo $thisData[0]->id; ?>" name="reportid" id="reportid<?php echo $test->id; ?>">
+                                                                                <?php
+                                                                                } else { ?>
+                                                                                    <input type="hidden" value="" name="reportid" id="reportid<?php echo $test->id; ?>">
 
-                                                            <?php  }
-                                                            ?>
-                                                            <input type="hidden" name="defult_value_status" id="defult_value_status" value="0">
-                                                            <input type="button" class="bill_settle review-btn save-parameter submit_report enterkey" data-testid="<?php echo $test->id; ?>" id="saveReport<?php echo $test->id; ?>" data-testname="<?php echo $test->test_name; ?>" name="card<?php echo $test->id; ?>" value="Save">
-                                                                       </div>
+                                                                                <?php  }
+                                                                                ?>
+                                                                                <input type="hidden" name="defult_value_status" id="defult_value_status" value="0">
+                                                                                <input type="button" class="bill_settle review-btn save-parameter submit_report enterkey" data-testid="<?php echo $test->id; ?>" id="saveReport<?php echo $test->id; ?>" data-testname="<?php echo $test->test_name; ?>" name="card<?php echo $test->id; ?>" value="Save">
+                                                                            </div>
                                                                         </td>
                                                                     </tr>
                                                             </tbody>

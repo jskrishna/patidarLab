@@ -55,7 +55,7 @@
                                                 <?php foreach ($doctorData as $doctor) {
                                                     if ($doctor->id == $patientData->refered_by) {
                                                 ?>
-                                                        <span class="text-capitalize"><?php echo $doctor->referral_name; ?></span>
+                                                        <span class="text-capitalize">Dr. <?php echo $doctor->referral_name; ?></span>
                                                         <!-- <input type="text" name="patientRef" id="patientRef" class="form-control ui-autocomplete-input" value="<?php echo $doctor->referral_name; ?>" autocomplete="off"> -->
                                                 <?php }
                                                 } ?>

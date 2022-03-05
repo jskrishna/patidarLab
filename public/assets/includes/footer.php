@@ -1518,21 +1518,21 @@
 			} else {
 				var url = '<?php echo BASE_URL; ?>report/paid_details';
 			}
-			$.ajax({
-				type: "POST",
-				url: url,
-				data: {
-					"id": id
-				},
-				success: function(res) {
-					if (status == 'Pending') {
-						$("#bill_settlement .modal-content").html(res);
-					} else {
-						$("#bill_paid .modal-content").html(res);
-					}
+			// $.ajax({
+			// 	type: "POST",
+			// 	url: url,
+			// 	data: {
+			// 		"id": id
+			// 	},
+			// 	success: function(res) {
+			// 		if (status == 'Pending') {
+			// 			$("#bill_settlement .modal-content").html(res);
+			// 		} else {
+			// 			$("#bill_paid .modal-content").html(res);
+			// 		}
 
-				}
-			});
+			// 	}
+			// });
 		});
 
 		// pay model
@@ -1884,6 +1884,51 @@ var previous_amount = $('#previous_amount').val();
 		var url = '<?php echo BASE_URL; ?>printinvoice/index/' + id + '?format=' + format + '&header=false';
 		window.open(url, '_blank');
 		$(".modal .close").click();
+	});
+
+	$('body').on('click', '.authorise-sec label', function() {
+		var id = $(this).data('id');
+		var status = $(this).data('status');
+		if(status == 'authorised'){
+			$(this).data('status', '');
+		}else{
+			$(this).data('status', 'authorised');
+		}
+		
+		var testname = $(this).data('testname');
+		var bill_id = $('#bill_id').val();
+		var url = "<?php echo BASE_URL; ?>Report/authoriseStatus";
+				$.ajax({
+					type: 'POST',
+					url: url,
+					dataType: 'json',
+					data: {
+						"id": id,
+						"bill_id":bill_id,
+						"status": status,
+					},
+					success: function(res) {
+						if(res.success == 1){
+							new bootstrap.Toast(document.querySelector('#basicToast')).show();
+							$('#basicToast').addClass('toast-success');
+							$('#basicToast').removeClass('toast-error');
+							$('.toast-body').html(testname +' '+res.msg);
+						}else{
+							new bootstrap.Toast(document.querySelector('#basicToast')).show();
+							$('#basicToast').addClass('toast-error');
+							$('#basicToast').removeClass('toast-success');
+							$('.toast-body').html(testname +' '+res.msg);
+						}
+					
+					},
+					error:function(err){
+						new bootstrap.Toast(document.querySelector('#basicToast')).show();
+							$('#basicToast').addClass('toast-error');
+							$('#basicToast').removeClass('toast-success');
+							$('.toast-body').html('Something went wrong.');
+					}
+				});
+
 	});
 	
 </script>
