@@ -2,9 +2,6 @@
 <?php include_once "./public/assets/includes/navbar.php";   ?>
 <div class="layoutSidenav_content">
     <div class="layout_content_inr">
-        <div class="page-head page-head-border">
-            <h2>Billing</h2>
-        </div>
             <script>
             var test = Array();
         </script>
@@ -136,7 +133,8 @@
 
                                                         </td>
                                                         <input type='hidden' name='discountAmount[]' id='discountAmount' value=<?php echo $discountAmounts[$param]; ?> class='form-control testAmount' readonly>
-                                                        <td><a href='Javascript:void(0)' class='remove_this btn-danger'><img src='<?php echo BASE_URL ?>public/assets/images/remove-white.svg' alt=''></a></td>
+                                                        <td><a href='Javascript:void(0)' class='remove_this'>
+                                                            <img src='<?php echo BASE_URL ?>public/assets/images/cross.svg' alt=''></a></td>
                                                     </tr>
                                                 <?php  } } ?>
                                                 </tbody>

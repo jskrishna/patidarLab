@@ -73,6 +73,18 @@
             display: block;
             margin-top: 5px;
             color: red;
+            display: none;
+        }
+
+        #delete_model_msg.form-group {
+            padding: 25px 0;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        #delete_model_msg span {
+            font-size: 20px;
+            font-weight: 600;
         }
 
         .form-group label {
@@ -346,9 +358,6 @@
 
         .layout_content_inr {
             min-height: calc(100vh - 63px);
-            /*padding: 30px;*/
-            /*border-radius: 0;*/
-            /*overflow: auto;*/
             background: #fff;
         }
 
@@ -503,34 +512,6 @@
             right: 20px;
         }
 
-        /* patient page css */
-        /* .reg-span img {
-    margin-right: 5px;
-}
-
-.reg-span {
-    padding: 4px 10px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    width: 100px;
-}
-
-.reg-span.date {
-    background: rgba(46, 35, 103, 0.05);
-    color: #2E2367;
-    border: 1px solid #2E2367;
-    margin-bottom: 5px;
-}
-
-.reg-span.time {
-    background: hsl(177deg 95% 33% / 5%);
-    color: #04a49c;
-    border: 1px solid #04a49c;
-} */
-
         .c-modal.right .modal-dialog {
             position: fixed;
             margin: auto;
@@ -600,59 +581,10 @@
 
 
         /* tabs css */
-
-        .tabs {
-            display: flex;
-        }
-
         .fixed-save {
             margin-bottom: 80px;
             margin-top: 20px;
             padding: 0 20px;
-        }
-
-        .tabs ul {
-            display: flex;
-            flex-wrap: nowrap;
-            margin: 0;
-            background: #fff;
-            margin-right: 20px;
-            flex-direction: column;
-            min-width: 300px;
-            max-width: 300px;
-            border-radius: 5px;
-            overflow: hidden;
-            box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
-            padding: 15px 0;
-        }
-
-        .tabs .tab-content {
-            width: 100%;
-        }
-
-        .tabs ul .tab-menu {
-            list-style: none;
-        }
-
-        .tab-link {
-            font-size: 12px;
-            color: #242424;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            position: relative;
-            padding: 10px 20px;
-            border-right: 3px solid transparent;
-            justify-content: space-between;
-        }
-
-        .tab-link.active {
-            border-right: 3px solid #05836B;
-            color: #05836B !important;
-        }
-
-        .tab-link:hover {
-            color: #000;
         }
 
         .form-footer {
@@ -682,14 +614,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            display: none;
         }
-
-
-        /* report list-head */
-
-        /*.report-list-head {*/
-        /*    padding: 0 0 20px 0;*/
-        /*}*/
 
         .patient-name-sec {
             background: #fff;
@@ -1338,7 +1264,7 @@
         .print-option .check-group input:checked+label:after {
             top: 8px;
             left: 14px;
-            border-color: #05836B;
+            border-color: #ffffff;
         }
 
         .print-option .check-group label:before {
@@ -1354,8 +1280,8 @@
         }
 
         .print-option .check-group input:checked+label:before {
-            background: rgb(229 243 240);
-            border-color: #05836B;
+            background: rgb(5 131 107);
+            border-color: #05836b;
         }
 
         .file-type .file-type-input {
@@ -1416,4 +1342,77 @@
 
         b, strong {
             font-weight: bold;
+        }
+
+        .accordion {
+            width: 100%;
+        }
+
+        .approv-check {
+            position: relative;
+        }
+
+        .bg-gray {
+            background: #f4f6f8;
+        }
+
+        .accordion-item {
+            border: 0;
+            box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+            background: #fff;
+            border-radius: 5px !important;
+            overflow: hidden;
+        }
+
+        .accordion-item+.accordion-item {
+            margin-top: 20px;
+        }
+
+        .accordion-header {
+            position: relative;
+        }
+
+        .accordion-header .authorise-sec {
+            position: absolute;
+            right: 50px;
+            z-index: 9;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .accordion-header .authorise-sec label {
+            font-size: 12px;
+            font-weight: 600;
+            border-color: #e0e0e0;
+        }
+
+        .remove_this img {
+            width: 35px;
+        }
+
+        .accordion-header .check-group span {
+            position: relative;
+            top: 1.5px;
+        }
+
+        .save-report {
+            display: flex;
+            justify-content: center;
+            padding: 10px 20px;
+        }
+
+        .save-report .review-btn:hover {
+            background: rgb(5 131 107 / 10%);
+        }
+
+        #patientNameAdd {
+            text-transform: capitalize;
+        }
+
+        .accordion hr:last-child {
+            display: none;
+        }
+
+        .tox.tox-tinymce {
+            border-radius: 5px;
         }

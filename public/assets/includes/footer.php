@@ -76,7 +76,7 @@
 								<textarea type="text" name="address" id="address" class="form-control" placeholder="Address"></textarea>
 							</div>
 						</div>
-					
+
 						<hr>
 					</div>
 				</div>
@@ -98,29 +98,33 @@
 		</div>
 	</div>
 </div>
-<!-- //delete model  -->
-<div id="myDeletemodel" class="modal" tabindex="-1" data-backdrop="static" role="dialog">
+<!-- //delete Patient  -->
+<div id="myDeletemodel" class="c-modal modal center fade" tabindex="-1" data-backdrop="static" role="dialog">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Delete Patient</h4>
-				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="background:transparent; border:0;">
+			<div class="page-head">
+				<h2>Confirm</h2>
+				<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
 					<img src="<?php echo BASE_URL ?>public/assets/images/remove.svg" alt="">
 				</button>
 			</div>
 			<div class="modal-body">
 				<div class="container">
 					<div class="form-row">
-						<div id="delete_model_msg" class="form-group col-lg-12 text-center">Are you sure you want to delete this patient?</div>
-						<div class="btn-flex">
-							<a id="confirmdeletepatient" href="" class="btn btn-danger">Confirm</a>
-							<button data-bs-dismiss="model" class="btn custom-btn m-auto">Cancel</button>
+						<div id="delete_model_msg" class="form-group col-lg-12 text-center">
 						</div>
 					</div>
 				</div>
 			</div>
+			<div class="modal-footer">
+				<div class="d-flex">
+					<a id="confirmdeletepatient" href="" class="custom-btn btn-danger">Confirm</a>
+					<button data-bs-dismiss="modal" class="btn custom-btn">Cancel</button>
+				</div>
+			</div>
 		</div>
 	</div>
+</div>
 </div>
 
 
@@ -829,7 +833,7 @@
 			var url = $(this).data("url");
 			var title = $(this).data("title");
 			$('#confirmdeletepatient').attr("href", url);
-			$('#delete_model_msg').html("Are you sure you want to delete " + title + "?");
+			$('#delete_model_msg').html("Are you sure you want to delete? " +'<br> <span>'+ title + "</span>");
 		});
 
 		//add test
@@ -1162,7 +1166,7 @@
 				var discountAmount = 0;
 				var discountAmount1 = 0;
 				var nameTest = $("#nameTest").val();
-				$("#testRequest").append("<tr><td>" + nameTest + "<input type='hidden' name='testId[]' id='testId' value=" + testId + " class='form-control testId' readonly></td><td><input class='testAmount' type='text' name='testAmount[]' id='testAmount' value=" + testAmount + " class='form-control testAmount' readonly> <input type='hidden' name='discount_value[]' id='discount_value' value='" + discountAmount1 + "'><input type='hidden' name='discountAmount[]' id='discountAmount' value=" + discountAmount + " class='form-control testAmount' readonly></td><td><a href='javascript:void(0)' class='remove_this btn-danger'><img src='<?php echo BASE_URL ?>public/assets/images/remove-white.svg' alt=''></a></td></tr>");
+				$("#testRequest").append("<tr><td>" + nameTest + "<input type='hidden' name='testId[]' id='testId' value=" + testId + " class='form-control testId' readonly></td><td><input class='testAmount' type='text' name='testAmount[]' id='testAmount' value=" + testAmount + " class='form-control testAmount' readonly> <input type='hidden' name='discount_value[]' id='discount_value' value='" + discountAmount1 + "'><input type='hidden' name='discountAmount[]' id='discountAmount' value=" + discountAmount + " class='form-control testAmount' readonly></td><td><a href='javascript:void(0)' class='remove_this'><img src='<?php echo BASE_URL ?>public/assets/images/cross.svg' alt=''></a></td></tr>");
 				$("#test_id").val('');
 				$("#test_amount").val('');
 				$("#test_expanses").val('');
@@ -1833,11 +1837,11 @@
 	});
 
 
-	$('.radio-group').click(function(){
+	$('.radio-group').click(function() {
 
-		if($("input[name='invoice_type']:checked").val() == '3'){
+		if ($("input[name='invoice_type']:checked").val() == '3') {
 			$('#withHeader').hide();
-		}else{
+		} else {
 			$('#withHeader').show();
 		}
 	});
@@ -1848,7 +1852,7 @@
 	$('body').on('click', '#withHeader', function() {
 		var id = $("#printinvoiceid").val();
 		var format = $("input[name='invoice_type']:checked").val();
-		var url = '<?php echo BASE_URL; ?>printinvoice/index/' + id + '?format=' + format+'&header=true';
+		var url = '<?php echo BASE_URL; ?>printinvoice/index/' + id + '?format=' + format + '&header=true';
 		window.open(url, '_blank');
 		$(".modal .close").click();
 	});
@@ -1860,6 +1864,7 @@
 		window.open(url, '_blank');
 		$(".modal .close").click();
 	});
+	
 </script>
 
 <div id="basicToast" class="toast align-items-center text-white border-0" role="alert" data-bs-animation="true" data-bs-delay="3000" aria-live="assertive" aria-atomic="true">
