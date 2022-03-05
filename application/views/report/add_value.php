@@ -2,10 +2,6 @@
 <?php include_once "./public/assets/includes/navbar.php";   ?>
 <div class="layoutSidenav_content">
     <div class="layout_content_inr">
-        <div class="page-head page-head-border">
-            <h2>Report</h2>
-            <a class="btn custom-btn small_btn" href="<?php echo BASE_URL; ?>report">Back</a>
-        </div>
         <div class="form-row">
             <div class="form-row col-lg-12">
                 <input type="hidden" id="admin_value_verify" name="admin_value_verify" value="">

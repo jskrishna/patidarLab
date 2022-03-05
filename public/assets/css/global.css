@@ -101,7 +101,8 @@ hr {
 }
 
 .btn.btn-secondary {
-    background: #9e9e9e;
+    background: #e9eaec;
+    color: #242424;
 }
 
 textarea {
@@ -110,11 +111,11 @@ textarea {
 
 /* button css */
 .custom-btn {
-    line-height: 40px;
+    line-height: 45px;
     padding: 0 20px;
     border: 0;
     border-radius: 5px;
-    height: 40px;
+    height: 45px;
     color: #fff;
     font-size: 14px;
     display: block;
@@ -122,9 +123,10 @@ textarea {
     max-width: 100%;
     transition: 300ms all;
     cursor: pointer;
-    background: #018c6a;
+    background: #05836B;
     text-decoration: none;
-    min-width: 100px;
+    min-width: 130px;
+    font-weight: 500;
 }
 .custom-btn.btn-danger {
     background-color: #dc3545;
@@ -136,9 +138,9 @@ textarea {
 }
 .toast {
     z-index: 9999;
-    position: absolute;
-    right: 30px;
-    top: 65px;
+    position: fixed;
+    right: 20px;
+    top: 8px;
     background: #018c6a;
 }
 .toast.toast-error {
@@ -162,23 +164,23 @@ textarea {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    max-width: 40px;
-    min-width: 40px;
-    max-height: 40px;
-    min-height: 40px;
-    padding: 10px;
-    background: transparent;
+    width: 40px;
+    padding: 0;
+    height: 40px;
+    line-height: 40px;
+    font-size:14px;
+    border: 1px solid rgb(4 46 58 / 20%);
 }
 
-.btn-sml:hover {
-    background: rgb(240 242 244);
-}
 
 .header-right-w-group {
     display: flex;
     align-items: center;
     color: #242424;
 
+}
+.btn{
+    transition: 300ms all;
 }
 
 .header-right-w-group:hover {
@@ -211,8 +213,10 @@ textarea {
     margin: 0;
     text-transform: capitalize;
     width: 100% !important;
+    border: 1px solid #e4e4e4;
+    border-radius: 5px;
+    overflow: hidden;
 }
-
 .c-datatable table td, .c-datatable table th {
     padding: 0.7rem 1rem;
     position: relative;
@@ -227,7 +231,7 @@ textarea {
 }
 
 .table thead th div, .table thead th {
-    color: rgb(36 36 36 / 60%) !important;
+    color: rgb(4 46 58 / 80%) !important;
     text-transform: uppercase;
     font-size: 12px;
     letter-spacing: 0.5px;
@@ -251,11 +255,10 @@ textarea {
 
 .c-datatable .dataTables_length label select {
     margin: 0 5px;
-    height: 40px;
+    height: 45px;
     width: 70px;
-    line-height: 40px;
-    min-height: 40px;
-    font-size: 12px;
+    line-height: 45px;
+    min-height: 45px;
     padding: 0 10px;
     background-color: #fff;
     border-radius: 5px;
@@ -276,8 +279,7 @@ div#exportTable_filter {
 
 .c-datatable .table>thead {
     vertical-align: middle;
-    height: 50px;
-    background: #fff;
+    background: rgb(4 46 58 / 10%);
 }
 
 .c-datatable .dataTables_scrollBody thead {
@@ -293,12 +295,12 @@ div#exportTable_filter label {
     margin: 0;
     border: 1px solid #a7a7a7;
     color: #383838;
-    padding: 5px 10px;
+    padding: 6px 10px;
     border-radius: 3px;
     transition: 300ms all;
     min-width: 35px;
     display: inline-block;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button {
@@ -362,9 +364,7 @@ table.dataTable.no-footer {
 }
 
 table.dataTable thead th, table.dataTable td{
-    padding: 8px 11px !important;
-    font-size: 13px;
-    height: 35px;
+    padding: 12px !important;
 }
 .btn-block {
     width: 100%;
@@ -374,14 +374,14 @@ table.dataTable thead th, table.dataTable td{
     display: none;
 } */
 .dataTables_filter input[type="search"] {
-    background: url(../images/icon-search.svg) #fff no-repeat 15px center /18px;
+    background: url(../images/icon-search.svg) #fff no-repeat 15px center /25px;
     padding-left: 45px;
     border-radius: 5px;
     margin-left: 0;
     border: 1px solid rgba(0, 0, 0, 0.12);
-    height: 40px;
-    min-height: 40px;
-    line-height: 40px;
+    height: 45px;
+    min-height: 45px;
+    line-height: 45px;
 }
 
 .dataTable {
@@ -475,13 +475,18 @@ table.dataTable tfoot th, table.dataTable tfoot td {
 body .select2-container--default .select2-selection--single {
     border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 5px;
-    height: 40px;
-    line-height: 40px;
+    height: 45px;
+    line-height: 45px;
 }
-
+body .select2-container--default .select2-results>.select2-results__options > li:first-child {
+    display: none;
+}
+body .select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #05836b;
+}
 body .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: #242424b0;
-    line-height: 40px;
+    line-height: 45px;
     padding-left: 0;
 }
 
@@ -624,7 +629,7 @@ table.dataTable thead .sorting {
 }
 
 .c-datatable .normal-input input, .c-datatable .normal-input select {
-    height: 40px;
+    height: 45px;
     font-size: 14px;
 }
 
@@ -642,14 +647,11 @@ table.dataTable thead .sorting {
 }
 
 .ui-autocomplete-input {
-    background: url(../images/icon-search.svg) #fff no-repeat 15px center /18px;
+    background: url(../images/icon-search.svg) #fff no-repeat 15px center /25px;
     padding-left: 45px !important;
     border-radius: 5px;
     margin-left: 0;
     border: 1px solid rgba(0, 0, 0, 0.12);
-    height: 40px;
-    min-height: 40px;
-    line-height: 40px;
 }
 .header-inr .ui-autocomplete-input {
     background-color:  #f3f3f3;
@@ -673,3 +675,39 @@ table.dataTable thead .sorting {
 .text-right {
     text-align: right;
 }
+.test-process {
+    display: block;
+    white-space: nowrap;
+}
+.test-process label:after {
+    content: "";
+    background: url(../images/check-mark.svg) no-repeat center center / 16px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 0;
+    top: 43%;
+    transform: translateY(-50%);
+}
+.test-process.test-pending label:after {
+    background-image: url(../images/feather-clock.svg);
+}
+
+.test-process label {
+    padding-left: 25px;
+    position: relative;
+    display:block;
+    font-size: 13px;
+}
+
+.test-process.test-pending label{
+
+    color: #042e39cc;
+}
+.test-process label+label,
+.test-process +.test-process {
+    margin-top: 5px;
+} 
+
+

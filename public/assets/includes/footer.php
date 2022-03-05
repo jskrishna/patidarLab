@@ -55,16 +55,19 @@
 								</div>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row" id="ref_detail">
+							<div class="form-group col-lg-6">
+								<label for="patientRef">Referred By<span class="text-danger">*</span></label>
+								<input type="hidden" id="refered_by_name" value="" name="refered_by_name" class="ui-autocomplete-input required">
+								<select name="patientRef" id="patientRef" class="form-control">
+									<option>Select Refered By </option>
+								</select>
+								<span class="error">This field is required.</span>
+							</div>
 							<div class="form-group col-lg-6">
 								<label for="mobileNo">Contact Number
 								</label>
 								<input type="number" name="mobileNo" id="mobileNo" class="form-control number_only" onkeypress="if(this.value.length==10)return false;" placeholder="Mobile Number" autocomplete="off">
-							</div>
-							<div class="form-group col-lg-6">
-								<label for="pin">Pin Code
-								</label>
-								<input type="number" name="pin" id="pin" class="form-control number_only" onkeypress="if(this.value.length==6)return false;" placeholder="Pincode">
 							</div>
 						</div>
 						<div class="row">
@@ -73,16 +76,7 @@
 								<textarea type="text" name="address" id="address" class="form-control" placeholder="Address"></textarea>
 							</div>
 						</div>
-						<div class="row" id="ref_detail">
-							<div class="form-group col-lg-12">
-								<label for="patientRef">Referred By<span class="text-danger">*</span></label>
-								<input type="hidden" id="refered_by_name" value="" name="refered_by_name" class="ui-autocomplete-input required">
-								<select name="patientRef" id="patientRef" class="form-control">
-									<option>Select Refered By </option>
-								</select>
-								<span class="error">This field is required.</span>
-							</div>
-						</div>
+					
 						<hr>
 					</div>
 				</div>

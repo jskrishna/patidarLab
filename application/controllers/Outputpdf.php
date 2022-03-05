@@ -62,19 +62,19 @@
         </tr>
         <tr>
         <td> Name :</td>
-        <th style='text-align:left;text-transform:capitalize;'>" . ($patientData->patientname) . "</th>
-        <td> Patient no :</td>
-        <th style='text-align:left;'>" . ($patientData->patientid) . "</th>
+        <th style='text-align:left;text-transform:capitalize;'>" . ($patientData->patientname) . " (" . ($patientData->patientid) . ")</th>
+        <td> Sample collection on :</td>
+        <th style='text-align:left;'>" . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>
         </tr>
         <tr>
         <td> Age/gender :</td>
         <th style='text-align:left;text-transform:capitalize;'>" . ($patientData->age . ' ' . $patientData->age_type . ' / ' . $patientData->gender) . "</th>
-        <td> Refered By :</td>
-        <th style='text-align:left;text-transform:capitalize;'>" . ($doctorData->referral_name) . "</th>
+        <td> Report on :</td>
+        <th style='text-align:left;text-transform:capitalize;'>" . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>     
         </tr>
         <tr>
-        <td>Reporting Date :</td>
-        <th style='text-align:left;text-transform:capitalize;'>" . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>
+        <td> Refered By :</td>
+        <th style='text-align:left;text-transform:capitalize;'>Dr " . ($doctorData->referral_name) . "</th>
         <td>Report Printed on :</td>
         <th style='text-align:left;text-transform:capitalize;'>" . (date("d-M-Y h:i:s")) . "</th>
         </tr>
