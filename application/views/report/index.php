@@ -246,7 +246,7 @@
                     <label>Print Invoice With</label>
                    <div class="d-flex">
                    <button class="btn custom-btn btnupdate" id="withHeader">Header</button>
-                    <button class="btn custom-btn btnupdate mx-2" id="withoutHeader">Without Header</button>
+                    <button class="btn custom-btn btnupdate" id="withoutHeader">Without Header</button>
                    </div>
                     </div>
                 </div>

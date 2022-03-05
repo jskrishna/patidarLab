@@ -86,13 +86,13 @@
             <tr>
             <td> Name :</td>
             <th style='text-align:left;'>" . ($patientData->title . ' ' . $patientData->patientname) . "</th>          
-            <td>Patient ID :</td>
+            <td>ID :</td>
             <th style='text-align:left;'>"  . ($patientData->patientid) .  "</th>
             </tr>
             <tr>
             <td> Gender / Age :</td>
                 <th style='text-align:left;'>" . ($patientData->gender[0]) . ' / ' . ($patientData->age) . ($patientData->age_type) . "</th>
-                <td> Referral :</td>
+                <td> Referral Dr :</td>
                 <th style='text-align:left; text-transform:capitalize'>" . ($referData->referral_name) . "</th>
             </tr>
             </thead>
