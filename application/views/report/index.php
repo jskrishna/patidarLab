@@ -85,7 +85,8 @@
                                         </td>
                                         <td style="display:none"><?php echo $patient->patientid; ?></td>
                                         <td>
-                                            ₹ <?php echo  intval($report->balance) - intval($report->advance); ?>
+                                            <span>Total - ₹ <?php echo  intval($report->total); ?> </span><br>
+                                            <span>Due - ₹ <?php echo  intval($report->balance) - intval($report->received_amount); ?></span>
                                         </td>
                                         <?php foreach ($doctorsData as $doc) {
                                             if ($doc->id == $report->patientRef) {
