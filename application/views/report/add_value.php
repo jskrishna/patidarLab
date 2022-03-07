@@ -52,6 +52,7 @@
                                     <span class="text-capitalize"><?php echo $doctorData->referral_name; ?></span>
                                 </p>
                             </div>
+                            <a href="<?php echo BASE_URL ?>report" class="btn custom-btn"> Back</a>
                         </div>
                     </div>
                 </div>
