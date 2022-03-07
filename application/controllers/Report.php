@@ -158,6 +158,8 @@ class Report extends CI_Controller
                                 </span>
                             </div>
                             <input type='hidden' name='add_discount' id='add_discount' value=''>
+                            <input type='hidden' name='balance' id='balance' value='$billData->total'>
+                            <input type='hidden' name='final_discount' id='final_discount' value='$final_discount'>
                     </div>
                     </div>
                     <div class='modal-footer'>
@@ -267,5 +269,36 @@ class Report extends CI_Controller
                     </div>";
 
         echo $tabledata;
+    }
+    public function authoriseStatus()
+    {
+        $id = $_POST['id'];
+        $status = $_POST['status'];
+        $bill_id = $_POST['bill_id'];
+        if($status == ''){
+            $status = null;
+            $msg = 'Unauthorised.';
+        }else{
+            $msg = 'Authorised.';
+        }
+        
+        $check = $this->Report_model->getReportByTestId($id,$bill_id);
+        if(!empty($check)){
+            $authoriseStatus = $this->Report_model->changeauthoriseStatus($id,$bill_id,$status);
+            if ($authoriseStatus) {
+                $resultss = array('success' => 1, 'msg' => $msg);
+                echo json_encode($resultss);
+                exit();
+            } else {
+                $resultss = array('success' => 0, 'msg' => 'Something went wrong.');
+                echo json_encode($resultss);
+                exit();
+            }
+        }else{
+            $resultss = array('success' => 0, 'msg' => 'No data found for this test.');
+            echo json_encode($resultss);
+            exit();
+        }
+        
     }
 }

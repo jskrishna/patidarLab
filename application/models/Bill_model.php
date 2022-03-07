@@ -73,9 +73,9 @@ class Bill_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    public function paymentSettle($balance_received,$payment_mode,$final_discount,$status,$bill_id)
+    public function paymentSettle($balance_received,$payment_mode,$discount,$status,$bill_id)
     {
-        $sth = $this->db->query("UPDATE `bill` SET `payment_mode`='$payment_mode',`status`='$status',`received_amount`='$balance_received' WHERE `id`='$bill_id'");
+        $sth = $this->db->query("UPDATE `bill` SET `payment_mode`='$payment_mode',`discount`='$discount',`status`='$status',`received_amount`='$balance_received' WHERE `id`='$bill_id'");
         return $sth;
     }
 }

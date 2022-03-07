@@ -79,7 +79,21 @@ class Outputpdf_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    
+
+    public function getPrintCount($bill_id,$test_id)
+    {
+        $query = $this->db->select('*')->from('reportdata');
+        $query = $this->db->where('bill_id',$bill_id);
+        $query = $this->db->where('test_id',$test_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function UpdatePrintedCount($bill_id,$test_id,$count)
+    {
+        $sth = $this->db->query("UPDATE `reportdata` SET `printed`='$count' WHERE `bill_id`= '$bill_id' AND `test_id`='$test_id'");
+        return $sth;
+    }
+
     public function getReportByBillAndPatientId($bill_id,$patient_id)
     {
         $query = $this->db->select('*')->from('reportdata');
@@ -105,12 +119,12 @@ class Outputpdf_model extends CI_Model
     
     public function insertReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values, $defult_value_status)
     {
-        $sth = $this->db->query("INSERT INTO `reportdata`(`patient_id`, `test_id`, `bill_id`, `parameter_ids`, `input_values`, `defult_value_status`) VALUES ('$patient_id','$test_id','$bill_id','$parameter_ids','$input_values','$defult_value_status')");
+        $sth = $this->db->query("INSERT INTO `reportdata`(`patient_id`, `test_id`, `bill_id`, `parameter_ids`, `input_values`) VALUES ('$patient_id','$test_id','$bill_id','$parameter_ids','$input_values')");
         return $sth;
     }
     public function updateReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values, $defult_value_status,$reportDataid)
     {
-        $sth = $this->db->query("UPDATE `reportdata` SET `patient_id`='$patient_id',`test_id`='$test_id',`bill_id`='$bill_id',`parameter_ids`='$parameter_ids',`input_values`='$input_values',`defult_value_status`='$defult_value_status' WHERE `id`= '$reportDataid'");
+        $sth = $this->db->query("UPDATE `reportdata` SET `patient_id`='$patient_id',`test_id`='$test_id',`bill_id`='$bill_id',`parameter_ids`='$parameter_ids',`input_values`='$input_values' WHERE `id`= '$reportDataid'");
         return $sth;
     }
     

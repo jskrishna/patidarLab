@@ -86,7 +86,7 @@
                                         <td style="display:none"><?php echo $patient->patientid; ?></td>
                                         <td>
                                             <span>Total - ₹ <?php echo  intval($report->total); ?> </span><br>
-                                            <span>Due - ₹ <?php echo  intval($report->balance) - intval($report->received_amount); ?></span>
+                                            <span>Due - ₹ <?php echo  intval($report->balance) - intval($report->received_amount) - intval($report->discount); ?></span>
                                         </td>
                                         <?php foreach ($doctorsData as $doc) {
                                             if ($doc->id == $report->patientRef) {
@@ -97,16 +97,28 @@
                                         <td>
                                             <?php
                                             $testIDs = explode(',', $report->testId);
-                                            $done = '';
+                                            $printed = '';
                                             $pending = '';
-                                            $dCount = $pCount = 0;
+                                            $filed = '';
+                                            $authorized = '';
+                                            $dCount = $pCount = $rCount = 0;
                                             foreach ($testIDs as $id) {
                                                 $testData = $pxthis->Report_model->getTestByID($id);
                                                 $reportValues = $pxthis->Report_model->getreportDataByBIllandTestId($report->id, $id);
-                                                if (count($reportValues) > 0) {
-                                                    $done .= '<label>' . $testData[0]->test_name . '</label>';
+                                                if (count($reportValues) > 0 && $reportValues[0]->status == 'authorised' && $reportValues[0]->printed >0) {
+                                                    $printed .= '<label>' . $testData[0]->test_name . '</label>';
                                                     $dCount += 1;
-                                                } else {
+                                                } else if(count($reportValues) > 0 && $reportValues[0]->status == 'authorised'){
+                                                   
+                                                    $authorized .= '<label>' . $testData[0]->test_name . '</label>';
+                                                    $rCount += 1;
+                                                
+                                            } else if(count($reportValues) > 0){
+                                                   
+                                                $filed .= '<label>' . $testData[0]->test_name . '</label>';
+                                                $rCount += 1;
+                                            }
+                                                else {
                                                     $pending .=  '<label>' . $testData[0]->test_name . '</label>';
                                                     $pCount += 1;
                                                 }
@@ -115,12 +127,16 @@
                                             ?>
                                             
                                             <span class="test-process test-success">
-                                                <?php echo $done ?>
-                                                
+                                                <?php echo $printed ?>
+                                            </span>
+                                            <span class="test-process test-authorised text-danger">
+                                                <?php echo $authorized ?>
+                                            </span>
+                                            <span class="test-process text-primary">
+                                                <?php echo $filed ?>
                                             </span>
                                             <span class="test-process test-pending">
                                                 <?php echo $pending ?>
-                                                
                                             </span>
 
                                             <div class="test-counts" style="display: none;">

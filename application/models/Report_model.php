@@ -105,19 +105,34 @@ class Report_model extends CI_Model
     
     public function insertReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values,$highlights, $defult_value_status)
     {
-        $sth = $this->db->query("INSERT INTO `reportdata`(`patient_id`, `test_id`, `bill_id`, `parameter_ids`, `input_values`,`highlights`, `defult_value_status`) VALUES ('$patient_id','$test_id','$bill_id','$parameter_ids','$input_values','$highlights','$defult_value_status')");
+        $sth = $this->db->query("INSERT INTO `reportdata`(`patient_id`, `test_id`, `bill_id`, `parameter_ids`, `input_values`,`highlights`) VALUES ('$patient_id','$test_id','$bill_id','$parameter_ids','$input_values','$highlights')");
         return $sth;
     }
     public function updateReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values,$highlights, $defult_value_status,$reportDataid)
     {
-        $sth = $this->db->query("UPDATE `reportdata` SET `patient_id`='$patient_id',`test_id`='$test_id',`bill_id`='$bill_id',`parameter_ids`='$parameter_ids',`input_values`='$input_values',`highlights`='$highlights',`defult_value_status`='$defult_value_status' WHERE `id`= '$reportDataid'");
+        $sth = $this->db->query("UPDATE `reportdata` SET `patient_id`='$patient_id',`test_id`='$test_id',`bill_id`='$bill_id',`parameter_ids`='$parameter_ids',`input_values`='$input_values',`highlights`='$highlights' WHERE `id`= '$reportDataid'");
         return $sth;
     }
+
+    public function changeauthoriseStatus($id, $bill_id,$status)
+    {
+        $sth = $this->db->query("UPDATE `reportdata` SET `status`='$status' WHERE `test_id`= '$id' AND `bill_id`='$bill_id'");
+        return $sth;
+    }
+    
     
     public function getTestByID($id)
     {
         $query = $this->db->select('*')->from('test');
         $query = $this->db->where('id', $id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function getReportByTestId($id,$bill_id)
+    {
+        $query = $this->db->select('*')->from('reportdata');
+        $query = $this->db->where('test_id', $id);
+        $query = $this->db->where('bill_id', $bill_id);
         $query = $this->db->get();
         return $query->result();
     }
