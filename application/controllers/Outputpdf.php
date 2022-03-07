@@ -260,7 +260,7 @@
                         $paramName = $paramData->name;
                     }
                     if ($paramData->field_type == 'textarea') {
-                        $value = $paramData->options;
+                        $value = $input_values[$index];
                     } else {
                         $value = $input_values[$index] . ' ' . $unit;
                     }

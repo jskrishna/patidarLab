@@ -180,7 +180,7 @@
                                                             </label>
                                                         </span>
                                                         <span class="radio-group">
-                                                            <input type="radio" id="payment_upi" name="payment_mode" value="PhonePe">
+                                                            <input type="radio" id="payment_upi" name="payment_mode" value="UPI">
                                                            <label for="payment_upi">
                                                                <span>
                                                            UPI 
@@ -205,7 +205,7 @@
                                                 <li class="advance-li">
                                                     <span>Advance</span>
                                                     <div>
-                                                      <input type="number" name="advance" id="advance" value="<?php if(isset($billData)){ echo intval($billData[0]->advance); }else{ echo '0';} ?>" tabindex="1" class="form-control number_only tab_inp">
+                                                      <input type="number" name="advance" id="advance" value="<?php if(isset($billData)){ echo intval($billData[0]->advance)+ intval($billData[0]->received_amount); }else{ echo '0';} ?>" tabindex="1" class="form-control number_only tab_inp">
                                                     </div>
                                                 </li>
                                                 <li>
@@ -220,9 +220,9 @@
                                                     <span class="remain-li-span">Remaining Amount</span>
                                                     <div>
                                                     <input type="hidden" name="paid" id="paid" value="0" class="form-control number_only tab_inp" tabindex="6">
-                                                    <input type="hidden" name="balance" id="balance" class="form-control" readonly="" value="<?php if(isset($billData)){ echo intval($billData[0]->balance); }else{ echo '0';} ?>">
+                                                    <input type="hidden" name="balance" id="balance" class="form-control" readonly="" value="<?php if(isset($billData)){ echo intval($billData[0]->total)-(intval($billData[0]->advance)+intval($billData[0]->received_amount)); }else{ echo '0';} ?>">
                                                         <span class="grand_total">₹</span>
-                                                        <span id="grand_total" class="grand_total"><?php if(isset($billData)){ echo intval($billData[0]->balance); }else{ echo '0';} ?></span>
+                                                        <span id="grand_total" class="grand_total"><?php if(isset($billData)){ echo intval($billData[0]->total)-(intval($billData[0]->final_discount)+intval($billData[0]->received_amount)); }else{ echo '0';} ?></span>
                                                     </div>
                                                 </li>
                                             </ul>

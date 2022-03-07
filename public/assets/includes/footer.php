@@ -1262,7 +1262,7 @@ if (isset($editer)) {
 			var final_total = $("#final_total").html();
 			var f_discount = $("#f_discount").val();
 			var final_discount = f_discount;
-			var total = Number(final_total)-Number(advance);
+			var total = Number(final_total) - Number(advance);
 
 			if (Number(final_discount) > Number(total)) {
 				new bootstrap.Toast(document.querySelector('#basicToast')).show();
@@ -1285,7 +1285,7 @@ if (isset($editer)) {
 			var f_discount = $("#f_discount").val();
 			var final_discount = f_discount;
 
-			var total = Number(final_total)-Number(f_discount);
+			var total = Number(final_total) - Number(f_discount);
 
 			if (Number(advance) > Number(total)) {
 				new bootstrap.Toast(document.querySelector('#basicToast')).show();
@@ -1861,7 +1861,7 @@ if (isset($editer)) {
 		if ($("input[name='invoice_type']:checked").val() == '3') {
 			$('#withHeader').click();
 		}
-		if($("input[name='payment_mode']:checked").val() != 'Due'){
+		if ($("input[name='payment_mode']:checked").val() != 'Due') {
 			$('#advance').val('0');
 			$('#advance').keyup();
 			$('.advance-li').hide();
@@ -1938,6 +1938,26 @@ if (isset($editer)) {
 
 	});
 
+	function readURL(input, id) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				$(id).attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$("#letter_pad").change(function() {
+		readURL(this, '#img_letter');
+	});
+	$("#lab_logo").change(function() {
+		readURL(this, '#img_lablogo');
+	});
+	$("#signature").change(function() {
+		readURL(this, '#img_sign');
+	});
 </script>
 
 <div id="basicToast" class="toast align-items-center text-white border-0" role="alert" data-bs-animation="true" data-bs-delay="3000" aria-live="assertive" aria-atomic="true">
