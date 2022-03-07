@@ -35,7 +35,7 @@
                                         <div class="tablesorter-header-inner">Referral</div>
                                     </th>
                                     <th>
-                                        <div class="tablesorter-header-inner">Test</div>
+                                        <div class="tablesorter-header-inner">Test Status</div>
                                     </th>
                                     <th style="display: none;">
                                         <div class="tablesorter-header-inner">Report Status</div>
@@ -81,21 +81,12 @@
                                             <span class="nowwrap-text">
                                                 <p style="display: none;"><?php echo date_format(new DateTime($report->billDate), "Ymd"); ?></p>
                                                 <?php echo date_format(new DateTime($report->billDate), "d-M-Y"); ?>
+                                                <br>
+                                                <?php echo date_format(new DateTime($report->billDate), "h:i:s"); ?>
                                             </span>
                                         </td>
                                         <td style="display:none"><?php echo $patient->patientid; ?></td>
-                                        <td>
-                                            <span>Total - ₹ <?php echo  intval($report->total); ?> </span><br>
-                                            <span>Due - ₹ <?php echo  intval($report->balance) - intval($report->received_amount) - intval($report->discount); ?></span>
-                                        </td>
-                                        <?php foreach ($doctorsData as $doc) {
-                                            if ($doc->id == $report->patientRef) {
-                                        ?>
-                                                <td class=""><?php echo $doc->referral_name; ?></td>
-                                        <?php }
-                                        } ?>
-                                        <td>
-                                            <?php
+                                        <?php
                                             $testIDs = explode(',', $report->testId);
                                             $printed = '';
                                             $pending = '';
@@ -125,6 +116,26 @@
                                                 $reportValues = null;
                                             }
                                             ?>
+                                        <td>
+                                            <div class="pay-remain">
+                                            <?php if($report->status == 'Paid') { ?>
+                                                <span class="pay-received">Received - ₹ <?php echo  intval($report->total); ?></span>
+                                           <?php }else{ ?>
+
+                                            <span class="pay-paid">Total - ₹ <?php echo  intval($report->total); ?></span>
+                                            <span class="pay-due">Due - ₹ <?php echo  intval($report->balance) - intval($report->received_amount) - intval($report->discount); ?></span>
+                                            <?php } ?>
+                                           
+                                            </div>
+                                        </td>
+                                        <?php foreach ($doctorsData as $doc) {
+                                            if ($doc->id == $report->patientRef) {
+                                        ?>
+                                                <td class=""><?php echo $doc->referral_name; ?></td>
+                                        <?php }
+                                        } ?>
+                                        <td>
+                                           
                                             
                                             <span class="test-process test-success">
                                                 <?php echo $printed ?>
@@ -138,15 +149,7 @@
                                             <span class="test-process test-pending">
                                                 <?php echo $pending ?>
                                             </span>
-
-                                            <div class="test-counts" style="display: none;">
-                                                <?php if ($pending) { ?>
-                                                    <button data-container="body" class="bill_settle btn-pay" data-toggle="tooltip" data-bs-html="true" data-placement="top" title="<?php echo $pending ?>">Pending <?php echo $pCount ?></button>
-                                                <?php }
-                                                if ($done) { ?>
-                                                    <button data-container="body" class="bill_settle btn-paid" href="javascript:void(0)" data-bs-html="true" data-toggle="tooltip" data-placement="top" title="<?php echo $done ?>">Done <?php echo $dCount ?></button>
-                                                <?php } ?>
-                                            </div>
+                                            
                                         </td>
                                         <td style="display: none;">
                                             <?php
@@ -188,18 +191,14 @@
                                                     <?php foreach ($patientData as $patient) {
                                                         if ($patient->id == $report->patient_id) {
                                                     ?>
-                                                            <a data-toggle="tooltip" data-placement="top" title="View Test" href="bill?bill=<?php echo $report->id; ?>" class="btn btn-sml btnupdate btn-report">
-                                                                
-
+                                                            <a data-toggle="tooltip" data-placement="top" title="View Test" href="bill?bill=<?php echo $report->id; ?>" class="btn btn-sml btnupdate btn-report">                                                          
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24"><defs><clipPath id="a"><path d="M10.025,14C4.163,14,.756,8.585.132,7.5a1.009,1.009,0,0,1,0-1C.987,5.015,4.205.146,9.729,0c.1,0,.2,0,.294,0,5.813,0,9.221,5.418,9.846,6.5a1.014,1.014,0,0,1,0,1c-.855,1.489-4.073,6.358-9.6,6.5ZM10,3.5A3.5,3.5,0,1,0,13.5,7,3.5,3.5,0,0,0,10,3.5Zm0,5A1.5,1.5,0,1,1,11.5,7,1.5,1.5,0,0,1,10,8.5Z" transform="translate(2 4.998)" fill="#223345"/></clipPath></defs><path d="M10.025,14C4.163,14,.756,8.585.132,7.5a1.009,1.009,0,0,1,0-1C.987,5.015,4.205.146,9.729,0c.1,0,.2,0,.294,0,5.813,0,9.221,5.418,9.846,6.5a1.014,1.014,0,0,1,0,1c-.855,1.489-4.073,6.358-9.6,6.5ZM10,3.5A3.5,3.5,0,1,0,13.5,7,3.5,3.5,0,0,0,10,3.5Zm0,5A1.5,1.5,0,1,1,11.5,7,1.5,1.5,0,0,1,10,8.5Z" transform="translate(2 4.998)" fill="#223345"/></svg>
                                                             </a>
                                                     <?php }
                                                     } ?>
                                                 </li>
                                                 <li>
-                                                    <a data-toggle="tooltip" data-placement="top" title="Print Report" href="report/orderReport/<?php echo $report->id; ?>" class="btn btn-sml btn-print">
-                                                        
-
+                                                    <a data-toggle="tooltip" data-placement="top" title="Print Report" href="report/orderReport/<?php echo $report->id; ?>" class="btn btn-sml btn-print">                                                   
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24"><defs><clipPath id="a"><path d="M3,20a3,3,0,0,1-3-3V5A3,3,0,0,1,3,2V5A2,2,0,0,0,5,7h8a2,2,0,0,0,2-2V2a3,3,0,0,1,3,3V17a3,3,0,0,1-3,3ZM5,6A1,1,0,0,1,4,5V1A1,1,0,0,1,5,0h8a1,1,0,0,1,1,1V5a1,1,0,0,1-1,1Z" transform="translate(3 2)" fill="#223345"/></clipPath></defs><path d="M3,20a3,3,0,0,1-3-3V5A3,3,0,0,1,3,2V5A2,2,0,0,0,5,7h8a2,2,0,0,0,2-2V2a3,3,0,0,1,3,3V17a3,3,0,0,1-3,3ZM5,6A1,1,0,0,1,4,5V1A1,1,0,0,1,5,0h8a1,1,0,0,1,1,1V5a1,1,0,0,1-1,1Z" transform="translate(3 2)" fill="#223345"/></svg>
                                                     </a>
                                                 </li>

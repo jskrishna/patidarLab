@@ -205,7 +205,7 @@
                                                 <li class="advance-li">
                                                     <span>Advance</span>
                                                     <div>
-                                                      <input type="number" name="advance" id="advance" value="<?php if(isset($billData)){ echo intval($billData[0]->advance); }else{ echo '0';} ?>" tabindex="1" class="form-control-sm number_only tab_inp">
+                                                      <input type="number" name="advance" id="advance" value="<?php if(isset($billData)){ echo intval($billData[0]->advance); }else{ echo '0';} ?>" tabindex="1" class="form-control number_only tab_inp">
                                                     </div>
                                                 </li>
                                                 <li>
@@ -213,7 +213,7 @@
                                                     <div>
                                                         <input type="hidden" name="final_discount_type" id="final_discount_type" value="Amount" checked="checked">
                                                         <input type="hidden" name="final_discount" id="final_discount" value="<?php if(isset($billData)){ echo intval($billData[0]->final_discount); }else{ echo '0';} ?>">
-                                                        <input type="number" name="f_discount" id="f_discount" value="<?php if(isset($billData)){ echo intval($billData[0]->final_discount); }else{ echo '0';} ?>" tabindex="1" class="form-control-sm number_only tab_inp">
+                                                        <input type="number" name="f_discount" id="f_discount" value="<?php if(isset($billData)){ echo intval($billData[0]->final_discount); }else{ echo '0';} ?>" tabindex="1" class="form-control number_only tab_inp">
                                                     </div>
                                                 </li>
                                                 <li>

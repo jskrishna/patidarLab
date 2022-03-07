@@ -1262,12 +1262,13 @@ if (isset($editer)) {
 			var final_total = $("#final_total").html();
 			var f_discount = $("#f_discount").val();
 			var final_discount = f_discount;
+			var total = Number(final_total)-Number(advance);
 
-			if (Number(final_discount) > Number(final_total)) {
+			if (Number(final_discount) > Number(total)) {
 				new bootstrap.Toast(document.querySelector('#basicToast')).show();
 				$('#basicToast').addClass('toast-error');
 				$('#basicToast').removeClass('toast-success');
-				$('.toast-body').html('The discount amount is higher than the test amount.');
+				$('.toast-body').html('The discount amount is higher than the Total amount.');
 				$(".test_save").hide();
 				$("#test_clear").hide();
 			} else {
@@ -1284,11 +1285,13 @@ if (isset($editer)) {
 			var f_discount = $("#f_discount").val();
 			var final_discount = f_discount;
 
-			if (Number(final_discount) > Number(final_total)) {
+			var total = Number(final_total)-Number(f_discount);
+
+			if (Number(advance) > Number(total)) {
 				new bootstrap.Toast(document.querySelector('#basicToast')).show();
 				$('#basicToast').addClass('toast-error');
 				$('#basicToast').removeClass('toast-success');
-				$('.toast-body').html('The discount amount is higher than the test amount.');
+				$('.toast-body').html('The Advance amount is higher than the Total amount.');
 				$(".test_save").hide();
 				$("#test_clear").hide();
 			} else {
@@ -1858,7 +1861,9 @@ if (isset($editer)) {
 		if ($("input[name='invoice_type']:checked").val() == '3') {
 			$('#withHeader').click();
 		}
-		if ($("input[name='payment_mode']:checked").val() != 'Due') {
+		if($("input[name='payment_mode']:checked").val() != 'Due'){
+			$('#advance').val('0');
+			$('#advance').keyup();
 			$('.advance-li').hide();
 			$('.remain-li-span').html('Total Amount');
 		} else {

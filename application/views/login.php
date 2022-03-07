@@ -54,19 +54,11 @@ include_once "./public/assets/includes/header.php";
 						<div class="input-group " id="logPassword">
 							<input class="form-control required" placeholder="Enter your password" value="<?php if(isset($_COOKIE['pass'])){ echo $_COOKIE['pass']; } ?>" type="password" name="password" id="password">
 							<span class='error'>This field is required.</span>
-
-							<!-- <div class="input-group-append">
-											<span class="input-group-text" id="basic-addon2">
-												<div class="input-group-addon">
-													<a href="#" id='pshLog'><i class="fa fa-eye"></i></a>
-												</div>
-											</span>
-										</div> -->
 						</div>
 					</div>
 					<div class="from-group from-wrap">
 						<div class="check-group">
-							<input type="checkbox" class="" id="remember_me" name="remember_me" value="Yes" checked>
+							<input type="checkbox" class="" id="remember_me" name="remember_me" value="Yes" <?php if(isset($_COOKIE['pass'])){ echo 'checked'; } ?>>
 							<label for="remember_me">Remember Me</label>
 						</div>
 					<a href="<?php echo BASE_URL; ?>forgot">Forgot Password</a>

@@ -127,7 +127,7 @@ class Report extends CI_Controller
                     <div class='form-group '>
                     <label >Receive Amount (₹)</label>
                     <input type='hidden' value='$billData->received_amount' name='previous_amount' id='previous_amount'>
-                    <input type='number' placeholder='Enter Received Amount' max='$balance' name='balance_received' id='balance_received' class='form-control' value=>
+                    <input type='number' placeholder='Enter Received Amount' min='0' max='$balance' name='balance_received' id='balance_received' class='form-control' value=>
                     </div>
                     <div class='form-group'>
                             <label>Payment Mode</label>

@@ -93,6 +93,7 @@
             font-weight: 600;
             letter-spacing: 0.3px;
             text-transform: capitalize;
+            margin-bottom: 5px;
         }
         
         .form-group input,
@@ -851,12 +852,10 @@
         
         .test-success {
             color: #05836B;
-            font-weight: 600;
         }
         
         .test-pending {
             color: #242424;
-            font-weight: 600;
         }
         
         .bill_settle {
@@ -1380,10 +1379,14 @@
             background: rgb(5 131 107 / 10%);
         }
 
-        #patientNameAdd, #dname {
+         #dname,  #patientNameAdd {
             text-transform: capitalize;
         }
         
+       #patientName {
+            text-transform: uppercase;
+        }
+
         .accordion hr:last-child {
             display: none;
         }
@@ -1391,11 +1394,29 @@
         .tox.tox-tinymce {
             border-radius: 5px;
         }
-        
-        .test-authorised {
+
+        .pay-remain span {
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            padding: 1px 5px;
+        }
+        .pay-remain {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .pay-remain span+span {
+            margin-top: 5px;
+        }
+        span.pay-due {
+            color: #dc3545;
+            border-color: #dc3545;
+            background-color: rgb(220 53 69 / 5%);
             font-weight: 600;
         }
-        
-        .test-authorised label::after {
-            background-image: url(../images/checked.svg) !important;
+        span.pay-received {
+            color: #05836b;
+            border-color: #05836b;
+            font-weight: 600;
+            background-color: rgb(5 131 107 / 5%);
         }
