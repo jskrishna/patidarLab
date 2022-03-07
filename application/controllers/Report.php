@@ -87,12 +87,12 @@ class Report extends CI_Controller
         $billData = $billData[0];
         $patientData = $patientData[0];
         $date = date_format(new DateTime($billData->billDate), 'd-M-Y');
-        $balance = intval($billData->balance) - intval($billData->received_amount);
+        $balance = intval($billData->total) - intval($billData->received_amount) - intval($billData->final_discount);
         $discount = intval($billData->final_discount) + intval($billData->discount);
         $advance = intval($billData->advance);
         $final_discount = intval($billData->final_discount);
 
-        $advancepri = intval($billData->advance) + intval($billData->received_amount);
+        $advancepri = intval($billData->received_amount);
         $data = "<div class='page-head'><h2 id='billname'>" . $patientData->title . ' ' . $patientData->patientname . ' (' . ($patientData->patientid) . ')' . "</h2><button type='button' class='close' data-bs-dismiss='modal' aria-label='Close'><img src='" . BASE_URL . "/public/assets/images/remove.svg.' alt=''>
         </button>
     </div><div class='modal-body'>
@@ -126,7 +126,7 @@ class Report extends CI_Controller
                     </div>
                     <div class='form-group '>
                     <label >Receive Amount (₹)</label>
-                    <input type='hidden' value='$billData->received_amount' name='previous_amount' id='previous_amount'>
+                    <input type='hidden' value='$advancepri' name='previous_amount' id='previous_amount'>
                     <input type='number' placeholder='Enter Received Amount' min='0' max='$balance' name='balance_received' id='balance_received' class='form-control' value=>
                     </div>
                     <div class='form-group'>
@@ -141,7 +141,7 @@ class Report extends CI_Controller
                                     </label>
                                 </span>
                                 <span class='radio-group'>
-                                    <input type='radio' id='payment_upi' name='payment_mode' value='PhonePe'>
+                                    <input type='radio' id='payment_upi' name='payment_mode' value='UPI'>
                                    <label for='payment_upi'>
                                        <span>
                                    UPI 

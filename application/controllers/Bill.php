@@ -67,13 +67,15 @@ class Bill extends CI_Controller
         $balance = $this->input->post('balance');
         $patientRef = $this->input->post('patientRef');
         $payment_mode = $this->input->post('payment_mode');
+
         if($payment_mode !='Due'){
             $received_amount = $grandTotal;
             $status = 'Paid';
         }else{
-            $received_amount = 0;
+            $received_amount = $advance;
             $status = 'Pending';
         }
+        $advance = 0;
         $bill_id = $this->input->post('bill_id');
         if ($bill_id == '') {
             $billEntry = $this->Bill_model->insertBillEntry($billDate, $patient_id, $total, $discount, $grandTotal, $testAmount, $testId, $discountAmount, $final_discount, $advance, $balance, $patientRef, $payment_mode, $received_amount,$status );
@@ -130,6 +132,7 @@ class Bill extends CI_Controller
 
         $balance = $this->input->post('balance');
         $markaspaid = $this->input->post('markaspaid');
+
         $received = intval($balance_received)+intval($previous_amount);
         if($markaspaid == 'Yes'){
             $status = 'Paid';
@@ -138,6 +141,10 @@ class Bill extends CI_Controller
             $status = 'Pending';
             $discount = 0;
         }
+        if(intval($balance_received)+intval($previous_amount) == intval($balance)-intval($final_discount)){
+            $status = 'Paid';
+        }
+
         $resultss =  $this->Bill_model->paymentSettle($received, $payment_mode, $discount, $status, $bill_id);
 
         if ($resultss) {

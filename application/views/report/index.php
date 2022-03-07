@@ -119,11 +119,12 @@
                                         <td>
                                             <div class="pay-remain">
                                             <?php if($report->status == 'Paid') { ?>
-                                                <span class="pay-received">Received - ₹ <?php echo  intval($report->total); ?></span>
+                                                <span class="pay-received">Received - ₹ <?php echo  intval($report->received_amount); ?></span>
                                            <?php }else{ ?>
 
                                             <span class="pay-paid">Total - ₹ <?php echo  intval($report->total); ?></span>
-                                            <span class="pay-due">Due - ₹ <?php echo  intval($report->balance) - intval($report->received_amount) - intval($report->discount); ?></span>
+                                            
+                                            <span class="pay-due">Due - ₹ <?php echo  intval($report->total) - intval($report->received_amount) - intval($report->discount); ?></span>
                                             <?php } ?>
                                            
                                             </div>

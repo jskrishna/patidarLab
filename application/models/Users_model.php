@@ -15,9 +15,21 @@ class Users_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    public function pathologistData()
+    {
+        $query = $this->db->select('*')->from('doctors');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    
     public function updateData($username,$email,$mobile,$logo,$user_id)
     {
         $sth = $this->db->query("UPDATE `users` SET `username`='$username',`email`='$email',`mobile`='$mobile',`logo`='$logo' WHERE `id`= '$user_id'");
+        return $sth;
+    }
+    public function updatePathData($pathologist,$path_designation,$path_mobile,$path_email,$path_address,$sign,$path_id)
+    {    
+        $sth = $this->db->query("UPDATE `doctors` SET `name`='$pathologist',`mobile`='$path_mobile',`email`='$path_email',`address`='$path_address',`sign`='$sign',`designation`='$path_designation' WHERE `id`='$path_id'");
         return $sth;
     }
     

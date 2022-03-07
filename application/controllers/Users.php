@@ -13,7 +13,8 @@ class Users extends CI_Controller
         $UserData = $this->Users_model->getuserbyID($id);
         $referralData = $this->Users_model->referralData();
         $getAllUser = $this->Users_model->getAllUser();
-        $userdetails = array('UserData' => $UserData[0],'loggedData'=>$UserData[0],'referralData'=>$referralData,'AllUserData'=>$getAllUser);
+        $pathologistData = $this->Users_model->pathologistData();
+        $userdetails = array('UserData' => $UserData[0],'loggedData'=>$UserData[0],'pathologistData'=>$pathologistData[0],'referralData'=>$referralData,'AllUserData'=>$getAllUser);
         $this->load->view('users/index.php', $userdetails);
     }
     
@@ -23,6 +24,7 @@ class Users extends CI_Controller
         $UserData = $UserData[0];
         echo json_encode($UserData);
     }
+    
     public function update()
     {
         $username = $_POST['username'];
@@ -46,6 +48,36 @@ class Users extends CI_Controller
             echo json_encode($resultss);
         }
     }
+
+    public function updatePathologist()
+    {
+        $pathologist = $_POST['pathologist'];
+        $path_designation = $_POST['path_designation'];
+        $path_mobile = $_POST['path_mobile'];
+        $path_email = $_POST['path_email'];
+        $path_address = $_POST['path_address'];
+        $path_id = $_POST['pathologist_id'];
+
+        if ($_FILES["signature"]["name"] == NULL) {
+            $sign = $_POST['old_signature'];
+        } else {
+            $ext = pathinfo($_FILES["signature"]["name"], PATHINFO_EXTENSION);
+            $sign = rand() . '.' . $ext;
+            move_uploaded_file($_FILES["signature"]["tmp_name"], "./public/assets/images/" . $sign);
+        }
+
+        if ($this->Users_model->updatePathData($pathologist,$path_designation,$path_mobile,$path_email,$path_address,$sign,$path_id)) {
+            $resultss = array('success' => 1, 'msg' => 'Update Sucess.');
+            echo json_encode($resultss);
+            header('location:' . BASE_URL.'users');
+
+        } else {
+            $resultss = array('success' => 0, 'msg' => 'something wrong.');
+            echo json_encode($resultss);
+        }
+    }
+
+    
     public function updatePass()
     {
         $currentpass =  $_POST['currentpass'];

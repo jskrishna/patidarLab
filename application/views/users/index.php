@@ -210,7 +210,7 @@
                                                     <div class="errorTxt text-danger text-center mb-3"></div>
                                                     <div class="form-row">
                                                         <div class="row">
-                                                            <div class="form-group file-type col-lg-12 mb-0">
+                                                            <div class="form-group file-type col-lg-6">
                                                                 <label for="lab_logo">Lab Logo</label>
                                                                <label for="lab_logo" class="file-type-input">
                                                                    <img src="<?php echo BASE_URL  ?>public/assets/images/upload.svg" alt="">
@@ -218,37 +218,108 @@
                                                                </label>
                                                                <input type="file" name="lab_logo" id="lab_logo" class="form-control enterAsTab" placeholder="Enter lab_logo" autocomplete="off">
                                                                 <input type="hidden" name="old_lab_logo" id="old_lab_logo" value="<?php echo $UserData->lab_logo; ?>">
-                                                            </div>
-                                                            <div class="form-group file-type-img col-lg-12">
+                                                                <div class="form-group file-type-img">
                                                                 <label for="lab_logo"></label>
                                                                 <?php if ($UserData->lab_logo) { ?>
-                                                                    <img src="<?php echo BASE_URL . 'public/assets/images/' . $UserData->lab_logo; ?>" alt="">
+                                                                    <img id="img_lablogo" src="<?php echo BASE_URL . 'public/assets/images/' . $UserData->lab_logo; ?>" alt="">
                                                                 <?php } ?>
                                                             </div>
-                                                        </div>
-                                                        <hr>
-                                                        <div class="row">
-                                                            <div class="form-group file-type col-lg-12 mb-0">
+                                                            </div>
+                                                           
+                                                            <div class="form-group file-type col-lg-6">
                                                                 <label for="letter_pad">Letter head</label>
-                                                                <label for="lab_logo" class="file-type-input">
+                                                                <label for="letter_pad" class="file-type-input">
                                                                 <img src="<?php echo BASE_URL  ?>public/assets/images/upload.svg" alt=""> 
                                                                    <span>Upload your Letter head here..</span>
                                                                </label>
                                                                 <input type="file" name="letter_pad" id="letter_pad" class="form-control enterAsTab" placeholder="Enter letter_pad" autocomplete="off">
                                                                 <input type="hidden" name="old_letter_pad" id="old_letter_pad" value="<?php echo $UserData->letter_pad; ?>">
-                                                            </div>
-                                                            <div class="form-group file-type-img col-lg-12">
+                                                                <div class="form-group file-type-img">
                                                                 <label for="letter_pad"></label>
                                                                 <?php if ($UserData->letter_pad) { ?>
-                                                                    <img src="<?php echo BASE_URL . 'public/assets/images/' . $UserData->letter_pad; ?>" alt="">
+                                                                    <img id="img_letter" src="<?php echo BASE_URL . 'public/assets/images/' . $UserData->letter_pad; ?>" alt="">
                                                                 <?php } ?>
                                                             </div>
+                                                            </div>
+                                                           
                                                         </div>
                                                         <hr>
                                                         <div class="row">
                                                             <div class="col-lg-12" id="button">
                                                                 <input type="submit" class="btn btnupdate custom-btn" data-id="<?php echo $UserData->id; ?>" id="update_layout" value="Update Layout">
                                                                 <input type="hidden" name="layout_id" id="layout_id" value="<?php echo $UserData->id; ?>">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- // pathologist  -->
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="page-head page-head-border">
+                                            <h2>Pathologist </h2>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <form method="POST" id="pathologist-form" name="profile" action="<?php echo BASE_URL; ?>Users/updatePathologist" enctype="multipart/form-data">
+                                            <div class="row">
+                                                <div id="layout">
+                                                    <div class="errorTxt text-danger text-center mb-3"></div>
+                                                    <div class="form-row">
+                                                    <div class="row">
+                                                            <div class="form-group col-lg-12">
+                                                                <label for="pathologist">Name</label>
+                                                                <input type="text" name="pathologist" id="pathologist" value="<?php echo $pathologistData->name; ?>" class="form-control enterAsTab required" placeholder="Enter pathologist Name" autocomplete="off">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-lg-6">
+                                                                <label for="path_designation">Designation</label>
+                                                                <input type="text" name="path_designation" id="path_designation" value="<?php echo $pathologistData->designation; ?>" class="form-control enterAsTab required" placeholder="Enter pathologist designation" autocomplete="off">
+                                                            </div>
+                                                        
+                                                            <div class="form-group col-lg-6">
+                                                                <label for="path_mobile">Mobile No.</label>
+                                                                <input type="text" name="path_mobile" id="path_mobile" value="<?php echo $pathologistData->mobile; ?>" class="form-control enterAsTab required" placeholder="Enter pathologist Number" autocomplete="off">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-lg-6">
+                                                                <label for="path_email">Email </label>
+                                                                <input type="email" name="path_email" id="path_email" value="<?php echo $pathologistData->email; ?>" class="form-control enterAsTab required" placeholder="Enter pathologist Email" autocomplete="off">
+                                                            </div>
+                                                            <div class="form-group col-lg-6">
+                                                                <label for="path_address">Address </label>
+                                                                <input type="text" name="path_address" id="path_address" value="<?php echo $pathologistData->address; ?>" class="form-control enterAsTab required" placeholder="Enter pathologist address" autocomplete="off">
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="row">
+                                                            <div class="form-group file-type col-lg-12 mb-0">
+                                                                <label for="signature">Signature</label>
+                                                                <label for="signature" class="file-type-input">
+                                                                <img src="<?php echo BASE_URL  ?>public/assets/images/upload.svg" alt=""> 
+                                                                   <span>Upload your Sign here..</span>
+                                                               </label>
+                                                                <input type="file" name="signature" id="signature" class="form-control enterAsTab" placeholder="Enter signature" autocomplete="off">
+                                                                <input type="hidden" name="old_signature" id="old_signature" value="<?php echo $pathologistData->sign; ?>">
+                                                            </div>
+                                                            <div class="form-group file-type-img col-lg-12">
+                                                                <label for="signature"></label>
+                                                                <?php if ($pathologistData->sign) { ?>
+                                                                    <img id="img_sign" src="<?php echo BASE_URL . 'public/assets/images/' . $pathologistData->sign; ?>" alt="">
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="row">
+                                                            <div class="col-lg-12" id="button">
+                                                                <input type="submit" class="btn btnupdate custom-btn" data-id="<?php echo $pathologistData->id; ?>" id="update_pathologist" value="Update">
+                                                                <input type="hidden" name="pathologist_id" id="pathologist_id" value="<?php echo $pathologistData->id; ?>">
                                                             </div>
                                                         </div>
                                                     </div>

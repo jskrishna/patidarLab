@@ -133,7 +133,7 @@
                                                     <input type="hidden" value="<?php echo $patientData->id; ?>" id="patientID" name="patientID">
                                                 </td>
                                                 <td>
-                                                    <button type="button" class="btnupdate review-btn bill_settle" data-id="<?php echo $testData->id; ?>" id="sub<?php echo $testData->id; ?>">Review</button>
+                                                    <button type="button" class="btnupdate review-btn bill_settle" data-id="<?php echo $testData->id; ?>" id="sub<?php echo $testData->id; ?>">Review <?php if($checkData[0]->printed >0){ echo '('.$checkData[0]->printed.')'; } ?></button>
                                                 </td>
                                             </tr>
                                     <?php }
