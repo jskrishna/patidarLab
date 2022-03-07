@@ -12,7 +12,10 @@
                             <div class="name-sec-left">
                                 <div class="name-icon">
                                     <h3>
-                                        <?php $name = explode(' ', $patientData->patientname);
+                                        <?php
+                                        $editer = 0;
+
+                                        $name = explode(' ', $patientData->patientname);
                                         $name = array_filter($name);
                                         foreach ($name as $n) {
                                             echo $n[0];
@@ -68,10 +71,10 @@
                                                     <?php
                                                     $thisData = $pxthis->Report_model->getreportDataByBIllandTestId($billData->id, $test->id);
                                                     if ($thisData && $thisData[0]->status == 'authorised') { ?>
-                                                        <input type="checkbox" class=""  id="authorise<?php echo $test->id ?>" name="authorise" value="Yes" checked>
+                                                        <input type="checkbox" class="" id="authorise<?php echo $test->id ?>" name="authorise" value="Yes" checked>
                                                         <label data-testname="<?php echo $test->test_name; ?>" data-status="" data-id="<?php echo $test->id ?>" for="authorise<?php echo $test->id ?>"><span>Authorised</span></label>
                                                     <?php } else { ?>
-                                                        <input type="checkbox" class=""  id="authorise<?php echo $test->id ?>" name="authorise" value="Yes">
+                                                        <input type="checkbox" class="" id="authorise<?php echo $test->id ?>" name="authorise" value="Yes">
                                                         <label data-testname="<?php echo $test->test_name; ?>" data-status="authorised" data-id="<?php echo $test->id ?>" for="authorise<?php echo $test->id ?>"><span>Authorised</span></label>
                                                     <?php } ?>
 
@@ -148,10 +151,11 @@
                                                                                         if ($parameter->id == $px) {
                                                                                             // if if if if  field type codntion start
                                                                                             if ($parameter->field_type == 'textarea') { ?>
-                                                                                                <td>
-                                                                                                    <!-- <input type="hidden" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php //echo $inputArray[$param]; 
-                                                                                                                                                                                                        ?>" class="form-control call form form else"> -->
-                                                                                                    <textarea name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" class="summernote form-control px" oninput="auto_grow(this)"><?php echo $inputArray[$param]; ?></textarea>
+                                                                                                <td colspan="3">
+                                                                                                    <!-- <input type="hidden" name="inputValue[]" id="inputValue<?php // echo $parameter->id; 
+                                                                                                                                                                ?>" value="<?php //echo $inputArray[$param]; 
+                                                                                                                                                                                                            ?>" class="form-control call form form else"> -->
+                                                                                                    <textarea name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" class=" form-control summernote<?php echo $editer; ?>"><?php echo $inputArray[$param]; ?></textarea>
                                                                                                 </td>
                                                                                             <?php  } else if ($parameter->field_type == 'option') { ?>
                                                                                                 <td>
@@ -168,14 +172,22 @@
                                                                                                 <td><input type="text" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php echo $inputArray[$param]; ?>" class="form-control call form form else"></td>
                                                                                             <?php } ?>
                                                                                             <!-- // if if if if  field type codntion end -->
-                                                                                            <td>
-                                                                                                <?php foreach ($unitData as $unit) {
-                                                                                                    if ($unit->id == $parameter->unit) {
-                                                                                                        echo $unit->unit;
-                                                                                                    }
-                                                                                                } ?>
-                                                                                            </td>
-                                                                                            <td>
+                                                                                            <?php
+                                                                                            if ($parameter->field_type == 'textarea') { ?>
+
+                                                                                            <?php  } else { ?>
+                                                                                                <td>
+                                                                                                    <?php foreach ($unitData as $unit) {
+                                                                                                        if ($unit->id == $parameter->unit) {
+                                                                                                            echo $unit->unit;
+                                                                                                        }
+                                                                                                    } ?>
+                                                                                                </td>
+                                                                                            <?php } ?>
+
+                                                                                            <td style="<?php if ($parameter->field_type == 'textarea') {
+                                                                                                            echo 'display:none;';
+                                                                                                        } ?>">
                                                                                                 <div class="approv-check">
                                                                                                     <?php
                                                                                                     if ($parameter->min_value == null) {
@@ -199,18 +211,18 @@
                                                                                                     <input type="hidden" id="max_range<?php echo $parameter->id; ?>" name="max_range[]" value="<?php echo $max; ?>">
                                                                                                     <?php if ($parameter->min_value != null) {
                                                                                                     ?><span><?php echo $parameter->min_value . ' - ' . $parameter->max_value . '<br>'; ?></span> <?php
-                                                                                                                                                                                                }
-                                                                                                                                                                                                if ($parameter->male_min_value != null) {
-                                                                                                                                                                                                    echo 'Male -> ' . $parameter->male_min_value . ' - ' . $parameter->male_max_value . '<br>';
-                                                                                                                                                                                                }
-                                                                                                                                                                                                if ($parameter->female_min_value != null) {
-                                                                                                                                                                                                    echo 'Female -> ' . $parameter->female_min_value . ' - ' . $parameter->female_max_value . '<br>';
-                                                                                                                                                                                                }
-                                                                                                                                                                                                if ($parameter->child_min_value != null) {
-                                                                                                                                                                                                    echo 'Child -> ' . $parameter->child_min_value . ' - ' . $parameter->child_max_value;
-                                                                                                                                                                                                }
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                    if ($parameter->male_min_value != null) {
+                                                                                                                                                                                                        echo 'Male -> ' . $parameter->male_min_value . ' - ' . $parameter->male_max_value . '<br>';
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                    if ($parameter->female_min_value != null) {
+                                                                                                                                                                                                        echo 'Female -> ' . $parameter->female_min_value . ' - ' . $parameter->female_max_value . '<br>';
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                    if ($parameter->child_min_value != null) {
+                                                                                                                                                                                                        echo 'Child -> ' . $parameter->child_min_value . ' - ' . $parameter->child_max_value;
+                                                                                                                                                                                                    }
 
-                                                                                                                                                                                                    ?>
+                                                                                                                                                                                                        ?>
                                                                                                     <div class="checkbox i-checks pull-right check-group">
                                                                                                         <?php
                                                                                                         if (!empty($highlights)) { ?>
@@ -233,8 +245,10 @@
                                                                                 } else {
                                                                                     // if if if if  field type codntion start
                                                                                     if ($parameter->field_type == 'textarea') {   ?>
-                                                                                        <td><input type="hidden" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="" class="form-control call form form else">
-                                                                                            <textarea name="options" id="inputValue<?php echo $parameter->id; ?>" class="summernote form-control "><?php echo $parameter->options; ?></textarea>
+                                                                                        <td colspan="3">
+                                                                                            <!-- <input type="hidden" name="inputValue[]" id="inputValue<?php //echo $parameter->id; 
+                                                                                                                                                        ?>" value="" class="form-control call form form else"> -->
+                                                                                            <textarea name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" class="form-control summernote<?php echo $editer; ?>"><?php echo $parameter->options; ?></textarea>
                                                                                         </td>
                                                                                     <?php  } else if ($parameter->field_type == 'option') { ?>
                                                                                         <td>
@@ -250,20 +264,28 @@
                                                                                     <?php }
                                                                                     ?>
                                                                                     <!-- // if if if if  field type codntion end -->
-                                                                                    <td>
-                                                                                        <?php foreach ($unitData as $unit) {
-                                                                                            if ($unit->id == $parameter->unit) {
-                                                                                                echo $unit->unit;
-                                                                                            }
-                                                                                        } ?>
-                                                                                    </td>
-                                                                                    <td>
+                                                                                    <?php
+                                                                                    if ($parameter->field_type == 'textarea') { ?>
+
+                                                                                    <?php  } else { ?>
+                                                                                        <td>
+                                                                                            <?php foreach ($unitData as $unit) {
+                                                                                                if ($unit->id == $parameter->unit) {
+                                                                                                    echo $unit->unit;
+                                                                                                }
+                                                                                            } ?>
+                                                                                        </td>
+                                                                                    <?php } ?>
+                                                                                    <td style="<?php if ($parameter->field_type == 'textarea') {
+                                                                                                    echo 'display:none;';
+                                                                                                } ?>">
+
                                                                                         <div class="approv-check">
                                                                                             <input type="hidden" id="min_range<?php echo $parameter->id; ?>" name="min_range[]" value="<?php echo $parameter->min_value; ?>">
                                                                                             <input type="hidden" id="max_range<?php echo $parameter->id; ?>" name="max_range[]" value="<?php echo $parameter->max_value; ?>">
                                                                                             <?php if ($parameter->min_value != null) {
                                                                                             ?><span><?php echo $parameter->min_value . ' - ' . $parameter->max_value; ?></span> <?php
-                                                                                                                                                                            } ?>
+                                                                                                                                                                                } ?>
                                                                                             <div class="checkbox i-checks pull-right check-group">
                                                                                                 <input type="hidden" value="No" name="highlight[]" id="checkValue<?php echo $parameter->id; ?>">
                                                                                                 <input type="checkbox" class="high" id="highlight<?php echo $parameter->id; ?>" value="Yes"><label for="highlight<?php echo $parameter->id; ?>"></label>
@@ -273,7 +295,11 @@
                                                                                 <?php } ?>
 
                                                                             </tr>
-                                                                    <?php  }
+                                                                    <?php
+                                                                        if ($parameter->field_type == 'textarea') {
+                                                                            $editer++;
+                                                                        }
+                                                                    }
                                                                 }
                                                                     ?>
                                                                     <tr>
@@ -324,7 +350,6 @@
                         <?php
                         }
                         ?>
-
                     </div>
                 </div>
             </div>

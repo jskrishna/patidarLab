@@ -126,7 +126,8 @@
 	</div>
 </div>
 </div>
-
+<link rel="stylesheet" href="https://visualisation.polimapper.co.uk//public/web/css/richtext.min.css">
+<link rel="stylesheet" href="https://visualisation.polimapper.co.uk//public/web/css/rte_theme_default.css">
 
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery-ui.js"></script>
@@ -135,18 +136,21 @@
 <!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.bootstrap.js"></script> -->
 <!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.responsive.js"></script> -->
 <script src="<?php echo BASE_URL; ?>public/assets/js/select2.min.js"></script>
-<script src="<?php echo BASE_URL; ?>public/assets/js/tinymce.min.js"></script>
+<script src="https://visualisation.polimapper.co.uk/public/web/js/rte.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/custom.js"></script>
 <!-- JavaScript Bundle with Popper -->
+
+<?php
+if (isset($editer)) {
+	for ($i = 0; $i < $editer; $i++) {  ?>
+		<script>
+			new RichTextEditor(".summernote" + <?php echo $i; ?>);
+		</script>
+<?php }
+}
+?>
 <script type="text/javascript">
 	$(document).ready(function() {
-		tinymce.init({
-			selector: 'textarea.summernote',
-			skin: 'bootstrap',
-			plugins: 'lists, link, image, media',
-			toolbar: 'bold italic strikethrough blockquote bullist numlist color backcolor | link image media | removeformat help',
-			menubar: false
-		});
 
 		$('#login_btn').click(function() {
 			var $btn = $(this);
@@ -826,7 +830,7 @@
 			var url = $(this).data("url");
 			var title = $(this).data("title");
 			$('#confirmdeletepatient').attr("href", url);
-			$('#delete_model_msg').html("Are you sure you want to delete? " +'<br> <span>'+ title + "</span>");
+			$('#delete_model_msg').html("Are you sure you want to delete? " + '<br> <span>' + title + "</span>");
 		});
 
 		//add test
@@ -1348,7 +1352,7 @@
 				var discount_type = $("input[name='discount_type']:checked").val();
 				var final_discount_type = $("input[name='final_discount_type']").val();
 				var f_discount = $("#f_discount").val();
-				var advance = $("#advance").val(); 
+				var advance = $("#advance").val();
 				var persons = $("#persons").val();
 				var balance = $("#balance").val();
 				var patientRef = $("#patientRefId").val();
@@ -1542,10 +1546,10 @@
 			var bill_id = $("#bill_id").val();
 			var balance = $("#balance").val();
 			var final_discount = $("#final_discount").val();
-var previous_amount = $('#previous_amount').val();
+			var previous_amount = $('#previous_amount').val();
 			var balance_received = $("#balance_received").val();
 			var markaspaid = $("input[name='markaspaid']:checked").val();
-			
+
 			if (balance_received == 0) {
 				new bootstrap.Toast(document.querySelector('#basicToast')).show();
 				$('#basicToast').addClass('toast-error');
@@ -1572,8 +1576,8 @@ var previous_amount = $('#previous_amount').val();
 						'permission': permission,
 						'balance': balance,
 						"final_discount": final_discount,
-						"previous_amount":previous_amount,
-						'markaspaid':markaspaid
+						"previous_amount": previous_amount,
+						'markaspaid': markaspaid
 					},
 					success: function(res) {
 						if (res.success == 1) {
@@ -1852,14 +1856,12 @@ var previous_amount = $('#previous_amount').val();
 	$('.radio-group').click(function() {
 
 		if ($("input[name='invoice_type']:checked").val() == '3') {
-			$('#withHeader').hide();
-		} else {
-			$('#withHeader').show();
+			$('#withHeader').click();
 		}
-		if($("input[name='payment_mode']:checked").val() != 'Due'){
+		if ($("input[name='payment_mode']:checked").val() != 'Due') {
 			$('.advance-li').hide();
 			$('.remain-li-span').html('Total Amount');
-		}else{
+		} else {
 			$('.advance-li').show();
 			$('.remain-li-span').html('Remaining Amount');
 		}
@@ -1889,48 +1891,48 @@ var previous_amount = $('#previous_amount').val();
 	$('body').on('click', '.authorise-sec label', function() {
 		var id = $(this).data('id');
 		var status = $(this).data('status');
-		if(status == 'authorised'){
+		if (status == 'authorised') {
 			$(this).data('status', '');
-		}else{
+		} else {
 			$(this).data('status', 'authorised');
 		}
-		
+
 		var testname = $(this).data('testname');
 		var bill_id = $('#bill_id').val();
 		var url = "<?php echo BASE_URL; ?>Report/authoriseStatus";
-				$.ajax({
-					type: 'POST',
-					url: url,
-					dataType: 'json',
-					data: {
-						"id": id,
-						"bill_id":bill_id,
-						"status": status,
-					},
-					success: function(res) {
-						if(res.success == 1){
-							new bootstrap.Toast(document.querySelector('#basicToast')).show();
-							$('#basicToast').addClass('toast-success');
-							$('#basicToast').removeClass('toast-error');
-							$('.toast-body').html(testname +' '+res.msg);
-						}else{
-							new bootstrap.Toast(document.querySelector('#basicToast')).show();
-							$('#basicToast').addClass('toast-error');
-							$('#basicToast').removeClass('toast-success');
-							$('.toast-body').html(testname +' '+res.msg);
-						}
-					
-					},
-					error:function(err){
-						new bootstrap.Toast(document.querySelector('#basicToast')).show();
-							$('#basicToast').addClass('toast-error');
-							$('#basicToast').removeClass('toast-success');
-							$('.toast-body').html('Something went wrong.');
-					}
-				});
+		$.ajax({
+			type: 'POST',
+			url: url,
+			dataType: 'json',
+			data: {
+				"id": id,
+				"bill_id": bill_id,
+				"status": status,
+			},
+			success: function(res) {
+				if (res.success == 1) {
+					new bootstrap.Toast(document.querySelector('#basicToast')).show();
+					$('#basicToast').addClass('toast-success');
+					$('#basicToast').removeClass('toast-error');
+					$('.toast-body').html(testname + ' ' + res.msg);
+				} else {
+					new bootstrap.Toast(document.querySelector('#basicToast')).show();
+					$('#basicToast').addClass('toast-error');
+					$('#basicToast').removeClass('toast-success');
+					$('.toast-body').html(testname + ' ' + res.msg);
+				}
+
+			},
+			error: function(err) {
+				new bootstrap.Toast(document.querySelector('#basicToast')).show();
+				$('#basicToast').addClass('toast-error');
+				$('#basicToast').removeClass('toast-success');
+				$('.toast-body').html('Something went wrong.');
+			}
+		});
 
 	});
-	
+
 </script>
 
 <div id="basicToast" class="toast align-items-center text-white border-0" role="alert" data-bs-animation="true" data-bs-delay="3000" aria-live="assertive" aria-atomic="true">
