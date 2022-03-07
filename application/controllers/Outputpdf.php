@@ -85,7 +85,7 @@
         </tr>
         <tr>
         <td> Refered By :</td>
-        <th style='text-align:left;text-transform:capitalize;'>Dr " . ($doctorData->referral_name) . "</th>
+        <th style='text-align:left;text-transform:capitalize;'>"  . ($doctorData->title).' '.($doctorData->referral_name) . "</th>
         <td>Report Printed on :</td>
         <th style='text-align:left;text-transform:capitalize;'>" . (date("d-M-Y h:i:s")) . "</th>
         </tr>

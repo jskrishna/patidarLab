@@ -10,7 +10,7 @@ class Doctor_model extends CI_Model
     }
     public function storeDocData($name,$designation,$dmobile,$daddress,$commission)
     {
-        $query = $this->db->query("INSERT INTO `referral`(`title`, `referral_name`, `commission`, `mobile_no`, `address`,`designation`) VALUES ('Dr','$name','$commission','$dmobile','$daddress','$designation')");
+        $query = $this->db->query("INSERT INTO `referral`(`title`, `referral_name`, `commission`, `mobile_no`, `address`,`designation`) VALUES ('Dr.','$name','$commission','$dmobile','$daddress','$designation')");
         return $query;
     }
 

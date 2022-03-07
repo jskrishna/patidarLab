@@ -136,6 +136,9 @@
                                         <table width="100%" class="table dt-responsives">
                                             <thead>
                                                 <tr role="row" class="tablesorter-headerRow">
+                                                <th data-column="0" class="" style="width:35px">
+                                                        <div class="tablesorter-header-inner">No.</div>
+                                                    </th>
                                                     <th data-column="1" class="">
                                                         <div class="tablesorter-header-inner">Name</div>
                                                     </th>
@@ -158,8 +161,10 @@
                                             </thead>
                                             <tbody>
                                                 <?php
+                                                $count = 0;
                                                 foreach ($referralData as $ref) { ?>
                                                     <tr>
+                                                        <td style="width:35px"><?php echo $count++ ?></td>
                                                         <td>
                                                             <div class="patient-avator">
                                                                 <div class="ava-l">
@@ -180,7 +185,7 @@
                                                             </div>
                                                         </td>
                                                         <td><?php echo $ref->commission; ?>%</td>
-                                                        <td><?php echo $ref->designation;  ?></td>
+                                                        <td><?php if($ref->designation){ ?> (<?php echo $ref->designation; ?>) <?php } ?> </td>
                                                         <td><?php echo $ref->address;  ?></td>
                                                         <td><?php echo $ref->mobile_no;  ?></td>
                                                         <td> <button data-toggle="tooltip" data-placement="top" title="" data-bs-target="#adddoctor" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-sml patientedit-btn doc-model-btn" namse="doctoredit" data-id="<?php echo $ref->id;  ?>" value="<?php echo $ref->id;  ?>" data-title="Edit Doctor" data-bs-original-title="Edit Doctor">
@@ -342,6 +347,9 @@
                                         <table width="100%" class="table dt-responsives">
                                             <thead>
                                                 <tr role="row" class="tablesorter-headerRow">
+                                                <th data-column="0" class="" style="width:35px">
+                                                        <div class="tablesorter-header-inner">No.</div>
+                                                    </th>
                                                     <th data-column="1" class="">
                                                         <div class="tablesorter-header-inner">Name</div>
                                                     </th>
@@ -362,9 +370,11 @@
                                             <tbody>
 
                                                 <?php
+                                                $count = 0;
                                                 foreach ($AllUserData as $data) { ?>
 
                                                     <tr>
+                                                    <td style="width:35px"><?php echo $count++ ?></td>
                                                         <td>
                                                             <div class="patient-avator">
                                                                 <div class="ava-l">
@@ -388,9 +398,9 @@
                                                         <td><?php echo $data->email;  ?></td>
                                                         <td><?php echo $data->role;  ?></td>
                                                         <td>
-                                                            <!-- <button data-toggle="tooltip" data-placement="top" title="" data-bs-target="#adddoctor" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-sml patientedit-btn doc-model-btn" namse="doctoredit" data-id="<?php echo $ref->id;  ?>" value="<?php echo $ref->id;  ?>" data-title="Edit Doctor" data-bs-original-title="Edit Doctor"> -->
-                                                            <img src="http://localhost/patidarLab/public/assets/images/icon-edit.svg" alt="">
-                                                            <!-- </button> -->
+                                                            <button data-toggle="tooltip" data-placement="top" title=""class="btn btn-sml patientedit-btn doc-model-btn" namse="doctoredit" data-title="Edit Role" data-bs-original-title="Edit Role"> 
+                                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24"><defs><clipPath id="a"><path d="M1,15.978a1,1,0,0,1-1-1.09l.379-4.17A1.975,1.975,0,0,1,.953,9.5l9-9A1.8,1.8,0,0,1,11.238,0a2.028,2.028,0,0,1,1.427.577L15.4,3.315a1.927,1.927,0,0,1,.069,2.715l-9,9a1.971,1.971,0,0,1-1.214.568l-4.17.38C1.064,15.977,1.034,15.978,1,15.978ZM11.272,2.012h0L9.324,3.962l2.695,2.695,1.948-1.949L11.272,2.012Z" transform="translate(4 4.022)" fill="#223345"></path></clipPath></defs><path d="M1,15.978a1,1,0,0,1-1-1.09l.379-4.17A1.975,1.975,0,0,1,.953,9.5l9-9A1.8,1.8,0,0,1,11.238,0a2.028,2.028,0,0,1,1.427.577L15.4,3.315a1.927,1.927,0,0,1,.069,2.715l-9,9a1.971,1.971,0,0,1-1.214.568l-4.17.38C1.064,15.977,1.034,15.978,1,15.978ZM11.272,2.012h0L9.324,3.962l2.695,2.695,1.948-1.949L11.272,2.012Z" transform="translate(4 4.022)" fill="#223345"></path></svg>
+                                                             </button> 
                                                         </td>
                                                     </tr>
 

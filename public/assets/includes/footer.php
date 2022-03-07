@@ -144,7 +144,13 @@
 if (isset($editer)) {
 	for ($i = 0; $i < $editer; $i++) {  ?>
 		<script>
-			new RichTextEditor(".summernote" + <?php echo $i; ?>);
+			new RichTextEditor(".summernote" + <?php echo $i; ?>, { 
+				pasteMode: "PasteText",
+				toolbarSettings: {
+            items: ['BackgroundColor']
+        },
+		formatter  : null
+			 });
 		</script>
 <?php }
 }

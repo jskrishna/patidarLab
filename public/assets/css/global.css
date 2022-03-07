@@ -778,6 +778,7 @@ table.dataTable thead .sorting {
     box-shadow: none;
     vertical-align: middle;
     background: rgb(5 131 107);
+    padding: 1rem 12px;
 }
 
 .accordion-button::after {

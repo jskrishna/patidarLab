@@ -20,6 +20,19 @@ class Patient extends CI_Controller
 		$data = array('referedData' => $referedData,'loggedData'=>$loggedData, 'patientData' => $pp);
 		$this->load->view('Patient/index', $data);
 	}
+	public function info($id)
+	{
+		$loggedInId = $_COOKIE['loggedInId'];
+        $loggedData = $this->Patient_model->getuserbyID($loggedInId);
+        $loggedData = $loggedData[0];
+		$patientData = $this->Patient_model->patientEdit($id);
+		$patientData = $patientData[0];
+		$doctorData = $this->Patient_model->getreferedDataByID($patientData->refered_by);
+
+		$data = array('loggedData'=>$loggedData,'patientData'=>$patientData,'doctorData'=>$doctorData[0]);
+		$this->load->view('Patient/patient-single',$data);
+	}
+
 	public function register_patient()
 	{
 		if ($this->input->post('title')) {
@@ -168,4 +181,5 @@ class Patient extends CI_Controller
 		exit;
 		# code...
 	}
+
 }
