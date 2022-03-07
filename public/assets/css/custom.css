@@ -84,13 +84,13 @@
         #delete_model_msg span {
             font-size: 20px;
             font-weight: 600;
+            text-transform: capitalize;
         }
         
         .form-group label {
             line-height: 22px;
             display: block;
             font-weight: 600;
-            margin-bottom: 5px;
             letter-spacing: 0.3px;
             text-transform: capitalize;
         }
@@ -190,7 +190,7 @@
             top: 0;
             width: 250px;
             z-index: 91;
-            background: #042E3A;
+            background: #001b22;
             -webkit-font-smoothing: antialiased;
             -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
             transition: -webkit-transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
@@ -1253,6 +1253,7 @@
         }
         
         .print-option .check-group input:checked+label:before {
+
             background: rgb(5 131 107);
             border-color: #05836b;
         }
@@ -1378,8 +1379,8 @@
         .save-report .review-btn:hover {
             background: rgb(5 131 107 / 10%);
         }
-        
-        #patientNameAdd {
+
+        #patientNameAdd, #dname {
             text-transform: capitalize;
         }
         

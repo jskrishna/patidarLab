@@ -85,12 +85,12 @@
 				<div class="col-lg-12 text-center">
 					<div class="row">
 						<div class="col-lg-6">
+							<input type="button" class="btn btnupdate btn-block custom-btn" id="gotoBilling" value="Update">
+						</div>
+						<div class="col-lg-6">
 							<button data-bs-toggle="modal" data-title="" data-bs-target="#myDeletemodel" data-url="" id="patientdelete" class="btn btn-delete btn-block custom-btn btn-danger" value="">
 								Delete
 							</button>
-						</div>
-						<div class="col-lg-6">
-							<input type="button" class="btn btnupdate btn-block custom-btn" id="gotoBilling" value="Update">
 						</div>
 					</div>
 				</div>
@@ -1518,21 +1518,21 @@
 			} else {
 				var url = '<?php echo BASE_URL; ?>report/paid_details';
 			}
-			// $.ajax({
-			// 	type: "POST",
-			// 	url: url,
-			// 	data: {
-			// 		"id": id
-			// 	},
-			// 	success: function(res) {
-			// 		if (status == 'Pending') {
-			// 			$("#bill_settlement .modal-content").html(res);
-			// 		} else {
-			// 			$("#bill_paid .modal-content").html(res);
-			// 		}
+			$.ajax({
+				type: "POST",
+				url: url,
+				data: {
+					"id": id
+				},
+				success: function(res) {
+					if (status == 'Pending') {
+						$("#bill_settlement .modal-content").html(res);
+					} else {
+						$("#bill_paid .modal-content").html(res);
+					}
 
-			// 	}
-			// });
+				}
+			});
 		});
 
 		// pay model

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var table = $('.dt-responsive').DataTable({
         language: {
             search: "_INPUT_",
@@ -17,7 +17,7 @@ $(document).ready(function() {
             [20, 50, "All"]
         ],
         "ordering": true,
-        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
+        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
             $("td:first", nRow).html(iDisplayIndex + 1);
             return nRow;
         },
@@ -43,7 +43,7 @@ $(document).ready(function() {
     });
 
     //report-filter
-    $('.report-filter .filter-item').click(function() {
+    $('.report-filter .filter-item').click(function () {
         var value = $(this).data('value');
         table.columns(7).search(value).draw();
     })
@@ -58,7 +58,7 @@ $(document).ready(function() {
             targets: 0,
             orderable: false,
             className: 'select-checkbox',
-        }, ],
+        },],
         select: {
             style: 'os',
             selector: 'td:first-child'
@@ -76,5 +76,29 @@ $(document).ready(function() {
         columnDefs: [
             { width: 200, targets: 0 }
         ],
+    });
+});
+
+
+$(function () {
+    $('.accordion-body input:text:first').focus();
+    var $inp = $('input:text');
+    $inp.bind('keydown', function (e) {
+        var key = e.which;
+        if (key == 40) {
+            e.preventDefault();
+            var nxtIdx = $inp.index(this) + 1;
+            $(":input:text:eq(" + nxtIdx + ")").focus();
+            console.log(key);
+        }
+    });
+    $inp.bind('keyup', function (e) {
+        var key = e.which;
+        if (key == 38) {
+            e.preventDefault();
+            var nxtIdx = $inp.index(this) - 1;
+            $(":input:text:eq(" + nxtIdx + ")").focus();
+            console.log(key);
+        }
     });
 });
