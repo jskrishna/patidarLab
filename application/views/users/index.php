@@ -163,12 +163,16 @@
                                                         <td>
                                                             <div class="patient-avator">
                                                                 <div class="ava-l">
-                                                                    <div class="patient-short-name">
-                                                                        <?php $name = explode(' ', $ref->referral_name);
-                                                                        $name = array_filter($name);
-                                                                        foreach ($name as $n) {
-                                                                            echo $n[0];
-                                                                        } ?> </div>
+                                                                         <div class="patient-short-name">
+                                                        <?php $name = explode(' ',  $ref->referral_name );
+                                                        $name = array_filter($name);
+                                                        $nCount =0;
+                                                        foreach ($name as $n) {
+                                                            if($nCount == 0 || $nCount == 1){
+                                                                echo $n[0];
+                                                            }
+                                                            $nCount++;
+                                                        } ?> </div>
                                                                 </div>
                                                                 <div class="ava-r">
                                                                     <span><?php echo $ref->title . ' ' . $ref->referral_name; ?></span>
@@ -293,12 +297,16 @@
                                                         <td>
                                                             <div class="patient-avator">
                                                                 <div class="ava-l">
-                                                                    <div class="patient-short-name">
-                                                                        <?php $name = explode(' ', $data->username);
-                                                                        $name = array_filter($name);
-                                                                        foreach ($name as $n) {
-                                                                            echo $n[0];
-                                                                        } ?> </div>
+                                                                           <div class="patient-short-name">
+                                                        <?php $name = explode(' ',  $data->username );
+                                                        $name = array_filter($name);
+                                                        $nCount =0;
+                                                        foreach ($name as $n) {
+                                                            if($nCount == 0 || $nCount == 1){
+                                                                echo $n[0];
+                                                            }
+                                                            $nCount++;
+                                                        } ?> </div>
                                                                 </div>
                                                                 <div class="ava-r">
                                                                     <span><?php echo $data->username; ?></span>
@@ -351,9 +359,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-lg-6">
-                                        <label for="designation">Designation<span class="text-danger">*</span></label>
-                                        <input type="text" name="designation" id="designation" class="form-control required" placeholder="Enter Designation">
-                                        <span class="error">This field is required.</span>
+                                        <label for="designation">Designation</label>
+                                        <input type="text" name="designation" id="designation" class="form-control" placeholder="Enter Designation">
                                     </div>
                                     <div class="form-group col-lg-6">
                                         <label for="dmobile">Contact Number

@@ -46,38 +46,37 @@ class Report extends CI_Controller
         $inputValue = $this->input->post('inputValue');
         $highlight = $this->input->post('highlight');
 
-        if(isset($parameter_id)){
+        if (isset($parameter_id)) {
 
-        $parameter_ids = serialize($parameter_id);
-        $input_values = serialize($inputValue);
-        $highlights = serialize($highlight);
+            $parameter_ids = serialize($parameter_id);
+            $input_values = serialize($inputValue);
+            $highlights = serialize($highlight);
 
-        $patient_id = $this->input->post('patientID');
-        $test_id = $this->input->post('testId');
-        $bill_id = $this->input->post('billId');
-        $defult_value_status = $this->input->post('defult_value_status');
-        $reportDataid = $this->input->post('reportDataid');
-        if ($reportDataid == '') {
-            $insertData = $this->Report_model->insertReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values, $highlights, $defult_value_status);
+            $patient_id = $this->input->post('patientID');
+            $test_id = $this->input->post('testId');
+            $bill_id = $this->input->post('billId');
+            $defult_value_status = $this->input->post('defult_value_status');
+            $reportDataid = $this->input->post('reportDataid');
+            if ($reportDataid == '') {
+                $insertData = $this->Report_model->insertReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values, $highlights, $defult_value_status);
+            } else {
+                $insertData = $this->Report_model->updateReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values, $highlights, $defult_value_status, $reportDataid);
+            }
+
+            if ($insertData) {
+                $resultss = array('success' => 1, 'msg' => 'success', 'redirect_url' => '');
+                echo json_encode($resultss);
+                exit();
+            } else {
+                $resultss = array('success' => 0, 'msg' => 'something wrong');
+                echo json_encode($resultss);
+                exit();
+            }
         } else {
-            $insertData = $this->Report_model->updateReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values, $highlights, $defult_value_status, $reportDataid);
-        }
-
-        if ($insertData) {
-            $resultss = array('success' => 1, 'msg' => 'success', 'redirect_url' => '');
-            echo json_encode($resultss);
-            exit();
-        } else {
-            $resultss = array('success' => 0, 'msg' => 'something wrong');
-            echo json_encode($resultss);
-            exit();
-        }
-        }else{
             $resultss = array('success' => 0, 'msg' => 'No parameter found.');
             echo json_encode($resultss);
             exit();
         }
-
     }
     public function bill_settle()
     {
@@ -88,17 +87,13 @@ class Report extends CI_Controller
         $billData = $billData[0];
         $patientData = $patientData[0];
         $date = date_format(new DateTime($billData->billDate), 'd-M-Y');
-        $balance = intval($billData->balance) - intval($billData->received_amount) ;
+        $balance = intval($billData->balance) - intval($billData->received_amount);
         $discount = intval($billData->final_discount) + intval($billData->discount);
         $advance = intval($billData->advance);
         $final_discount = intval($billData->final_discount);
 
-        $previous = '';
-        if(intval($billData->received_amount) !== 0){
-            $previous = 'Previous Received<b> ₹ '.$billData->received_amount.'</b>';
-        }
-
-        $data = "<div class='page-head'><h2 id='billname'>".$patientData->title.' '. $patientData->patientname . ' (' . ($patientData->patientid) . ')'."</h2><button type='button' class='close' data-bs-dismiss='modal' aria-label='Close'><img src='".BASE_URL."/public/assets/images/remove.svg.' alt=''>
+        $advancepri = intval($billData->advance) + intval($billData->received_amount);
+        $data = "<div class='page-head'><h2 id='billname'>" . $patientData->title . ' ' . $patientData->patientname . ' (' . ($patientData->patientid) . ')' . "</h2><button type='button' class='close' data-bs-dismiss='modal' aria-label='Close'><img src='" . BASE_URL . "/public/assets/images/remove.svg.' alt=''>
         </button>
     </div><div class='modal-body'>
                     <div class='row'>
@@ -107,38 +102,35 @@ class Report extends CI_Controller
                     </div>
                     <div class='form-row'>
                         <div class='form-group col-lg-12'>
-                        <div class='c-datatable pd-0'>
-                        
+                        <div class='c-datatable pd-0'>                      
                             <table class='table'>
                             <thead>
                                 <tr>
                                     <th>Total Amount</th>
                                     <th>Discount</th>
                                     <th>Advance</th>
-                                    <th>Payable</th>
+                                    <th>Remaining</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>₹ $billData->total </td>
                                     <td>₹ $discount </td>
-                                    <td>₹ $advance </td>
-                                    <td><b>₹ $balance</b> </td>
+                                    <td>₹ $advancepri </td>
+                                    <td style='color:#dc3545'><b>₹ $balance</b> </td>
                                 </tr>
                             </tbody>
                         </table>
                             </div>
-                    $previous
-
                         </div>
                     </div>
-                    <div class='form-row'>
-                    <span class='small-heading'>Received Amount (₹)</span>
+                    <div class='form-group '>
+                    <label >Receive Amount (₹)</label>
                     <input type='hidden' value='$billData->received_amount' name='previous_amount' id='previous_amount'>
                     <input type='number' placeholder='Enter Received Amount' max='$balance' name='balance_received' id='balance_received' class='form-control' value=>
                     </div>
-                    <div class='form-row'>
-                            <span class='small-heading'>Payment Mode</span>
+                    <div class='form-group'>
+                            <label>Payment Mode</label>
                             <div class='radio-wrap'>
                                 <span class='radio-group'>
                                     <input type='radio' id='payment_cash' name='payment_mode' value='Cash' checked>
@@ -160,12 +152,14 @@ class Report extends CI_Controller
                             <input type='hidden' name='add_discount' id='add_discount' value=''>
                             <input type='hidden' name='balance' id='balance' value='$billData->total'>
                             <input type='hidden' name='final_discount' id='final_discount' value='$final_discount'>
+                            </div>
+                            <div class='form-group'>
+                            <div class='check-group'>
+                            <input type='checkbox' name='markaspaid' id='markaspaid' value='Yes'>
+                                                    <label for='markaspaid'>Mark as Paid</label>
+                                                </div>
+                            </div>
                     </div>
-                    </div>
-                    <div class='modal-footer'>
-                    <input type='checkbox' name='markaspaid' id='markaspaid' value='Yes'>
-                    <label for='markaspaid'>Mark as Paid</label>
-                </div>
                     <div class='modal-footer'>
                         <div class='col-lg-3'><button class='btn custom-btn btnupdate btn-block' id='postValue'>Pay</button></div>
                     </div>";
@@ -182,7 +176,7 @@ class Report extends CI_Controller
             $billData = $this->Report_model->getbillinfoByID($id);
             $patientData = $this->Report_model->getpatientinfoByID($billData[0]->patient_id);
             $doctorsData = $this->Report_model->getdoctorinfoByID($patientData[0]->refered_by);
-            $data = array('billData' => $billData[0], 'loggedData'=>$loggedData,'patientData' => $patientData[0], 'doctorsData' => $doctorsData[0], 'pxthis' => $this);
+            $data = array('billData' => $billData[0], 'loggedData' => $loggedData, 'patientData' => $patientData[0], 'doctorsData' => $doctorsData[0], 'pxthis' => $this);
             $this->load->view('report/orderReport.php', $data);
         } else {
             header('location:' . BASE_URL . 'report');
@@ -204,7 +198,7 @@ class Report extends CI_Controller
 
         $testIDS = explode(',', $billData->testId);
         date_default_timezone_set('Asia/Kolkata');
-        $tabledata = "<div class='page-head'><h2 id='billname'>".$patientData->title .  $patientData->patientname . ' (' . ($patientData->patientid) . ')'."</h2><button type='button' class='close' data-bs-dismiss='modal' aria-label='Close'><img src='".BASE_URL."/public/assets/images/remove.svg.' alt=''>
+        $tabledata = "<div class='page-head'><h2 id='billname'>" . $patientData->title .  $patientData->patientname . ' (' . ($patientData->patientid) . ')' . "</h2><button type='button' class='close' data-bs-dismiss='modal' aria-label='Close'><img src='" . BASE_URL . "/public/assets/images/remove.svg.' alt=''>
         </button>
     </div><div class='modal-body'>
     <div class='row'>
@@ -264,7 +258,7 @@ class Report extends CI_Controller
                     </div>
                     </div></div>
                     <div class='modal-footer'>
-                    <a target='_blank'  href='printinvoice/index/".$billData->id."' class='btn custom-btn btnupdate'>Print
+                    <a target='_blank'  href='printinvoice/index/" . $billData->id . "' class='btn custom-btn btnupdate'>Print
                 </a>
                     </div>";
 
@@ -275,16 +269,16 @@ class Report extends CI_Controller
         $id = $_POST['id'];
         $status = $_POST['status'];
         $bill_id = $_POST['bill_id'];
-        if($status == ''){
+        if ($status == '') {
             $status = null;
             $msg = 'Unauthorised.';
-        }else{
+        } else {
             $msg = 'Authorised.';
         }
-        
-        $check = $this->Report_model->getReportByTestId($id,$bill_id);
-        if(!empty($check)){
-            $authoriseStatus = $this->Report_model->changeauthoriseStatus($id,$bill_id,$status);
+
+        $check = $this->Report_model->getReportByTestId($id, $bill_id);
+        if (!empty($check)) {
+            $authoriseStatus = $this->Report_model->changeauthoriseStatus($id, $bill_id, $status);
             if ($authoriseStatus) {
                 $resultss = array('success' => 1, 'msg' => $msg);
                 echo json_encode($resultss);
@@ -294,11 +288,10 @@ class Report extends CI_Controller
                 echo json_encode($resultss);
                 exit();
             }
-        }else{
+        } else {
             $resultss = array('success' => 0, 'msg' => 'No data found for this test.');
             echo json_encode($resultss);
             exit();
         }
-        
     }
 }

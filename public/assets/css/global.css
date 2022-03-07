@@ -427,6 +427,8 @@ table.dataTable tfoot th, table.dataTable tfoot td {
     cursor: pointer;
     display: flex;
     align-items: center;
+    font-size: 14px;
+    line-height: 14px;
 }
 
 .check-group label:before {
@@ -454,15 +456,12 @@ table.dataTable tfoot th, table.dataTable tfoot td {
     left: 6px;
     width: 6px;
     height: 10px;
-    border: solid #000000;
+    border: solid #fff;
     border-width: 0 1px 1px 0;
     transform: rotate(45deg);
 }
 .test-list .check-group input:checked+label:after {
     top: 12px;
-}
-.from-wrap .check-group input:checked+label:after {
-    top: 4px;
 }
 
 .small_btn, .small_btn:hover {
@@ -672,6 +671,9 @@ table.dataTable thead .sorting {
 .ui-menu .ui-menu-item:hover {
     background: #f3f3f3;
 }
+.modal {
+    z-index: 9999;
+}
 .modal-lg, .modal-xl {
     max-width: 710px;
 }
@@ -742,4 +744,20 @@ table.dataTable thead .sorting {
 }
 .accordion-button:not(.collapsed)::after {
     background-image: url(../images/down-white.svg);
+}
+.relative-toast {
+    position: initial;
+    background: rgb(5 131 107 / 10%);
+    border: 0;
+    color: #05836b !important;
+    box-shadow: none;
+}
+.width-full {
+    width: 100%;
+}
+.relative-toast .toast-body {
+    width: 100%;
+    text-align: center;
+    border: 1px dashed rgb(5 131 107 / 50%);
+    border-radius: 5px;
 }

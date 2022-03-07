@@ -42,10 +42,14 @@
                                             <div class="patient-avator">
                                                 <div class="ava-l">
                                                     <div class="patient-short-name">
-                                                        <?php $name = explode(' ', $data->patientname);
+                                                        <?php $name = explode(' ', $data->patientname );
                                                         $name = array_filter($name);
+                                                        $nCount =0;
                                                         foreach ($name as $n) {
-                                                            echo $n[0];
+                                                            if($nCount == 0 || $nCount == 1){
+                                                                echo $n[0];
+                                                            }
+                                                            $nCount++;
                                                         } ?> </div>
                                                 </div>
                                                 <div class="ava-r">
