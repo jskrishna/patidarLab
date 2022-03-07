@@ -79,7 +79,21 @@ class Outputpdf_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    
+
+    public function getPrintCount($bill_id,$test_id)
+    {
+        $query = $this->db->select('*')->from('reportdata');
+        $query = $this->db->where('bill_id',$bill_id);
+        $query = $this->db->where('test_id',$test_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function UpdatePrintedCount($bill_id,$test_id,$count)
+    {
+        $sth = $this->db->query("UPDATE `reportdata` SET `printed`='$count' WHERE `bill_id`= '$bill_id' AND `test_id`='$test_id'");
+        return $sth;
+    }
+
     public function getReportByBillAndPatientId($bill_id,$patient_id)
     {
         $query = $this->db->select('*')->from('reportdata');

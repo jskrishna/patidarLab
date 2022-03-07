@@ -30,6 +30,14 @@
         $departments = implode(',', $department);
         $testIDS = explode(',', $billData->testId);
         $selecetdtestArray = explode(',', $tests);
+
+        foreach($selecetdtestArray as $selecetdId){
+            $getPrintCount = $this->Outputpdf_model->getPrintCount($bill_id, $selecetdId);
+            $getPrintCount = $getPrintCount[0];
+            $count = intval($getPrintCount->printed)+1;
+           $this->Outputpdf_model->UpdatePrintedCount($bill_id, $selecetdId,$count);
+        }
+
         $departmentArray = explode(',', $departments);
         $signImage = BASE_URL . 'public/assets/images/sign.jpeg';
         $headerImage = BASE_URL . 'public/assets/images/Letter_pad.png';
