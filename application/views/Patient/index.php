@@ -9,7 +9,7 @@
                         <table width="100%" class="table dt-responsive">
                             <thead>
                                 <tr role="row" class="tablesorter-headerRow">
-                                     <th data-column="1" class="">
+                                     <th data-column="1" class=""  style="width:35px">
                                         <div class="tablesorter-header-inner">No.</div>
                                     </th>
                                     <th data-column="2" class="">
@@ -37,7 +37,7 @@
                                 $count = 1;
                                 foreach ($patientData as $data) { ?>
                                     <tr role="row">
-                                        <td><?php echo $count++ ?></td>
+                                        <td style="width:35px"><?php echo $count++ ?></td>
                                         <td>
                                             <div class="patient-avator">
                                                 <div class="ava-l">
@@ -69,7 +69,7 @@
                                         <?php foreach ($referedData as $doc) {
                                             if ($data->refered_by == $doc->id) {
                                         ?>
-                                                <td class=""><?php echo $doc->referral_name; ?></td>
+                                                <td class=""><?php if($doc->title){ echo $doc->title; ?> <?php } ?> <?php echo $doc->referral_name; ?></td>
                                         <?php }
                                         } ?>
                                         <td>

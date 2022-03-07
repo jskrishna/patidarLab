@@ -95,8 +95,8 @@
             <tr>
             <td> Gender / Age :</td>
                 <th style='text-align:left;'>" . ($patientData->gender[0]) . ' / ' . ($patientData->age) . ($patientData->age_type) . "</th>
-                <td> Referral Dr :</td>
-                <th style='text-align:left; text-transform:capitalize'>" . ($referData->referral_name) . "</th>
+                <td> Referral :</td>
+                <th style='text-align:left; text-transform:capitalize'>" . ($referData->title) . ' ' . ($referData->referral_name) . "</th>
             </tr>
             </thead>
         </table>";
@@ -138,7 +138,7 @@
             </tr>
             <tr>
             <td>ID : <b>"  . ($patientData->patientid) .  "</b></td>
-                <td> Referral Dr : <b>" . ($referData->referral_name) . "</b></td>
+                <td> Referral : <b>" . ($referData->title) . ' ' . ($referData->referral_name) . "</b></td>
             </tr>
             </thead>
         </table>";

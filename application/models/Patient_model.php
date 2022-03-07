@@ -40,6 +40,13 @@ class Patient_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    public function getreferedDataByID($id)
+    {
+        $query = $this->db->select('*')->from('referral');
+        $query = $this->db->where('id',$id);
+        $query = $this->db->get();
+        return $query->result();
+    }
 
     public function patientEdit($id)
     {

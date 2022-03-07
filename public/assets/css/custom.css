@@ -1298,7 +1298,6 @@
         }
         
         .reportcnt td {
-            font-weight: 600;
             font-size: 13px;
         }
         
@@ -1419,4 +1418,11 @@
             border-color: #05836b;
             font-weight: 600;
             background-color: rgb(5 131 107 / 5%);
+        }
+         /* .rte_command_paragraphs, .rte_command_fontname, .rte_command_fontsize, .rte_command_inlinestyle, .rte_command_lineheight, .rte_command_removeformat, .rte_command_cut, .rte_command_copy, .rte_command_paste, .rte_command_delete, .rte_command_find, .rte_command_insertlink, .rte_command_insertchars, .rte_command_inserttable, .rte_command_insertimage, .rte_command_insertvideo, .rte_command_insertdocument, .rte_command_inserttemplate, .rte_command_insertcode, .rte_command_preview, .rte_command_code, .rte_command_selectall, .rte_command_toggleborder, .rte_command_fullscreenenter, .rte_command_fullscreenexit, .rte_command_redo, .rte_command_togglemore, .rte_command_insertemoji, .rte_command_insertblockquote, .rte_command_outdent, .rte_command_indent, .report-edit .richtexteditor rte-powerby {
+            display: none !important;
+        }  */
+        .richtexteditor{
+            border-radius: 5px;
+            overflow: hidden;
         }

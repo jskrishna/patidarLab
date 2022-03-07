@@ -43,7 +43,7 @@
                                     <p><label for="">Bill:</label> <span><?php echo date_format(new DateTime($billData->billDate), "d-M-Y"); ?></span></p>
                                     <p>
                                         <label for="">Referred By:</label>
-                                        <span class="text-capitalize"><?php echo $doctorsData->referral_name; ?></span>
+                                        <span class="text-capitalize"><?php echo $doctorsData->title . ' ' . $doctorsData->referral_name; ?></span>
                                     </p>
                                 </div>
                                 <a class="btn custom-btn" href="<?php echo BASE_URL . 'report' ?>">All Reports</a>

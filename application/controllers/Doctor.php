@@ -25,7 +25,7 @@ class Doctor extends CI_Controller
 
 		if($referedList){
 			foreach($referedList as $ref){
-				$data .= '<option value="'.$ref->id.'">'.$ref->referral_name.' '. $ref->designation.'</option>';
+				$data .= '<option value="'.$ref->id.'">'.$ref->referral_name. ($ref->designation ? ' ('. $ref->designation.') ':""). '</option>';
 			}
 		}
 		echo json_encode($data);

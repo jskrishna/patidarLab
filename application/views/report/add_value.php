@@ -49,7 +49,7 @@
                                 <p><label for="">Bill:</label> <span><?php echo date_format(new DateTime($billData->billDate), "d-M-Y"); ?></span></p>
                                 <p>
                                     <label for="">Referred by:</label>
-                                    <span class="text-capitalize"><?php echo $doctorData->referral_name; ?></span>
+                                    <span class="text-capitalize"><?php echo $doctorData->title . ' ' . $doctorData->referral_name; ?></span>
                                 </p>
                             </div>
                             <a href="<?php echo BASE_URL ?>report" class="btn custom-btn"> Back</a>
@@ -136,13 +136,20 @@
                                                                                 <th colspan="5">DIFFERENTIAL COUNT</th>
                                                                             <?php  } ?>
                                                                             <tr class="reportcnt" id="<?php echo $parameter->id; ?>">
-
+                                                                            <?php if ($parameter->field_type !== 'textarea') { ?>
                                                                                 <?php if ($parameter->id == '1' || $parameter->id == '2' || $parameter->id == '4' || $parameter->id == '13') { ?>
                                                                                     <td><input type="hidden" id="parameter_id<?php echo $parameter->id; ?>" name="parameter_id[]" value="<?php echo $parameter->id; ?>"><b><?php echo $parameter->name; ?></b></td>
-
                                                                                 <?php } else { ?>
                                                                                     <td><input type="hidden" id="parameter_id<?php echo $parameter->id; ?>" name="parameter_id[]" value="<?php echo $parameter->id; ?>"><?php echo $parameter->name; ?></td>
-                                                                                    <?php }
+                                                                                    <?php }                                                                                   
+                                                                                }
+
+                                                                                if ($parameter->field_type == 'textarea') { 
+                                                                                if ($parameter->id == '1' || $parameter->id == '2' || $parameter->id == '4' || $parameter->id == '13') { ?>
+                                                                                    <input type="hidden" id="parameter_id<?php echo $parameter->id; ?>" name="parameter_id[]" value="<?php echo $parameter->id; ?>">
+                                                                                <?php } else { ?>
+                                                                                    <input type="hidden" id="parameter_id<?php echo $parameter->id; ?>" name="parameter_id[]" value="<?php echo $parameter->id; ?>">
+                                                                                    <?php } }
                                                                                 $thisData = $pxthis->Report_model->getreportDataByBIllandTestId($billData->id, $test->id);
                                                                                 if ($thisData) {
                                                                                     $inputArray = unserialize($thisData[0]->input_values);
@@ -152,10 +159,11 @@
                                                                                         if ($parameter->id == $px) {
                                                                                             // if if if if  field type codntion start
                                                                                             if ($parameter->field_type == 'textarea') { ?>
-                                                                                                <td colspan="3">
+                                                                                                <td colspan="4">
                                                                                                     <!-- <input type="hidden" name="inputValue[]" id="inputValue<?php // echo $parameter->id; 
                                                                                                                                                                 ?>" value="<?php //echo $inputArray[$param]; 
                                                                                                                                                                                                             ?>" class="form-control call form form else"> -->
+                                                                                                                                                                                                            <?php echo $parameter->name; ?>
                                                                                                     <textarea name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" class=" form-control summernote<?php echo $editer; ?>"><?php echo $inputArray[$param]; ?></textarea>
                                                                                                 </td>
                                                                                             <?php  } else if ($parameter->field_type == 'option') { ?>
@@ -246,9 +254,10 @@
                                                                                 } else {
                                                                                     // if if if if  field type codntion start
                                                                                     if ($parameter->field_type == 'textarea') {   ?>
-                                                                                        <td colspan="3">
+                                                                                        <td colspan="4">
                                                                                             <!-- <input type="hidden" name="inputValue[]" id="inputValue<?php //echo $parameter->id; 
                                                                                                                                                         ?>" value="" class="form-control call form form else"> -->
+                                                                                                                                                        <?php echo $parameter->name; ?>
                                                                                             <textarea name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" class="form-control summernote<?php echo $editer; ?>"><?php echo $parameter->options; ?></textarea>
                                                                                         </td>
                                                                                     <?php  } else if ($parameter->field_type == 'option') { ?>

@@ -13,8 +13,8 @@ $(document).ready(function () {
         "bInfo": false,
         "bAutoWidth": false,
         "lengthMenu": [
-            [20, 50, -1],
-            [20, 50, "All"]
+            [05, 50, -1],
+            [05, 50, "All"]
         ],
         "ordering": true,
         "fnRowCallback": function (nRow, aData, iDisplayIndex) {
@@ -22,6 +22,14 @@ $(document).ready(function () {
             return nRow;
         },
     });
+
+    $('.dt-responsive tbody').on('mouseover', 'tr', function () {
+        $('[data-toggle="tooltip"]').tooltip({
+            trigger: 'hover',
+            html: true
+        });
+    });
+     
     var tables = $('.dt-responsives').DataTable({
         language: {
             search: "_INPUT_",
@@ -40,6 +48,10 @@ $(document).ready(function () {
             [20, 50, "All"]
         ],
         "ordering": true,
+        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+            $("td:first", nRow).html(iDisplayIndex + 1);
+            return nRow;
+        },
     });
 
     //report-filter
@@ -65,7 +77,11 @@ $(document).ready(function () {
         },
         order: [
             [1, 'asc']
-        ]
+        ],
+        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+            $("td:first", nRow).html(iDisplayIndex + 1);
+            return nRow;
+        },
     });
 
     $('.bill-edit').DataTable({
@@ -76,29 +92,33 @@ $(document).ready(function () {
         columnDefs: [
             { width: 200, targets: 0 }
         ],
+        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+            $("td:first", nRow).html(iDisplayIndex + 1);
+            return nRow;
+        },
     });
 });
 
 
-$(function () {
-    $('.accordion-body input:text:first').focus();
-    var $inp = $('input:text');
-    $inp.bind('keydown', function (e) {
-        var key = e.which;
-        if (key == 40) {
-            e.preventDefault();
-            var nxtIdx = $inp.index(this) + 1;
-            $(":input:text:eq(" + nxtIdx + ")").focus();
-            console.log(key);
-        }
-    });
-    $inp.bind('keyup', function (e) {
-        var key = e.which;
-        if (key == 38) {
-            e.preventDefault();
-            var nxtIdx = $inp.index(this) - 1;
-            $(":input:text:eq(" + nxtIdx + ")").focus();
-            console.log(key);
-        }
-    });
-});
+// $(function () {
+//     $('.accordion-body input:text:first').focus();
+//     var $inp = $('input:text');
+//     $inp.bind('keydown', function (e) {
+//         var key = e.which;
+//         if (key == 40) {
+//             e.preventDefault();
+//             var nxtIdx = $inp.index(this) + 1;
+//             $(":input:text:eq(" + nxtIdx + ")").focus();
+//             console.log(key);
+//         }
+//     });
+//     $inp.bind('keyup', function (e) {
+//         var key = e.which;
+//         if (key == 38) {
+//             e.preventDefault();
+//             var nxtIdx = $inp.index(this) - 1;
+//             $(":input:text:eq(" + nxtIdx + ")").focus();
+//             console.log(key);
+//         }
+//     });
+// });
