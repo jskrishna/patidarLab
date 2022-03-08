@@ -266,9 +266,9 @@ class Report extends CI_Controller
     }
     public function authoriseStatus()
     {
-        $id = $_POST['id'];
-        $status = $_POST['status'];
-        $bill_id = $_POST['bill_id'];
+        $id = $this->input->post('id');
+        $status = $this->input->post('status');
+        $bill_id = $this->input->post('bill_id');
         if ($status == '') {
             $status = null;
             $msg = 'Unauthorised.';

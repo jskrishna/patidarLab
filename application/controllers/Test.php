@@ -91,10 +91,11 @@ class Test extends CI_Controller
     }
     public function selectTest()
     {
-        $department = $_POST['department'];
+        $department = $this->input->post('department');
         $test = [];
-        if (isset($_POST['test'])) {
-            $test[] = implode(',', $_POST['test']);
+        $testinput = $this->input->post('test');
+        if (isset($testinput)) {
+            $test[] = implode(',', $this->input->post('test'));
         }
 
         if (!empty($department)) {

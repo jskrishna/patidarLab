@@ -34,12 +34,12 @@ class Doctor extends CI_Controller
 	}
     public function store()
     {
-        $name = $_POST['dname'];
-        $designation = $_POST['designation'];
-        $dmobile = $_POST['dmobile'];
-        $daddress = $_POST['daddress'];
-        $commission = $_POST['commission'];
-        $did = $_POST['did'];
+        $name = $this->input->post('dname');
+        $designation = $this->input->post('designation');
+        $dmobile = $this->input->post('dmobile');
+        $daddress = $this->input->post('daddress');
+        $commission = $this->input->post('commission');
+        $did = $this->input->post('did');
         if($did == ''){
         $data = $this->Doctor_model->storeDocData($name,$designation,$dmobile,$daddress,$commission);
         }else{
@@ -58,7 +58,7 @@ class Doctor extends CI_Controller
     }
     public function editDetails()
     {
-        $id = $_POST['id'];
+        $id = $this->input->post('id');
         $DocData = $this->Doctor_model->getDocById($id);
 		$DocData = $DocData[0];
 		echo json_encode($DocData);

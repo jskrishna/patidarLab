@@ -1,9 +1,4 @@
-<?php
-include_once "./public/assets/includes/header.php";
-?>
-
-	<?php
-	// if(session_status() === PHP_SESSION_NONE){
+<?php // if(session_status() === PHP_SESSION_NONE){
 		// session_start();
 	// }
 	// if (isset($_SESSION['loggedIn']) && isset($_SESSION['loggedInId'])) {
@@ -14,15 +9,6 @@ include_once "./public/assets/includes/header.php";
 	}
 	include_once "./public/assets/includes/header.php";
 	?>
-	<style>
-		header {
-			display: none;
-		}
-
-	.main-header+main {
-		margin-top: 0;
-	}
-</style>
 <section class="login-main">
 	<div class="login-inr">
 		<div class="login-left">
@@ -74,7 +60,6 @@ include_once "./public/assets/includes/header.php";
 <?php
 include_once "./public/assets/includes/footer.php";
 ?>
-
 <script>
 	$('header.main-header').remove();
 	

@@ -122,7 +122,7 @@
 
                                             <span class="pay-paid">Total - ₹ <?php echo  intval($report->total); ?></span>
                                             
-                                            <span class="pay-due">Due - ₹ <?php echo  intval($report->total) - intval($report->received_amount) - intval($report->discount); ?></span>
+                                            <span class="pay-due">Due - ₹ <?php echo  intval($report->total) - intval($report->received_amount) - intval($report->final_discount); ?></span>
                                             <?php } ?>
                                            
                                             </div>

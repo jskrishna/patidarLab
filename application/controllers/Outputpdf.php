@@ -45,7 +45,7 @@
         $mpdfConfig = array(
             'mode' => 'utf-8',
             'format' => 'A4',
-            'default_font' => 'dejavusans',
+            'default_font' => 'freesans',
             'margin_header' => 15,     // 30mm not pixel
             'margin_footer' => 10,     // 10mm
             'orientation' => 'P',

@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
     var table = $('.dt-responsive').DataTable({
         language: {
             search: "_INPUT_",
@@ -17,19 +17,19 @@ $(document).ready(function () {
             [05, 50, "All"]
         ],
         "ordering": true,
-        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
             $("td:first", nRow).html(iDisplayIndex + 1);
             return nRow;
         },
     });
 
-    $('.dt-responsive tbody').on('mouseover', 'tr', function () {
+    $('.dt-responsive tbody').on('mouseover', 'tr', function() {
         $('[data-toggle="tooltip"]').tooltip({
             trigger: 'hover',
             html: true
         });
     });
-     
+
     var tables = $('.dt-responsives').DataTable({
         language: {
             search: "_INPUT_",
@@ -48,14 +48,14 @@ $(document).ready(function () {
             [20, 50, "All"]
         ],
         "ordering": true,
-        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
             $("td:first", nRow).html(iDisplayIndex + 1);
             return nRow;
         },
     });
 
     //report-filter
-    $('.report-filter .filter-item').click(function () {
+    $('.report-filter .filter-item').click(function() {
         var value = $(this).data('value');
         table.columns(7).search(value).draw();
     })
@@ -70,7 +70,7 @@ $(document).ready(function () {
             targets: 0,
             orderable: false,
             className: 'select-checkbox',
-        },],
+        }, ],
         select: {
             style: 'os',
             selector: 'td:first-child'
@@ -78,10 +78,6 @@ $(document).ready(function () {
         order: [
             [1, 'asc']
         ],
-        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
-            $("td:first", nRow).html(iDisplayIndex + 1);
-            return nRow;
-        },
     });
 
     $('.bill-edit').DataTable({
@@ -92,10 +88,6 @@ $(document).ready(function () {
         columnDefs: [
             { width: 200, targets: 0 }
         ],
-        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
-            $("td:first", nRow).html(iDisplayIndex + 1);
-            return nRow;
-        },
     });
 });
 
