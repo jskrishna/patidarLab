@@ -340,6 +340,8 @@
                             <div class="docter-sec">
                                 <div class="page-head page-head-border">
                                     <h2>Role Manage</h2>
+                                    <button class="btn custom-btn patientedit_btn user-model-btn" data-bs-toggle="modal" data-id="" data-title="Add User" data-bs-target="#adduser">Add User</button>
+
                                 </div>
                                 <div class="form-row">
                                     <div class="col-lg-12">
@@ -351,7 +353,10 @@
                                                         <div class="tablesorter-header-inner">No.</div>
                                                     </th>
                                                     <th data-column="1" class="">
-                                                        <div class="tablesorter-header-inner">Name</div>
+                                                        <div class="tablesorter-header-inner">Full Name</div>
+                                                    </th>
+                                                    <th data-column="1" class="">
+                                                        <div class="tablesorter-header-inner">User Name</div>
                                                     </th>
                                                     <th data-column="2" class="">
                                                         <div class="tablesorter-header-inner"> Mobile</div>
@@ -379,7 +384,7 @@
                                                             <div class="patient-avator">
                                                                 <div class="ava-l">
                                                                            <div class="patient-short-name">
-                                                        <?php $name = explode(' ',  $data->username );
+                                                        <?php $name = explode(' ',  $data->fullname );
                                                         $name = array_filter($name);
                                                         $nCount =0;
                                                         foreach ($name as $n) {
@@ -390,21 +395,20 @@
                                                         } ?> </div>
                                                                 </div>
                                                                 <div class="ava-r">
-                                                                    <span><?php echo $data->username; ?></span>
+                                                                    <span><?php echo $data->fullname; ?></span>
                                                                 </div>
                                                             </div>
                                                         </td>
+                                                        <td><?php echo $data->username; ?></td>
                                                         <td><?php echo $data->mobile; ?></td>
                                                         <td><?php echo $data->email;  ?></td>
                                                         <td><?php echo $data->role;  ?></td>
                                                         <td>
-                                                            <button data-toggle="tooltip" data-placement="top" title=""class="btn btn-sml patientedit-btn doc-model-btn" namse="doctoredit" data-title="Edit Role" data-bs-original-title="Edit Role"> 
+                                                            <button class="btn btn-sml patientedit-btn user-model-btn" data-bs-toggle="modal" data-id="<?php echo $data->id;  ?>" data-title="Edit User" data-bs-target="#adduser">
                                                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24"><defs><clipPath id="a"><path d="M1,15.978a1,1,0,0,1-1-1.09l.379-4.17A1.975,1.975,0,0,1,.953,9.5l9-9A1.8,1.8,0,0,1,11.238,0a2.028,2.028,0,0,1,1.427.577L15.4,3.315a1.927,1.927,0,0,1,.069,2.715l-9,9a1.971,1.971,0,0,1-1.214.568l-4.17.38C1.064,15.977,1.034,15.978,1,15.978ZM11.272,2.012h0L9.324,3.962l2.695,2.695,1.948-1.949L11.272,2.012Z" transform="translate(4 4.022)" fill="#223345"></path></clipPath></defs><path d="M1,15.978a1,1,0,0,1-1-1.09l.379-4.17A1.975,1.975,0,0,1,.953,9.5l9-9A1.8,1.8,0,0,1,11.238,0a2.028,2.028,0,0,1,1.427.577L15.4,3.315a1.927,1.927,0,0,1,.069,2.715l-9,9a1.971,1.971,0,0,1-1.214.568l-4.17.38C1.064,15.977,1.034,15.978,1,15.978ZM11.272,2.012h0L9.324,3.962l2.695,2.695,1.948-1.949L11.272,2.012Z" transform="translate(4 4.022)" fill="#223345"></path></svg>
-                                                             </button> 
+                                                            </button>
                                                         </td>
                                                     </tr>
-
-
                                                 <?php } ?>
                                             </tbody>
                                         </table>
@@ -471,6 +475,73 @@
                     <div class="form-row">
                         <div class="col-lg-12 text-center">
                             <input type="button" class="btn btnupdate custom-btn m-auto" id="addDoctor" value="Save">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- // user model  -->
+        <div class="c-modal modal right fade" id="adduser" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="page-head">
+                        <h2 id="user-model-title">Add User</h2>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <img src="<?php echo BASE_URL ?>public/assets/images/remove.svg" alt="">
+                        </button>
+                    </div>
+                    <div class="modals-body">
+                        <div class="row">
+                            <div id="add_user">
+                                <span class="errorTxt"></span>
+                                <div class="row">
+                                    <div class="form-group col-lg-12">
+                                        <label for="user_fullname">Enter Full Name<span class="text-danger">*</span></label>
+                                        <input type="text" name="user_fullname" id="user_fullname" class="form-control required" placeholder="Enter Full Name">
+                                        <span class="error">This field is required.</span>
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <label for="user_username">username</label>
+                                        <input type="text" name="user_username" id="user_username" class="form-control" readonly placeholder="Username auto inherit from Full Name">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-6">
+                                        <label for="user_email">Email</label>
+                                        <input type="email" name="user_email" id="user_email" class="form-control" placeholder="Enter Email">
+                                    </div>
+                                    <div class="form-group col-lg-6">
+                                        <label for="user_mobile">Contact Number
+                                        </label>
+                                        <input type="number" name="user_mobile" id="user_mobile" class="form-control number_only" onkeypress="if(this.value.length==10)return false;" placeholder="Mobile Number" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-12">
+                                    <label for="user_role">User Role<span class="text-danger">*</span></label>
+                                        <select name="user_role" id="user_role" class="form-control required" id="">
+                                            <option value="">Select Role</option>
+                                            <option value="technician">Technician</option>
+                                            <option value="user">User</option>
+                                        </select>
+                                        <span class="error">This field is required.</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-lg-12">
+                                    <label id="user-pass-field" for="user_password">User Password<span class="text-danger">*</span></label>
+                                       <input type="password" name="user_password" id="user_password" autocomplete="off" class="form-control required">
+                                       <span class="error">This field is required.</span>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-lg-12 text-center">
+                            <input type="hidden" name="user_userid" id="user_userid" value="">
+                            <input type="button" class="btn btnupdate custom-btn m-auto" id="adduserbtn" value="Save">
                         </div>
                     </div>
                 </div>

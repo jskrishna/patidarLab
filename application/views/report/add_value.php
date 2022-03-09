@@ -191,6 +191,7 @@
                                                                                                             echo $unit->unit;
                                                                                                         }
                                                                                                     } ?>
+                                                                                                    <span id="alert<?php echo $parameter->id;?>" class="alert_id pull-right"></span>
                                                                                                 </td>
                                                                                             <?php } ?>
 
@@ -284,6 +285,8 @@
                                                                                                     echo $unit->unit;
                                                                                                 }
                                                                                             } ?>
+                                                                                                    <span id="alert<?php echo $parameter->id;?>" class="alert_id pull-right"></span>
+
                                                                                         </td>
                                                                                     <?php } ?>
                                                                                     <td style="<?php if ($parameter->field_type == 'textarea') {
