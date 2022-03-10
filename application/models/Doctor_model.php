@@ -2,15 +2,17 @@
 class Doctor_model extends CI_Model
 {
   
-    public function getAllDoctor()
+    public function getAllDoctor($labid)
     {
         $query = $this->db->select('*')->from('referral');
+        $query = $this->db->where('user_id',$labid);
+        $query = $this->db->or_where('user_id',0);
         $query = $this->db->get();
         return $query->result();
     }
-    public function storeDocData($name,$designation,$dmobile,$daddress,$commission)
+    public function storeDocData($name,$designation,$dmobile,$daddress,$commission,$labid)
     {
-        $query = $this->db->query("INSERT INTO `referral`(`title`, `referral_name`, `commission`, `mobile_no`, `address`,`designation`) VALUES ('Dr.','$name','$commission','$dmobile','$daddress','$designation')");
+        $query = $this->db->query("INSERT INTO `referral`(`user_id`,`title`, `referral_name`, `commission`, `mobile_no`, `address`,`designation`) VALUES ('$labid','Dr.','$name','$commission','$dmobile','$daddress','$designation')");
         return $query;
     }
 

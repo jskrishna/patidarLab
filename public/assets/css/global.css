@@ -7,7 +7,6 @@
 @import url(./summernote.min.css);
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
 @import url(./custom.css);
-
 body {
     margin: 0;
     background-color: #f4f6f8;
@@ -58,19 +57,24 @@ a {
     text-decoration: none;
 }
 
-button:focus, a:focus {
+button:focus,
+a:focus {
     outline: none;
     box-shadow: none !important;
 }
 
+
 /* Chrome, Safari, Edge, Opera */
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
+
 /* Firefox */
+
 input[type=number] {
     -moz-appearance: textfield;
 }
@@ -109,7 +113,9 @@ textarea {
     resize: none;
 }
 
+
 /* button css */
+
 .custom-btn {
     line-height: 45px;
     padding: 0 20px;
@@ -159,13 +165,16 @@ input[type=button]:focus {
     outline: none !important;
 }
 
-.btn-primary:hover, .btn-check:focus+.btn-primary, .btn-primary:focus {
+.btn-primary:hover,
+.btn-check:focus+.btn-primary,
+.btn-primary:focus {
     color: #fff;
     background-color: #04765a;
     border-color: #04765a;
 }
 
-.custom-btn:hover, .custom-btn:focus {
+.custom-btn:hover,
+.custom-btn:focus {
     box-shadow: 0 5px 20px rgb(0 0 0 / 5%);
     color: #fff;
     background: #04765a;
@@ -184,12 +193,10 @@ input[type=button]:focus {
     border: 1px solid rgb(4 46 58 / 20%);
 }
 
-
 .header-right-w-group {
     display: flex;
     align-items: center;
     color: #242424;
-
 }
 
 .btn {
@@ -200,7 +207,9 @@ input[type=button]:focus {
     color: rgb(36 36 36 / 70%);
 }
 
-.border-btn, .border-btn:hover, .border-btn:focus {
+.border-btn,
+.border-btn:hover,
+.border-btn:focus {
     background: transparent;
     border: 1px solid #018c6a;
     color: #018c6a;
@@ -214,24 +223,26 @@ input[type=button]:focus {
     margin-right: 5px;
 }
 
+
 /* button css */
 
 
 /* dataTable css */
+
 .table>:not(:first-child) {
     border-top: 0px solid currentColor;
 }
 
 .table {
     margin: 0;
-    text-transform: capitalize;
     width: 100% !important;
     border: 1px solid #e4e4e4;
     border-radius: 5px;
     overflow: hidden;
 }
 
-.c-datatable table td, .c-datatable table th {
+.c-datatable table td,
+.c-datatable table th {
     padding: 0.7rem 1rem;
     position: relative;
 }
@@ -240,11 +251,13 @@ input[type=button]:focus {
     vertical-align: middle;
 }
 
-.bill-edit td, .bill-edit th {
+.bill-edit td,
+.bill-edit th {
     height: 36px;
 }
 
-.table thead th div, .table thead th {
+.table thead th div,
+.table thead th {
     color: rgb(4 46 58 / 80%) !important;
     text-transform: uppercase;
     font-size: 12px;
@@ -256,12 +269,14 @@ input[type=button]:focus {
     text-align: right;
 }
 
-.c-datatable .dataTables_filter, .c-datatable .dataTables_length {
+.c-datatable .dataTables_filter,
+.c-datatable .dataTables_length {
     margin-bottom: 20px;
     font-size: 13px;
 }
 
-.c-datatable .dataTables_filter label, .c-datatable .dataTables_length label {
+.c-datatable .dataTables_filter label,
+.c-datatable .dataTables_length label {
     display: inline-flex;
     align-items: center;
     width: 100%;
@@ -279,9 +294,11 @@ input[type=button]:focus {
     border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
+
 /* table.dataTable tbody tr:hover {
     background: #f9f9f9;
 } */
+
 div#exportTable_filter {
     text-align: right;
     min-width: 500px;
@@ -325,13 +342,17 @@ div#exportTable_filter label {
     margin-right: 0px;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover, .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+.dataTables_wrapper .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
     background: #018c6a;
     color: #fff !important;
     border: 1px solid #018c6a;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
     cursor: not-allowed;
     opacity: 0.4;
     background: transparent;
@@ -356,13 +377,13 @@ div#exportTable_filter label {
     border-bottom: transparent;
 }
 
-.table>:not(caption)>*>*, table.dataTable thead th {
+.table>:not(caption)>*>*,
+table.dataTable thead th {
     border-bottom: 1px solid #e0e0e0;
 }
 
 table.dataTable.no-footer {
     border-bottom: 0;
-
 }
 
 .dataTables_wrapper .dataTables_paginate {
@@ -377,7 +398,8 @@ table.dataTable.no-footer {
     box-shadow: 0px 0px 5px rgb(23 24 24 / 5%), 0px 1px 2px rgb(0 0 0 / 15%);
 }
 
-table.dataTable thead th, table.dataTable td {
+table.dataTable thead th,
+table.dataTable td {
     padding: 12px !important;
 }
 
@@ -385,9 +407,11 @@ table.dataTable thead th, table.dataTable td {
     width: 100%;
 }
 
+
 /* #DataTables_Table_0_paginate {
     display: none;
 } */
+
 .dataTables_filter input[type="search"] {
     background: url(../images/icon-search.svg) #fff no-repeat 15px center /25px;
     padding-left: 45px;
@@ -412,7 +436,8 @@ table.dataTable thead th, table.dataTable td {
     min-width: 500px;
 }
 
-table.dataTable tfoot th, table.dataTable tfoot td {
+table.dataTable tfoot th,
+table.dataTable tfoot td {
     border-top: 0;
     padding: 8px 11px;
 }
@@ -421,7 +446,9 @@ table.dataTable tfoot th, table.dataTable tfoot td {
     display: none;
 }
 
+
 /* checkbox css */
+
 .check-group input {
     padding: 0;
     height: initial;
@@ -479,7 +506,8 @@ table.dataTable tfoot th, table.dataTable tfoot td {
     top: 12px;
 }
 
-.small_btn, .small_btn:hover {
+.small_btn,
+.small_btn:hover {
     background: #fff;
     color: #242424;
     height: 40px;
@@ -653,7 +681,8 @@ table.dataTable thead .sorting {
     transition: 300ms all;
 }
 
-.c-datatable .normal-input input, .c-datatable .normal-input select {
+.c-datatable .normal-input input,
+.c-datatable .normal-input select {
     height: 45px;
     font-size: 14px;
 }
@@ -699,7 +728,8 @@ table.dataTable thead .sorting {
     z-index: 9999;
 }
 
-.modal-lg, .modal-xl {
+.modal-lg,
+.modal-xl {
     max-width: 710px;
 }
 
@@ -750,7 +780,6 @@ table.dataTable thead .sorting {
 }
 
 .test-process.test-pending label {
-
     color: #042e39cc;
 }
 
@@ -758,8 +787,6 @@ table.dataTable thead .sorting {
 .test-process+.test-process {
     margin-top: 5px;
 }
-
-
 
 .accordion-body {
     padding: 0;

@@ -2,15 +2,15 @@
 class Report_model extends CI_Model
 {
   
-    public function getbillinfo()
+    public function getbillinfo($labid)
     {
-        $query = $this->db->select('*')->from('bill')->order_by('id','DESC');
+        $query = $this->db->select('*')->from('bill')->where('user_id',$labid)->order_by('id','DESC');
         $query = $this->db->get();
         return $query->result();
     }
-    public function getPatientinfo()
+    public function getPatientinfo($labid)
     {
-        $query = $this->db->select('*')->from('patient')->order_by('id','DESC');
+        $query = $this->db->select('*')->from('patient')->where('user_id',$labid)->order_by('id','DESC');
         $query = $this->db->get();
         return $query->result();
     }

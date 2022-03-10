@@ -2,6 +2,14 @@
 <?php include_once "./public/assets/includes/navbar.php";   ?>
 <div class="layoutSidenav_content">
     <div class="layout_content_inr">
+        <?php 
+          if ($loggedData->role == 'staff') {
+            header('Location:' . BASE_URL . 'report');
+        }
+        if ($loggedData->role == 'superadmin') {
+            header('Location:' . BASE_URL . 'admin');
+        }
+        ?>
         <div class="dashbord-content-main">
             <div class="dashbord-content-inr">
                 <div class="dashbord-box-main">

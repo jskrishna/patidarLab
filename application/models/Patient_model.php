@@ -9,9 +9,9 @@ class Patient_model extends CI_Model
         return $query->result();
     }
 
-    public function registerPatient($patientId, $title, $patientName, $mobileNo, $emailId, $gender, $refered_by, $address, $pin, $age, $age_type)
+    public function registerPatient($patientId, $title, $patientName, $mobileNo, $emailId, $gender, $refered_by, $address, $pin, $age, $age_type,$labid)
     {
-        $sth = $this->db->query("INSERT INTO `patient`(`patientid`, `title`, `patientname`, `mobile`, `email`, `gender`, `refered_by`,`address`,`pin`, `age`, `age_type`) VALUES ('$patientId','$title','$patientName','$mobileNo','$emailId','$gender','$refered_by','$address','$pin','$age','$age_type')");
+        $sth = $this->db->query("INSERT INTO `patient`(`user_id`,`patientid`, `title`, `patientname`, `mobile`, `email`, `gender`, `refered_by`,`address`,`pin`, `age`, `age_type`) VALUES ('$labid','$patientId','$title','$patientName','$mobileNo','$emailId','$gender','$refered_by','$address','$pin','$age','$age_type')");
         $insert_id = $this->db->insert_id();
         return $insert_id;
     }
@@ -21,9 +21,9 @@ class Patient_model extends CI_Model
         return $sth;
     }
 
-    public function patientinfo()
+    public function patientinfo($labid)
     {
-        $query = $this->db->select('*')->from('patient')->order_by('id', 'desc');
+        $query = $this->db->select('*')->from('patient')->where('user_id',$labid)->order_by('id', 'desc');
         $query = $this->db->get();
         return $query->result();
     }
@@ -69,9 +69,10 @@ class Patient_model extends CI_Model
         $sth = $this->db->query("DELETE FROM `reportdata` WHERE `patient_id`='$id'");
         return $sth;
     }
-    public function patientSearch($search)
+    public function patientSearch($search,$labid)
     {
         $query = $this->db->select('*')->from('patient');
+        $query = $this->db->where('user_id',$labid);
         $query = $this->db->like('patientname',$search);
         $query = $this->db->or_like('email',$search);
         $query = $this->db->or_like('mobile',$search);

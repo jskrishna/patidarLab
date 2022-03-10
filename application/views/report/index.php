@@ -187,6 +187,8 @@
                                         </td>
                                         <td>
                                             <ul class="action-list">
+                                           <?php if($loggedData->role !='staff'){ ?>
+
                                                 <li>
                                                     <a data-toggle="tooltip" data-placement="top" title="Edit Report" href="report/add_value/<?php echo $report->id; ?>" class="btn btn-sml patientedit-btn btnupdate">
 
@@ -201,6 +203,9 @@
                                                         </svg>
                                                     </a>
                                                 </li>
+                                                <?php } ?>
+                                           <?php if($loggedData->role !='staff'){ ?>
+
                                                 <li>
                                                     <?php foreach ($patientData as $patient) {
                                                         if ($patient->id == $report->patient_id) {
@@ -218,6 +223,7 @@
                                                     <?php }
                                                     } ?>
                                                 </li>
+                                                <?php } ?>
                                                 <li>
                                                     <a data-toggle="tooltip" data-placement="top" title="Print Report" href="report/orderReport/<?php echo $report->id; ?>" class="btn btn-sml btn-print">
                                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">

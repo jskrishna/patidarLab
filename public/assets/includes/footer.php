@@ -87,11 +87,14 @@
 						<div class="col-lg-6">
 							<input type="button" class="btn btnupdate btn-block custom-btn" id="gotoBilling" value="Update">
 						</div>
+						<?php if($loggedData->role=='admin'){ ?>
+
 						<div class="col-lg-6">
 							<button data-bs-toggle="modal" data-title="" data-bs-target="#myDeletemodel" data-url="" id="patientdelete" class="btn btn-delete btn-block custom-btn btn-danger" value="">
 								Delete
 							</button>
 						</div>
+						<?php } ?>
 					</div>
 				</div>
 			</div>

@@ -8,9 +8,11 @@
                     <div class="col-lg-12">
                         <ul class="report-filter tabs">
                             <li class="filter-item all-r active" id="1" data-tab="tab-1">Profile</li>
-                            <li class="filter-item pending-r" id="2" data-tab="tab-2">Doctors</li>
+                            <?php if($UserData->role == 'admin'){ ?>
+                                <li class="filter-item pending-r" id="2" data-tab="tab-2">Doctors</li>
                             <li class="filter-item complete-r" id="3" data-tab="tab-3">Lab Management</li>
                             <li class="filter-item complete-r" id="4" data-tab="tab-4">Role Management</li>
+                        <?php } ?>
                         </ul>
 
                     </div>
@@ -31,13 +33,13 @@
                                                     <div class="form-row">
                                                         <div class="row">
                                                             <div class="form-group col-lg-6">
-                                                                <label for="username">Full Name<span class="text-danger">*</span></label>
-                                                                <input type="text" name="username" id="username" value="<?php echo $UserData->username; ?>" class="form-control enterAsTab required" placeholder="Enter Full Name" autocomplete="off">
+                                                                <label for="fullname">Full Name<span class="text-danger">*</span></label>
+                                                                <input type="text" name="fullname" id="fullname" value="<?php echo $UserData->fullname; ?>" class="form-control enterAsTab required" placeholder="Enter Full Name" autocomplete="off">
                                                                 <span class="error">This field is required.</span>
                                                             </div>
                                                             <div class="form-group col-lg-6">
                                                                 <label for="username">User Name<span class="text-danger">*</span></label>
-                                                                <input type="text" name="usname" id="usname" value="<?php echo $UserData->username; ?>" class="form-control enterAsTab required" autocomplete="off">
+                                                                <input type="text" name="username" id="username" value="<?php echo $UserData->username; ?>" readonly class="form-control enterAsTab required" autocomplete="off">
                                                                 <span class="error">This field is required.</span>
                                                             </div>
                                                         </div>
@@ -125,6 +127,8 @@
                                 </div>
                             </div>
                         </div>
+                        <?php if($UserData->role == 'admin'){ ?>
+
                         <div id="tab-2" class="tab-content">
                             <div class="docter-sec">
                                 <div class="page-head page-head-border">
@@ -278,28 +282,28 @@
                                                     <div class="row">
                                                             <div class="form-group col-lg-12">
                                                                 <label for="pathologist">Name</label>
-                                                                <input type="text" name="pathologist" id="pathologist" value="<?php echo $pathologistData->name; ?>" class="form-control enterAsTab required" placeholder="Enter pathologist Name" autocomplete="off">
+                                                                <input type="text" name="pathologist" id="pathologist" value="<?php echo !empty($pathologistData)? $pathologistData->name :''; ?>" class="form-control enterAsTab required" placeholder="Enter pathologist Name" autocomplete="off">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group col-lg-6">
                                                                 <label for="path_designation">Designation</label>
-                                                                <input type="text" name="path_designation" id="path_designation" value="<?php echo $pathologistData->designation; ?>" class="form-control enterAsTab required" placeholder="Enter pathologist designation" autocomplete="off">
+                                                                <input type="text" name="path_designation" id="path_designation" value="<?php echo !empty($pathologistData)? $pathologistData->designation:'' ?>" class="form-control enterAsTab required" placeholder="Enter pathologist designation" autocomplete="off">
                                                             </div>
                                                         
                                                             <div class="form-group col-lg-6">
                                                                 <label for="path_mobile">Mobile No.</label>
-                                                                <input type="text" name="path_mobile" id="path_mobile" value="<?php echo $pathologistData->mobile; ?>" class="form-control enterAsTab required" placeholder="Enter pathologist Number" autocomplete="off">
+                                                                <input type="text" name="path_mobile" id="path_mobile" value="<?php echo !empty($pathologistData)? $pathologistData->mobile:'' ?>" class="form-control enterAsTab required" placeholder="Enter pathologist Number" autocomplete="off">
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="form-group col-lg-6">
                                                                 <label for="path_email">Email </label>
-                                                                <input type="email" name="path_email" id="path_email" value="<?php echo $pathologistData->email; ?>" class="form-control enterAsTab required" placeholder="Enter pathologist Email" autocomplete="off">
+                                                                <input type="email" name="path_email" id="path_email" value="<?php echo !empty($pathologistData)? $pathologistData->email:'' ?>" class="form-control enterAsTab required" placeholder="Enter pathologist Email" autocomplete="off">
                                                             </div>
                                                             <div class="form-group col-lg-6">
                                                                 <label for="path_address">Address </label>
-                                                                <input type="text" name="path_address" id="path_address" value="<?php echo $pathologistData->address; ?>" class="form-control enterAsTab required" placeholder="Enter pathologist address" autocomplete="off">
+                                                                <input type="text" name="path_address" id="path_address" value="<?php echo !empty($pathologistData)? $pathologistData->address:'' ?>" class="form-control enterAsTab required" placeholder="Enter pathologist address" autocomplete="off">
                                                             </div>
                                                         </div>
                                                         
@@ -311,11 +315,11 @@
                                                                    <span>Upload your Sign here..</span>
                                                                </label>
                                                                 <input type="file" name="signature" id="signature" class="form-control enterAsTab" placeholder="Enter signature" autocomplete="off">
-                                                                <input type="hidden" name="old_signature" id="old_signature" value="<?php echo $pathologistData->sign; ?>">
+                                                                <input type="hidden" name="old_signature" id="old_signature" value="<?php echo !empty($pathologistData)? $pathologistData->sign :''; ?>">
                                                             </div>
                                                             <div class="form-group file-type-img col-lg-12">
                                                                 <label for="signature"></label>
-                                                                <?php if ($pathologistData->sign) { ?>
+                                                                <?php if (!empty($pathologistData) && $pathologistData->sign) { ?>
                                                                     <img id="img_sign" src="<?php echo BASE_URL . 'public/assets/images/' . $pathologistData->sign; ?>" alt="">
                                                                 <?php } ?>
                                                             </div>
@@ -323,8 +327,8 @@
                                                         <hr>
                                                         <div class="row">
                                                             <div class="col-lg-12" id="button">
-                                                                <input type="submit" class="btn btnupdate custom-btn" data-id="<?php echo $pathologistData->id; ?>" id="update_pathologist" value="Update">
-                                                                <input type="hidden" name="pathologist_id" id="pathologist_id" value="<?php echo $pathologistData->id; ?>">
+                                                                <input type="submit" class="btn btnupdate custom-btn" data-id="<?php echo !empty($pathologistData)? $pathologistData->id :''; ?>" id="update_pathologist" value="Update">
+                                                                <input type="hidden" name="pathologist_id" id="pathologist_id" value="<?php echo !empty($pathologistData)? $pathologistData->id :''; ?>">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -417,6 +421,7 @@
                                 </div>
                             </div>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -520,9 +525,8 @@
                                     <div class="form-group col-lg-12">
                                     <label for="user_role">User Role<span class="text-danger">*</span></label>
                                         <select name="user_role" id="user_role" class="form-control required" id="">
-                                            <option value="">Select Role</option>
                                             <option value="technician">Technician</option>
-                                            <option value="user">User</option>
+                                            <option value="staff">Staff</option>
                                         </select>
                                         <span class="error">This field is required.</span>
                                     </div>

@@ -13,24 +13,29 @@ class Patient extends CI_Controller
 	public function index()
 	{
 		$loggedInId = $_COOKIE['loggedInId'];
-        $loggedData = $this->Patient_model->getuserbyID($loggedInId);
-        $loggedData = $loggedData[0];
-		$pp = $this->Patient_model->patientinfo();
+		$loggedData = $this->Patient_model->getuserbyID($loggedInId);
+		$loggedData = $loggedData[0];
+		if ($loggedData->role == 'admin') {
+			$labid = $loggedData->id;
+		} else {
+			$labid = $loggedData->user_id;
+		}
+		$pp = $this->Patient_model->patientinfo($labid);
 		$referedData = $this->Patient_model->getreferedData();
-		$data = array('referedData' => $referedData,'loggedData'=>$loggedData, 'patientData' => $pp);
+		$data = array('referedData' => $referedData, 'loggedData' => $loggedData, 'patientData' => $pp);
 		$this->load->view('Patient/index', $data);
 	}
 	public function info($id)
 	{
 		$loggedInId = $_COOKIE['loggedInId'];
-        $loggedData = $this->Patient_model->getuserbyID($loggedInId);
-        $loggedData = $loggedData[0];
+		$loggedData = $this->Patient_model->getuserbyID($loggedInId);
+		$loggedData = $loggedData[0];
 		$patientData = $this->Patient_model->patientEdit($id);
 		$patientData = $patientData[0];
 		$doctorData = $this->Patient_model->getreferedDataByID($patientData->refered_by);
 
-		$data = array('loggedData'=>$loggedData,'patientData'=>$patientData,'doctorData'=>$doctorData[0]);
-		$this->load->view('Patient/patient-single',$data);
+		$data = array('loggedData' => $loggedData, 'patientData' => $patientData, 'doctorData' => $doctorData[0]);
+		$this->load->view('Patient/patient-single', $data);
 	}
 
 	public function register_patient()
@@ -46,10 +51,35 @@ class Patient extends CI_Controller
 				$patientId = 1;
 			}
 
-			if (strlen($patientId) > 3) {
-				$patientId = 'PTID0' . $patientId;
+
+			$loggedInId = $_COOKIE['loggedInId'];
+			$loggedData = $this->Patient_model->getuserbyID($loggedInId);
+			$loggedData = $loggedData[0];
+			if ($loggedData->role == 'admin') {
+				$labid = $loggedData->id;
+				$labdata = $this->Patient_model->getuserbyID($labid);
 			} else {
-				$patientId = 'PTID00' . $patientId;
+				$labid = $loggedData->user_id;
+				$labdata = $this->Patient_model->getuserbyID($labid);
+			}
+
+			$labdata = $labdata[0];
+
+			$labname = explode(' ', $labdata->fullname);
+			$labname = array_filter($labname);
+			$nCount = 0;
+			$generateID = '';
+			foreach ($labname as $n) {
+				if ($nCount == 0 || $nCount == 1) {
+					$generateID .= $n[0];
+				}
+				$nCount++;
+			}
+
+			if (strlen($patientId) > 3) {
+				$patientId = strtoupper($generateID) . 'ID0' . $patientId;
+			} else {
+				$patientId = strtoupper($generateID) . 'ID00' . $patientId;
 			}
 			$title = $this->input->post('title');
 			$patientName = $this->input->post('patientName');
@@ -62,7 +92,16 @@ class Patient extends CI_Controller
 			$age_type = $this->input->post('age_type');
 			$pin = $this->input->post('pin');
 
-			$registerPatient = $this->Patient_model->registerPatient($patientId, $title, $patientName, $mobileNo, $emailId, $gender, $refered_by, $address, $pin, $age, $age_type);
+			$loggedInId = $_COOKIE['loggedInId'];
+			$loggedData = $this->Patient_model->getuserbyID($loggedInId);
+			$loggedData = $loggedData[0];
+			if ($loggedData->role == 'admin') {
+				$labid = $loggedData->id;
+			} else {
+				$labid = $loggedData->user_id;
+			}
+
+			$registerPatient = $this->Patient_model->registerPatient($patientId, $title, $patientName, $mobileNo, $emailId, $gender, $refered_by, $address, $pin, $age, $age_type, $labid);
 
 			if ($registerPatient) {
 				$resultss = array('success' => 1, 'msg' => 'Patient registration successfully.', 'redirect_url' => BASE_URL . 'bill?t=' . $registerPatient);
@@ -142,8 +181,17 @@ class Patient extends CI_Controller
 	public function searchPatient()
 	{
 		$search = $_GET['term'];
+		$loggedInId = $_COOKIE['loggedInId'];
+		$loggedData = $this->Patient_model->getuserbyID($loggedInId);
+		$loggedData = $loggedData[0];
+		if ($loggedData->role == 'admin') {
+			$labid = $loggedData->id;
+		} else {
+			$labid = $loggedData->user_id;
+		}
+
 		if (!empty($search)) {
-			$data = $this->Patient_model->patientSearch($search);
+			$data = $this->Patient_model->patientSearch($search, $labid);
 			echo json_encode($data);
 			exit;
 		}
@@ -151,8 +199,16 @@ class Patient extends CI_Controller
 	public function getAutoComplete()
 	{
 		$search = $_GET['term'];
+		$loggedInId = $_COOKIE['loggedInId'];
+		$loggedData = $this->Patient_model->getuserbyID($loggedInId);
+		$loggedData = $loggedData[0];
+		if ($loggedData->role == 'admin') {
+			$labid = $loggedData->id;
+		} else {
+			$labid = $loggedData->user_id;
+		}
 		if (!empty($search)) {
-			$data = $this->Patient_model->patientSearch($search);
+			$data = $this->Patient_model->patientSearch($search, $labid);
 			echo json_encode($data);
 			exit;
 		}
@@ -161,15 +217,15 @@ class Patient extends CI_Controller
 	public function add_patient()
 	{
 		$loggedInId = $_COOKIE['loggedInId'];
-        $loggedData = $this->Patient_model->getuserbyID($loggedInId);
-        $loggedData = $loggedData[0];
+		$loggedData = $this->Patient_model->getuserbyID($loggedInId);
+		$loggedData = $loggedData[0];
 		$data = array('loggedData' => $loggedData);
 		$this->load->view('Patient/add-patient', $data);
 	}
 	public function patientList()
 	{
-
-		$patientList = $this->Patient_model->patientinfo();
+		$loggedInId = $_COOKIE['loggedInId'];
+		$patientList = $this->Patient_model->patientinfo($loggedInId);
 		$data = '';
 
 		if ($patientList) {
@@ -181,5 +237,4 @@ class Patient extends CI_Controller
 		exit;
 		# code...
 	}
-
 }

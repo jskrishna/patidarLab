@@ -37,10 +37,24 @@
             $count = intval($getPrintCount->printed)+1;
            $this->Outputpdf_model->UpdatePrintedCount($bill_id, $selecetdId,$count);
         }
-
+     
         $departmentArray = explode(',', $departments);
-        $signImage = BASE_URL . 'public/assets/images/sign.jpeg';
-        $headerImage = BASE_URL . 'public/assets/images/Letter_pad.png';
+
+        $loggedInId = $this->input->post('loggedInId');
+        $getuserbyID =  $this->Outputpdf_model->getuserbyID($loggedInId);
+        $getuserbyID = $getuserbyID [0];
+
+        if($getuserbyID->role == 'admin'){
+            $labid = $getuserbyID->id;
+        }else{
+            $labid = $getuserbyID->user_id;
+        }
+        $getPathologistInfo =  $this->Outputpdf_model->getPathologistInfo($labid);
+        $getPathologistInfo = $getPathologistInfo[0];
+
+        $signImage = BASE_URL . 'public/assets/images/'.$getPathologistInfo->sign;
+
+        $headerImage = BASE_URL . 'public/assets/images/'.$getuserbyID->letter_pad;
         require_once 'vendor/autoload.php';
         $mpdfConfig = array(
             'mode' => 'utf-8',
@@ -194,9 +208,8 @@
                                 <td style='text-align:center;' >Checked By <br> <b>Technologist</b></td>
                                 <td style='text-align:center;' >
                                 <img style='height:60px;width:135px; margin-bottom:5px;' src='" . ($signImage) . "'>
-                                <p style='text-align:center;'>Dr.R.K.Tiwari,M.D. <br>
-                                Regd No.2511 <br>
-                                Consultant Pathologist
+                                <p style='text-align:center;'>".($getPathologistInfo->title.'. '.$getPathologistInfo->name)."<br>
+                                ".($getPathologistInfo->designation)."
                                 </p>
                                 </td>
                                 </tr>
@@ -297,9 +310,8 @@
                     <td style='text-align:center;' >Checked By <br> <b>Technologist</b></td>
                     <td style='text-align:center;' >
                     <img style='height:60px;width:135px; margin-bottom:5px;' src='" . ($signImage) . "'>
-                    <p style='text-align:center;'>Dr.R.K.Tiwari,M.D. <br>
-                    Regd No.2511 <br>
-                    Consultant Pathologist
+                    <p style='text-align:center;'>".($getPathologistInfo->title.'. '.$getPathologistInfo->name)."<br>
+                    ".($getPathologistInfo->designation)."
                     </p>
                     </td>
                     </tr>
