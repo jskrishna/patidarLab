@@ -129,9 +129,8 @@
 	</div>
 </div>
 </div>
-<link rel="stylesheet" href="https://visualisation.polimapper.co.uk//public/web/css/richtext.min.css">
-<link rel="stylesheet" href="https://visualisation.polimapper.co.uk//public/web/css/rte_theme_default.css">
-
+<link rel="stylesheet" href="<?php echo BASE_URL; ?>public/assets/css/richtext.min.css">
+<link rel="stylesheet" href="<?php echo BASE_URL; ?>public/assets/css/rte_theme_default.css">
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery-ui.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/bootstrap.bundle.min.js"></script>
@@ -139,10 +138,9 @@
 <!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.bootstrap.js"></script> -->
 <!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.responsive.js"></script> -->
 <script src="<?php echo BASE_URL; ?>public/assets/js/select2.min.js"></script>
-<script src="https://visualisation.polimapper.co.uk/public/web/js/rte.js"></script>
+<script src="<?php echo BASE_URL; ?>public/assets/js/rte.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/custom.js"></script>
 <!-- JavaScript Bundle with Popper -->
-
 <?php
 if (isset($editer)) {
 	for ($i = 0; $i < $editer; $i++) {  ?>

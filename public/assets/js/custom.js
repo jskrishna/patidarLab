@@ -13,8 +13,8 @@ $(document).ready(function() {
         "bInfo": false,
         "bAutoWidth": false,
         "lengthMenu": [
-            [05, 50, -1],
-            [05, 50, "All"]
+            [20, 50, -1],
+            [20, 50, "All"]
         ],
         "ordering": true,
         "fnRowCallback": function(nRow, aData, iDisplayIndex) {

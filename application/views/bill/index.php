@@ -207,7 +207,7 @@
                                                 <li class="advance-li">
                                                     <span>Advance</span>
                                                     <div>
-                                                      <input type="number" name="advance" id="advance" value="<?php if(isset($billData)){ echo intval($billData[0]->advance)+ intval($billData[0]->received_amount); }else{ echo '0';} ?>" tabindex="1" class="form-control number_only tab_inp">
+                                                      <input type="number" name="advance" id="advance" value="<?php if(isset($billData)){ echo intval($billData[0]->received_amount); }else{ echo '0';} ?>" tabindex="1" class="form-control number_only tab_inp">
                                                     </div>
                                                 </li>
                                                 <li>
