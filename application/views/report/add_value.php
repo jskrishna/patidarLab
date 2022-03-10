@@ -17,7 +17,6 @@
                                             header('Location:' . BASE_URL . 'report');
                                         }
                                         $editer = 0;
-
                                         $name = explode(' ', $patientData->patientname);
                                         $name = array_filter($name);
                                         foreach ($name as $n) {
@@ -189,7 +188,7 @@
                                                                                             if ($parameter->field_type == 'textarea') { ?>
 
                                                                                             <?php  } else { ?>
-                                                                                                <td>
+                                                                                                <td class="text-t-inherit">
                                                                                                     <?php foreach ($unitData as $unit) {
                                                                                                         if ($unit->id == $parameter->unit) {
                                                                                                             echo $unit->unit;
@@ -204,22 +203,21 @@
                                                                                                         } ?>">
                                                                                                 <div class="approv-check">
                                                                                                     <?php
-                                                                                                    if ($parameter->min_value == null) {
 
-                                                                                                        if ($patientData->gender == 'Male') {
-                                                                                                            $min = $parameter->male_min_value;
-                                                                                                            $max = $parameter->male_max_value;
-                                                                                                        } else if ($patientData->gender == 'Female') {
-                                                                                                            $min = $parameter->female_min_value;
-                                                                                                            $max = $parameter->female_max_value;
-                                                                                                        } else {
-                                                                                                            $min = $parameter->child_min_value;
-                                                                                                            $max = $parameter->child_max_value;
-                                                                                                        }
+                                                                                                    if ($patientData->gender == 'Male' && $parameter->male_min_value != null) {
+                                                                                                        $min = $parameter->male_min_value;
+                                                                                                        $max = $parameter->male_max_value;
+                                                                                                    } else if ($patientData->gender == 'Female' && $parameter->female_min_value != null) {
+                                                                                                        $min = $parameter->female_min_value;
+                                                                                                        $max = $parameter->female_max_value;
+                                                                                                    } else if ($patientData->gender != 'Male' && $patientData->gender != 'Female' && $parameter->child_min_value != null) {
+                                                                                                        $min = $parameter->child_min_value;
+                                                                                                        $max = $parameter->child_max_value;
                                                                                                     } else {
                                                                                                         $min = $parameter->min_value;
                                                                                                         $max = $parameter->max_value;
                                                                                                     }
+
                                                                                                     ?>
                                                                                                     <input type="hidden" id="min_range<?php echo $parameter->id; ?>" name="min_range[]" value="<?php echo $min; ?>">
                                                                                                     <input type="hidden" id="max_range<?php echo $parameter->id; ?>" name="max_range[]" value="<?php echo $max; ?>">
@@ -283,7 +281,7 @@
                                                                                     if ($parameter->field_type == 'textarea') { ?>
 
                                                                                     <?php  } else { ?>
-                                                                                        <td>
+                                                                                        <td class="text-t-inherit">
                                                                                             <?php foreach ($unitData as $unit) {
                                                                                                 if ($unit->id == $parameter->unit) {
                                                                                                     echo $unit->unit;
@@ -298,11 +296,39 @@
                                                                                                 } ?>">
 
                                                                                         <div class="approv-check">
-                                                                                            <input type="hidden" id="min_range<?php echo $parameter->id; ?>" name="min_range[]" value="<?php echo $parameter->min_value; ?>">
-                                                                                            <input type="hidden" id="max_range<?php echo $parameter->id; ?>" name="max_range[]" value="<?php echo $parameter->max_value; ?>">
+                                                                                            <?php
+
+                                                                                            if ($patientData->gender == 'Male' && $parameter->male_min_value != null) {
+                                                                                                $min = $parameter->male_min_value;
+                                                                                                $max = $parameter->male_max_value;
+                                                                                            } else if ($patientData->gender == 'Female' && $parameter->female_min_value != null) {
+                                                                                                $min = $parameter->female_min_value;
+                                                                                                $max = $parameter->female_max_value;
+                                                                                            } else if ($patientData->gender != 'Male' && $patientData->gender != 'Female' && $parameter->child_min_value != null) {
+                                                                                                $min = $parameter->child_min_value;
+                                                                                                $max = $parameter->child_max_value;
+                                                                                            } else {
+                                                                                                $min = $parameter->min_value;
+                                                                                                $max = $parameter->max_value;
+                                                                                            }
+
+                                                                                            ?>
+                                                                                            <input type="hidden" id="min_range<?php echo $parameter->id; ?>" name="min_range[]" value="<?php echo $min; ?>">
+                                                                                            <input type="hidden" id="max_range<?php echo $parameter->id; ?>" name="max_range[]" value="<?php echo $max; ?>">
                                                                                             <?php if ($parameter->min_value != null) {
                                                                                             ?><span><?php echo $parameter->min_value . ' - ' . $parameter->max_value; ?></span> <?php
-                                                                                                                                                                            } ?>
+
+                                                                                                                                                                            }
+                                                                                                                                                                            if ($parameter->male_min_value != null) {
+                                                                                                                                                                                echo 'Male -> ' . $parameter->male_min_value . ' - ' . $parameter->male_max_value . '<br>';
+                                                                                                                                                                            }
+                                                                                                                                                                            if ($parameter->female_min_value != null) {
+                                                                                                                                                                                echo 'Female -> ' . $parameter->female_min_value . ' - ' . $parameter->female_max_value . '<br>';
+                                                                                                                                                                            }
+                                                                                                                                                                            if ($parameter->child_min_value != null) {
+                                                                                                                                                                                echo 'Child -> ' . $parameter->child_min_value . ' - ' . $parameter->child_max_value;
+                                                                                                                                                                            }
+                                                                                                                                                                                ?>
                                                                                             <div class="checkbox i-checks pull-right check-group">
                                                                                                 <input type="hidden" value="No" name="highlight[]" id="checkValue<?php echo $parameter->id; ?>">
                                                                                                 <input type="checkbox" class="high" id="highlight<?php echo $parameter->id; ?>" value="Yes"><label for="highlight<?php echo $parameter->id; ?>"></label>
@@ -368,6 +394,11 @@
                         }
                         ?>
                     </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="back-btn">
+                    <a href="<?php echo BASE_URL ?>report" class="btn custom-btn"> Back</a>
                 </div>
             </div>
         </div>

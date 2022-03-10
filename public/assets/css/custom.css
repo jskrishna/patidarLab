@@ -568,7 +568,16 @@
             margin-top: 20px;
             padding: 0 20px;
         }
-        
+        .tabs.fixed-save {
+            margin-bottom: 30px;
+        }
+        .back-btn {
+            display: flex;
+            justify-content: center;
+            background: #fff;
+            padding: 15px;
+            border-top: 1px solid rgba(0, 0, 0, 0.12);
+        }
         .form-footer {
             position: fixed;
             bottom: 0;
@@ -998,7 +1007,7 @@
             margin-top: 20px;
         }
         
-        input#f_discount {
+        input#f_discount, input#advance {
             border-radius: 5px;
             border: 1px solid rgba(0, 0, 0, 0.12);
             max-width: 150px;
@@ -1425,4 +1434,15 @@
         .richtexteditor{
             border-radius: 5px;
             overflow: hidden;
+        }
+        td.text-t-inherit {
+            text-transform: initial;
+        }
+        .alert_id {
+            width: 45px;
+            height: 40px;
+            border: 1px solid red;
+            border-radius: 25px;
+            padding-top: 6px;
+            display: none;
         }
