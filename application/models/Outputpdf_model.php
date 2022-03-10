@@ -32,6 +32,12 @@ class Outputpdf_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    public function getPathologistInfo($id)
+    {
+        $query = $this->db->select('*')->from('doctors')->where('user_id',$id);
+        $query = $this->db->get();
+        return $query->result();
+    }
     public function getunitinfo()
     {
         $query = $this->db->select('*')->from('units');

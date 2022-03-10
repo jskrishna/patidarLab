@@ -19,13 +19,16 @@ if (isset($_COOKIE['loggedIn']) && isset($_COOKIE['loggedInId'])) {
                     <?php if (isset($loggedData->lab_logo)) { ?>
                         <img src="<?php echo BASE_URL . 'public/assets/images/' . $loggedData->lab_logo; ?>" alt="">
                     <?php } else {
-                        echo $loggedData->username;
+                        echo $loggedData->fullname;
                     } ?>
                 </a>
             </div>
             <div class="sidenav-menu">
                 <div class="nav accordion" id="accordionSidenav">
+                  <?php  if ($loggedData->role != 'superadmin') { ?>
+
                     <ul>
+                  <?php  if ($loggedData->role != 'staff') { ?>
                         <li>
                             <?php
                             $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -47,6 +50,7 @@ if (isset($_COOKIE['loggedIn']) && isset($_COOKIE['loggedInId'])) {
                                 Dashboard
                             </a>
                         </li>
+                        <?php } ?>
                         <li>
                             <a class="nav-links <?php if (strpos($actual_link, "patient") !== false) {
                                                     echo "nav-active";
@@ -121,6 +125,71 @@ if (isset($_COOKIE['loggedIn']) && isset($_COOKIE['loggedInId'])) {
                             </a>
                         </li>
                     </ul>
+                    <?php }else{ ?>
+                        <li>
+                            <?php
+                            $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                            ?>
+                            <a class="nav-links <?php if (strpos($actual_link, "admin") !== false) {
+                                                    echo "nav-active";
+                                                } ?>" href="<?php echo BASE_URL; ?>admin">
+                                <div class="nav-link-icon">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+                                        <defs>
+                                            <clipPath id="a">
+                                                <path d="M12,18a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v4a2,2,0,0,1-2,2ZM2,18a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2H6a2,2,0,0,1,2,2v4a2,2,0,0,1-2,2ZM12,8a2,2,0,0,1-2-2V2a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6a2,2,0,0,1-2,2ZM2,8A2,2,0,0,1,0,6V2A2,2,0,0,1,2,0H6A2,2,0,0,1,8,2V6A2,2,0,0,1,6,8Z" transform="translate(3 3)" fill="#223345" />
+                                            </clipPath>
+                                        </defs>
+                                        <path d="M12,18a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v4a2,2,0,0,1-2,2ZM2,18a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2H6a2,2,0,0,1,2,2v4a2,2,0,0,1-2,2ZM12,8a2,2,0,0,1-2-2V2a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6a2,2,0,0,1-2,2ZM2,8A2,2,0,0,1,0,6V2A2,2,0,0,1,2,0H6A2,2,0,0,1,8,2V6A2,2,0,0,1,6,8Z" transform="translate(3 3)" fill="#223345" />
+                                    </svg>
+                                </div>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <?php
+                            $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                            ?>
+                            <a class="nav-links <?php if (strpos($actual_link, "department") !== false) {
+                                                    echo "nav-active";
+                                                } ?>" href="<?php echo BASE_URL; ?>admin/department">
+                                <div class="nav-link-icon">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+                                        <defs>
+                                            <clipPath id="a">
+                                                <path d="M12,18a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v4a2,2,0,0,1-2,2ZM2,18a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2H6a2,2,0,0,1,2,2v4a2,2,0,0,1-2,2ZM12,8a2,2,0,0,1-2-2V2a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6a2,2,0,0,1-2,2ZM2,8A2,2,0,0,1,0,6V2A2,2,0,0,1,2,0H6A2,2,0,0,1,8,2V6A2,2,0,0,1,6,8Z" transform="translate(3 3)" fill="#223345" />
+                                            </clipPath>
+                                        </defs>
+                                        <path d="M12,18a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v4a2,2,0,0,1-2,2ZM2,18a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2H6a2,2,0,0,1,2,2v4a2,2,0,0,1-2,2ZM12,8a2,2,0,0,1-2-2V2a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6a2,2,0,0,1-2,2ZM2,8A2,2,0,0,1,0,6V2A2,2,0,0,1,2,0H6A2,2,0,0,1,8,2V6A2,2,0,0,1,6,8Z" transform="translate(3 3)" fill="#223345" />
+                                    </svg>
+                                </div>
+                                Department
+                            </a>
+                        </li>
+                        <li>
+                            <?php
+                            $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                            ?>
+                            <a class="nav-links <?php if (strpos($actual_link, "test") !== false) {
+                                                    echo "nav-active";
+                                                } ?>" href="<?php echo BASE_URL; ?>admin/test">
+                                <div class="nav-link-icon">
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+                                        <defs>
+                                            <clipPath id="a">
+                                                <path d="M12,18a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v4a2,2,0,0,1-2,2ZM2,18a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2H6a2,2,0,0,1,2,2v4a2,2,0,0,1-2,2ZM12,8a2,2,0,0,1-2-2V2a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6a2,2,0,0,1-2,2ZM2,8A2,2,0,0,1,0,6V2A2,2,0,0,1,2,0H6A2,2,0,0,1,8,2V6A2,2,0,0,1,6,8Z" transform="translate(3 3)" fill="#223345" />
+                                            </clipPath>
+                                        </defs>
+                                        <path d="M12,18a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v4a2,2,0,0,1-2,2ZM2,18a2,2,0,0,1-2-2V12a2,2,0,0,1,2-2H6a2,2,0,0,1,2,2v4a2,2,0,0,1-2,2ZM12,8a2,2,0,0,1-2-2V2a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2V6a2,2,0,0,1-2,2ZM2,8A2,2,0,0,1,0,6V2A2,2,0,0,1,2,0H6A2,2,0,0,1,8,2V6A2,2,0,0,1,6,8Z" transform="translate(3 3)" fill="#223345" />
+                                    </svg>
+                                </div>
+                                Test List
+                            </a>
+                        </li>
+                   <?php } ?>
                 </div>
             </div>
             <div class="sidenav-footer">

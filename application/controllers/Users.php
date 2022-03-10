@@ -10,11 +10,21 @@ class Users extends CI_Controller
     public function index()
     {
         $id = $_COOKIE['loggedInId'];
+        if(!isset($id)){
+            header('location:' . BASE_URL . 'login');
+        }
         $UserData = $this->Users_model->getuserbyID($id);
-        $referralData = $this->Users_model->referralData();
-        $getAllUser = $this->Users_model->getAllUser();
-        $pathologistData = $this->Users_model->pathologistData();
-        $userdetails = array('UserData' => $UserData[0], 'loggedData' => $UserData[0], 'pathologistData' => $pathologistData[0], 'referralData' => $referralData, 'AllUserData' => $getAllUser);
+
+        $getAllUser = $this->Users_model->getAllUser($id);
+        if($UserData[0]->role == 'admin'){
+            $labid = $UserData[0]->id;
+        }else{
+            $labid = $UserData[0]->user_id;
+        }
+        $pathologistData = $this->Users_model->pathologistData($labid);
+        $referralData = $this->Users_model->referralData($labid);
+        $pathologistData = !empty($pathologistData)? $pathologistData[0]: $pathologistData;
+        $userdetails = array('UserData' => $UserData[0], 'loggedData' => $UserData[0], 'pathologistData' => $pathologistData, 'referralData' => $referralData, 'AllUserData' => $getAllUser);
         $this->load->view('users/index.php', $userdetails);
     }
 
@@ -28,6 +38,7 @@ class Users extends CI_Controller
     public function update()
     {
         $username = $this->input->post('username');
+        $fullname = $this->input->post('fullname');
         $email = $this->input->post('email');
         $mobile = $this->input->post('mobile');
         $user_id = $this->input->post('user_id');
@@ -40,7 +51,7 @@ class Users extends CI_Controller
             move_uploaded_file($_FILES["user_logo"]["tmp_name"], "./public/assets/images/" . $logo);
         }
 
-        if ($this->Users_model->updateData($username, $email, $mobile, $logo, $user_id)) {
+        if ($this->Users_model->updateData($fullname,$username, $email, $mobile, $logo, $user_id)) {
             $resultss = array('success' => 1, 'msg' => 'Update Sucess.');
             echo json_encode($resultss);
         } else {
@@ -57,6 +68,7 @@ class Users extends CI_Controller
         $path_email = $this->input->post('path_email');
         $path_address = $this->input->post('path_address');
         $path_id = $this->input->post('pathologist_id');
+        $labid = $_COOKIE['loggedInId'];
 
         if ($_FILES["signature"]["name"] == NULL) {
             $sign = $this->input->post('old_signature');
@@ -66,14 +78,29 @@ class Users extends CI_Controller
             move_uploaded_file($_FILES["signature"]["tmp_name"], "./public/assets/images/" . $sign);
         }
 
-        if ($this->Users_model->updatePathData($pathologist, $path_designation, $path_mobile, $path_email, $path_address, $sign, $path_id)) {
-            $resultss = array('success' => 1, 'msg' => 'Update Sucess.');
-            echo json_encode($resultss);
-            header('location:' . BASE_URL . 'users');
-        } else {
-            $resultss = array('success' => 0, 'msg' => 'something wrong.');
-            echo json_encode($resultss);
+        if($path_id == ''){
+            $Add = $this->Users_model->AddPathData($pathologist, $path_designation, $path_mobile, $path_email, $path_address, $sign, $labid);
+
+            if ($Add) {
+                $resultss = array('success' => 1, 'msg' => 'Added Sucess.');
+                echo json_encode($resultss);
+                header('location:' . BASE_URL . 'users');
+            } else {
+                $resultss = array('success' => 0, 'msg' => 'something wrong.');
+                echo json_encode($resultss);
+            }
+        }else{
+            $update = $this->Users_model->updatePathData($pathologist, $path_designation, $path_mobile, $path_email, $path_address, $sign, $path_id);
+            if ($update) {
+                $resultss = array('success' => 1, 'msg' => 'Update Sucess.');
+                echo json_encode($resultss);
+                header('location:' . BASE_URL . 'users');
+            } else {
+                $resultss = array('success' => 0, 'msg' => 'something wrong.');
+                echo json_encode($resultss);
+            }
         }
+       
     }
 
 
@@ -105,7 +132,6 @@ class Users extends CI_Controller
     {
 
         $id = $this->input->post('layout_id');
-
         if ($_FILES["lab_logo"]["name"] == NULL) {
             $lab_logo = $this->input->post('old_lab_logo');
         } else {

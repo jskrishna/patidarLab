@@ -68,6 +68,7 @@ class Bill extends CI_Controller
         $patientRef = $this->input->post('patientRef');
         $payment_mode = $this->input->post('payment_mode');
 
+
         if($payment_mode !='Due'){
             $received_amount = $grandTotal;
             $status = 'Paid';
@@ -77,8 +78,17 @@ class Bill extends CI_Controller
         }
         $advance = 0;
         $bill_id = $this->input->post('bill_id');
+        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedData = $this->Bill_model->getuserbyID($loggedInId);
+        $loggedData = $loggedData[0];
+        if($loggedData->role =='admin'){
+            $labid = $loggedData->id;
+        }else{
+            $labid = $loggedData->user_id;
+        }
+
         if ($bill_id == '') {
-            $billEntry = $this->Bill_model->insertBillEntry($billDate, $patient_id, $total, $discount, $grandTotal, $testAmount, $testId, $discountAmount, $final_discount, $advance, $balance, $patientRef, $payment_mode, $received_amount,$status );
+            $billEntry = $this->Bill_model->insertBillEntry($billDate, $patient_id, $total, $discount, $grandTotal, $testAmount, $testId, $discountAmount, $final_discount, $advance, $balance, $patientRef, $payment_mode, $received_amount,$status,$labid);
         } else {
             $billEntry = $this->Bill_model->updateBillEntry($billDate, $patient_id, $total, $discount, $grandTotal, $testAmount, $testId, $discountAmount, $final_discount, $advance, $balance, $patientRef, $payment_mode, $received_amount,$status,$bill_id);
         }

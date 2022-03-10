@@ -63,9 +63,11 @@
                                                 <input type="hidden" name="editpatientid" id="editpatientid" value="<?php echo $patientData->id; ?>">
                                             </p>
                                         </div>
-                                        <?php if (isset($patientData)) { ?>
+                                        <?php if (isset($patientData)) {
+                                           // if($loggedData->role=='admin'){ ?>
+                                            
                 <button class="btn custom-btn patientedit_btn" data-bs-toggle="modal" data-id="<?php echo $patientData->id; ?>" data-bs-target="#patientEdit"> Edit Patient</button>
-            <?php } ?>
+            <?php } // } ?>
                                         <!-- <div class="name-sec-right"> -->
                                         <?php if(isset($billData)){  ?>
                                         <input type="hidden" name="billDate" id="billDate" class="form-control" value="<?php echo date_format(new DateTime($billData[0]->billDate), "Y-m-d"); ?>" onkeydown="return false">

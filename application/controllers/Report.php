@@ -10,14 +10,20 @@ class Report extends CI_Controller
 
     public function index()
     {
-        $reportData = $this->Report_model->getbillinfo();
-        $patientData = $this->Report_model->getPatientinfo();
+        $loggedInId = $_COOKIE['loggedInId'];
         $testData = $this->Report_model->gettestinfo();
         $departmentData = $this->Report_model->getdepartmentinfo();
         $doctorsData = $this->Report_model->getdoctorsinfo();
-        $loggedInId = $_COOKIE['loggedInId'];
         $loggedData = $this->Report_model->getuserbyID($loggedInId);
         $loggedData = $loggedData[0];
+        if($loggedData->role == 'admin'){
+            $labid = $loggedData->id;
+        }else{
+            $labid = $loggedData->user_id;
+        }
+        $reportData = $this->Report_model->getbillinfo($labid);
+        $patientData = $this->Report_model->getPatientinfo($labid);
+
         $data = array('reportData' => $reportData, 'loggedData' => $loggedData, 'patientData' => $patientData, 'testData' => $testData, 'departmentData' => $departmentData, 'doctorsData' => $doctorsData, 'pxthis' => $this);
         $this->load->view('report/index.php', $data);
     }

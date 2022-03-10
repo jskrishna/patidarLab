@@ -84,6 +84,8 @@
                                                      
                                                     </a>
                                                 </li>
+                                                <?php if($loggedData->role=='admin'){ ?>
+
                                                 <li>
                                                     <button data-toggle="tooltip" data-placement="top" title="Edit Patient" data-bs-target="#patientEdit" data-bs-toggle="modal" data-bs-dismiss="modal"
                                                     class="btn btn-sml patientedit_btn patientedit-btn" namse="test_edit" data-id="<?php echo $data->id; ?>" value="<?php echo $data->id; ?>">
@@ -94,6 +96,8 @@
                                                         
                                                     </button>
                                                 </li>
+                                                <?php } ?>
+
                                             </ul>
                                         </td>
                                     </tr>

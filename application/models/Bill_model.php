@@ -55,9 +55,9 @@ class Bill_model extends CI_Model
         return $query->result();
     }
 
-    public function insertBillEntry($billDate, $patient_id, $total, $discount, $grandTotal, $testAmount, $testId, $discountAmount, $final_discount, $advance, $balance, $patientRef, $payment_mode,$received_amount,$status)
+    public function insertBillEntry($billDate, $patient_id, $total, $discount, $grandTotal, $testAmount, $testId, $discountAmount, $final_discount, $advance, $balance, $patientRef, $payment_mode,$received_amount,$status,$labid)
     {
-        $sth = $this->db->query("INSERT INTO `bill`(`billDate`, `patient_id`, `total`, `discount`, `grandTotal`, `testAmount`, `testId`, `discountAmount`, `final_discount`, `advance`, `balance`, `patientRef`, `payment_mode`,`received_amount`,`status`) VALUES ('$billDate','$patient_id','$total','$discount','$grandTotal','$testAmount','$testId','$discountAmount','$final_discount','$advance','$balance','$patientRef','$payment_mode','$received_amount','$status')");
+        $sth = $this->db->query("INSERT INTO `bill`(`user_id`,`billDate`, `patient_id`, `total`, `discount`, `grandTotal`, `testAmount`, `testId`, `discountAmount`, `final_discount`, `advance`, `balance`, `patientRef`, `payment_mode`,`received_amount`,`status`) VALUES ('$labid','$billDate','$patient_id','$total','$discount','$grandTotal','$testAmount','$testId','$discountAmount','$final_discount','$advance','$balance','$patientRef','$payment_mode','$received_amount','$status')");
         return $sth;
     }
     public function updateBillEntry($billDate, $patient_id, $total, $discount, $grandTotal, $testAmount, $testId, $discountAmount, $final_discount, $advance, $balance, $patientRef, $payment_mode,$received_amount,$status, $bill_id)

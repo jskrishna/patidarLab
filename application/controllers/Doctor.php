@@ -14,13 +14,29 @@ class Doctor extends CI_Controller
     }
     public function getAutocompleteDoctor()
     {
-        $sql = $this->Doctor_model->getAllDoctor();
+        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedData = $this->Doctor_model->getuserbyID($loggedInId);
+        $loggedData = $loggedData[0];
+        if($loggedData->role =='admin'){
+            $labid = $loggedData->id;
+        }else{
+            $labid = $loggedData->user_id;
+        }
+        $sql = $this->Doctor_model->getAllDoctor($labid);
         echo json_encode($sql);
     }
     public function referedList()
 	{
-		
-		$referedList = $this->Doctor_model->getAllDoctor();
+		$loggedInId = $_COOKIE['loggedInId'];
+        $loggedData = $this->Doctor_model->getuserbyID($loggedInId);
+        $loggedData = $loggedData[0];
+        if($loggedData->role =='admin'){
+            $labid = $loggedData->id;
+        }else{
+            $labid = $loggedData->user_id;
+        }
+
+		$referedList = $this->Doctor_model->getAllDoctor($labid);
 		$data = '';
 
 		if($referedList){
@@ -39,9 +55,18 @@ class Doctor extends CI_Controller
         $dmobile = $this->input->post('dmobile');
         $daddress = $this->input->post('daddress');
         $commission = $this->input->post('commission');
+        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedData = $this->Doctor_model->getuserbyID($loggedInId);
+        $loggedData = $loggedData[0];
+        if($loggedData->role =='admin'){
+            $labid = $loggedData->id;
+        }else{
+            $labid = $loggedData->user_id;
+        }
+
         $did = $this->input->post('did');
         if($did == ''){
-        $data = $this->Doctor_model->storeDocData($name,$designation,$dmobile,$daddress,$commission);
+        $data = $this->Doctor_model->storeDocData($name,$designation,$dmobile,$daddress,$commission,$labid);
         }else{
 		$data = $this->Doctor_model->updateDocData($name,$designation,$dmobile,$daddress,$commission,$did);
         }

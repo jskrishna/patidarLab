@@ -38,8 +38,12 @@ class Login extends CI_Controller
 				$_SESSION['loggedInId'] = $row->id;
 				$_SESSION['email'] = $row->email;
 				$_SESSION['id'] = $row->id;
-
+				
+				if($row->role == 'superadmin'){
+					$resultss = array('success' => 1, 'msg' => 'You are successfully logged in.','redirect_url' => BASE_URL.'Admin/dashboard');
+				}else{
 				$resultss = array('success' => 1, 'msg' => 'You are successfully logged in.','redirect_url' => BASE_URL.'patient');
+				}
 				echo json_encode($resultss);
 				exit();
 			} else {
