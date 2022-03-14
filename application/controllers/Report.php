@@ -1,7 +1,7 @@
 <?php
-if(session_status() === PHP_SESSION_NONE){
-	ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
-	session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.save_path', realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+    session_start();
 }
 class Report extends CI_Controller
 {
@@ -327,14 +327,40 @@ class Report extends CI_Controller
             $patientData = $this->Report_model->getPatientinfo($labid);
             $totalFiltered = $this->Report_model->getInfoTotal($labid);
             $totalFiltered = count($totalFiltered);
-
-            if($search == 'completed' || $search == 'pending'){
+            if ($search == 'completed' || $search == 'pending') {
                 $limit = -1;
                 $offset = 0;
             }
-
             $posts = $this->Report_model->getPatientbillINFO($limit, $offset, $labid);
         } else {
+            $dateSearch = null;
+            if ($search == 'Yesterday') {
+                $Yesterday = date('Y-m-d', strtotime("-1 days"));
+                $dateSearch = "created_at LIKE '%$Yesterday%'";
+                $search = '';
+            } elseif ($search == 'Last_7') {
+                $search = '';
+                $dateSearch = "created_at >= DATE(NOW()) - INTERVAL 7 DAY";
+            } elseif ($search == 'Last_month') {
+                $search = '';
+                $first_date = date('Y-m-d 00:00:00', strtotime('first day of last month'));
+                $last_date = date('Y-m-d 24:59:59', strtotime('last day of last month'));
+                $dateSearch = "created_at BETWEEN '$first_date' AND '$last_date' ";
+            } elseif ($search == 'Today') {
+                $today = date('Y-m-d');
+                $dateSearch = "created_at LIKE '%$today%'";
+                $search = '';
+            }
+
+            if (str_contains($search, ' To ')) {
+                $customdate = explode(' To ', $search);
+                $fdate = date("Y-m-d 00:00:00", strtotime($customdate[0]));
+                $tdate = date("Y-m-d 23:00:00", strtotime($customdate[1]));
+                $search = '';
+                $dateSearch = "created_at BETWEEN '$fdate' AND '$tdate' ";
+              
+            }
+
             $patientData = $this->Report_model->getPatientinfowithSearch($labid, $search);
             $Ids = [];
             foreach ($patientData as $data) {
@@ -343,9 +369,12 @@ class Report extends CI_Controller
             if (empty($Ids)) {
                 $Ids[] = 0;
             }
-            $totalFiltered = $this->Report_model->getInfoTotalAndpatientID($labid, $Ids);
+            $totalFiltered = $this->Report_model->getInfoTotalAndpatientID($labid, $Ids, $dateSearch);
             $totalFiltered = count($totalFiltered);
-            $posts = $this->Report_model->getPatientbillINFOwithSearch($limit, $offset, $labid, $Ids);
+            $posts = $this->Report_model->getPatientbillINFOwithSearch($limit, $offset, $labid, $Ids, $dateSearch);
+            // print_r($dateSearch);
+            // print_r($posts);
+            // exit;
         }
 
         $data = array();
@@ -506,7 +535,7 @@ class Report extends CI_Controller
             "draw"            => intval($this->input->get('draw')),
             "recordsTotal"    => intval($totalFiltered),
             "recordsFiltered" => intval($totalFiltered),
-            "data"            => $data
+            "data"            => !empty($data) ? $data : []
         );
 
         echo json_encode($json_data);

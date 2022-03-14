@@ -33,11 +33,14 @@ class Report_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    public function getPatientbillINFOwithSearch($limit, $offset, $user_id,$Ids)
+    public function getPatientbillINFOwithSearch($limit, $offset, $user_id,$Ids,$dateSearch)
     {
         $query = $this->db->select('*')->from('bill');
         $query = $this->db->where('user_id', $user_id);
         $query = $this->db->where_in('patient_id', $Ids);
+        if($dateSearch != null){
+            $query = $this->db->where("$dateSearch");
+            }
         $query = $this->db->offset($offset);
         if($limit != '-1'){
             $query = $this->db->limit($limit);
@@ -53,11 +56,14 @@ class Report_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    public function getInfoTotalAndpatientID($user_id,$Ids)
+    public function getInfoTotalAndpatientID($user_id,$Ids,$dateSearch)
     {
         $query = $this->db->select('*')->from('bill');
         $query = $this->db->where('user_id', $user_id);
         $query = $this->db->where_in('patient_id', $Ids);
+        if($dateSearch != null){
+            $query = $this->db->where("$dateSearch");
+            }
         $query = $this->db->get();
         return $query->result();
     }

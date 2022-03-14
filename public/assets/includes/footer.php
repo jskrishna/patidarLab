@@ -617,6 +617,7 @@ if (isset($editer)) {
 				var type = id;
 				$("#age_type").val(type);
 			});
+		
 
 			$("#title").on('change', function() {
 				var title = $("#title").val();
@@ -1892,14 +1893,17 @@ if (isset($editer)) {
 			var url = '<?php echo BASE_URL; ?>invoice/index/' + id + '?format=' + format + '&header=true';
 			window.open(url, '_blank');
 			$(".modal .close").click();
+			location.reload();
 		});
 
 		$('body').on('click', '#withoutHeader', function() {
 			var id = $("#printinvoiceid").val();
 			var format = $("input[name='invoice_type']:checked").val();
+			location.reload();
 			var url = '<?php echo BASE_URL; ?>invoice/index/' + id + '?format=' + format + '&header=false';
 			window.open(url, '_blank');
 			$(".modal .close").click();
+			location.reload();
 		});
 
 		$('body').on('click', '.authorise-sec label', function() {

@@ -60,9 +60,9 @@ class Bill_model extends CI_Model
         $sth = $this->db->query("INSERT INTO `bill`(`user_id`,`billDate`, `patient_id`, `total`, `discount`, `grandTotal`, `testAmount`, `testId`, `discountAmount`, `final_discount`, `advance`, `balance`, `patientRef`, `payment_mode`,`received_amount`,`status`) VALUES ('$labid','$billDate','$patient_id','$total','$discount','$grandTotal','$testAmount','$testId','$discountAmount','$final_discount','$advance','$balance','$patientRef','$payment_mode','$received_amount','$status')");
         return $sth;
     }
-    public function updateBillEntry($billDate, $patient_id, $total, $discount, $grandTotal, $testAmount, $testId, $discountAmount, $final_discount, $advance, $balance, $patientRef, $payment_mode,$received_amount,$status, $bill_id)
+    public function updateBillEntry($patient_id, $total, $discount, $grandTotal, $testAmount, $testId, $discountAmount, $final_discount, $advance, $balance, $patientRef, $payment_mode,$received_amount,$status, $bill_id)
     {
-        $sth = $this->db->query("UPDATE `bill` SET `billDate`='$billDate',`patient_id`='$patient_id',`total`='$total',`discount`='$discount',`grandTotal`='$grandTotal',`testAmount`='$testAmount',`testId`='$testId',`discountAmount`='$discountAmount',`final_discount`='$final_discount',`advance`='$advance',`balance`='$balance',`patientRef`='$patientRef',`payment_mode`='$payment_mode',`received_amount`='$received_amount',`status`='$status' WHERE `id`='$bill_id'");
+        $sth = $this->db->query("UPDATE `bill` SET `patient_id`='$patient_id',`total`='$total',`discount`='$discount',`grandTotal`='$grandTotal',`testAmount`='$testAmount',`testId`='$testId',`discountAmount`='$discountAmount',`final_discount`='$final_discount',`advance`='$advance',`balance`='$balance',`patientRef`='$patientRef',`payment_mode`='$payment_mode',`received_amount`='$received_amount',`status`='$status' WHERE `id`='$bill_id'");
         return $sth;
     }
 
