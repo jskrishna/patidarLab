@@ -11,8 +11,37 @@
                             <li class="filter-item pending-r" data-value="pending">Pending</li>
                             <li class="filter-item complete-r" data-value="completed">Completed</li>
                         </ul>
+                        <div class="form-row">
+                            <div class="form-group col-lg-2"><select class="form-control custom-filter" id="period">
+                                <option value="">All</option>
+                                    <option value="Today">Today</option>
+                                    <option value="Yesterday">Yesterday</option>
+                                    <option value="Last_7">Last 7 Days</option>
+                                    <option value="Last_month">Last Month</option>
+                                    <option value="Custom">Custom Date</option>
+                                </select></div>
+                            <div class="col-lg-2 text-center ">Select Period</div>
+                            <div class="col-lg-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">From Date</span>
+                                    </div>
+                                    <input type="date" name="fdate" id="fdate" max="2022-03-14" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">To Date</span>
+                                    </div>
+                                    <input type="date" name="tdate" id="tdate" max="2022-03-14" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-2"><button type="button" id="filter" class="btn btn-primary">GO</button></div>
+                        </div>
                     </div>
                     <div class="col-lg-12 mat-4">
+
                         <div class="instruction-label">
                             <ul>
                                 <label>Test Status: </label>
@@ -57,9 +86,9 @@
                                     </th>
                                 </tr>
                             </thead>
-                          <tbody>
+                            <tbody>
 
-                          </tbody>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -126,4 +155,6 @@
 <?php
 include_once "./public/assets/includes/footer.php";
 ?>
-    <script>localStorage.setItem('activetab', 1); </script>
+<script>
+    localStorage.setItem('activetab', 1);
+</script>

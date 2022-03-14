@@ -7,15 +7,15 @@ $(document).ready(function() {
             search: "_INPUT_",
             searchPlaceholder: "Search Patient..."
         },
-        responsive: true,
-
         "order": [
             [2, "desc"]
         ],
-        // "columnDefs": [
-        //     { responsivePriority: 1, targets: 0 },
-        //     { responsivePriority: 2, targets: 10 }
-        // ],
+        responsive: {
+            details: {
+                type: "column",
+                target: 0,
+            },
+        },
         processing: true,
         serverSide: true,
         ajax: {
@@ -53,25 +53,55 @@ $(document).ready(function() {
                 "data": "action"
             },
         ],
+        columnDefs: [{
+            responsivePriority: 1,
+            targets: -1,
+        }, ],
         "lengthMenu": [
             [5, 10, 50, -1],
             [5, 10, 50, "All"]
         ],
 
-        "ordering": true,
+        // "ordering": true,
         "fnRowCallback": function(nRow, aData, iDisplayIndex) {
             $("td:first", nRow).html(iDisplayIndex + 1);
             return nRow;
         },
 
+
     });
 
     //report-filter
     $('#report-filter .filter-item').click(function() {
-            var value = $(this).data('value');
+        var value = $(this).data('value');
+        table.search(value).draw();
+    })
+
+    $(".custom-filter").on('change', function() {
+        var value = $(this).val();
+        if (value != 'Custom') {
             table.search(value).draw();
-        })
-        //report table js
+        } else {
+            $('#fdate').focus();
+        }
+    })
+    $('#filter').click(function() {
+        var fdate = $('#fdate').val();
+        var tdate = $('#tdate').val();
+        if (tdate != '' && fdate != '') {
+            var value = fdate + ' To ' + tdate;
+            table.search(value).draw();
+        } else {
+            if (fdate == '') {
+                $('#fdate').focus();
+            } else {
+                $('#tdate').focus();
+            }
+        }
+    })
+
+
+    //report table js
     $('.table tbody').on('mouseover', 'tr', function() {
         $('[data-toggle="tooltip"]').tooltip({
             trigger: 'hover',
@@ -118,6 +148,12 @@ $(document).ready(function() {
         "order": [
             [2, "desc"]
         ],
+        responsive: {
+            details: {
+                type: "column",
+                target: 0,
+            },
+        },
         "bPaginate": true,
         "bLengthChange": true,
         "bFilter": true,
@@ -132,10 +168,10 @@ $(document).ready(function() {
             $("td:first", nRow).html(iDisplayIndex + 1);
             return nRow;
         },
-        "columnDefs": [
-            { responsivePriority: 1, targets: 0 },
-            { responsivePriority: 2, targets: 5 }
-        ]
+        columnDefs: [{
+            responsivePriority: 1,
+            targets: -1,
+        }, ],
     });
 
     // patients datatable

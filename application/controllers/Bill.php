@@ -93,7 +93,7 @@ class Bill extends CI_Controller
         if ($bill_id == '') {
             $billEntry = $this->Bill_model->insertBillEntry($billDate, $patient_id, $total, $discount, $grandTotal, $testAmount, $testId, $discountAmount, $final_discount, $advance, $balance, $patientRef, $payment_mode, $received_amount,$status,$labid);
         } else {
-            $billEntry = $this->Bill_model->updateBillEntry($billDate, $patient_id, $total, $discount, $grandTotal, $testAmount, $testId, $discountAmount, $final_discount, $advance, $balance, $patientRef, $payment_mode, $received_amount,$status,$bill_id);
+            $billEntry = $this->Bill_model->updateBillEntry($patient_id, $total, $discount, $grandTotal, $testAmount, $testId, $discountAmount, $final_discount, $advance, $balance, $patientRef, $payment_mode, $received_amount,$status,$bill_id);
         }
 
         if ($billEntry) {
