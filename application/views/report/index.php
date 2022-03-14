@@ -12,7 +12,16 @@
                             <li class="filter-item complete-r" data-value="completed">Completed</li>
                         </ul>
                     </div>
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 mat-4">
+                        <div class="instruction-label">
+                            <ul>
+                                <label>Test Status: </label>
+                                <li class="registered"> Registered</li>
+                                <li class="tested">Tested</li>
+                                <li class="final">Final </li>
+                                <li class="print">Print</li>
+                            </ul>
+                        </div>
                         <table class="table dt-responsive" role="grid">
                             <thead>
                                 <tr role="row" class="tablesorter-headerRow">

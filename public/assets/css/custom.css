@@ -980,8 +980,6 @@
             padding: 0 20px 20px;
         }
         
-        .tooltip {}
-        
         .checkout-wrap li+li {
             margin-top: 20px;
         }
@@ -1445,4 +1443,66 @@
             border-radius: 25px;
             padding-top: 6px;
             display: none;
+        }
+        .instruction-label ul {
+            display: flex;
+            padding: 0 20px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        .instruction-label ul li {
+            margin-right: 15px;
+            border:1px solid rgb(255 158 15 / 30%);
+            padding: 4px 10px 4px 25px;
+            font-size: 13px;
+            border-radius: 3px;
+            position: relative;
+            color: #272529;
+            font-weight: 400;
+        }
+        .instruction-label ul li:after {
+            content: "";
+            display: block;
+            width: 9px;
+            height: 9px;
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 50%;
+            background: #ff9e0f;
+        }
+        .instruction-label label {
+            font-weight: 500;
+            margin-right: 10px;
+        }
+        .instruction-label ul li.tested {
+            border-color: rgb(13 110 253 / 35%);
+        }
+        .instruction-label ul li.final {
+            border-color: rgb(220 53 69 / 30%);
+        }
+        .instruction-label ul li.print{
+            border-color: rgb(5 131 107 / 30%);
+        }
+        .instruction-label ul li.tested:after {
+            background: #0d6efd;
+        }
+        .instruction-label ul li.final:after {
+            background: #dc3545;
+        }
+        .instruction-label ul li.print:after{
+            background: #05836B;
+        }
+        .c-datatable .mat-4 .dataTables_filter, .c-datatable .mat-4 .dataTables_length {
+            margin-bottom: 50px;
+        }
+        .instruction-label {
+            position: absolute;
+            left: 0;
+            top: 56px;
+            z-index: 9;
+        }
+        .mat-4 {
+            position: relative;
         }

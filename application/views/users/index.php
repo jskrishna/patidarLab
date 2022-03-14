@@ -8,11 +8,11 @@
                     <div class="col-lg-12">
                         <ul class="report-filter tabs">
                             <li class="filter-item all-r active" id="1" data-tab="tab-1">Profile</li>
-                            <?php if($UserData->role == 'admin'){ ?>
+                            <?php if ($UserData->role == 'admin') { ?>
                                 <li class="filter-item pending-r" id="2" data-tab="tab-2">Doctors</li>
-                            <li class="filter-item complete-r" id="3" data-tab="tab-3">Lab Management</li>
-                            <li class="filter-item complete-r" id="4" data-tab="tab-4">Role Management</li>
-                        <?php } ?>
+                                <li class="filter-item complete-r" id="3" data-tab="tab-3">Lab Management</li>
+                                <li class="filter-item complete-r" id="4" data-tab="tab-4">Role Management</li>
+                            <?php } ?>
                         </ul>
 
                     </div>
@@ -127,300 +127,308 @@
                                 </div>
                             </div>
                         </div>
-                        <?php if($UserData->role == 'admin'){ ?>
-
-                        <div id="tab-2" class="tab-content">
-                            <div class="docter-sec">
-                                <div class="page-head page-head-border">
-                                    <h2>Doctors</h2>
-                                    <button class="btn custom-btn patientedit_btn doc-model-btn" data-bs-toggle="modal" data-id="" data-title="Add Doctor" data-bs-target="#adddoctor">Add Doctor</button>
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-lg-12">
-                                        <table width="100%" class="table dt-responsives">
-                                            <thead>
-                                                <tr role="row" class="tablesorter-headerRow">
-                                                <th data-column="0" class="" style="width:35px">
-                                                        <div class="tablesorter-header-inner">No.</div>
-                                                    </th>
-                                                    <th data-column="1" class="">
-                                                        <div class="tablesorter-header-inner">Name</div>
-                                                    </th>
-                                                    <th data-column="2" class="">
-                                                        <div class="tablesorter-header-inner"> Commission</div>
-                                                    </th>
-                                                    <th data-column="3" class="">
-                                                        <div class="tablesorter-header-inner">Designation</div>
-                                                    </th>
-                                                    <th data-column="4" class="">
-                                                        <div class="tablesorter-header-inner">Address</div>
-                                                    </th>
-                                                    <th data-column="5" class="">
-                                                        <div class="tablesorter-header-inner">Mobile No.</div>
-                                                    </th>
-                                                    <th data-column="6" class="">
-                                                        <div class="tablesorter-header-inner">Action</div>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $count = 0;
-                                                foreach ($referralData as $ref) { ?>
-                                                    <tr>
-                                                        <td style="width:35px"><?php echo $count++ ?></td>
-                                                        <td>
-                                                            <div class="patient-avator">
-                                                                <div class="ava-l">
-                                                                         <div class="patient-short-name">
-                                                        <?php $name = explode(' ',  $ref->referral_name );
-                                                        $name = array_filter($name);
-                                                        $nCount =0;
-                                                        foreach ($name as $n) {
-                                                            if($nCount == 0 || $nCount == 1){
-                                                                echo $n[0];
-                                                            }
-                                                            $nCount++;
-                                                        } ?> </div>
-                                                                </div>
-                                                                <div class="ava-r">
-                                                                    <span><?php echo $ref->title . ' ' . $ref->referral_name; ?></span>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td><?php echo $ref->commission; ?>%</td>
-                                                        <td><?php if($ref->designation){ ?> (<?php echo $ref->designation; ?>) <?php } ?> </td>
-                                                        <td><?php echo $ref->address;  ?></td>
-                                                        <td><?php echo $ref->mobile_no;  ?></td>
-                                                        <td> <button data-toggle="tooltip" data-placement="top" title="" data-bs-target="#adddoctor" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-sml patientedit-btn doc-model-btn" namse="doctoredit" data-id="<?php echo $ref->id;  ?>" value="<?php echo $ref->id;  ?>" data-title="Edit Doctor" data-bs-original-title="Edit Doctor">
-                                                               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24"><defs><clipPath id="a"><path d="M1,15.978a1,1,0,0,1-1-1.09l.379-4.17A1.975,1.975,0,0,1,.953,9.5l9-9A1.8,1.8,0,0,1,11.238,0a2.028,2.028,0,0,1,1.427.577L15.4,3.315a1.927,1.927,0,0,1,.069,2.715l-9,9a1.971,1.971,0,0,1-1.214.568l-4.17.38C1.064,15.977,1.034,15.978,1,15.978ZM11.272,2.012h0L9.324,3.962l2.695,2.695,1.948-1.949L11.272,2.012Z" transform="translate(4 4.022)" fill="#223345"></path></clipPath></defs><path d="M1,15.978a1,1,0,0,1-1-1.09l.379-4.17A1.975,1.975,0,0,1,.953,9.5l9-9A1.8,1.8,0,0,1,11.238,0a2.028,2.028,0,0,1,1.427.577L15.4,3.315a1.927,1.927,0,0,1,.069,2.715l-9,9a1.971,1.971,0,0,1-1.214.568l-4.17.38C1.064,15.977,1.034,15.978,1,15.978ZM11.272,2.012h0L9.324,3.962l2.695,2.695,1.948-1.949L11.272,2.012Z" transform="translate(4 4.022)" fill="#223345"></path></svg>
-                                                            </button></td>
+                        <?php if ($UserData->role == 'admin') { ?>
+                            <div id="tab-2" class="tab-content">
+                                <div class="docter-sec">
+                                    <div class="page-head page-head-border">
+                                        <h2>Doctors</h2>
+                                        <button class="btn custom-btn patientedit_btn doc-model-btn" data-bs-toggle="modal" data-id="" data-title="Add Doctor" data-bs-target="#adddoctor">Add Doctor</button>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-lg-12 overflow-hidden">
+                                            <table width="100%" class="table dt-responsive1" role="grid">
+                                                <thead>
+                                                    <tr role="row" class="tablesorter-headerRow">
+                                                        <th style="width:35px">
+                                                            <div class="tablesorter-header-inner">No.</div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="tablesorter-header-inner">Name</div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="tablesorter-header-inner"> Commission</div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="tablesorter-header-inner">Designation</div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="tablesorter-header-inner">Address</div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="tablesorter-header-inner">Mobile No.</div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="tablesorter-header-inner">Action</div>
+                                                        </th>
                                                     </tr>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $count = 0;
+                                                    foreach ($referralData as $ref) { ?>
+                                                        <tr>
+                                                            <td style="width:35px"><?php echo $count++ ?></td>
+                                                            <td>
+                                                                <div class="patient-avator">
+                                                                    <div class="ava-l">
+                                                                        <div class="patient-short-name">
+                                                                            <?php $name = explode(' ',  $ref->referral_name);
+                                                                            $name = array_filter($name);
+                                                                            $nCount = 0;
+                                                                            foreach ($name as $n) {
+                                                                                if ($nCount == 0 || $nCount == 1) {
+                                                                                    echo $n[0];
+                                                                                }
+                                                                                $nCount++;
+                                                                            } ?> </div>
+                                                                    </div>
+                                                                    <div class="ava-r">
+                                                                        <span><?php echo $ref->title . ' ' . $ref->referral_name; ?></span>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td><?php echo $ref->commission; ?>%</td>
+                                                            <td><?php if ($ref->designation) { ?> (<?php echo $ref->designation; ?>) <?php } ?> </td>
+                                                            <td><?php echo $ref->address;  ?></td>
+                                                            <td><?php echo $ref->mobile_no;  ?></td>
+                                                            <td> <button data-toggle="tooltip" data-placement="top" title="" data-bs-target="#adddoctor" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-sml patientedit-btn doc-model-btn" namse="doctoredit" data-id="<?php echo $ref->id;  ?>" value="<?php echo $ref->id;  ?>" data-bs-original-title="Edit Doctor">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+                                                                        <defs>
+                                                                            <clipPath id="a">
+                                                                                <path d="M1,15.978a1,1,0,0,1-1-1.09l.379-4.17A1.975,1.975,0,0,1,.953,9.5l9-9A1.8,1.8,0,0,1,11.238,0a2.028,2.028,0,0,1,1.427.577L15.4,3.315a1.927,1.927,0,0,1,.069,2.715l-9,9a1.971,1.971,0,0,1-1.214.568l-4.17.38C1.064,15.977,1.034,15.978,1,15.978ZM11.272,2.012h0L9.324,3.962l2.695,2.695,1.948-1.949L11.272,2.012Z" transform="translate(4 4.022)" fill="#223345"></path>
+                                                                            </clipPath>
+                                                                        </defs>
+                                                                        <path d="M1,15.978a1,1,0,0,1-1-1.09l.379-4.17A1.975,1.975,0,0,1,.953,9.5l9-9A1.8,1.8,0,0,1,11.238,0a2.028,2.028,0,0,1,1.427.577L15.4,3.315a1.927,1.927,0,0,1,.069,2.715l-9,9a1.971,1.971,0,0,1-1.214.568l-4.17.38C1.064,15.977,1.034,15.978,1,15.978ZM11.272,2.012h0L9.324,3.962l2.695,2.695,1.948-1.949L11.272,2.012Z" transform="translate(4 4.022)" fill="#223345"></path>
+                                                                    </svg>
+                                                                </button></td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="tab-3" class="tab-content">
-                            <div class="docter-sec">
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <div class="page-head page-head-border">
-                                            <h2>Layout Setting</h2>
+                            <div id="tab-3" class="tab-content">
+                                <div class="docter-sec">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="page-head page-head-border">
+                                                <h2>Layout Setting</h2>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <form method="POST" id="update_layout-form" name="profile" action="<?php echo BASE_URL; ?>Users/updateLayout" enctype="multipart/form-data">
-                                            <div class="row">
-                                                <div id="layout">
-                                                    <div class="errorTxt text-danger text-center mb-3"></div>
-                                                    <div class="form-row">
-                                                        <div class="row">
-                                                            <div class="form-group file-type col-lg-6">
-                                                                <label for="lab_logo">Lab Logo</label>
-                                                               <label for="lab_logo" class="file-type-input">
-                                                                   <img src="<?php echo BASE_URL  ?>public/assets/images/upload.svg" alt="">
-                                                                   <span>Upload your Logo here..</span>
-                                                               </label>
-                                                               <input type="file" name="lab_logo" id="lab_logo" class="form-control enterAsTab" placeholder="Enter lab_logo" autocomplete="off">
-                                                                <input type="hidden" name="old_lab_logo" id="old_lab_logo" value="<?php echo $UserData->lab_logo; ?>">
-                                                                <div class="form-group file-type-img">
-                                                                <label for="lab_logo"></label>
-                                                                <?php if ($UserData->lab_logo) { ?>
-                                                                    <img id="img_lablogo" src="<?php echo BASE_URL . 'public/assets/images/' . $UserData->lab_logo; ?>" alt="">
-                                                                <?php } ?>
+                                        <div class="col-lg-4">
+                                            <form method="POST" id="update_layout-form" name="profile" action="<?php echo BASE_URL; ?>Users/updateLayout" enctype="multipart/form-data">
+                                                <div class="row">
+                                                    <div id="layout">
+                                                        <div class="errorTxt text-danger text-center mb-3"></div>
+                                                        <div class="form-row">
+                                                            <div class="row">
+                                                                <div class="form-group file-type col-lg-6">
+                                                                    <label for="lab_logo">Lab Logo</label>
+                                                                    <label for="lab_logo" class="file-type-input">
+                                                                        <img src="<?php echo BASE_URL  ?>public/assets/images/upload.svg" alt="">
+                                                                        <span>Upload your Logo here..</span>
+                                                                    </label>
+                                                                    <input type="file" name="lab_logo" id="lab_logo" class="form-control enterAsTab" placeholder="Enter lab_logo" autocomplete="off">
+                                                                    <input type="hidden" name="old_lab_logo" id="old_lab_logo" value="<?php echo $UserData->lab_logo; ?>">
+                                                                    <div class="form-group file-type-img">
+                                                                        <label for="lab_logo"></label>
+                                                                        <?php if ($UserData->lab_logo) { ?>
+                                                                            <img id="img_lablogo" src="<?php echo BASE_URL . 'public/assets/images/' . $UserData->lab_logo; ?>" alt="">
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group file-type col-lg-6">
+                                                                    <label for="letter_pad">Letter head</label>
+                                                                    <label for="letter_pad" class="file-type-input">
+                                                                        <img src="<?php echo BASE_URL  ?>public/assets/images/upload.svg" alt="">
+                                                                        <span>Upload your Letter head here..</span>
+                                                                    </label>
+                                                                    <input type="file" name="letter_pad" id="letter_pad" class="form-control enterAsTab" placeholder="Enter letter_pad" autocomplete="off">
+                                                                    <input type="hidden" name="old_letter_pad" id="old_letter_pad" value="<?php echo $UserData->letter_pad; ?>">
+                                                                    <div class="form-group file-type-img">
+                                                                        <label for="letter_pad"></label>
+                                                                        <?php if ($UserData->letter_pad) { ?>
+                                                                            <img id="img_letter" src="<?php echo BASE_URL . 'public/assets/images/' . $UserData->letter_pad; ?>" alt="">
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
-                                                            </div>
-                                                           
-                                                            <div class="form-group file-type col-lg-6">
-                                                                <label for="letter_pad">Letter head</label>
-                                                                <label for="letter_pad" class="file-type-input">
-                                                                <img src="<?php echo BASE_URL  ?>public/assets/images/upload.svg" alt=""> 
-                                                                   <span>Upload your Letter head here..</span>
-                                                               </label>
-                                                                <input type="file" name="letter_pad" id="letter_pad" class="form-control enterAsTab" placeholder="Enter letter_pad" autocomplete="off">
-                                                                <input type="hidden" name="old_letter_pad" id="old_letter_pad" value="<?php echo $UserData->letter_pad; ?>">
-                                                                <div class="form-group file-type-img">
-                                                                <label for="letter_pad"></label>
-                                                                <?php if ($UserData->letter_pad) { ?>
-                                                                    <img id="img_letter" src="<?php echo BASE_URL . 'public/assets/images/' . $UserData->letter_pad; ?>" alt="">
-                                                                <?php } ?>
-                                                            </div>
-                                                            </div>
-                                                           
-                                                        </div>
-                                                        <hr>
-                                                        <div class="row">
-                                                            <div class="col-lg-12" id="button">
-                                                                <input type="submit" class="btn btnupdate custom-btn" data-id="<?php echo $UserData->id; ?>" id="update_layout" value="Update Layout">
-                                                                <input type="hidden" name="layout_id" id="layout_id" value="<?php echo $UserData->id; ?>">
+                                                            <hr>
+                                                            <div class="row">
+                                                                <div class="col-lg-12" id="button">
+                                                                    <input type="submit" class="btn btnupdate custom-btn" data-id="<?php echo $UserData->id; ?>" id="update_layout" value="Update Layout">
+                                                                    <input type="hidden" name="layout_id" id="layout_id" value="<?php echo $UserData->id; ?>">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <!-- // pathologist  -->
-                                <hr>
-                                <div class="row">
-                                    <div class="col-lg-3">
-                                        <div class="page-head page-head-border">
-                                            <h2>Pathologist </h2>
+                                            </form>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <form method="POST" id="pathologist-form" name="profile" action="<?php echo BASE_URL; ?>Users/updatePathologist" enctype="multipart/form-data">
-                                            <div class="row">
-                                                <div id="layout">
-                                                    <div class="errorTxt text-danger text-center mb-3"></div>
-                                                    <div class="form-row">
-                                                    <div class="row">
-                                                            <div class="form-group col-lg-12">
-                                                                <label for="pathologist">Name</label>
-                                                                <input type="text" name="pathologist" id="pathologist" value="<?php echo !empty($pathologistData)? $pathologistData->name :''; ?>" class="form-control enterAsTab required" placeholder="Enter pathologist Name" autocomplete="off">
+                                    <!-- // pathologist  -->
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="page-head page-head-border">
+                                                <h2>Pathologist </h2>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <form method="POST" id="pathologist-form" name="profile" action="<?php echo BASE_URL; ?>Users/updatePathologist" enctype="multipart/form-data">
+                                                <div class="row">
+                                                    <div id="layout">
+                                                        <div class="errorTxt text-danger text-center mb-3"></div>
+                                                        <div class="form-row">
+                                                            <div class="row">
+                                                                <div class="form-group col-lg-12">
+                                                                    <label for="pathologist">Name</label>
+                                                                    <input type="text" name="pathologist" id="pathologist" value="<?php echo !empty($pathologistData) ? $pathologistData->name : ''; ?>" class="form-control enterAsTab required" placeholder="Enter pathologist Name" autocomplete="off">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-lg-6">
-                                                                <label for="path_designation">Designation</label>
-                                                                <input type="text" name="path_designation" id="path_designation" value="<?php echo !empty($pathologistData)? $pathologistData->designation:'' ?>" class="form-control enterAsTab required" placeholder="Enter pathologist designation" autocomplete="off">
+                                                            <div class="row">
+                                                                <div class="form-group col-lg-6">
+                                                                    <label for="path_designation">Designation</label>
+                                                                    <input type="text" name="path_designation" id="path_designation" value="<?php echo !empty($pathologistData) ? $pathologistData->designation : '' ?>" class="form-control enterAsTab required" placeholder="Enter pathologist designation" autocomplete="off">
+                                                                </div>
+
+                                                                <div class="form-group col-lg-6">
+                                                                    <label for="path_mobile">Mobile No.</label>
+                                                                    <input type="text" name="path_mobile" id="path_mobile" value="<?php echo !empty($pathologistData) ? $pathologistData->mobile : '' ?>" class="form-control enterAsTab required" placeholder="Enter pathologist Number" autocomplete="off">
+                                                                </div>
                                                             </div>
-                                                        
-                                                            <div class="form-group col-lg-6">
-                                                                <label for="path_mobile">Mobile No.</label>
-                                                                <input type="text" name="path_mobile" id="path_mobile" value="<?php echo !empty($pathologistData)? $pathologistData->mobile:'' ?>" class="form-control enterAsTab required" placeholder="Enter pathologist Number" autocomplete="off">
+                                                            <div class="row">
+                                                                <div class="form-group col-lg-6">
+                                                                    <label for="path_email">Email </label>
+                                                                    <input type="email" name="path_email" id="path_email" value="<?php echo !empty($pathologistData) ? $pathologistData->email : '' ?>" class="form-control enterAsTab required" placeholder="Enter pathologist Email" autocomplete="off">
+                                                                </div>
+                                                                <div class="form-group col-lg-6">
+                                                                    <label for="path_address">Address </label>
+                                                                    <input type="text" name="path_address" id="path_address" value="<?php echo !empty($pathologistData) ? $pathologistData->address : '' ?>" class="form-control enterAsTab required" placeholder="Enter pathologist address" autocomplete="off">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-lg-6">
-                                                                <label for="path_email">Email </label>
-                                                                <input type="email" name="path_email" id="path_email" value="<?php echo !empty($pathologistData)? $pathologistData->email:'' ?>" class="form-control enterAsTab required" placeholder="Enter pathologist Email" autocomplete="off">
+
+                                                            <div class="row">
+                                                                <div class="form-group file-type col-lg-12 mb-0">
+                                                                    <label for="signature">Signature</label>
+                                                                    <label for="signature" class="file-type-input">
+                                                                        <img src="<?php echo BASE_URL  ?>public/assets/images/upload.svg" alt="">
+                                                                        <span>Upload your Sign here..</span>
+                                                                    </label>
+                                                                    <input type="file" name="signature" id="signature" class="form-control enterAsTab" placeholder="Enter signature" autocomplete="off">
+                                                                    <input type="hidden" name="old_signature" id="old_signature" value="<?php echo !empty($pathologistData) ? $pathologistData->sign : ''; ?>">
+                                                                </div>
+                                                                <div class="form-group file-type-img col-lg-12">
+                                                                    <label for="signature"></label>
+                                                                    <?php if (!empty($pathologistData) && $pathologistData->sign) { ?>
+                                                                        <img id="img_sign" src="<?php echo BASE_URL . 'public/assets/images/' . $pathologistData->sign; ?>" alt="">
+                                                                    <?php } ?>
+                                                                </div>
                                                             </div>
-                                                            <div class="form-group col-lg-6">
-                                                                <label for="path_address">Address </label>
-                                                                <input type="text" name="path_address" id="path_address" value="<?php echo !empty($pathologistData)? $pathologistData->address:'' ?>" class="form-control enterAsTab required" placeholder="Enter pathologist address" autocomplete="off">
-                                                            </div>
-                                                        </div>
-                                                        
-                                                        <div class="row">
-                                                            <div class="form-group file-type col-lg-12 mb-0">
-                                                                <label for="signature">Signature</label>
-                                                                <label for="signature" class="file-type-input">
-                                                                <img src="<?php echo BASE_URL  ?>public/assets/images/upload.svg" alt=""> 
-                                                                   <span>Upload your Sign here..</span>
-                                                               </label>
-                                                                <input type="file" name="signature" id="signature" class="form-control enterAsTab" placeholder="Enter signature" autocomplete="off">
-                                                                <input type="hidden" name="old_signature" id="old_signature" value="<?php echo !empty($pathologistData)? $pathologistData->sign :''; ?>">
-                                                            </div>
-                                                            <div class="form-group file-type-img col-lg-12">
-                                                                <label for="signature"></label>
-                                                                <?php if (!empty($pathologistData) && $pathologistData->sign) { ?>
-                                                                    <img id="img_sign" src="<?php echo BASE_URL . 'public/assets/images/' . $pathologistData->sign; ?>" alt="">
-                                                                <?php } ?>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        <div class="row">
-                                                            <div class="col-lg-12" id="button">
-                                                                <input type="submit" class="btn btnupdate custom-btn" data-id="<?php echo !empty($pathologistData)? $pathologistData->id :''; ?>" id="update_pathologist" value="Update">
-                                                                <input type="hidden" name="pathologist_id" id="pathologist_id" value="<?php echo !empty($pathologistData)? $pathologistData->id :''; ?>">
+                                                            <hr>
+                                                            <div class="row">
+                                                                <div class="col-lg-12" id="button">
+                                                                    <input type="submit" class="btn btnupdate custom-btn" data-id="<?php echo !empty($pathologistData) ? $pathologistData->id : ''; ?>" id="update_pathologist" value="Update">
+                                                                    <input type="hidden" name="pathologist_id" id="pathologist_id" value="<?php echo !empty($pathologistData) ? $pathologistData->id : ''; ?>">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
+
                                 </div>
-                               
                             </div>
-                        </div>
-                        <div id="tab-4" class="tab-content">
-                            <div class="docter-sec">
-                                <div class="page-head page-head-border">
-                                    <h2>Role Manage</h2>
-                                    <button class="btn custom-btn patientedit_btn user-model-btn" data-bs-toggle="modal" data-id="" data-title="Add User" data-bs-target="#adduser">Add User</button>
-
-                                </div>
-                                <div class="form-row">
-                                    <div class="col-lg-12">
-
-                                        <table width="100%" class="table dt-responsives">
-                                            <thead>
-                                                <tr role="row" class="tablesorter-headerRow">
-                                                <th data-column="0" class="" style="width:35px">
-                                                        <div class="tablesorter-header-inner">No.</div>
-                                                    </th>
-                                                    <th data-column="1" class="">
-                                                        <div class="tablesorter-header-inner">Full Name</div>
-                                                    </th>
-                                                    <th data-column="1" class="">
-                                                        <div class="tablesorter-header-inner">User Name</div>
-                                                    </th>
-                                                    <th data-column="2" class="">
-                                                        <div class="tablesorter-header-inner"> Mobile</div>
-                                                    </th>
-                                                    <th data-column="3" class="">
-                                                        <div class="tablesorter-header-inner">Email</div>
-                                                    </th>
-                                                    <th data-column="4" class="">
-                                                        <div class="tablesorter-header-inner">Role</div>
-                                                    </th>
-                                                    <th data-column="6" class="">
-                                                        <div class="tablesorter-header-inner">Action</div>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                <?php
-                                                $count = 0;
-                                                foreach ($AllUserData as $data) { ?>
-
-                                                    <tr>
-                                                    <td style="width:35px"><?php echo $count++ ?></td>
-                                                        <td>
-                                                            <div class="patient-avator">
-                                                                <div class="ava-l">
-                                                                           <div class="patient-short-name">
-                                                        <?php $name = explode(' ',  $data->fullname );
-                                                        $name = array_filter($name);
-                                                        $nCount =0;
-                                                        foreach ($name as $n) {
-                                                            if($nCount == 0 || $nCount == 1){
-                                                                echo $n[0];
-                                                            }
-                                                            $nCount++;
-                                                        } ?> </div>
-                                                                </div>
-                                                                <div class="ava-r">
-                                                                    <span><?php echo $data->fullname; ?></span>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td><?php echo $data->username; ?></td>
-                                                        <td><?php echo $data->mobile; ?></td>
-                                                        <td><?php echo $data->email;  ?></td>
-                                                        <td><?php echo $data->role;  ?></td>
-                                                        <td>
-                                                            <button class="btn btn-sml patientedit-btn user-model-btn" data-bs-toggle="modal" data-id="<?php echo $data->id;  ?>" data-title="Edit User" data-bs-target="#adduser">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24"><defs><clipPath id="a"><path d="M1,15.978a1,1,0,0,1-1-1.09l.379-4.17A1.975,1.975,0,0,1,.953,9.5l9-9A1.8,1.8,0,0,1,11.238,0a2.028,2.028,0,0,1,1.427.577L15.4,3.315a1.927,1.927,0,0,1,.069,2.715l-9,9a1.971,1.971,0,0,1-1.214.568l-4.17.38C1.064,15.977,1.034,15.978,1,15.978ZM11.272,2.012h0L9.324,3.962l2.695,2.695,1.948-1.949L11.272,2.012Z" transform="translate(4 4.022)" fill="#223345"></path></clipPath></defs><path d="M1,15.978a1,1,0,0,1-1-1.09l.379-4.17A1.975,1.975,0,0,1,.953,9.5l9-9A1.8,1.8,0,0,1,11.238,0a2.028,2.028,0,0,1,1.427.577L15.4,3.315a1.927,1.927,0,0,1,.069,2.715l-9,9a1.971,1.971,0,0,1-1.214.568l-4.17.38C1.064,15.977,1.034,15.978,1,15.978ZM11.272,2.012h0L9.324,3.962l2.695,2.695,1.948-1.949L11.272,2.012Z" transform="translate(4 4.022)" fill="#223345"></path></svg>
-                                                            </button>
-                                                        </td>
+                            <div id="tab-4" class="tab-content">
+                                <div class="docter-sec">
+                                    <div class="page-head page-head-border">
+                                        <h2>Role Manage</h2>
+                                        <button class="btn custom-btn patientedit_btn user-model-btn" data-bs-toggle="modal" data-id="" data-title="Add User" data-bs-target="#adduser">Add User</button>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="col-lg-12 overflow-hidden">
+                                            <table width="100%" class="table dt-responsive2" role="grid">
+                                                <thead>
+                                                    <tr role="row" class="tablesorter-headerRow">
+                                                        <th style="width:35px">
+                                                            <div class="tablesorter-header-inner">No.</div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="tablesorter-header-inner">Full Name</div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="tablesorter-header-inner">User Name</div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="tablesorter-header-inner"> Mobile</div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="tablesorter-header-inner">Email</div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="tablesorter-header-inner">Role</div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="tablesorter-header-inner">Action</div>
+                                                        </th>
                                                     </tr>
-                                                <?php } ?>
-                                            </tbody>
-                                        </table>
-
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $count = 0;
+                                                    foreach ($AllUserData as $data) { ?>
+                                                        <tr>
+                                                            <td style="width:35px"><?php echo $count++ ?></td>
+                                                            <td>
+                                                                <div class="patient-avator">
+                                                                    <div class="ava-l">
+                                                                        <div class="patient-short-name">
+                                                                            <?php $name = explode(' ',  $data->fullname);
+                                                                            $name = array_filter($name);
+                                                                            $nCount = 0;
+                                                                            foreach ($name as $n) {
+                                                                                if ($nCount == 0 || $nCount == 1) {
+                                                                                    echo $n[0];
+                                                                                }
+                                                                                $nCount++;
+                                                                            } ?> </div>
+                                                                    </div>
+                                                                    <div class="ava-r">
+                                                                        <span><?php echo $data->fullname; ?></span>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td><?php echo $data->username; ?></td>
+                                                            <td><?php echo $data->mobile; ?></td>
+                                                            <td><?php echo $data->email;  ?></td>
+                                                            <td><?php echo $data->role;  ?></td>
+                                                            <td>
+                                                                <button data-toggle="tooltip" data-placement="top" class="btn btn-sml patientedit-btn user-model-btn" data-bs-toggle="modal" data-id="<?php echo $data->id;  ?>" data-bs-original-title="Edit User" data-bs-target="#adduser">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+                                                                        <defs>
+                                                                            <clipPath id="a">
+                                                                                <path d="M1,15.978a1,1,0,0,1-1-1.09l.379-4.17A1.975,1.975,0,0,1,.953,9.5l9-9A1.8,1.8,0,0,1,11.238,0a2.028,2.028,0,0,1,1.427.577L15.4,3.315a1.927,1.927,0,0,1,.069,2.715l-9,9a1.971,1.971,0,0,1-1.214.568l-4.17.38C1.064,15.977,1.034,15.978,1,15.978ZM11.272,2.012h0L9.324,3.962l2.695,2.695,1.948-1.949L11.272,2.012Z" transform="translate(4 4.022)" fill="#223345"></path>
+                                                                            </clipPath>
+                                                                        </defs>
+                                                                        <path d="M1,15.978a1,1,0,0,1-1-1.09l.379-4.17A1.975,1.975,0,0,1,.953,9.5l9-9A1.8,1.8,0,0,1,11.238,0a2.028,2.028,0,0,1,1.427.577L15.4,3.315a1.927,1.927,0,0,1,.069,2.715l-9,9a1.971,1.971,0,0,1-1.214.568l-4.17.38C1.064,15.977,1.034,15.978,1,15.978ZM11.272,2.012h0L9.324,3.962l2.695,2.695,1.948-1.949L11.272,2.012Z" transform="translate(4 4.022)" fill="#223345"></path>
+                                                                    </svg>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         <?php } ?>
                     </div>
                 </div>
@@ -523,7 +531,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-lg-12">
-                                    <label for="user_role">User Role<span class="text-danger">*</span></label>
+                                        <label for="user_role">User Role<span class="text-danger">*</span></label>
                                         <select name="user_role" id="user_role" class="form-control required" id="">
                                             <option value="technician">Technician</option>
                                             <option value="staff">Staff</option>
@@ -533,9 +541,9 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-lg-12">
-                                    <label id="user-pass-field" for="user_password">User Password<span class="text-danger">*</span></label>
-                                       <input type="password" name="user_password" id="user_password" autocomplete="off" class="form-control required">
-                                       <span class="error">This field is required.</span>
+                                        <label id="user-pass-field" for="user_password">User Password<span class="text-danger">*</span></label>
+                                        <input type="password" name="user_password" id="user_password" autocomplete="off" class="form-control required">
+                                        <span class="error">This field is required.</span>
                                     </div>
                                 </div>
                                 <hr>

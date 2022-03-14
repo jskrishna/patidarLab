@@ -6,28 +6,28 @@
             <div class="form-row">
                 <div class="col-lg-12">
                     <div class="c-datatable">
-                        <table width="100%" class="table dt-responsive">
+                        <table width="100%" class="table dt-responsives" role="grid">
                             <thead>
                                 <tr role="row" class="tablesorter-headerRow">
-                                     <th data-column="1" class=""  style="width:35px">
+                                     <th style="width:35px">
                                         <div class="tablesorter-header-inner">No.</div>
                                     </th>
-                                    <th data-column="2" class="">
+                                    <th>
                                         <div class="tablesorter-header-inner">Name</div>
                                     </th>
-                                    <th data-column="3" class="">
+                                    <th>
                                         <div class="tablesorter-header-inner"> Registered On</div>
                                     </th>
-                                    <th data-column="4" class="">
+                                    <th>
                                         <div class="tablesorter-header-inner">Id</div>
                                     </th>
-                                    <th data-column="5" class="">
+                                    <th>
                                         <div class="tablesorter-header-inner"> Referred By</div>
                                     </th>
-                                    <th data-column="6" class="">
+                                    <th>
                                         <div class="tablesorter-header-inner">Mobile No.</div>
                                     </th>
-                                    <th data-column="7" class="">
+                                    <th>
                                         <div class="tablesorter-header-inner">Action</div>
                                     </th>
                                 </tr>
