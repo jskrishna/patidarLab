@@ -1,10 +1,13 @@
-<!-- /*
-* Author: onlinecode
-* start tcpdfexample.php file
-* Location: ./application/controllers/tcpdfexample.php
-*/ -->
-<?php class Outputpdf extends CI_Controller
+<?php
+if(session_status() === PHP_SESSION_NONE){
+	ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+	session_start();
+}
+use Mpdf\QrCode\QrCode;
+use Mpdf\QrCode\Output;
+class Outputpdf extends CI_Controller
 {
+
     function __construct()
     {
         parent::__construct();
@@ -17,7 +20,7 @@
         $test_id = $this->input->post('test_id');
         $department = $this->input->post('department');
         $patientID = $this->input->post('patientID');
-        if(!isset($patientID)){
+        if (!isset($patientID)) {
             header('location:' . BASE_URL . 'login');
         }
         $patientData = $this->Outputpdf_model->getpatientinfoByID($patientID);
@@ -31,30 +34,30 @@
         $testIDS = explode(',', $billData->testId);
         $selecetdtestArray = explode(',', $tests);
 
-        foreach($selecetdtestArray as $selecetdId){
+        foreach ($selecetdtestArray as $selecetdId) {
             $getPrintCount = $this->Outputpdf_model->getPrintCount($bill_id, $selecetdId);
             $getPrintCount = $getPrintCount[0];
-            $count = intval($getPrintCount->printed)+1;
-           $this->Outputpdf_model->UpdatePrintedCount($bill_id, $selecetdId,$count);
+            $count = intval($getPrintCount->printed) + 1;
+            $this->Outputpdf_model->UpdatePrintedCount($bill_id, $selecetdId, $count);
         }
-     
+
         $departmentArray = explode(',', $departments);
 
         $loggedInId = $this->input->post('loggedInId');
         $getuserbyID =  $this->Outputpdf_model->getuserbyID($loggedInId);
-        $getuserbyID = $getuserbyID [0];
+        $getuserbyID = $getuserbyID[0];
 
-        if($getuserbyID->role == 'admin'){
+        if ($getuserbyID->role == 'admin') {
             $labid = $getuserbyID->id;
-        }else{
+        } else {
             $labid = $getuserbyID->user_id;
         }
         $getPathologistInfo =  $this->Outputpdf_model->getPathologistInfo($labid);
         $getPathologistInfo = $getPathologistInfo[0];
 
-        $signImage = BASE_URL . 'public/assets/images/'.$getPathologistInfo->sign;
+        $signImage = BASE_URL . 'public/assets/images/' . $getPathologistInfo->sign;
 
-        $headerImage = BASE_URL . 'public/assets/images/'.$getuserbyID->letter_pad;
+        $headerImage = BASE_URL . 'public/assets/images/' . $getuserbyID->letter_pad;
         require_once 'vendor/autoload.php';
         $mpdfConfig = array(
             'mode' => 'utf-8',
@@ -67,6 +70,12 @@
             'margin_bottom' => 60,
             'default_font_size' => 10,
         );
+
+        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $qrCode = new QrCode($actual_link);
+        $output = new Output\Svg();
+        $svg = $output->output($qrCode, 65, 'white', 'black');
+        $svg = str_replace('<?xml version="1.0"?>', '', $svg);
 
         $mpdf = new \Mpdf\Mpdf($mpdfConfig);
         $print_header =  $this->input->post('print_header');
@@ -88,19 +97,20 @@
         <tr>
         <td> Name :</td>
         <th style='text-align:left;'><span style='text-transform:capitalize;'>" . ($patientData->patientname) . "</span></th>
-        <td> Sample collection on :</td>
+        <td style='width:140px; min-width:140px'> Sample collection on :</td>
         <th style='text-align:left;'>" . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>
+        <td rowspan='3'>".($svg)."</td>
         </tr>
         <tr>
         <td> Age/gender :</td>
         <th style='text-align:left;text-transform:capitalize;'>" . ($patientData->age . ' ' . $patientData->age_type . ' / ' . $patientData->gender) . "</th>
-        <td> Report on :</td>
+        <td style='width:140px; min-width:140px'> Report on :</td>
         <th style='text-align:left;text-transform:capitalize;'>" . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>     
         </tr>
         <tr>
         <td> Refered By :</td>
-        <th style='text-align:left;text-transform:capitalize;'>"  . ($doctorData->title).' '.($doctorData->referral_name) . "</th>
-        <td>Report Printed on :</td>
+        <th style='text-align:left;text-transform:capitalize;'>"  . ($doctorData->title) . ' ' . ($doctorData->referral_name) . "</th>
+        <td style='width:140px; min-width:140px'>Report Printed on :</td>
         <th style='text-align:left;text-transform:capitalize;'>" . (date("d-M-Y h:i:s")) . "</th>
         </tr>
     </thead>
@@ -165,8 +175,8 @@
                             $minmaxunit = '';
                         }
                         if ($paramData->id == '1' || $paramData->id == '2' || $paramData->id == '4' || $paramData->id == '13') {
-                            $paramName = '<b>'.$paramData->name.'</b>';
-                        }else{
+                            $paramName = '<b>' . $paramData->name . '</b>';
+                        } else {
                             $paramName = $paramData->name;
                         }
 
@@ -183,7 +193,7 @@
                                 $end = '</b>';
                             }
                         }
-                        if ($paramData->id == '8') { 
+                        if ($paramData->id == '8') {
                             $tabledata .= "<tr>
                             <td><b>DIFFERENTIAL COUNT</b></td>
                             <td></td>
@@ -207,9 +217,9 @@
                             <tr>
                                 <td style='text-align:center;' >Checked By <br> <b>Technologist</b></td>
                                 <td style='text-align:center;' >
-                                <img style='height:60px;width:135px; margin-bottom:5px;' src='" . ($signImage) . "'>
-                                <p style='text-align:center;'>".($getPathologistInfo->title.'. '.$getPathologistInfo->name)."<br>
-                                ".($getPathologistInfo->designation)."
+                                <img style='height:60px; margin-bottom:5px;' src='" . ($signImage) . "'>
+                                <p style='text-align:center;'>" . ($getPathologistInfo->title . '. ' . $getPathologistInfo->name) . "<br>
+                                " . ($getPathologistInfo->designation) . "
                                 </p>
                                 </td>
                                 </tr>
@@ -268,8 +278,8 @@
                         $minmaxunit = '';
                     }
                     if ($paramData->id == '1' || $paramData->id == '2' || $paramData->id == '4' || $paramData->id == '13') {
-                        $paramName = '<b>'.$paramData->name.'</b>';
-                    }else{
+                        $paramName = '<b>' . $paramData->name . '</b>';
+                    } else {
                         $paramName = $paramData->name;
                     }
                     if ($paramData->field_type == 'textarea') {
@@ -285,7 +295,7 @@
                             $end = '</b>';
                         }
                     }
-                    if ($paramData->id == '8') { 
+                    if ($paramData->id == '8') {
                         $tabledata .= "<tr>
                         <td><b>DIFFERENTIAL COUNT</b></td>
                         <td></td>
@@ -309,9 +319,9 @@
                 <tr>
                     <td style='text-align:center;' >Checked By <br> <b>Technologist</b></td>
                     <td style='text-align:center;' >
-                    <img style='height:60px;width:135px; margin-bottom:5px;' src='" . ($signImage) . "'>
-                    <p style='text-align:center;'>".($getPathologistInfo->title.'. '.$getPathologistInfo->name)."<br>
-                    ".($getPathologistInfo->designation)."
+                    <img style='height:60px; margin-bottom:5px;' src='" . ($signImage) . "'>
+                    <p style='text-align:center;'>" . ($getPathologistInfo->title . '. ' . $getPathologistInfo->name) . "<br>
+                    " . ($getPathologistInfo->designation) . "
                     </p>
                     </td>
                     </tr>
@@ -337,4 +347,3 @@
         // $mpdf->Output('report-'.$patientData->patientid.'.pdf','D'); // it downloads the file into the user system, with give name
     }
 }
-?>

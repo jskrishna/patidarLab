@@ -345,7 +345,10 @@
                                                                     }
                                                                 }
                                                                     ?>
-                                                                    <tr>
+                                                                    
+                                                            </tbody>
+                                                            <tfoot>
+                                                            <tr>
                                                                         <td colspan="4">
                                                                             <div class="save-report">
                                                                                 <?php
@@ -363,7 +366,7 @@
                                                                             </div>
                                                                         </td>
                                                                     </tr>
-                                                            </tbody>
+                                                            </tfoot>
                                                         </table>
 
                                                         <div class="form-footer" style='display:none'>
@@ -397,8 +400,8 @@
                 </div>
             </div>
             <div class="col-lg-12">
-                <div class="back-btn">
-                    <a href="<?php echo BASE_URL ?>report" class="btn custom-btn"> Back</a>
+                <div class=" form-footer">
+                    <button onclick="history.back();" class="btn custom-btn">Back</button>
                 </div>
             </div>
         </div>

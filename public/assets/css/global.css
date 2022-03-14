@@ -807,6 +807,7 @@ table.dataTable thead .sorting {
 
 .accordion-button {
     font-weight: 600;
+    padding: 15px 12px;
 }
 
 .accordion-button:not(.collapsed) {
@@ -814,7 +815,7 @@ table.dataTable thead .sorting {
     box-shadow: none;
     vertical-align: middle;
     background: rgb(5 131 107);
-    padding: 1rem 12px;
+    padding: 15px 12px;
 }
 
 .accordion-button::after {

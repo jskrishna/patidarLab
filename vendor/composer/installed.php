@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '9d11e852046112417232d516ebaaeaa54f2c1b07',
+        'reference' => 'f4125e69434d75402d498ac04705597cfc8b02fb',
         'name' => 'codeigniter4/codeigniter4',
         'dev' => true,
     ),
@@ -25,7 +25,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '9d11e852046112417232d516ebaaeaa54f2c1b07',
+            'reference' => 'f4125e69434d75402d498ac04705597cfc8b02fb',
             'dev_requirement' => false,
         ),
         'composer/pcre' => array(
@@ -134,6 +134,15 @@
             'install_path' => __DIR__ . '/../mpdf/mpdf',
             'aliases' => array(),
             'reference' => '5f64118317c8145c0abc606b310aa0a66808398a',
+            'dev_requirement' => false,
+        ),
+        'mpdf/qrcode' => array(
+            'pretty_version' => 'v1.2.0',
+            'version' => '1.2.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mpdf/qrcode',
+            'aliases' => array(),
+            'reference' => '0c09fce8b28707611c3febdd1ca424d40f172184',
             'dev_requirement' => false,
         ),
         'myclabs/deep-copy' => array(

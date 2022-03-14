@@ -22329,14 +22329,6 @@ pre[class*=language-] {
     font-size: 15px !important;
 }
 
-.alert_id {
-    width: 45px;
-    height: 40px;
-    border: 1px solid red;
-    border-radius: 25px;
-    padding-top: 6px;
-}
-
 .disable-field {
     pointer-events: none;
 }

@@ -1,8 +1,8 @@
 <?php
-// if(session_status() === PHP_SESSION_NONE){
-// session_start();
-// }
-
+ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+if(session_status() === PHP_SESSION_NONE){
+session_start();
+}
 use Mpdf\Tag\Em;
 use PhpParser\Node\Expr\Empty_;
 
@@ -58,6 +58,7 @@ class Forgot extends CI_Controller
 			// 	echo json_encode($resultss);
 			// 	exit();
 			// }
+			$_SESSION['ei'] = $id;
 				setcookie("ei", $id, time()+86400,"/");
 					$resultss = array('success' => 1, 'msg' => 'OTP has sent.');
 				echo json_encode($resultss);

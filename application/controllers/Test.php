@@ -1,5 +1,8 @@
 <?php
-
+if(session_status() === PHP_SESSION_NONE){
+	ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+	session_start();
+}
 class Test extends CI_Controller
 {
     function __construct()
@@ -14,7 +17,7 @@ class Test extends CI_Controller
         $Allunit = $this->Test_model->getAllunit();
         $Alldepartment = $this->Test_model->getAlldepartment();
 
-        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedInId = $_SESSION['loggedInId'];
         $loggedData = $this->Test_model->getuserbyID($loggedInId);
         $loggedData = $loggedData[0];
 

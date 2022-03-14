@@ -6,7 +6,7 @@
             <div class="form-row">
                 <div class="col-lg-12">
                     <div class="c-datatable">
-                        <table width="100%" class="table dt-responsives" role="grid">
+                        <table width="100%" class="table dt-responsive1" role="grid">
                             <thead>
                                 <tr role="row" class="tablesorter-headerRow">
                                      <th style="width:35px">
@@ -130,3 +130,4 @@
 <?php
 include_once "./public/assets/includes/footer.php";
 ?>
+    <script>localStorage.setItem('activetab', 1); </script>

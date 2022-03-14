@@ -1,5 +1,8 @@
 <?php
-
+if(session_status() === PHP_SESSION_NONE){
+	ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+	session_start();
+}
 class Bill extends CI_Controller
 {
     function __construct()
@@ -10,7 +13,7 @@ class Bill extends CI_Controller
 
     public function index()
     {
-        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedInId = $_SESSION['loggedInId'];
         $loggedData = $this->Bill_model->getuserbyID($loggedInId);
         $loggedData = $loggedData[0];
         if (isset($_GET['t'])) {
@@ -78,7 +81,7 @@ class Bill extends CI_Controller
         }
         $advance = 0;
         $bill_id = $this->input->post('bill_id');
-        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedInId = $_SESSION['loggedInId'];
         $loggedData = $this->Bill_model->getuserbyID($loggedInId);
         $loggedData = $loggedData[0];
         if($loggedData->role =='admin'){
@@ -106,7 +109,7 @@ class Bill extends CI_Controller
     public function edit()
     {
 
-        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedInId = $_SESSION['loggedInId'];
         $loggedData = $this->Bill_model->getuserbyID($loggedInId);
         $loggedData = $loggedData[0];
         if (isset($_GET['bill'])) {

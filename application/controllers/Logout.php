@@ -1,5 +1,6 @@
 <?php
 if(session_status() === PHP_SESSION_NONE){
+	ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
 	session_start();
 }
 class Logout extends CI_Controller

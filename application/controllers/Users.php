@@ -1,4 +1,8 @@
 <?php
+if(session_status() === PHP_SESSION_NONE){
+	ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+	session_start();
+}
 class Users extends CI_Controller
 {
     function __construct()
@@ -9,7 +13,7 @@ class Users extends CI_Controller
 
     public function index()
     {
-        $id = $_COOKIE['loggedInId'];
+        $id = $_SESSION['loggedInId'];
         if(!isset($id)){
             header('location:' . BASE_URL . 'login');
         }
@@ -68,7 +72,7 @@ class Users extends CI_Controller
         $path_email = $this->input->post('path_email');
         $path_address = $this->input->post('path_address');
         $path_id = $this->input->post('pathologist_id');
-        $labid = $_COOKIE['loggedInId'];
+        $labid = $_SESSION['loggedInId'];
 
         if ($_FILES["signature"]["name"] == NULL) {
             $sign = $this->input->post('old_signature');
@@ -167,7 +171,7 @@ class Users extends CI_Controller
         $password = $this->input->post('password');
         $password = md5($password);
         $userid = $this->input->post('userid');
-        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedInId = $_SESSION['loggedInId'];
         if (isset($loggedInId)) {
             if ($userid == '') {
                 $data = $this->Users_model->storeUserData($fullname, $username, $email, $mobile, $role, $password, $loggedInId);
