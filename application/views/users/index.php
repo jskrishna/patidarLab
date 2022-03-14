@@ -95,7 +95,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <form method="POST" id="password-form" name="profile" enctype="multipart/form-data">
+                                        <form method="POST" id="password-form" onsubmit="return checkvalide()" name="profile" enctype="multipart/form-data">
                                             <div class="row">
                                                 <div id="password">
                                                     <div class="errorTxt text-danger text-center mb-3"></div>
@@ -191,7 +191,7 @@
                                                             <td><?php if ($ref->designation) { ?> (<?php echo $ref->designation; ?>) <?php } ?> </td>
                                                             <td><?php echo $ref->address;  ?></td>
                                                             <td><?php echo $ref->mobile_no;  ?></td>
-                                                            <td> <button data-toggle="tooltip" data-placement="top" title="" data-bs-target="#adddoctor" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-sml patientedit-btn doc-model-btn" namse="doctoredit" data-id="<?php echo $ref->id;  ?>" value="<?php echo $ref->id;  ?>" data-bs-original-title="Edit Doctor">
+                                                            <td> <button data-toggle="tooltip" data-placement="top" title="" data-bs-target="#adddoctor" data-bs-toggle="modal" data-bs-dismiss="modal" class="btn btn-sml patientedit-btn doc-model-btn" namse="doctoredit" data-id="<?php echo $ref->id;  ?>" value="<?php echo $ref->id;  ?>" data-title="Edit Doctor" data-bs-original-title="Edit Doctor">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
                                                                         <defs>
                                                                             <clipPath id="a">
@@ -225,35 +225,34 @@
                                                         <div class="errorTxt text-danger text-center mb-3"></div>
                                                         <div class="form-row">
                                                             <div class="row">
+
                                                                 <div class="form-group file-type col-lg-6">
-                                                                    <label for="lab_logo">Lab Logo</label>
-                                                                    <label for="lab_logo" class="file-type-input">
-                                                                        <img src="<?php echo BASE_URL  ?>public/assets/images/upload.svg" alt="">
-                                                                        <span>Upload your Logo here..</span>
-                                                                    </label>
-                                                                    <input type="file" name="lab_logo" id="lab_logo" class="form-control enterAsTab" placeholder="Enter lab_logo" autocomplete="off">
-                                                                    <input type="hidden" name="old_lab_logo" id="old_lab_logo" value="<?php echo $UserData->lab_logo; ?>">
-                                                                    <div class="form-group file-type-img">
-                                                                        <label for="lab_logo"></label>
-                                                                        <?php if ($UserData->lab_logo) { ?>
-                                                                            <img id="img_lablogo" src="<?php echo BASE_URL . 'public/assets/images/' . $UserData->lab_logo; ?>" alt="">
-                                                                        <?php } ?>
+                                                                    <label for="letter_pad">Letter Head</label>
+                                                                    <div class="image-input" data-toggle="tooltip" data-placement="top" data-bs-original-title="Upload image">
+                                                                    <input type="file" name="letter_pad" id="letter_pad" class="" placeholder="Enter letter_pad" autocomplete="off">
+                                                                    <input type="hidden" name="old_letter_pad" id="old_letter_pad" value="<?php echo $UserData->letter_pad; ?>">
+                                                                        <label for="letter_pad" class="image-button">Choose image</label>
+                                                                        <?php if($UserData->letter_pad) { ?>
+                                                                            <img id="img_letter" src="<?php echo BASE_URL .'public/assets/images/'.$UserData->letter_pad; ?>" class="image-preview">
+                                                                        <span class="change-image">Choose different image</span>
+                                                                        <?php }else{ ?>
+                                                                            <img id="img_letter" src="<?php echo BASE_URL  ?>public/assets/images/placeholder.jpg" class="image-preview">
+                                                                       <?php } ?>
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="form-group file-type col-lg-6">
-                                                                    <label for="letter_pad">Letter head</label>
-                                                                    <label for="letter_pad" class="file-type-input">
-                                                                        <img src="<?php echo BASE_URL  ?>public/assets/images/upload.svg" alt="">
-                                                                        <span>Upload your Letter head here..</span>
-                                                                    </label>
-                                                                    <input type="file" name="letter_pad" id="letter_pad" class="form-control enterAsTab" placeholder="Enter letter_pad" autocomplete="off">
-                                                                    <input type="hidden" name="old_letter_pad" id="old_letter_pad" value="<?php echo $UserData->letter_pad; ?>">
-                                                                    <div class="form-group file-type-img">
-                                                                        <label for="letter_pad"></label>
-                                                                        <?php if ($UserData->letter_pad) { ?>
-                                                                            <img id="img_letter" src="<?php echo BASE_URL . 'public/assets/images/' . $UserData->letter_pad; ?>" alt="">
-                                                                        <?php } ?>
+                                                                    <label for="lab_logo">Lab Logo</label>
+                                                                    <div class="image-input" data-toggle="tooltip" data-placement="top" data-bs-original-title="Upload image">
+                                                                    <input type="file" name="lab_logo" id="lab_logo" class="" placeholder="Enter lab_logo" autocomplete="off">
+                                                                    <input type="hidden" name="old_lab_logo" id="old_lab_logo" value="<?php echo $UserData->lab_logo; ?>">
+                                                                        <label for="lab_logo" class="image-button">Choose image</label>
+                                                                        <?php if($UserData->lab_logo) { ?>
+                                                                            <img id="img_lablogo" src="<?php echo BASE_URL .'public/assets/images/'.$UserData->lab_logo; ?>" class="image-preview">
+                                                                        <span class="change-image">Choose different image</span>
+                                                                        <?php }else{ ?>
+                                                                            <img id="img_lablogo" src="<?php echo BASE_URL  ?>public/assets/images/placeholder.jpg" class="image-preview">
+                                                                       <?php } ?>
                                                                     </div>
                                                                 </div>
 
@@ -314,20 +313,19 @@
                                                             </div>
 
                                                             <div class="row">
-                                                                <div class="form-group file-type col-lg-12 mb-0">
+                                                                <div class="form-group file-type col-lg-6 mb-0">
                                                                     <label for="signature">Signature</label>
-                                                                    <label for="signature" class="file-type-input">
-                                                                        <img src="<?php echo BASE_URL  ?>public/assets/images/upload.svg" alt="">
-                                                                        <span>Upload your Sign here..</span>
-                                                                    </label>
-                                                                    <input type="file" name="signature" id="signature" class="form-control enterAsTab" placeholder="Enter signature" autocomplete="off">
+                                                                    <div class="image-input" data-toggle="tooltip" data-placement="top" data-bs-original-title="Upload image">
+                                                                    <input type="file" name="signature" id="signature" class="" placeholder="Enter signature" autocomplete="off">
                                                                     <input type="hidden" name="old_signature" id="old_signature" value="<?php echo !empty($pathologistData) ? $pathologistData->sign : ''; ?>">
-                                                                </div>
-                                                                <div class="form-group file-type-img col-lg-12">
-                                                                    <label for="signature"></label>
-                                                                    <?php if (!empty($pathologistData) && $pathologistData->sign) { ?>
-                                                                        <img id="img_sign" src="<?php echo BASE_URL . 'public/assets/images/' . $pathologistData->sign; ?>" alt="">
-                                                                    <?php } ?>
+                                                                        <label for="signature" class="image-button">Choose image</label>
+                                                                        <?php if (!empty($pathologistData) && $pathologistData->sign) { ?>
+                                                                        <img id="img_sign" src="<?php echo BASE_URL . 'public/assets/images/' . $pathologistData->sign; ?>">
+                                                                        <span class="change-image">Choose different image</span>
+                                                                        <?php } else{ ?>
+                                                                            <img id="img_sign" src="<?php echo BASE_URL  ?>public/assets/images/placeholder.jpg" class="image-preview">
+                                                                       <?php } ?>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <hr>

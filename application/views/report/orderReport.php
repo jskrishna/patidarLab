@@ -11,7 +11,7 @@
                                 <div class="name-sec-left">
                                     <div class="name-icon">
                                         <h3>
-                                            <?php 
+                                            <?php
                                             $name = explode(' ', $patientData->patientname);
                                             $name = array_filter($name);
                                             foreach ($name as $n) {
@@ -70,20 +70,20 @@
                         </div>
                     </div>
                     <form method="POST" action="<?php echo BASE_URL; ?>Outputpdf/index" target="_blank" id="report">
-                    <input type="hidden" name="loggedInId" id="loggedInId" value="<?php echo $_COOKIE['loggedInId']; ?>">
-                    <input type="hidden" value="<?php echo $billData->id; ?>" id="bill_id" name="bill_id">
-                    <input type="hidden" value="<?php echo $patientData->id; ?>" id="patientID" name="patientID">
+                        <input type="hidden" name="loggedInId" id="loggedInId" value="<?php echo $_COOKIE['loggedInId']; ?>">
+                        <input type="hidden" value="<?php echo $billData->id; ?>" id="bill_id" name="bill_id">
+                        <input type="hidden" value="<?php echo $patientData->id; ?>" id="patientID" name="patientID">
                         <div class="c-datatable fixed-save">
-                                            <div class="print-option">
-                                                <div class="check-group">
-                                                    <input type="checkbox" class="" id="print_header" name="print_header" value="Yes" checked>
-                                                    <label for="print_header">Print Report With Header</label>
-                                                </div>
-                                                <div class="check-group">
-                                                    <input type="checkbox" class="" id="collapse" name="collapse" value="Yes">
-                                                    <label for="collapse">Collapse pdf</label>
-                                                </div>
-                                            </div>
+                            <div class="print-option">
+                                <div class="check-group">
+                                    <input type="checkbox" class="" id="print_header" name="print_header" value="Yes" checked>
+                                    <label for="print_header">Print Report With Header</label>
+                                </div>
+                                <div class="check-group">
+                                    <input type="checkbox" class="" id="collapse" name="collapse" value="Yes">
+                                    <label for="collapse">Collapse pdf</label>
+                                </div>
+                            </div>
                             <table class="table report-edit" id="tablelist">
                                 <thead>
                                     <tr>
@@ -135,7 +135,9 @@
                                                     <?php echo $testData->test_name; ?>
                                                 </td>
                                                 <td>
-                                                    <button type="button" class="btnupdate review-btn bill_settle" data-id="<?php echo $testData->id; ?>" id="sub<?php echo $testData->id; ?>">Review <?php if($checkData[0]->printed >0){ echo '('.$checkData[0]->printed.')'; } ?></button>
+                                                    <button type="button" class="btnupdate review-btn bill_settle" data-id="<?php echo $testData->id; ?>" id="sub<?php echo $testData->id; ?>">Review <?php if ($checkData[0]->printed > 0) {
+                                                                                                                                                                                                            echo '(' . $checkData[0]->printed . ')';
+                                                                                                                                                                                                        } ?></button>
                                                 </td>
                                             </tr>
                                     <?php }
@@ -178,24 +180,19 @@ include_once "./public/assets/includes/footer.php";
 
         }
         var count = check.length;
-        
+
         if (count > 0) {
             $('#submit_report').removeAttr('disabled', 'disabled');
         } else {
             $('#submit_report').attr('disabled', 'disabled');
         }
         if ($("#" + val).prop("checked") == true) {
-
-            console.log("Checkbox is checked.");
             $('#department' + val1).prop('checked', true);
         } else if ($("#" + val).prop("checked") == false) {
-
-            console.log("Checkbox is unchecked.");
             $('#department' + val1).prop('checked', false);
         }
-
         if ($('#select_all').is(':checked')) {
-				$('#submit_report').removeAttr('disabled');
-			}
+            $('#submit_report').removeAttr('disabled');
+        }
     }
 </script>

@@ -51,7 +51,7 @@ include_once "./public/assets/includes/header.php";
 						<label class="leadCapFirstName" for="otp">OTP</label>
 						<input class="form-control required" placeholder="Enter OTP here" value="" id="otp" type="number" name="otp" />
 						<span class='error'>This field is required.</span>
-						<input type="hidden" name="ei" id="ei" value="<?php if(isset($_COOKIE['ei'])){ echo $_COOKIE['ei']; } ?>">
+						<input type="hidden" name="ei" id="ei" value="<?php if(isset($_SESSION['ei'])){ echo $_SESSION['ei']; } ?>">
 					</div>
 					<div class="from-group from-wrap">
 					<a href="<?php echo BASE_URL; ?>login">Login here</a>

@@ -21,4 +21,23 @@ class Dashboard_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    public function getTestreportByLabId($labid,$date)
+    {
+        $query = $this->db->select('*')->from('bill');
+        $query = $this->db->where('user_id',$labid);
+        $query = $this->db->like('billDate',$date);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function getReportDataBybillTestID($billid, $test_id)
+    {
+        $query = $this->db->select('*')->from('reportdata');
+        $query = $this->db->where('bill_id',$billid);
+        $query = $this->db->where('test_id',$test_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+
+
 }

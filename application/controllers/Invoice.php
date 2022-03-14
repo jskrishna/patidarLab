@@ -1,17 +1,15 @@
-<!-- /*
-* Author: onlinecode
-* start tcpdfexample.php file
-* Location: ./application/controllers/tcpdfexample.php
-*/ -->
-<?php class printinvoice extends CI_Controller
+<?php 
+if(session_status() === PHP_SESSION_NONE){
+	ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+	session_start();
+}
+class Invoice extends CI_Controller
 {
-
     function __construct()
     {
         parent::__construct();
         $this->load->model('Outputpdf_model');
     }
-
     function index($bill_id)
     {
         if(!isset($bill_id)){
@@ -31,7 +29,7 @@
         $testIDS = explode(',', $billData->testId);
         require_once 'vendor/autoload.php';
 
-        $format = $_GET['format'];
+        $format = $this->input->get('format');
 
         if ($format == '3') {
             $mpdf = new \Mpdf\Mpdf([
@@ -53,7 +51,7 @@
                 'default_font' => 'dejavusans',
             ]);
 
-            $header =  $_GET['header'];
+            $header =  $this->input->get('header');
             if (isset($header) && $header == 'true') {
                 $mpdf->SetDefaultBodyCSS('background', "url('" . $headerImage . "')");
                 $mpdf->SetDefaultBodyCSS('background-image-resize', 6);
@@ -150,7 +148,7 @@
              <th style='text-align:left; width:30px;' >S.no</th>
              <th style='text-align:left;'>Test Name</th>
             <th style='text-align:right;'>Test price</th>
-           </tr>
+          </tr>
         </thead><tbody>";
         $total = 0;
 
@@ -249,7 +247,7 @@
         $mpdf->WriteHTML($footer);
 
         $mpdf->Output(); // opens in browser
-        // $mpdf->Output('invoice-'.$patientData->patientid.'.pdf','D'); // it downloads the file into the user system, with give name
+        // // $mpdf->Output('invoice-'.$patientData->patientid.'.pdf','D'); // it downloads the file into the user system, with give name
     }
 }
 ?>

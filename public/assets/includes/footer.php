@@ -87,13 +87,13 @@
 						<div class="col-lg-6">
 							<input type="button" class="btn btnupdate btn-block custom-btn" id="gotoBilling" value="Update">
 						</div>
-						<?php if($loggedData->role=='admin'){ ?>
+						<?php if ($loggedData->role == 'admin') { ?>
 
-						<div class="col-lg-6">
-							<button data-bs-toggle="modal" data-title="" data-bs-target="#myDeletemodel" data-url="" id="patientdelete" class="btn btn-delete btn-block custom-btn btn-danger" value="">
-								Delete
-							</button>
-						</div>
+							<div class="col-lg-6">
+								<button data-bs-toggle="modal" data-title="" data-bs-target="#myDeletemodel" data-url="" id="patientdelete" class="btn btn-delete btn-block custom-btn btn-danger" value="">
+									Delete
+								</button>
+							</div>
 						<?php } ?>
 					</div>
 				</div>
@@ -134,11 +134,19 @@
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery-ui.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.dataTables.min.js"></script>
 <!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.bootstrap.js"></script> -->
 <!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.responsive.js"></script> -->
+
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script>
+
 <script src="<?php echo BASE_URL; ?>public/assets/js/select2.min.js"></script>
 <script src="<?php echo BASE_URL; ?>public/assets/js/rte.js"></script>
+<script>
+	var serverSideUrl = "<?php echo BASE_URL; ?>report/getServerSide";
+</script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/custom.js"></script>
 <!-- JavaScript Bundle with Popper -->
 <?php
@@ -355,8 +363,8 @@ if (isset($editer)) {
 								$('#otp-form').show();
 								$('.forgot-page .login-heading').html('Verify OTP');
 								$('#forgot-form').hide();
-								var ei = '<?php if (isset($_COOKIE['ei'])) {
-												echo $_COOKIE['ei'];
+								var ei = '<?php if (isset($_SESSION['ei'])) {
+												echo $_SESSION['ei'];
 											} ?>';
 								$('#ei').val(ei);
 							}
@@ -1851,25 +1859,14 @@ if (isset($editer)) {
 				}
 			})
 
-			// var fixmeTop = $('.test-parameters').offset().top;
-			// $(window).scroll(function() {
-			// 	var currentScroll = $(window).scrollTop();
-			// 	if (currentScroll >= fixmeTop) {
-			// 		$('.test-parameters').addClass('test');
-			// 	} else {
-			// 		$('.test-parameters').removeClass('test');
-			// 	}
-			// });
 		});
 
-		$('.print-invoice-btn').click(function() {
+		$("body").on('click', '.print-invoice-btn', function() {
 			var id = $(this).data('id');
 			$('#printinvoiceid').val(id);
 		});
 
-
-		$('.radio-group').click(function() {
-
+		$("body").on('click', '.radio-group', function() {
 			if ($("input[name='invoice_type']:checked").val() == '3') {
 				$('#withHeader').click();
 			}
@@ -1892,7 +1889,7 @@ if (isset($editer)) {
 		$('body').on('click', '#withHeader', function() {
 			var id = $("#printinvoiceid").val();
 			var format = $("input[name='invoice_type']:checked").val();
-			var url = '<?php echo BASE_URL; ?>printinvoice/index/' + id + '?format=' + format + '&header=true';
+			var url = '<?php echo BASE_URL; ?>invoice/index/' + id + '?format=' + format + '&header=true';
 			window.open(url, '_blank');
 			$(".modal .close").click();
 		});
@@ -1900,7 +1897,7 @@ if (isset($editer)) {
 		$('body').on('click', '#withoutHeader', function() {
 			var id = $("#printinvoiceid").val();
 			var format = $("input[name='invoice_type']:checked").val();
-			var url = '<?php echo BASE_URL; ?>printinvoice/index/' + id + '?format=' + format + '&header=false';
+			var url = '<?php echo BASE_URL; ?>invoice/index/' + id + '?format=' + format + '&header=false';
 			window.open(url, '_blank');
 			$(".modal .close").click();
 		});
@@ -1992,19 +1989,19 @@ if (isset($editer)) {
 			alertid = "#alert" + numid;
 
 			if (Totalvalue > 100) {
-				$(alertid).css("color", "red").css("font-weight", "Bold");
+				$(alertid).css("color", "#dc3545").css("font-weight", "Bold");
 				$(".btn-approve").hide();
 				new bootstrap.Toast(document.querySelector('#basicToast')).show();
 				$('#basicToast').addClass('toast-error');
 				$('#basicToast').removeClass('toast-success');
 				$('.toast-body').html('The combination percentage must below 100.');
 			} else {
-				$(alertid).css("color", "green").css("font-weight", "Bold");
+				$(alertid).css("color", "#05836b").css("font-weight", "Bold");
 				$(".btn-approve").show();
 			}
 			$(".alert_id").hide();
 			$(alertid).show().html(
-				"&nbsp;&nbsp;&nbsp;" + Number.parseInt(Totalvalue)
+				Number.parseInt(Totalvalue)
 			);
 		}
 
@@ -2122,7 +2119,48 @@ if (isset($editer)) {
 			}
 		});
 
-		// dont remove
+		$('#imageInput').on('change', function() {
+			$input = $(this);
+			if ($input.val().length > 0) {
+				fileReader = new FileReader();
+				fileReader.onload = function(data) {
+					$('.image-preview').attr('src', data.target.result);
+				}
+				fileReader.readAsDataURL($input.prop('files')[0]);
+				$('.image-button').css('display', 'none');
+				$('.image-preview').css('display', 'block');
+				$('.change-image').css('display', 'block');
+			}
+		});
+
+		$('.change-image').on('click', function() {
+			$control = $(this);
+			$('#imageInput').val('');
+			$preview = $('.image-preview');
+			$preview.attr('src', '');
+			$preview.css('display', 'none');
+			$control.css('display', 'none');
+			$('.image-button').css('display', 'block');
+		});
+
+		function checkvalide(){
+    var submit =  false;
+        $('#password-form .required').each(function() {
+        if ($(this).val() == "" && !$(this).val()) {
+        $(this).focus();
+        $(this).parent('.form-group').addClass('error');
+        $(this).siblings('.error').show();
+        submit = false;
+        } else {
+        $(this).siblings('.error').hide();
+        $(this).parent('.form-group').removeClass('error');
+        submit = true;
+        }
+        });
+        return submit;
+    }
+
+	// dont remove
 	<?php } ?>
 </script>
 

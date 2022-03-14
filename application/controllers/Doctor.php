@@ -1,5 +1,8 @@
 <?php
-
+if(session_status() === PHP_SESSION_NONE){
+	ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+	session_start();
+}
 class Doctor extends CI_Controller
 {
     function __construct()
@@ -14,7 +17,7 @@ class Doctor extends CI_Controller
     }
     public function getAutocompleteDoctor()
     {
-        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedInId = $_SESSION['loggedInId'];
         $loggedData = $this->Doctor_model->getuserbyID($loggedInId);
         $loggedData = $loggedData[0];
         if($loggedData->role =='admin'){
@@ -27,7 +30,7 @@ class Doctor extends CI_Controller
     }
     public function referedList()
 	{
-		$loggedInId = $_COOKIE['loggedInId'];
+		$loggedInId = $_SESSION['loggedInId'];
         $loggedData = $this->Doctor_model->getuserbyID($loggedInId);
         $loggedData = $loggedData[0];
         if($loggedData->role =='admin'){
@@ -55,7 +58,7 @@ class Doctor extends CI_Controller
         $dmobile = $this->input->post('dmobile');
         $daddress = $this->input->post('daddress');
         $commission = $this->input->post('commission');
-        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedInId = $_SESSION['loggedInId'];
         $loggedData = $this->Doctor_model->getuserbyID($loggedInId);
         $loggedData = $loggedData[0];
         if($loggedData->role =='admin'){

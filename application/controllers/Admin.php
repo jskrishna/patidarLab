@@ -1,4 +1,8 @@
 <?php
+if(session_status() === PHP_SESSION_NONE){
+	ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+	session_start();
+}
 class Admin extends CI_Controller
 {
 	function __construct()
@@ -8,7 +12,7 @@ class Admin extends CI_Controller
 	}
     public function index()
 	{
-        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedInId = $_SESSION['loggedInId'];
 		$loggedData = $this->Patient_model->getuserbyID($loggedInId);
 		$loggedData = $loggedData[0];
 		if ($loggedData->role == 'admin') {
@@ -22,7 +26,7 @@ class Admin extends CI_Controller
 
 	public function dashboard()
 	{
-        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedInId = $_SESSION['loggedInId'];
 		$loggedData = $this->Patient_model->getuserbyID($loggedInId);
 		$loggedData = $loggedData[0];
 		if ($loggedData->role == 'admin') {
@@ -35,7 +39,7 @@ class Admin extends CI_Controller
 	}
 	public function department()
 	{
-        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedInId = $_SESSION['loggedInId'];
 		$loggedData = $this->Patient_model->getuserbyID($loggedInId);
 		$loggedData = $loggedData[0];
 		if ($loggedData->role == 'admin') {
@@ -48,7 +52,7 @@ class Admin extends CI_Controller
 	}
     public function test()
 	{
-        $loggedInId = $_COOKIE['loggedInId'];
+        $loggedInId = $_SESSION['loggedInId'];
 		$loggedData = $this->Patient_model->getuserbyID($loggedInId);
 		$loggedData = $loggedData[0];
 		if ($loggedData->role == 'admin') {

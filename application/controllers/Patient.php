@@ -1,7 +1,10 @@
 <?php
 
 use CodeIgniter\HTTP\Response;
-
+if(session_status() === PHP_SESSION_NONE){
+	ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+	session_start();
+}
 class Patient extends CI_Controller
 {
 	function __construct()
@@ -12,7 +15,7 @@ class Patient extends CI_Controller
 
 	public function index()
 	{
-		$loggedInId = $_COOKIE['loggedInId'];
+		$loggedInId = $_SESSION['loggedInId'];
 		$loggedData = $this->Patient_model->getuserbyID($loggedInId);
 		$loggedData = $loggedData[0];
 		if ($loggedData->role == 'admin') {
@@ -27,7 +30,7 @@ class Patient extends CI_Controller
 	}
 	public function info($id)
 	{
-		$loggedInId = $_COOKIE['loggedInId'];
+		$loggedInId = $_SESSION['loggedInId'];
 		$loggedData = $this->Patient_model->getuserbyID($loggedInId);
 		$loggedData = $loggedData[0];
 		$patientData = $this->Patient_model->patientEdit($id);
@@ -52,7 +55,7 @@ class Patient extends CI_Controller
 			}
 
 
-			$loggedInId = $_COOKIE['loggedInId'];
+			$loggedInId = $_SESSION['loggedInId'];
 			$loggedData = $this->Patient_model->getuserbyID($loggedInId);
 			$loggedData = $loggedData[0];
 			if ($loggedData->role == 'admin') {
@@ -92,7 +95,7 @@ class Patient extends CI_Controller
 			$age_type = $this->input->post('age_type');
 			$pin = $this->input->post('pin');
 
-			$loggedInId = $_COOKIE['loggedInId'];
+			$loggedInId = $_SESSION['loggedInId'];
 			$loggedData = $this->Patient_model->getuserbyID($loggedInId);
 			$loggedData = $loggedData[0];
 			if ($loggedData->role == 'admin') {
@@ -181,7 +184,7 @@ class Patient extends CI_Controller
 	public function searchPatient()
 	{
 		$search = $_GET['term'];
-		$loggedInId = $_COOKIE['loggedInId'];
+		$loggedInId = $_SESSION['loggedInId'];
 		$loggedData = $this->Patient_model->getuserbyID($loggedInId);
 		$loggedData = $loggedData[0];
 		if ($loggedData->role == 'admin') {
@@ -199,7 +202,7 @@ class Patient extends CI_Controller
 	public function getAutoComplete()
 	{
 		$search = $_GET['term'];
-		$loggedInId = $_COOKIE['loggedInId'];
+		$loggedInId = $_SESSION['loggedInId'];
 		$loggedData = $this->Patient_model->getuserbyID($loggedInId);
 		$loggedData = $loggedData[0];
 		if ($loggedData->role == 'admin') {
@@ -216,7 +219,7 @@ class Patient extends CI_Controller
 
 	public function add_patient()
 	{
-		$loggedInId = $_COOKIE['loggedInId'];
+		$loggedInId = $_SESSION['loggedInId'];
 		$loggedData = $this->Patient_model->getuserbyID($loggedInId);
 		$loggedData = $loggedData[0];
 		$data = array('loggedData' => $loggedData);
@@ -224,7 +227,7 @@ class Patient extends CI_Controller
 	}
 	public function patientList()
 	{
-		$loggedInId = $_COOKIE['loggedInId'];
+		$loggedInId = $_SESSION['loggedInId'];
 		$patientList = $this->Patient_model->patientinfo($loggedInId);
 		$data = '';
 

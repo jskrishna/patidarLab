@@ -1,14 +1,11 @@
 <?php
-// if(session_status() === PHP_SESSION_NONE){
-// 	session_start();
-// }
-// if (isset($_SESSION['loggedIn']) && isset($_SESSION['loggedInId'])) {
-// } else {
-// 	header('Location:' . BASE_URL . 'login');
-// }
-if (isset($_COOKIE['loggedIn']) && isset($_COOKIE['loggedInId'])) {
+if(session_status() === PHP_SESSION_NONE){
+	ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+	session_start();
+}
+if (isset($_SESSION['loggedIn']) && isset($_SESSION['loggedInId'])) {
 } else {
-    header('Location:' . BASE_URL . 'login');
+	header('Location:' . BASE_URL . 'login');
 }
 ?>
 <div class="layoutSidenav">

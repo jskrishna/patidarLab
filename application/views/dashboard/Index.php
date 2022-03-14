@@ -16,26 +16,26 @@
                     <h3>Today's <b class="color-green">Report</b></h3>
                     <div class="dashbord-box-inr">
                         <div class="dashboard-box blue-box">
-                            <a href="#">
+                            <a href="<?php echo BASE_URL; ?>report">
                                 <div class="dashbord-content">
                                     <h4>Total Test</h4>
-                                    <span class="test-count">40</span>
+                                    <span class="test-count"><?php echo $total; ?></span>
                                 </div>
                             </a>
                         </div>
                         <div class="dashboard-box yellow-box">
-                            <a href="#">
+                            <a href="<?php echo BASE_URL; ?>report">
                                 <div class="dashbord-content">
                                     <h4>In Process Test</h4>
-                                    <span class="test-count">5</span>
+                                    <span class="test-count"><?php echo $process; ?></span>
                                 </div>
                             </a>
                         </div>
                         <div class="dashboard-box green-box">
-                            <a href="#">
+                            <a href="<?php echo BASE_URL; ?>report">
                                 <div class="dashbord-content">
                                     <h4>Completed Test </h4>
-                                    <span class="test-count">23</span>
+                                    <span class="test-count"><?php echo $complete; ?></span>
                                 </div>
                             </a>
                         </div>
@@ -48,3 +48,4 @@
     <?php
     include_once "./public/assets/includes/footer.php";
     ?>
+    <script>localStorage.setItem('activetab', 1); </script>
