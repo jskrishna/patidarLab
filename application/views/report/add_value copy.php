@@ -285,13 +285,11 @@
 
                                                                                     <?php  } else { ?>
                                                                                         <td class="text-t-inherit">
-                                                                                            <span>
                                                                                             <?php foreach ($unitData as $unit) {
                                                                                                 if ($unit->id == $parameter->unit) {
                                                                                                     echo $unit->unit;
                                                                                                 }
                                                                                             } ?>
-                                                                                            </span>
                                                                                             <span id="alert<?php echo $parameter->id; ?>" class="alert_id pull-right"></span>
 
                                                                                         </td>

@@ -344,7 +344,7 @@ class Report extends CI_Controller
             } elseif ($search == 'Last_month') {
                 $search = '';
                 $first_date = date('Y-m-d 00:00:00', strtotime('first day of last month'));
-                $last_date = date('Y-m-d 24:59:59', strtotime('last day of last month'));
+                $last_date = date('Y-m-d 23:59:59', strtotime('last day of last month'));
                 $dateSearch = "created_at BETWEEN '$first_date' AND '$last_date' ";
             } elseif ($search == 'Today') {
                 $today = date('Y-m-d');
@@ -352,10 +352,17 @@ class Report extends CI_Controller
                 $search = '';
             }
 
+            if (!function_exists('str_contains')) {
+                function str_contains(string $haystack, string $needle): bool
+                {
+                    return '' === $needle || false !== strpos($haystack, $needle);
+                }
+            }
+            
             if (str_contains($search, ' To ')) {
                 $customdate = explode(' To ', $search);
                 $fdate = date("Y-m-d 00:00:00", strtotime($customdate[0]));
-                $tdate = date("Y-m-d 23:00:00", strtotime($customdate[1]));
+                $tdate = date("Y-m-d 23:59:59", strtotime($customdate[1]));
                 $search = '';
                 $dateSearch = "created_at BETWEEN '$fdate' AND '$tdate' ";
               
@@ -372,9 +379,7 @@ class Report extends CI_Controller
             $totalFiltered = $this->Report_model->getInfoTotalAndpatientID($labid, $Ids, $dateSearch);
             $totalFiltered = count($totalFiltered);
             $posts = $this->Report_model->getPatientbillINFOwithSearch($limit, $offset, $labid, $Ids, $dateSearch);
-            // print_r($dateSearch);
-            // print_r($posts);
-            // exit;
+          
         }
 
         $data = array();

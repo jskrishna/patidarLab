@@ -7,9 +7,9 @@ $(document).ready(function() {
             search: "_INPUT_",
             searchPlaceholder: "Search Patient..."
         },
-        "order": [
-            [2, "desc"]
-        ],
+        // "order": [
+        //     [2, "desc"]
+        // ],
         responsive: {
             details: {
                 type: "column",
@@ -54,9 +54,14 @@ $(document).ready(function() {
             },
         ],
         columnDefs: [{
-            responsivePriority: 1,
-            targets: -1,
-        }, ],
+                responsivePriority: 1,
+                targets: -1,
+            },
+            {
+                "targets": [6],
+                "visible": false
+            }
+        ],
         "lengthMenu": [
             [5, 10, 50, -1],
             [5, 10, 50, "All"]
@@ -137,6 +142,7 @@ $(document).ready(function() {
             { responsivePriority: 2, targets: 6 }
         ]
     });
+
 
     // roles datatable
     var rolTable = $('.dt-responsive2').DataTable({

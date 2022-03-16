@@ -5,9 +5,8 @@ if(session_status() === PHP_SESSION_NONE){
 }
 use Mpdf\QrCode\QrCode;
 use Mpdf\QrCode\Output;
-class Outputpdf extends CI_Controller
+class Pdf extends CI_Controller
 {
-
     function __construct()
     {
         parent::__construct();
@@ -16,10 +15,10 @@ class Outputpdf extends CI_Controller
     function index()
     {
         // post data 
-        $bill_id = $this->input->post('bill_id');
-        $test_id = $this->input->post('test_id');
-        $department = $this->input->post('department');
-        $patientID = $this->input->post('patientID');
+        $bill_id = $this->input->get('b');
+        $test_id = $this->input->get('t');
+        $department = $this->input->get('d');
+        $patientID = $this->input->get('p');
         if (!isset($patientID)) {
             header('location:' . BASE_URL . 'login');
         }
@@ -43,7 +42,7 @@ class Outputpdf extends CI_Controller
 
         $departmentArray = explode(',', $departments);
 
-        $loggedInId = $this->input->post('loggedInId');
+        $loggedInId = $this->input->get('l');
         $getuserbyID =  $this->Outputpdf_model->getuserbyID($loggedInId);
         $getuserbyID = $getuserbyID[0];
 
@@ -74,20 +73,21 @@ class Outputpdf extends CI_Controller
         $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $qrCode = new QrCode($actual_link);
         $output = new Output\Svg();
-        $svg = $output->output($qrCode, 65, 'white', 'black');
+        $svg = $output->output($qrCode, 100, 'white', 'black');
         $svg = str_replace('<?xml version="1.0"?>', '', $svg);
 
         $mpdf = new \Mpdf\Mpdf($mpdfConfig);
-        $print_header =  $this->input->post('print_header');
-        if (isset($print_header) && $print_header == 'Yes') {
+        $print_header =  $this->input->get('ph');
+        if (isset($print_header) && $print_header == 'Y') {
             $mpdf->SetDefaultBodyCSS('background', "url('" . $headerImage . "')");
             $mpdf->SetDefaultBodyCSS('background-image-resize', 6);
         }
-        $mpdf->SetTitle('report-' . $patientData->patientid);
+        $reportname = $patientData->patientname;
+        $mpdf->SetTitle($reportname.'-' . $patientData->patientid);
         // $mpdf->SetDefaultFont('Inter');
         date_default_timezone_set('Asia/Kolkata');
 
-        $collapse =  $this->input->post('collapse');
+        $collapse =  $this->input->get('c');
 
         $mpdf->SetHeader("<table width='100%' cellspacing='5'>
         <thead>
@@ -97,26 +97,32 @@ class Outputpdf extends CI_Controller
         <tr>
         <td> Name :</td>
         <th style='text-align:left;'><span style='text-transform:capitalize;'>" . ($patientData->patientname) . "</span></th>
-        <td style='width:140px; min-width:140px'> Sample collection on :</td>
+        <td style='width:140px; min-width:140px'> Sample collection :</td>
         <th style='text-align:left;'>" . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>
-        <td rowspan='3'>".($svg)."</td>
+        <td rowspan='4'>".($svg)."</td>
         </tr>
         <tr>
         <td> Age/gender :</td>
         <th style='text-align:left;text-transform:capitalize;'>" . ($patientData->age . ' ' . $patientData->age_type . ' / ' . $patientData->gender) . "</th>
-        <td style='width:140px; min-width:140px'> Report on :</td>
+        <td style='width:140px; min-width:140px'> Report :</td>
         <th style='text-align:left;text-transform:capitalize;'>" . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>     
         </tr>
         <tr>
         <td> Refered By :</td>
         <th style='text-align:left;text-transform:capitalize;'>"  . ($doctorData->title) . ' ' . ($doctorData->referral_name) . "</th>
-        <td style='width:140px; min-width:140px'>Report Printed on :</td>
+        <td style='width:140px; min-width:140px'>Report Printed :</td>
         <th style='text-align:left;text-transform:capitalize;'>" . (date("d-M-Y h:i:s")) . "</th>
+        </tr>
+        <tr>
+        <td> Patient No.:</td>
+        <th style='text-align:left;'>"  . ($patientData->patientid)."</th>
+        <td></td>
+        <th></th>
         </tr>
     </thead>
     </table>");
 
-        if (isset($collapse) && $collapse == 'Yes') {
+        if (isset($collapse) && $collapse == 'Y') {
             $departmentarray_unique = array_unique($departmentArray);
 
 
@@ -170,16 +176,12 @@ class Outputpdf extends CI_Controller
                         }
 
                         if ($paramData->max_value) {
-                            $minmaxunit = $paramData->min_value . ' - ' . $paramData->max_value . ' ' . $unit;
+                            $minmaxunit = $paramData->min_value . ' - ' . $paramData->max_value;
                         } else {
                             $minmaxunit = '';
                         }
-                        if ($paramData->id == '1' || $paramData->id == '2' || $paramData->id == '4' || $paramData->id == '13') {
-                            $paramName = '<b>' . $paramData->name . '</b>';
-                        } else {
                             $paramName = $paramData->name;
-                        }
-
+                    
                         if ($paramData->field_type == 'textarea') {
                             $value = $paramData->options;
                         } else {
@@ -193,9 +195,27 @@ class Outputpdf extends CI_Controller
                                 $end = '</b>';
                             }
                         }
-                        if ($paramData->id == '8') {
+                        if ($paramData->id == '9') {
                             $tabledata .= "<tr>
                             <td><b>DIFFERENTIAL COUNT</b></td>
+                            <td></td>
+                            <td></td>
+                        </tr>";
+                        }elseif($paramData->id == '22'){
+                            $tabledata .= "<tr>
+                            <td><b>PHYSICAL EXAMINATION</b></td>
+                            <td></td>
+                            <td></td>
+                        </tr>";
+                        }elseif($paramData->id == '29'){
+                            $tabledata .= "<tr>
+                            <td><b>CHEMICAL EXAMINATION</b></td>
+                            <td></td>
+                            <td></td>
+                        </tr>";
+                        }elseif($paramData->id == '35'){
+                            $tabledata .= "<tr>
+                            <td><b>MICROSCOPIC EXAMINATION</b></td>
                             <td></td>
                             <td></td>
                         </tr>";
@@ -273,15 +293,12 @@ class Outputpdf extends CI_Controller
                     }
 
                     if ($paramData->max_value) {
-                        $minmaxunit = $paramData->min_value . ' - ' . $paramData->max_value . ' ' . $unit;
+                        $minmaxunit = $paramData->min_value . ' - ' . $paramData->max_value;
                     } else {
                         $minmaxunit = '';
                     }
-                    if ($paramData->id == '1' || $paramData->id == '2' || $paramData->id == '4' || $paramData->id == '13') {
-                        $paramName = '<b>' . $paramData->name . '</b>';
-                    } else {
                         $paramName = $paramData->name;
-                    }
+                    
                     if ($paramData->field_type == 'textarea') {
                         $value = $input_values[$index];
                     } else {
@@ -295,9 +312,27 @@ class Outputpdf extends CI_Controller
                             $end = '</b>';
                         }
                     }
-                    if ($paramData->id == '8') {
+                    if ($paramData->id == '9') {
                         $tabledata .= "<tr>
                         <td><b>DIFFERENTIAL COUNT</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>";
+                    }elseif($paramData->id == '22'){
+                        $tabledata .= "<tr>
+                        <td><b>PHYSICAL EXAMINATION</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>";
+                    }elseif($paramData->id == '29'){
+                        $tabledata .= "<tr>
+                        <td><b>CHEMICAL EXAMINATION</b></td>
+                        <td></td>
+                        <td></td>
+                    </tr>";
+                    }elseif($paramData->id == '35'){
+                        $tabledata .= "<tr>
+                        <td><b>MICROSCOPIC EXAMINATION</b></td>
                         <td></td>
                         <td></td>
                     </tr>";
@@ -344,6 +379,7 @@ class Outputpdf extends CI_Controller
 
         // print_r($tabledata);
         $mpdf->Output(); // opens in browser
-        // $mpdf->Output('report-'.$patientData->patientid.'.pdf','D'); // it downloads the file into the user system, with give name
+
+        // $mpdf->Output($reportname.'-'.$patientData->patientid.'.pdf','D'); // it downloads the file into the user system, with give name
     }
 }

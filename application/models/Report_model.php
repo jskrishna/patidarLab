@@ -26,10 +26,12 @@ class Report_model extends CI_Model
     {
         $query = $this->db->select('*')->from('bill');
         $query = $this->db->where('user_id', $user_id);
+        $query = $this->db->where("created_at >= DATE(NOW()) - INTERVAL 7 DAY");
         $query = $this->db->offset($offset);
         if($limit != '-1'){
             $query = $this->db->limit($limit);
         }
+        $query = $this->db->order_by('billDate', 'DESC');
         $query = $this->db->get();
         return $query->result();
     }
@@ -53,6 +55,7 @@ class Report_model extends CI_Model
     {
         $query = $this->db->select('*')->from('bill');
         $query = $this->db->where('user_id', $user_id);
+        $query = $this->db->where("created_at >= DATE(NOW()) - INTERVAL 7 DAY");
         $query = $this->db->get();
         return $query->result();
     }

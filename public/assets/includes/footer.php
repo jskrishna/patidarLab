@@ -617,7 +617,7 @@ if (isset($editer)) {
 				var type = id;
 				$("#age_type").val(type);
 			});
-		
+
 
 			$("#title").on('change', function() {
 				var title = $("#title").val();
@@ -1899,7 +1899,6 @@ if (isset($editer)) {
 		$('body').on('click', '#withoutHeader', function() {
 			var id = $("#printinvoiceid").val();
 			var format = $("input[name='invoice_type']:checked").val();
-			location.reload();
 			var url = '<?php echo BASE_URL; ?>invoice/index/' + id + '?format=' + format + '&header=false';
 			window.open(url, '_blank');
 			$(".modal .close").click();
@@ -1974,20 +1973,20 @@ if (isset($editer)) {
 
 		// input value funtions
 
-		$('body').on('keyup', '#inputValue212', function() {
+		$('body').on('keyup', '#inputValue14', function() {
 
-			var total = $('#inputValue211').val();
-			var Direct = $('#inputValue212').val();
+			var total = $('#inputValue13').val();
+			var Direct = $('#inputValue14').val();
 			var Indirect = (Number(total) - Number(Direct)).toFixed(2);
-			$('#inputValue213').val(Indirect);
+			$('#inputValue15').val(Indirect);
 		});
 
 		function alertValue(id, numid) {
 
-			var value_8 = $('#inputValue8').val();
-			var value_9 = $('#inputValue9').val();
-			var value_10 = $('#inputValue10').val();
-			var value_11 = $('#inputValue11').val();
+			var value_8 = $('#inputValue9').val();
+			var value_9 = $('#inputValue10').val();
+			var value_10 = $('#inputValue109').val();
+			var value_11 = $('#inputValue110').val();
 
 			Totalvalue = Number(value_8) + Number(value_9) + Number(value_10) + Number(value_11);
 			alertid = "#alert" + numid;
@@ -2003,23 +2002,23 @@ if (isset($editer)) {
 				$(alertid).css("color", "#05836b").css("font-weight", "Bold");
 				$(".btn-approve").show();
 			}
-			$(".alert_id").hide();
-			$(alertid).show().html(
+			$(".alert_id").css('display', 'none');
+			$(alertid).css('display', 'inline-block').html(
 				Number.parseInt(Totalvalue)
 			);
 		}
 
-		$("#inputValue8").blur(function() {
-			alertValue('#inputValue8', 8);
-		});
 		$("#inputValue9").blur(function() {
 			alertValue('#inputValue9', 9);
 		});
 		$("#inputValue10").blur(function() {
 			alertValue('#inputValue10', 10);
 		});
-		$("#inputValue11").blur(function() {
-			alertValue('#inputValue11', 11);
+		$("#inputValue109").blur(function() {
+			alertValue('#inputValue109', 109);
+		});
+		$("#inputValue110").blur(function() {
+			alertValue('#inputValue110', 110);
 		});
 
 
@@ -2147,24 +2146,61 @@ if (isset($editer)) {
 			$('.image-button').css('display', 'block');
 		});
 
-		function checkvalide(){
-    var submit =  false;
-        $('#password-form .required').each(function() {
-        if ($(this).val() == "" && !$(this).val()) {
-        $(this).focus();
-        $(this).parent('.form-group').addClass('error');
-        $(this).siblings('.error').show();
-        submit = false;
-        } else {
-        $(this).siblings('.error').hide();
-        $(this).parent('.form-group').removeClass('error');
-        submit = true;
-        }
-        });
-        return submit;
-    }
+		function checkvalide() {
+			var submit = false;
+			$('#password-form .required').each(function() {
+				if ($(this).val() == "" && !$(this).val()) {
+					$(this).focus();
+					$(this).parent('.form-group').addClass('error');
+					$(this).siblings('.error').show();
+					submit = false;
+				} else {
+					$(this).siblings('.error').hide();
+					$(this).parent('.form-group').removeClass('error');
+					submit = true;
+				}
+			});
+			return submit;
+		}
 
-	// dont remove
+
+		//mvc  mch  mchc
+
+		$('body').on('keyup', '#inputValue1,#inputValue2,#inputValue3', function() {
+			var rbc = $('#inputValue2').val();
+			var pvc = $('#inputValue3').val();
+			var Hb = $('#inputValue1').val();
+			var hct = $('#inputValue3').val();
+			var mcv = Number(pvc) * 10 / Number(rbc);
+			var mchc = Number(Hb) * 100 / Number(hct);
+			var mch = Number(Hb) * 10 / Number(rbc);
+			$('#inputValue6').val(mch.toFixed(2));
+			$('#inputValue7').val(mch.toFixed(2));
+			$('#inputValue5').val(mcv.toFixed(2));
+		});
+
+
+		// lipit calculation 
+		$('body').on('keyup', '#inputValue54,#inputValue55,#inputValue56', function() {
+			var Cholesterol = $('#inputValue54').val();
+			var Triglycerides = $('#inputValue55').val();
+			var HDL = $('#inputValue56').val();
+			var LDL = $('#inputValue57').val();
+			var VLDL = $('#inputValue58').val();
+			var ldl_value = (Cholesterol)-(HDL)-VLDL;
+
+			var VLDL_value = (Cholesterol)-(HDL)-(ldl_value);
+
+			var LDLC_HDLC_Ratio = parseInt(LDL) /parseInt(HDL);
+			var Cholesterol_HDLC_Ratio = (Cholesterol)/(HDL);
+
+			$('#inputValue57').val(ldl_value.toFixed(2));
+			$('#inputValue58').val(VLDL_value.toFixed(2));
+			$('#inputValue59').val(LDLC_HDLC_Ratio.toFixed(2));
+			$('#inputValue60').val(Cholesterol_HDLC_Ratio.toFixed(2));
+		});
+
+		// dont remove
 	<?php } ?>
 </script>
 
