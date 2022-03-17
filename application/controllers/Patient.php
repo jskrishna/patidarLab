@@ -1,10 +1,9 @@
 <?php
-
-use CodeIgniter\HTTP\Response;
 if(session_status() === PHP_SESSION_NONE){
 	ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
 	session_start();
 }
+use CodeIgniter\HTTP\Response;
 class Patient extends CI_Controller
 {
 	function __construct()

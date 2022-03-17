@@ -11,38 +11,59 @@
                             <li class="filter-item pending-r" data-value="pending">Pending</li>
                             <li class="filter-item complete-r" data-value="completed">Completed</li>
                         </ul>
-                        <div class="form-row">
-                            <div class="form-group col-lg-2"><select class="form-control custom-filter" id="period">
-                                <option value="">All</option>
-                                    <option value="Today">Today</option>
-                                    <option value="Yesterday">Yesterday</option>
-                                    <option value="Last_7">Last 7 Days</option>
-                                    <option value="Last_month">Last Month</option>
-                                    <option value="Custom">Custom Date</option>
-                                </select></div>
-                            <div class="col-lg-2 text-center ">Select Period</div>
-                            <div class="col-lg-3">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">From Date</span>
+                        <div class="extra-features d-flex justify-content-between">
+                                <div class="ex-l">
+                                    <div class="form-group mb-0">
+                                        <select class="form-control custom-filter" id="period">
+                                            <option value="Today">Today</option>
+                                            <option value="Yesterday">Yesterday</option>
+                                            <option value="Last_7" selected>Last 7 Days</option>
+                                            <option value="Last_month">Last Month</option>
+                                            <option value="Custom">Custom Date</option>
+                                        </select>
                                     </div>
-                                    <input type="date" name="fdate" id="fdate" max="2022-03-14" class="form-control">
                                 </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">To Date</span>
+                                <div class="ex-r d-flex">
+                                    <div class="input-group mb-0">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">From</div>
+                                        </div>
+                                        <input type="date" name="fdate" id="fdate"
+                                            class="form-control">
                                     </div>
-                                    <input type="date" name="tdate" id="tdate" max="2022-03-14" class="form-control">
+                                    <div class="input-group mb-0">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">To</div>
+                                        </div>
+                                        <input type="date" name="tdate" id="tdate"
+                                            class="form-control">
+                                    </div>
+                                    <div class="form-group mb-0">
+                                        <button type="button" id="filter" class="btn custom-btn">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"
+                                                viewBox="0 0 24 24">
+                                                <defs>
+                                                    <clipPath id="a">
+                                                        <path
+                                                            d="M17,18a.994.994,0,0,1-.707-.293l-3.4-3.395A7.91,7.91,0,0,1,8,16a8,8,0,1,1,8-8,7.909,7.909,0,0,1-1.688,4.9l3.395,3.4A1,1,0,0,1,17,18ZM8,2a6,6,0,1,0,6,6A6.007,6.007,0,0,0,8,2Z"
+                                                            transform="translate(3 3)" fill="#fff" />
+                                                    </clipPath>
+                                                </defs>
+                                                <path
+                                                    d="M17,18a.994.994,0,0,1-.707-.293l-3.4-3.395A7.91,7.91,0,0,1,8,16a8,8,0,1,1,8-8,7.909,7.909,0,0,1-1.688,4.9l3.395,3.4A1,1,0,0,1,17,18ZM8,2a6,6,0,1,0,6,6A6.007,6.007,0,0,0,8,2Z"
+                                                    transform="translate(3 3)" fill="#fff" />
+                                            </svg>
+                                        </button>
+                                    </div>
+
                                 </div>
+
                             </div>
-                            <div class="col-lg-2"><button type="button" id="filter" class="btn btn-primary">GO</button></div>
-                        </div>
                     </div>
                     <div class="col-lg-12 mat-4">
 
-                        <div class="instruction-label">
+                        <!-- <div class="instruction-label">
                             <ul>
                                 <label>Test Status: </label>
                                 <li class="registered"> Registered</li>
@@ -50,7 +71,7 @@
                                 <li class="final">Final </li>
                                 <li class="print">Print</li>
                             </ul>
-                        </div>
+                        </div> -->
                         <table class="table dt-responsive" role="grid">
                             <thead>
                                 <tr role="row" class="tablesorter-headerRow">
@@ -96,19 +117,22 @@
         </div>
     </div>
     <!-- //payment model  -->
-    <div class="c-modal modal center fade" id="bill_settlement" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="c-modal modal center fade" id="bill_settlement" tabindex="-3" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
             </div>
         </div>
     </div>
-    <div class="c-modal modal center fade" id="bill_paid" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="c-modal modal center fade" id="bill_paid" tabindex="-3" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
             </div>
         </div>
     </div>
-    <div class="c-modal modal center fade" id="printReport" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="c-modal modal center fade" id="printReport" tabindex="-3" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="page-head">
@@ -156,5 +180,5 @@
 include_once "./public/assets/includes/footer.php";
 ?>
 <script>
-    localStorage.setItem('activetab', 1);
+localStorage.setItem('activetab', 1);
 </script>

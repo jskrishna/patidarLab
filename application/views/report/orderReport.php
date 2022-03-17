@@ -69,18 +69,18 @@
                             </div>
                         </div>
                     </div>
-                    <form method="POST" action="<?php echo BASE_URL; ?>Outputpdf/index" target="_blank" id="report">
-                        <input type="hidden" name="loggedInId" id="loggedInId" value="<?php echo $_COOKIE['loggedInId']; ?>">
-                        <input type="hidden" value="<?php echo $billData->id; ?>" id="bill_id" name="bill_id">
-                        <input type="hidden" value="<?php echo $patientData->id; ?>" id="patientID" name="patientID">
+                    <form method="GET" action="<?php echo BASE_URL; ?>Pdf" target="_blank" id="report">
+                        <input type="hidden" name="l" id="l" value="<?php echo $_SESSION['loggedInId']; ?>">
+                        <input type="hidden" value="<?php echo $billData->id; ?>" id="b" name="b">
+                        <input type="hidden" value="<?php echo $patientData->id; ?>" id="p" name="p">
                         <div class="c-datatable fixed-save">
                             <div class="print-option">
                                 <div class="check-group">
-                                    <input type="checkbox" class="" id="print_header" name="print_header" value="Yes" checked>
+                                    <input type="checkbox" class="" id="print_header" name="ph" value="Y" checked>
                                     <label for="print_header">Print Report With Header</label>
                                 </div>
                                 <div class="check-group">
-                                    <input type="checkbox" class="" id="collapse" name="collapse" value="Yes">
+                                    <input type="checkbox" class="" id="collapse" name="c" value="Y">
                                     <label for="collapse">Collapse pdf</label>
                                 </div>
                             </div>
@@ -89,7 +89,7 @@
                                     <tr>
                                         <th>
                                             <div class="check-group select">
-                                                <input type="checkbox" class="" id="select_all" name="select_all">
+                                                <input type="checkbox" class="" id="select_all" name="sa">
                                                 <label for="select_all"></label>
                                             </div>
                                         </th>
@@ -121,9 +121,9 @@
                                             <tr class="reportcnt" id="<?php echo $testData->id; ?>">
                                                 <td>
                                                     <div class="check-group single-select">
-                                                        <input type="checkbox" value="<?php echo $testData->id; ?>" onclick="myFunction('test<?php echo $testData->id; ?>')" class="chkbox" id="test<?php echo $testData->id; ?>" name="test_id[]">
+                                                        <input type="checkbox" value="<?php echo $testData->id; ?>" onclick="myFunction('test<?php echo $testData->id; ?>')" class="chkbox" id="test<?php echo $testData->id; ?>" name="t[]">
                                                         <label for="test<?php echo $testData->id; ?>"></label>
-                                                        <input type="checkbox" class="chkbox" id="department<?php echo $testData->id; ?>" value="<?php echo $departData->id; ?>" name="department[]">
+                                                        <input type="checkbox" class="chkbox" id="department<?php echo $testData->id; ?>" value="<?php echo $departData->id; ?>" name="d[]">
                                                     </div>
                                                 </td>
                                                 <td>
@@ -142,10 +142,10 @@
                                             </tr>
                                     <?php }
                                     } ?>
-                                    <input type="hidden" name="payment_status1" id="payment_status1" value="<?php echo $billData->status; ?>">
-                                    <input type="hidden" name="count1" id="count1" value="1">
-                                    <input type="hidden" name="bill_total" id="bill_total" value="<?php echo intval($billData->balance) - intval($billData->advance); ?>">
-                                    <input type="hidden" name="total_credit" id="total_credit" value="<?php echo intval($billData->received_amount); ?>">
+                                    <!-- <input type="hidden" name="payment_status1" id="payment_status1" value="<?php //echo $billData->status; ?>"> -->
+                                    <!-- <input type="hidden" name="count1" id="count1" value="1"> -->
+                                    <!-- <input type="hidden" name="bill_total" id="bill_total" value="<?php //echo intval($billData->balance) - intval($billData->advance); ?>"> -->
+                                    <!-- <input type="hidden" name="total_credit" id="total_credit" value="<?php //echo intval($billData->received_amount); ?>"> -->
                                 </tbody>
                             </table>
                         </div>

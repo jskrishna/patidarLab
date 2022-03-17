@@ -108,6 +108,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="br-table">
                                             <table class="table bill-edit">
                                                 <thead>
                                                     <tr>
@@ -142,6 +143,7 @@
                                                 </tbody>
 
                                             </table>
+                                            </div>
                                         </div>
                                         <?php if(isset($billData)){  ?>
                                         <div class="form-footer test_save">
