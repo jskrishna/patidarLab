@@ -131,7 +131,7 @@
                                                                 </thead> -->
                                                             <tbody>
                                                                 <?php $c = 1;
-                                                                foreach ($parameterData as $parameter) {
+                                                                foreach ($parameterData as $key=> $parameter) {
                                                                     if ($test->id == $parameter->test_id) { ?>
                                                                        
                                                                             <tr class="reportcnt" id="<?php echo $parameter->id; ?>">
@@ -142,10 +142,11 @@
                                                                                        
                                                                                 <?php }else if($parameter->field_type == 'heading'){ ?>
                                                                                     <th colspan="4"><?php echo $parameter->name;  ?></th>
-
                                                                                 <?php }else{ ?>
-                                                                                        <td><input type="hidden" id="parameter_id<?php echo $parameter->id; ?>" name="parameter_id[]" value="<?php echo $parameter->id; ?>"><?php echo $parameter->name; ?></td>
-
+                                                                                        <td>
+                                                                                            <?php echo $parameter->name; ?>
+                                                                                            <input type="hidden" id="parameter_id<?php echo $parameter->id; ?>" name="parameter_id[]" value="<?php echo $parameter->id; ?>">
+                                                                                        </td>
                                                                                 <?php }
                                                                                 $thisData = $pxthis->Report_model->getreportDataByBIllandTestId($billData->id, $test->id);
                                                                                 if ($thisData) {
@@ -165,7 +166,7 @@
                                                                                                 <td>
                                                                                                     <select class="form-control" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>">
                                                                                                         <option value="">Select option</option>
-                                                                                                        <?php foreach (explode(',', $parameter->options) as $option) { ?>
+                                                                                                        <?php foreach (explode(', ', $parameter->options) as $option) { ?>
                                                                                                             <option <?php if ($option == $inputArray[$param]) {
                                                                                                                         echo 'selected';
                                                                                                                     } ?> value="<?php echo $option; ?>"><?php echo $option; ?></option>
@@ -175,7 +176,26 @@
                                                                                             <?php } 
                                                                                              else if ($parameter->field_type == 'heading') { ?>
                                                                                                 
-                                                                                            <?php } 
+                                                                                            <?php }  else if ($parameter->field_type == 'listHeading') { ?>
+                                                                                                <td>
+                                                                                                    <ul>
+                                                                                                    <?php foreach (explode(', ', $parameter->options) as $list) { ?>
+                                                                                                        <li><b><?php echo $list; ?></b></li>
+                                                                                                     <?php } ?>
+                                                                                                    </ul>
+                                                                                                </td>
+                                                                                                <?php } 
+                                                                                                   else if ($parameter->field_type == 'listInput') { ?>
+                                                                                                      <td>
+                                                                                                    <input type="hidden" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php echo $inputArray[$param]; ?>" class="form-control call form form else">
+                                                                                                        <?php
+                                                                                                            foreach (explode(',',$inputArray[$param]) as $p) { ?>
+                                                                                                    <input type="text" name="listInput[]" data-paramid="listInput<?php echo $parameter->id; ?>" value="<?php echo $p; ?>" data-id="<?php echo $parameter->id; ?>" class="listInputClass listInput<?php echo $parameter->id; ?> form-control call form form else">
+
+                                                                                                           <?php }
+                                                                                                            ?>
+                                                                                                    </td>
+                                                                                                    <?php } 
                                                                                             
                                                                                             else { ?>
                                                                                                 <td><input type="text" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php echo $inputArray[$param]; ?>" class="form-control call form form else"></td>
@@ -222,21 +242,27 @@
                                                                                                     <?php } if ($parameter->min_value != null) {
                                                                                                     ?><span><?php echo $parameter->min_value . ' - ' . $parameter->max_value . '<br>'; ?></span> <?php
                                                                                                                                                                                                 }
-                                                                                                                                                                                                if ($parameter->male_min_value != null) {
-                                                                                                                                                                                                    echo 'Male -> ' . $parameter->male_min_value . ' - ' . $parameter->male_max_value . '<br>';
+                                                                                                                                                                                                if ($parameter->field_type == 'range') {
+                                                                                                                                                                                                    echo $parameter->default_value.'<br>';
+                                                                                                                                                                                                }else{
+                                                                                                                                                                                                    if ($parameter->male_min_value != null) {
+                                                                                                                                                                                                        echo 'Male -> ' . $parameter->male_min_value . ' - ' . $parameter->male_max_value . '<br>';
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                    if ($parameter->female_min_value != null) {
+                                                                                                                                                                                                        echo 'Female -> ' . $parameter->female_min_value . ' - ' . $parameter->female_max_value . '<br>';
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                    if ($parameter->child_min_value != null) {
+                                                                                                                                                                                                        echo 'Child -> ' . $parameter->child_min_value . ' - ' . $parameter->child_max_value;
+                                                                                                                                                                                                    }
                                                                                                                                                                                                 }
-                                                                                                                                                                                                if ($parameter->female_min_value != null) {
-                                                                                                                                                                                                    echo 'Female -> ' . $parameter->female_min_value . ' - ' . $parameter->female_max_value . '<br>';
-                                                                                                                                                                                                }
-                                                                                                                                                                                                if ($parameter->child_min_value != null) {
-                                                                                                                                                                                                    echo 'Child -> ' . $parameter->child_min_value . ' - ' . $parameter->child_max_value;
-                                                                                                                                                                                                }
+                                                                                                                                                                                               
 
                                                                                                                                                                                                     ?>
                                                                                                     <div class="checkbox i-checks pull-right check-group">
                                                                                                         <?php
-                                                                                                                if($parameter->field_type != 'heading'){
+                                                                                                                if($parameter->field_type != 'heading' && $parameter->field_type != 'listInput' && $parameter->field_type != 'listHeading' ){ 
                                                                                                         if (!empty($highlights)) { ?>
+                                                                                                        
                                                                                                             <input type="hidden" value="<?php echo $highlights[$param]; ?>" name="highlight[]" id="checkValue<?php echo $parameter->id; ?>">
                                                                                                             <input type="checkbox" class="high" id="highlight<?php echo $parameter->id; ?>" <?php if ($highlights[$param] == 'Yes') {
                                                                                                                                                                                                 echo 'checked';
@@ -266,17 +292,41 @@
                                                                                         <td>
                                                                                             <select class="form-control" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>">
                                                                                                 <option value="">Select option</option>
-                                                                                                <?php foreach (explode(',', $parameter->options) as $option) { ?>
-                                                                                                    <option value="<?php echo $option; ?>"><?php echo $option; ?></option>
+                                                                                                <?php foreach (explode(', ', $parameter->options) as $option) { ?>
+                                                                                                    <option <?php if($option == $parameter->default_value){echo 'selected';} ?> value="<?php echo $option; ?>"><?php echo $option; ?></option>
                                                                                                 <?php } ?>
                                                                                             </select>
                                                                                         </td>
                                                                                     <?php }
                                                                                       else if ($parameter->field_type == 'heading') { ?>
                                                                                                 
-                                                                                        <?php } 
+                                                                                        <?php }  else if ($parameter->field_type == 'listHeading') { ?>
+                                                                                                <td>
+                                                                                                    <ul>
+                                                                                                    <?php foreach (explode(', ', $parameter->options) as $list) { ?>
+                                                                                                        <li><b><?php echo $list; ?></b></li>
+                                                                                                     <?php } ?>
+                                                                                                    </ul>
+                                                                                                    <input type="hidden" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="" class="form-control call form form else">
+
+                                                                                                </td>
+                                                                                                <?php } 
+                                                                                                else if ($parameter->field_type == 'listInput') { ?>
+                                                                                                    <td>
+                                                                                                    <input type="hidden" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php echo $parameter->default_value; ?>" class="form-control call form form else">
+                                                                                                        <?php
+                                                                                                            for ($i=1; $i <= $parameter->options; $i++) { ?>
+                                                                                                    <input type="text" name="listInput[]" data-paramid="listInput<?php echo $parameter->id; ?>" value="<?php echo $parameter->default_value; ?>" data-id="<?php echo $parameter->id; ?>" class="listInputClass listInput<?php echo $parameter->id; ?> form-control call form form else">
+
+                                                                                                           <?php }
+                                                                                                            ?>
+                                                                                                    </td>
+                                                                                                    <?php } 
+
+
                                                                                     else { ?>
-                                                                                        <td><input type="text" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php echo $parameter->default_value; ?>" class="form-control call form form else"></td>
+
+                                                                                        <td><input type="text" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php if($parameter->field_type != 'range'){echo $parameter->default_value; } ?>" class="form-control call form form else"></td>
                                                                                     <?php }
                                                                                     ?>
                                                                                     <!-- // if if if if  field type codntion end -->
@@ -325,18 +375,27 @@
                                                                                             ?><span><?php echo $parameter->min_value . ' - ' . $parameter->max_value; ?></span> <?php
 
                                                                                                                                                                             }
-                                                                                                                                                                            if ($parameter->male_min_value != null) {
-                                                                                                                                                                                echo 'Male -> ' . $parameter->male_min_value . ' - ' . $parameter->male_max_value . '<br>';
+                                                                                                                                                                            if ($parameter->field_type == 'range') {
+                                                                                                                                                                                echo $parameter->default_value.'<br>';
+                                                                                                                                                                            }else{
+                                                                                                                                                                                if ($parameter->male_min_value != null) {
+                                                                                                                                                                                    echo 'Male -> ' . $parameter->male_min_value . ' - ' . $parameter->male_max_value . '<br>';
+                                                                                                                                                                                }
+                                                                                                                                                                                if ($parameter->female_min_value != null) {
+                                                                                                                                                                                    echo 'Female -> ' . $parameter->female_min_value . ' - ' . $parameter->female_max_value . '<br>';
+                                                                                                                                                                                }
+                                                                                                                                                                                if ($parameter->child_min_value != null) {
+                                                                                                                                                                                    echo 'Child -> ' . $parameter->child_min_value . ' - ' . $parameter->child_max_value;
+                                                                                                                                                                                }
                                                                                                                                                                             }
-                                                                                                                                                                            if ($parameter->female_min_value != null) {
-                                                                                                                                                                                echo 'Female -> ' . $parameter->female_min_value . ' - ' . $parameter->female_max_value . '<br>';
-                                                                                                                                                                            }
-                                                                                                                                                                            if ($parameter->child_min_value != null) {
-                                                                                                                                                                                echo 'Child -> ' . $parameter->child_min_value . ' - ' . $parameter->child_max_value;
-                                                                                                                                                                            }
+                                                                                                                                                                            
                                                                                                                                                                                 ?>
                                                                                             <div class="checkbox i-checks pull-right check-group">
-                                                                                           <?php  if($parameter->field_type != 'heading'){ ?>
+                                                                                           <?php  
+                                                                                           if($parameter->field_type == 'listInput' || $parameter->field_type == 'listHeading' ){ ?>
+                                                                                            <input type="hidden" value="No" name="highlight[]" id="checkValue<?php echo $parameter->id; ?>">
+                                                                                          <?php }
+                                                                                          else if($parameter->field_type != 'heading'){ ?>
 
                                                                                                 <input type="hidden" value="No" name="highlight[]" id="checkValue<?php echo $parameter->id; ?>">
                                                                                                 <input type="checkbox" class="high" id="highlight<?php echo $parameter->id; ?>" value="Yes"><label for="highlight<?php echo $parameter->id; ?>"></label>

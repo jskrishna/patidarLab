@@ -467,7 +467,7 @@ class Report extends CI_Controller
             </a>';
 
                         $liOne = ($loggedData->role != 'staff') ? '<li>
-                        <a data-toggle="tooltip" data-placement="top" title="Edit Report" href="report/add_value/' . ($post->id) . '" class="btn btn-sml patientedit-btn btnupdate">
+                        <a data-toggle="tooltip" data-placement="top" title="Enter Result" href="report/add_value/' . ($post->id) . '" class="btn btn-sml patientedit-btn btnupdate">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
                                 <defs>
                                     <clipPath id="a">
