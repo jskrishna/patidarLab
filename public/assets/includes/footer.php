@@ -2180,24 +2180,49 @@ if (isset($editer)) {
 		});
 
 
-		// lipit calculation 
-		$('body').on('keyup', '#inputValue54,#inputValue55,#inputValue56', function() {
+		// lipid calculation cho
+		$('body').on('keyup', '#inputValue54', function() {
 			var Cholesterol = $('#inputValue54').val();
 			var Triglycerides = $('#inputValue55').val();
 			var HDL = $('#inputValue56').val();
 			var LDL = $('#inputValue57').val();
 			var VLDL = $('#inputValue58').val();
-			var ldl_value = (Cholesterol)-(HDL)-VLDL;
 
-			var VLDL_value = (Cholesterol)-(HDL)-(ldl_value);
+			$('#inputValue57').val(($('#inputValue54').val() - $('#inputValue56').val() - $('#inputValue58').val()).toFixed(2));
+			$('#inputValue59').val(($('#inputValue57').val() / $('#inputValue56').val()).toFixed(2));
+			$('#inputValue60').val((($('#inputValue54').val()) / ($('#inputValue56').val())).toFixed(2));
+		});
 
-			var LDLC_HDLC_Ratio = parseInt(LDL) /parseInt(HDL);
-			var Cholesterol_HDLC_Ratio = (Cholesterol)/(HDL);
+		$('body').on('keyup', '#inputValue55', function() {
+			var Cholesterol = $('#inputValue54').val();
+			var Triglycerides = $('#inputValue55').val();
+			var HDL = $('#inputValue56').val();
+			var LDL = $('#inputValue57').val();
+			var VLDL = $('#inputValue58').val();
+			$('#inputValue58').val(($('#inputValue55').val() / 5).toFixed(2));
+			$('#inputValue57').val(($('#inputValue54').val() - $('#inputValue56').val() - $('#inputValue58').val()).toFixed(2));
+		});
+		$('body').on('keyup', '#inputValue56', function() {
+			var Cholesterol = $('#inputValue54').val();
+			var Triglycerides = $('#inputValue55').val();
+			var HDL = $('#inputValue56').val();
+			var LDL = $('#inputValue57').val();
+			var VLDL = $('#inputValue58').val();
+			$('#inputValue57').val(($('#inputValue54').val() - $('#inputValue56').val() - $('#inputValue58').val()).toFixed(2));
+			$('#inputValue59').val(($('#inputValue57').val() / $('#inputValue56').val()).toFixed(2));
+			$('#inputValue60').val((($('#inputValue54').val()) / ($('#inputValue56').val())).toFixed(2));
+		});
 
-			$('#inputValue57').val(ldl_value.toFixed(2));
-			$('#inputValue58').val(VLDL_value.toFixed(2));
-			$('#inputValue59').val(LDLC_HDLC_Ratio.toFixed(2));
-			$('#inputValue60').val(Cholesterol_HDLC_Ratio.toFixed(2));
+
+		$('body').on('keyup', '.listInputClass', function() {
+			var id = $(this).data('id');
+			var thisvalue = '';
+			$(".listInput" + id).each(function() {
+				thisvalue += this.value + ',';
+			});
+			var lastIndex = thisvalue.lastIndexOf(",");
+			thisvalue = thisvalue.substring(0, lastIndex);
+			$("#inputValue" + id).val(thisvalue);
 		});
 
 		// dont remove

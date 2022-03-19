@@ -63,8 +63,8 @@ $(document).ready(function() {
             }
         ],
         "lengthMenu": [
-            [5, 10, 50, -1],
-            [5, 10, 50, "All"]
+            [10, 20, 50, -1],
+            [10, 20, 50, "All"]
         ],
 
         // "ordering": true,
