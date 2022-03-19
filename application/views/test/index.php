@@ -12,7 +12,7 @@
             <div class="form-row">
                 <div class="col-lg-12">
                 <div class="c-datatable">
-                    <table class="table dt-responsive" role="grid">
+                    <table class="table dt-responsives" role="grid">
                         <thead>
                             <tr role="row" class="tablesorter-headerRow">
                                 <th data-column="0">

@@ -1,10 +1,12 @@
 <?php
-if(session_status() === PHP_SESSION_NONE){
-	ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
-	session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.save_path', realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+    session_start();
 }
+
 use Mpdf\QrCode\QrCode;
 use Mpdf\QrCode\Output;
+
 class Pdf extends CI_Controller
 {
     function __construct()
@@ -39,7 +41,14 @@ class Pdf extends CI_Controller
             $count = intval($getPrintCount->printed) + 1;
             $this->Outputpdf_model->UpdatePrintedCount($bill_id, $selecetdId, $count);
         }
-
+        
+        $billData = $this->Outputpdf_model->getbillinfoByID($bill_id);
+        $billData = $billData[0];
+        $testIDS = explode(',', $billData->testId);
+        // Authorised
+        $reportcount = $this->Outputpdf_model->getReportByBill($bill_id);
+        $reportStatus =  count($testIDS) == count($reportcount) ? 'completed' : 'pending';
+        $this->Outputpdf_model->updateReportStatus($reportStatus, $bill_id);
         $departmentArray = explode(',', $departments);
 
         $loggedInId = $this->input->get('l');
@@ -83,7 +92,7 @@ class Pdf extends CI_Controller
             $mpdf->SetDefaultBodyCSS('background-image-resize', 6);
         }
         $reportname = $patientData->patientname;
-        $mpdf->SetTitle($reportname.'-' . $patientData->patientid);
+        $mpdf->SetTitle($reportname . '-' . $patientData->patientid);
         // $mpdf->SetDefaultFont('Inter');
         date_default_timezone_set('Asia/Kolkata');
 
@@ -99,7 +108,7 @@ class Pdf extends CI_Controller
         <th style='text-align:left;'><span style='text-transform:capitalize;'>" . ($patientData->patientname) . "</span></th>
         <td style='width:140px; min-width:140px;'> Sample collection :</td>
         <th style='text-align:left;'>" . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>
-        <td rowspan='4'>".($svg)."</td>
+        <td rowspan='4'>" . ($svg) . "</td>
         </tr>
         <tr>
         <td style=''> Age/gender :</td>
@@ -115,7 +124,7 @@ class Pdf extends CI_Controller
         </tr>
         <tr>
         <td style=''> Patient No.:</td>
-        <th style='text-align:left;'>"  . ($patientData->patientid)."</th>
+        <th style='text-align:left;'>"  . ($patientData->patientid) . "</th>
         <td style=''></td>
         <th style=''></th>
         </tr>
@@ -176,10 +185,28 @@ class Pdf extends CI_Controller
                         } else {
                             $minmaxunit = '';
                         }
-                            $paramName = $paramData->name;
-                    
+
+                        if ($paramData->field_type == 'listHeading' || $paramData->field_type == 'listInput') {
+                            $minmaxunit = '';
+                        } else {
+                            $minmaxunit = "<td>" . ($minmaxunit) . "</td>";
+                        }
+                        $paramName = $paramData->name;
+
                         if ($paramData->field_type == 'textarea') {
-                            $value = $paramData->options;
+                            $value = $input_values[$index];
+                        } else if ($paramData->field_type == 'listHeading') {
+                            $value = '<ul>';
+                            foreach (explode(', ', $paramData->options) as $option) {
+                                $value .= '<li>' . $option . '</li>';
+                            }
+                            $value .= '</ul>';
+                        } else if ($paramData->field_type == 'listInput') {
+                            $value = '<ul>';
+                            foreach (explode(',', $input_values[$index]) as $option) {
+                                $value .= '<li>' . $option . '</li>';
+                            }
+                            $value .= '</ul>';
                         } else {
                             $value = $input_values[$index] . ' ' . $unit;
                         }
@@ -197,19 +224,19 @@ class Pdf extends CI_Controller
                             <td></td>
                             <td></td>
                         </tr>";
-                        }elseif($paramData->id == '22'){
+                        } elseif ($paramData->id == '22') {
                             $tabledata .= "<tr>
                             <td><b>PHYSICAL EXAMINATION</b></td>
                             <td></td>
                             <td></td>
                         </tr>";
-                        }elseif($paramData->id == '29'){
+                        } elseif ($paramData->id == '29') {
                             $tabledata .= "<tr>
                             <td><b>CHEMICAL EXAMINATION</b></td>
                             <td></td>
                             <td></td>
                         </tr>";
-                        }elseif($paramData->id == '35'){
+                        } elseif ($paramData->id == '35') {
                             $tabledata .= "<tr>
                             <td><b>MICROSCOPIC EXAMINATION</b></td>
                             <td></td>
@@ -217,11 +244,13 @@ class Pdf extends CI_Controller
                         </tr>";
                         }
 
-                        $tabledata .= "<tr>
-                                            <td>" . ($paramName) . "</td>
-                                            <td>" . ($start) . "" . ($value) . "" . ($end) . " </td>
-                                            <td>" . ($minmaxunit) . "</td>
-                                        </tr>";
+                        if ($paramData->field_type == 'listHeading' || $paramData->field_type == 'listInput') {
+                            $value = "<td colspan='2'>" . ($start) . "" . ($value) . "" . ($end) . "</td>";
+                        } else {
+                            $value = "<td>" . ($start) . "" . ($value) . "" . ($end) . "</td>";
+                        }
+
+                        $tabledata .= "<tr><td>" . ($paramName) . "</td>" . ($value) . "" . ($minmaxunit) . "</tr>";
                     }
                 }
                 $tabledata .= '</tbody>
@@ -293,10 +322,28 @@ class Pdf extends CI_Controller
                     } else {
                         $minmaxunit = '';
                     }
-                        $paramName = $paramData->name;
-                    
+
+                    if ($paramData->field_type == 'listHeading' || $paramData->field_type == 'listInput') {
+                        $minmaxunit = '';
+                    } else {
+                        $minmaxunit = "<td>" . ($minmaxunit) . "</td>";
+                    }
+                    $paramName = $paramData->name;
+
                     if ($paramData->field_type == 'textarea') {
                         $value = $input_values[$index];
+                    } else if ($paramData->field_type == 'listHeading') {
+                        $value = '<ul>';
+                        foreach (explode(', ', $paramData->options) as $option) {
+                            $value .= '<li>' . $option . '</li>';
+                        }
+                        $value .= '</ul>';
+                    } else if ($paramData->field_type == 'listInput') {
+                        $value = '<ul>';
+                        foreach (explode(',', $input_values[$index]) as $option) {
+                            $value .= '<li>' . $option . '</li>';
+                        }
+                        $value .= '</ul>';
                     } else {
                         $value = $input_values[$index] . ' ' . $unit;
                     }
@@ -314,30 +361,33 @@ class Pdf extends CI_Controller
                         <td></td>
                         <td></td>
                     </tr>";
-                    }elseif($paramData->id == '22'){
+                    } elseif ($paramData->id == '22') {
                         $tabledata .= "<tr>
                         <td><b>PHYSICAL EXAMINATION</b></td>
                         <td></td>
                         <td></td>
                     </tr>";
-                    }elseif($paramData->id == '29'){
+                    } elseif ($paramData->id == '29') {
                         $tabledata .= "<tr>
                         <td><b>CHEMICAL EXAMINATION</b></td>
                         <td></td>
                         <td></td>
                     </tr>";
-                    }elseif($paramData->id == '35'){
+                    } elseif ($paramData->id == '35') {
                         $tabledata .= "<tr>
                         <td><b>MICROSCOPIC EXAMINATION</b></td>
                         <td></td>
                         <td></td>
                     </tr>";
                     }
-                    $tabledata .= "<tr>
-                                                <td>" . ($paramName) . "</td>
-                                                <td>" . ($start) . "" . ($value) . "" . ($end) . " </td>
-                                                <td>" . ($minmaxunit) . "</td>
-                                            </tr>";
+
+                    if ($paramData->field_type == 'listHeading' || $paramData->field_type == 'listInput') {
+                        $value = "<td colspan='2'>" . ($start) . "" . ($value) . "" . ($end) . "</td>";
+                    } else {
+                        $value = "<td>" . ($start) . "" . ($value) . "" . ($end) . "</td>";
+                    }
+
+                    $tabledata .= "<tr><td>" . ($paramName) . "</td>" . ($value) . "" . ($minmaxunit) . "</tr>";
                 }
 
                 $tabledata .= '</tbody>

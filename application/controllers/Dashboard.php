@@ -39,7 +39,9 @@ class Dashboard extends CI_Controller
 		}
 		$process = $total - $complete;
 
-		$data = array('loggedData' => $loggedData, 'testData' => $testData, 'total' => $total,'complete'=>$complete,'process'=>$process);
+		$referDataByGroup =$this->Dashboard_model->referDataByGroup();
+
+		$data = array('loggedData' => $loggedData, 'testData' => $testData, 'total' => $total,'complete'=>$complete,'process'=>$process,'referDataByGroup'=>$referDataByGroup);
 		$this->load->view('dashboard/Index.php', $data);
 	}
 }
