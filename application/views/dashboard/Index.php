@@ -40,13 +40,30 @@
                             </a>
                         </div>
                         <div class="dashboard-box green-box">
-                           <?php //print_r($referDataByGroup); ?>
+                            <a href="">
+                                <div class="dashbord-content">
+
+                                    <h4>Refer </h4>
+                                    <?php foreach ($referDataByGroup['refer'] as $name => $refer) {
+                                        echo $name . '(' . count($refer) . ')';
+                                        echo '<br>';
+                                    }; ?>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="dashboard-box green-box">
+                            <a href="">
+                                <div class="dashbord-content">
+
+                                    <h4>Received </h4>
+                                    <?php echo $referDataByGroup['received']; ?>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 <?php
