@@ -62,10 +62,10 @@ class Pdf extends CI_Controller
             'mode' => 'utf-8',
             'format' => 'A4',
             'default_font' => 'freesans',
-            'margin_header' => 15,     // 30mm not pixel
+            'margin_header' => 13,     // 30mm not pixel
             'margin_footer' => 10,     // 10mm
             'orientation' => 'P',
-            'margin_top' => 65,
+            'margin_top' => 70,
             'margin_bottom' => 60,
             'default_font_size' => 10,
         );
@@ -73,7 +73,7 @@ class Pdf extends CI_Controller
         $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $qrCode = new QrCode($actual_link);
         $output = new Output\Svg();
-        $svg = $output->output($qrCode, 100, 'white', 'black');
+        $svg = $output->output($qrCode, 112, 'white', 'black');
         $svg = str_replace('<?xml version="1.0"?>', '', $svg);
 
         $mpdf = new \Mpdf\Mpdf($mpdfConfig);
@@ -89,50 +89,46 @@ class Pdf extends CI_Controller
 
         $collapse =  $this->input->get('c');
 
-        $mpdf->SetHeader("<table width='100%' cellspacing='5'>
+        $mpdf->SetHeader("<table width='100%' cellspacing='0' cellpadding='0'>
         <thead>
         <tr>
-        <td style='height:100px' colspan='2'></td>
+        <td style='height:95px' colspan='2'></td>
         </tr>
         <tr>
-        <td> Name :</td>
+        <td style=''> Name :</td>
         <th style='text-align:left;'><span style='text-transform:capitalize;'>" . ($patientData->patientname) . "</span></th>
-        <td style='width:140px; min-width:140px'> Sample collection :</td>
+        <td style='width:140px; min-width:140px;'> Sample collection :</td>
         <th style='text-align:left;'>" . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>
         <td rowspan='4'>".($svg)."</td>
         </tr>
         <tr>
-        <td> Age/gender :</td>
+        <td style=''> Age/gender :</td>
         <th style='text-align:left;text-transform:capitalize;'>" . ($patientData->age . ' ' . $patientData->age_type . ' / ' . $patientData->gender) . "</th>
-        <td style='width:140px; min-width:140px'> Report :</td>
+        <td style='width:140px; min-width:140px;'> Report :</td>
         <th style='text-align:left;text-transform:capitalize;'>" . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>     
         </tr>
         <tr>
-        <td> Refered By :</td>
+        <td style=''> Refered By :</td>
         <th style='text-align:left;text-transform:capitalize;'>"  . ($doctorData->title) . ' ' . ($doctorData->referral_name) . "</th>
-        <td style='width:140px; min-width:140px'>Report Printed :</td>
+        <td style='width:140px; min-width:140px;'>Report Printed :</td>
         <th style='text-align:left;text-transform:capitalize;'>" . (date("d-M-Y h:i:s")) . "</th>
         </tr>
         <tr>
-        <td> Patient No.:</td>
+        <td style=''> Patient No.:</td>
         <th style='text-align:left;'>"  . ($patientData->patientid)."</th>
-        <td></td>
-        <th></th>
+        <td style=''></td>
+        <th style=''></th>
         </tr>
     </thead>
     </table>");
 
         if (isset($collapse) && $collapse == 'Y') {
             $departmentarray_unique = array_unique($departmentArray);
-
-
             foreach ($departmentarray_unique as $p => $departmentId) {
-
                 $departData = $this->Outputpdf_model->getdepartmentByID($departmentId);
                 $departName = $departData[0]->department;
-
-                $tabledata = "<main >
-            <table  width='100%' cellspacing='5'>
+                $tabledata = "<main>
+            <table  width='100%' cellspacing='3'>
                 <thead>
                     <tr>
                      <th colspan='3'><h3>" . ($departName) . "</h3></th>
@@ -141,7 +137,7 @@ class Pdf extends CI_Controller
                     <th colspan='3'></th>
                    </tr>
                     <tr>
-                     <th style='text-align:left;'>Test Description</th>
+                     <th style='text-align:left;width:330px'>Test Description</th>
                      <th style='text-align:left;'>RESULT</th>
                      <th style='text-align:left;'>Reference Range</th>
                     </tr>
@@ -264,7 +260,7 @@ class Pdf extends CI_Controller
                         <th colspan='3'></th>
                        </tr>
                         <tr>
-                         <th style='text-align:left;'>Test Description</th>
+                         <th style='text-align:left;width:330px'>Test Description</th>
                          <th style='text-align:left;'>RESULT</th>
                          <th style='text-align:left;'>Reference Range</th>
                         </tr>
