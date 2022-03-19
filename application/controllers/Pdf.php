@@ -185,28 +185,28 @@ class Pdf extends CI_Controller
                         } else {
                             $minmaxunit = '';
                         }
-
-                        if ($paramData->field_type == 'listHeading' || $paramData->field_type == 'listInput') {
+    
+                        if ($paramData->field_type == 'textarea' || $paramData->field_type == 'listHeading' || $paramData->field_type == 'listInput') {
                             $minmaxunit = '';
                         } else {
                             $minmaxunit = "<td>" . ($minmaxunit) . "</td>";
                         }
                         $paramName = $paramData->name;
-
+    
                         if ($paramData->field_type == 'textarea') {
                             $value = $input_values[$index];
                         } else if ($paramData->field_type == 'listHeading') {
-                            $value = '<ul>';
+                            $value = '<table class="serum-list" style="width:100%;text-align:center"><tr>';
                             foreach (explode(', ', $paramData->options) as $option) {
-                                $value .= '<li>' . $option . '</li>';
+                                $value .= '<td><b>' . $option . '</b></td>';
                             }
-                            $value .= '</ul>';
+                            $value .= '</tr></table>';
                         } else if ($paramData->field_type == 'listInput') {
-                            $value = '<ul>';
+                            $value = '<table class="serum-list" style="width:100%;text-align:center"><tr>';
                             foreach (explode(',', $input_values[$index]) as $option) {
-                                $value .= '<li>' . $option . '</li>';
+                                $value .= '<td>' . $option . '</td>';
                             }
-                            $value .= '</ul>';
+                            $value .= '</tr></table>';
                         } else {
                             $value = $input_values[$index] . ' ' . $unit;
                         }
@@ -243,13 +243,13 @@ class Pdf extends CI_Controller
                             <td></td>
                         </tr>";
                         }
-
-                        if ($paramData->field_type == 'listHeading' || $paramData->field_type == 'listInput') {
+    
+                        if ($paramData->field_type == 'textarea' || $paramData->field_type == 'listHeading' || $paramData->field_type == 'listInput') {
                             $value = "<td colspan='2'>" . ($start) . "" . ($value) . "" . ($end) . "</td>";
                         } else {
                             $value = "<td>" . ($start) . "" . ($value) . "" . ($end) . "</td>";
                         }
-
+    
                         $tabledata .= "<tr><td>" . ($paramName) . "</td>" . ($value) . "" . ($minmaxunit) . "</tr>";
                     }
                 }
@@ -279,7 +279,8 @@ class Pdf extends CI_Controller
                 $testName =  $testData[0]->test_name;
                 $departName =  $departData[0]->department;
 
-                $tabledata = "<main>
+                $tabledata = "
+                <main>
                 <table width='100%' cellspacing='5'>
                     <thead>
                         <tr>
@@ -323,7 +324,7 @@ class Pdf extends CI_Controller
                         $minmaxunit = '';
                     }
 
-                    if ($paramData->field_type == 'listHeading' || $paramData->field_type == 'listInput') {
+                    if ($paramData->field_type == 'textarea' || $paramData->field_type == 'listHeading' || $paramData->field_type == 'listInput') {
                         $minmaxunit = '';
                     } else {
                         $minmaxunit = "<td>" . ($minmaxunit) . "</td>";
@@ -333,17 +334,17 @@ class Pdf extends CI_Controller
                     if ($paramData->field_type == 'textarea') {
                         $value = $input_values[$index];
                     } else if ($paramData->field_type == 'listHeading') {
-                        $value = '<ul>';
+                        $value = '<table class="serum-list" style="width:100%;text-align:center"><tr>';
                         foreach (explode(', ', $paramData->options) as $option) {
-                            $value .= '<li>' . $option . '</li>';
+                            $value .= '<td><b>' . $option . '</b></td>';
                         }
-                        $value .= '</ul>';
+                        $value .= '</tr></table>';
                     } else if ($paramData->field_type == 'listInput') {
-                        $value = '<ul>';
+                        $value = '<table class="serum-list" style="width:100%;text-align:center"><tr>';
                         foreach (explode(',', $input_values[$index]) as $option) {
-                            $value .= '<li>' . $option . '</li>';
+                            $value .= '<td>' . $option . '</td>';
                         }
-                        $value .= '</ul>';
+                        $value .= '</tr></table>';
                     } else {
                         $value = $input_values[$index] . ' ' . $unit;
                     }
@@ -381,7 +382,7 @@ class Pdf extends CI_Controller
                     </tr>";
                     }
 
-                    if ($paramData->field_type == 'listHeading' || $paramData->field_type == 'listInput') {
+                    if ($paramData->field_type == 'textarea' || $paramData->field_type == 'listHeading' || $paramData->field_type == 'listInput') {
                         $value = "<td colspan='2'>" . ($start) . "" . ($value) . "" . ($end) . "</td>";
                     } else {
                         $value = "<td>" . ($start) . "" . ($value) . "" . ($end) . "</td>";
@@ -395,8 +396,7 @@ class Pdf extends CI_Controller
                 $mpdf->defaultfooterline = 0;
 
                 $mpdf->SetFooter("<table style='margin-bottom:80px; width:100%' cellspacing='5' >
-                <tfoot align='center'>
-                  
+                <tfoot align='center'>                 
                 <tr>
                     <td style='text-align:center;' >Checked By <br> <b>Technologist</b></td>
                     <td style='text-align:center;' >

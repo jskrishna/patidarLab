@@ -178,7 +178,7 @@
                                                                                                 
                                                                                             <?php }  else if ($parameter->field_type == 'listHeading') { ?>
                                                                                                 <td>
-                                                                                                    <ul>
+                                                                                                    <ul class="serum-list">
                                                                                                     <?php foreach (explode(', ', $parameter->options) as $list) { ?>
                                                                                                         <li><b><?php echo $list; ?></b></li>
                                                                                                      <?php } ?>
@@ -187,18 +187,19 @@
                                                                                                 <?php } 
                                                                                                    else if ($parameter->field_type == 'listInput') { ?>
                                                                                                       <td>
-                                                                                                    <input type="hidden" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php echo $inputArray[$param]; ?>" class="form-control call form form else">
+                                                                                                          <div class="serum-value-list">
+                                                                                                    <input type="hidden" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php echo $inputArray[$param]; ?>" class="form-control call">
                                                                                                         <?php
                                                                                                             foreach (explode(',',$inputArray[$param]) as $p) { ?>
-                                                                                                    <input type="text" name="listInput[]" data-paramid="listInput<?php echo $parameter->id; ?>" value="<?php echo $p; ?>" data-id="<?php echo $parameter->id; ?>" class="listInputClass listInput<?php echo $parameter->id; ?> form-control call form form else">
-
+                                                                                                    <input type="text" name="listInput[]" data-paramid="listInput<?php echo $parameter->id; ?>" value="<?php echo $p; ?>" data-id="<?php echo $parameter->id; ?>" class="listInputClass listInput<?php echo $parameter->id; ?> form-control call">
                                                                                                            <?php }
                                                                                                             ?>
+                                                                                                          </div>
                                                                                                     </td>
                                                                                                     <?php } 
                                                                                             
                                                                                             else { ?>
-                                                                                                <td><input type="text" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php echo $inputArray[$param]; ?>" class="form-control call form form else"></td>
+                                                                                                <td><input type="text" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php echo $inputArray[$param]; ?>" class="form-control call"></td>
                                                                                             <?php } ?>
                                                                                             <!-- // if if if if  field type codntion end -->
                                                                                             <?php
