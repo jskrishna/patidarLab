@@ -1,6 +1,6 @@
 <?php
-if(session_status() === PHP_SESSION_NONE){
-	ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+if (session_status() === PHP_SESSION_NONE) {
+	ini_set('session.save_path', realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
 	session_start();
 }
 class Dashboard extends CI_Controller
@@ -31,7 +31,7 @@ class Dashboard extends CI_Controller
 			$tests = explode(',', $data->testId);
 			foreach ($tests as $count => $test) {
 				$reportData = $this->Dashboard_model->getReportDataBybillTestID($data->id, $test);
-				if(count($reportData)>0){
+				if (count($reportData) > 0) {
 					$complete++;
 				}
 				$total++;
@@ -39,9 +39,11 @@ class Dashboard extends CI_Controller
 		}
 		$process = $total - $complete;
 
-		$referDataByGroup =$this->Dashboard_model->referDataByGroup();
+		$referDataByGroup = $this->Dashboard_model->referDataByGroup();
+		// echo json_encode($referDataByGroup);
+		// die();
 
-		$data = array('loggedData' => $loggedData, 'testData' => $testData, 'total' => $total,'complete'=>$complete,'process'=>$process,'referDataByGroup'=>$referDataByGroup);
+		$data = array('loggedData' => $loggedData, 'testData' => $testData, 'total' => $total, 'complete' => $complete, 'process' => $process, 'referDataByGroup' => $referDataByGroup);
 		$this->load->view('dashboard/Index.php', $data);
 	}
 }
