@@ -107,7 +107,7 @@ class Test extends CI_Controller
                 $ulData = "<ul class='test-list'>";
                 foreach ($data as $dd) {
                     if ($test && in_array($dd->id, $test)) {
-                        $ulData .= "<li class='check-group'><input type='checkbox' checked='true' disabled name='test_list[]' id='test_list" . $dd->id . "' class='check_list' value='" . $dd->id . "'><label for='test_list" . $dd->id . "'>" . $dd->test_name . "</label></li>";
+                        $ulData .= "<li class='check-group'><input type='checkbox' checked='true' disabled name='checkedtest_list[]' id='checkedtest_list" . $dd->id . "' class='checkedcheck_list' value='" . $dd->id . "'><label for='checkedtest_list" . $dd->id . "'>" . $dd->test_name . "</label></li>";
                     } else {
                         $ulData .= "<li class='check-group'><input type='checkbox' name='test_list[]' id='test_list" . $dd->id . "' class='check_list' value='" . $dd->id . "'><label for='test_list" . $dd->id . "'>" . $dd->test_name . "</label></li>";
                     }

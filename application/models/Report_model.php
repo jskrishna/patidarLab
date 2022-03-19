@@ -15,38 +15,39 @@ class Report_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    public function getPatientinfowithSearch($labid,$search)
+    public function getPatientinfowithSearch($labid, $search)
     {
-        $query = $this->db->select('*')->from('patient')->where('user_id', $labid)->like('patientname',$search)->order_by('id', 'DESC');
+        $query = $this->db->select('*')->from('patient')->where('user_id', $labid)->like('patientname', $search)->order_by('id', 'DESC');
         $query = $this->db->get();
         return $query->result();
     }
-    
+
     public function getPatientbillINFO($limit, $offset, $user_id)
     {
         $query = $this->db->select('*')->from('bill');
         $query = $this->db->where('user_id', $user_id);
         $query = $this->db->where("created_at >= DATE(NOW()) - INTERVAL 7 DAY");
         $query = $this->db->offset($offset);
-        if($limit != '-1'){
+        if ($limit != '-1') {
             $query = $this->db->limit($limit);
         }
         $query = $this->db->order_by('billDate', 'DESC');
         $query = $this->db->get();
         return $query->result();
     }
-    public function getPatientbillINFOwithSearch($limit, $offset, $user_id,$Ids,$dateSearch)
+    public function getPatientbillINFOwithSearch($limit, $offset, $user_id, $Ids, $dateSearch)
     {
         $query = $this->db->select('*')->from('bill');
         $query = $this->db->where('user_id', $user_id);
         $query = $this->db->where_in('patient_id', $Ids);
-        if($dateSearch != null){
+        if ($dateSearch != null) {
             $query = $this->db->where("$dateSearch");
-            }
+        }
         $query = $this->db->offset($offset);
-        if($limit != '-1'){
+        if ($limit != '-1') {
             $query = $this->db->limit($limit);
         }
+        $query = $this->db->order_by('billDate', 'DESC');
         $query = $this->db->get();
         return $query->result();
     }
@@ -59,14 +60,15 @@ class Report_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
-    public function getInfoTotalAndpatientID($user_id,$Ids,$dateSearch)
+    public function getInfoTotalAndpatientID($user_id, $Ids, $dateSearch)
     {
         $query = $this->db->select('*')->from('bill');
         $query = $this->db->where('user_id', $user_id);
         $query = $this->db->where_in('patient_id', $Ids);
-        if($dateSearch != null){
+        if ($dateSearch != null) {
             $query = $this->db->where("$dateSearch");
-            }
+        }
+        $query = $this->db->order_by('billDate', 'DESC');
         $query = $this->db->get();
         return $query->result();
     }
@@ -141,6 +143,16 @@ class Report_model extends CI_Model
         $query = $this->db->select('*')->from('reportdata');
         $query = $this->db->where('bill_id', $bill_id);
         $query = $this->db->where('patient_id', $patient_id);
+        $query = $this->db->where('status', 'authorised');
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function getReportByBill($bill_id)
+    {
+        $query = $this->db->select('*')->from('reportdata');
+        $query = $this->db->where('bill_id', $bill_id);
+        $query = $this->db->where('status', 'authorised');
+        $query = $this->db->where('printed >',0);
         $query = $this->db->get();
         return $query->result();
     }
@@ -176,6 +188,11 @@ class Report_model extends CI_Model
         return $sth;
     }
 
+    public function updateReportStatus($reportStatus, $bill_id)
+    {
+        $sth = $this->db->query("UPDATE `bill` SET `report_status`='$reportStatus' WHERE `id`= '$bill_id'");
+        return $sth;
+    }
 
     public function getTestByID($id)
     {

@@ -72,6 +72,14 @@ class Report extends CI_Controller
                 $insertData = $this->Report_model->updateReportData($patient_id, $test_id, $bill_id, $parameter_ids, $input_values, $highlights, $defult_value_status, $reportDataid);
             }
 
+            $billData = $this->Report_model->getbillinfoByID($bill_id);
+            $billData = $billData[0];
+            $testIDS = explode(',', $billData->testId);
+            // Authorised
+            $reportcount = $this->Report_model->getReportByBill($bill_id);
+            $reportStatus =  count($testIDS) == count($reportcount) ? 'completed' : 'pending';
+            $updateReportStatus = $this->Report_model->updateReportStatus($reportStatus, $bill_id);
+
             if ($insertData) {
                 $resultss = array('success' => 1, 'msg' => 'success', 'redirect_url' => '');
                 echo json_encode($resultss);
@@ -302,6 +310,13 @@ class Report extends CI_Controller
             echo json_encode($resultss);
             exit();
         }
+        $billData = $this->Report_model->getbillinfoByID($bill_id);
+        $billData = $billData[0];
+        $testIDS = explode(',', $billData->testId);
+        // Authorised
+        $reportcount = $this->Report_model->getReportByBill($bill_id);
+        $reportStatus =  count($testIDS) == count($reportcount) ? 'completed' : 'pending';
+        $updateReportStatus = $this->Report_model->updateReportStatus($reportStatus, $bill_id);
     }
     public function getServerSide()
     {
@@ -323,14 +338,10 @@ class Report extends CI_Controller
 
         $search = $search['value'];
 
-        if (empty($search) || $search == 'completed' || $search == 'pending') {
+        if (empty($search)) {
             $patientData = $this->Report_model->getPatientinfo($labid);
             $totalFiltered = $this->Report_model->getInfoTotal($labid);
             $totalFiltered = count($totalFiltered);
-            if ($search == 'completed' || $search == 'pending') {
-                $limit = -1;
-                $offset = 0;
-            }
             $posts = $this->Report_model->getPatientbillINFO($limit, $offset, $labid);
         } else {
             $dateSearch = null;
@@ -350,6 +361,12 @@ class Report extends CI_Controller
                 $today = date('Y-m-d');
                 $dateSearch = "created_at LIKE '%$today%'";
                 $search = '';
+            } elseif ($search == 'pending') {
+                $dateSearch = "report_status = 'pending'";
+                $search = '';
+            } elseif ($search == 'completed') {
+                $dateSearch = "report_status = 'completed'";
+                $search = '';
             }
 
             if (!function_exists('str_contains')) {
@@ -358,14 +375,13 @@ class Report extends CI_Controller
                     return '' === $needle || false !== strpos($haystack, $needle);
                 }
             }
-            
+
             if (str_contains($search, ' To ')) {
                 $customdate = explode(' To ', $search);
                 $fdate = date("Y-m-d 00:00:00", strtotime($customdate[0]));
                 $tdate = date("Y-m-d 23:59:59", strtotime($customdate[1]));
                 $search = '';
                 $dateSearch = "created_at BETWEEN '$fdate' AND '$tdate' ";
-              
             }
 
             $patientData = $this->Report_model->getPatientinfowithSearch($labid, $search);
@@ -379,7 +395,6 @@ class Report extends CI_Controller
             $totalFiltered = $this->Report_model->getInfoTotalAndpatientID($labid, $Ids, $dateSearch);
             $totalFiltered = count($totalFiltered);
             $posts = $this->Report_model->getPatientbillINFOwithSearch($limit, $offset, $labid, $Ids, $dateSearch);
-          
         }
 
         $data = array();
@@ -447,7 +462,7 @@ class Report extends CI_Controller
                         $testIDs = explode(',', $post->testId);
                         $reportcount = $this->Report_model->getReportByBillAndPatientId($post->id, $post->patient_id);
 
-                        $reportStatus =  count($testIDs) == count($reportcount) ? 'completed' : 'pending';
+                        $reportStatus =  $post->report_status;
 
                         $payment = ($post->status == 'Pending') ? '<button data-toggle="tooltip" data-placement="top" title="Pay Bill" class="patientedit-btn bill_settle btn-pay" data-status="Pending" data-id="' . ($post->id) . '" value="' . ($post->id) . '" id="status' . ($post->id) . '" data-bs-toggle="modal" data-bs-target="#bill_settlement">
                     Pay</button>' : '<span class="bill_paid bill_settle btn-paid" data-status="Paid" data-id="' . ($post->id) . '" value="' . ($post->id) . '" id="status' . ($post->id) . '">
@@ -522,19 +537,6 @@ class Report extends CI_Controller
             }
         }
 
-        if ($search == 'completed' || $search == 'pending') {
-            $obj = $data;
-            $data = [];
-            $searchField = "report_status";
-            $searchVal = $search;
-
-            for ($i = 0; $i < count($obj); $i++) {
-                if ($obj[$i][$searchField] == $searchVal) {
-                    $data[] = $obj[$i];
-                }
-            }
-            $totalFiltered = count($data);
-        }
 
         $json_data = array(
             "draw"            => intval($this->input->get('draw')),

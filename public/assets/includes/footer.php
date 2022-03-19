@@ -1224,7 +1224,7 @@ if (isset($editer)) {
 			});
 
 			$("body").on('click', '#bottom', function() {
-				$("#bottom").attr('disabled', 'disabled');
+				// $("#bottom").attr('disabled', 'disabled');
 				var temp = Array();
 				$(".check_list").each(function() {
 					if ($(this).is(':checked')) {
@@ -1237,6 +1237,14 @@ if (isset($editer)) {
 						}
 					}
 				});
+
+				if(temp.length == 0){
+					new bootstrap.Toast(document.querySelector('#basicToast')).show();
+					$('#basicToast').addClass('toast-error');
+					$('#basicToast').removeClass('toast-success');
+					$('.toast-body').html('Please Select test first.');
+				}
+				
 				$.ajax({
 					type: "POST",
 					url: "<?php echo BASE_URL; ?>test/testSubmit",

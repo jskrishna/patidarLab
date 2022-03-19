@@ -38,28 +38,9 @@
                                     <span class="test-count"><?php echo $complete; ?></span>
                                 </div>
                             </a>
-                            <?php
-                            $obj  = 'a:22:{i:0;s:0:"";i:1;a:1:{i:136;s:1:"+";}i:2;a:1:{i:136;s:1:"+";}i:3;a:1:{i:136;s:1:"+";}i:4;a:1:{i:136;s:1:"+";}i:5;a:1:{i:136;s:1:"+";}i:6;a:1:{i:137;s:1:"-";}i:7;a:1:{i:137;s:1:"-";}i:8;a:1:{i:137;s:1:"-";}i:9;a:1:{i:137;s:1:"-";}i:10;a:1:{i:137;s:1:"-";}i:11;a:1:{i:138;s:1:"+";}i:12;a:1:{i:138;s:1:"+";}i:13;a:1:{i:138;s:1:"+";}i:14;a:1:{i:138;s:1:"+";}i:15;a:1:{i:138;s:1:"+";}i:16;a:1:{i:139;s:1:"-";}i:17;a:1:{i:139;s:1:"-";}i:18;a:1:{i:139;s:1:"-";}i:19;a:1:{i:139;s:1:"-";}i:20;a:1:{i:139;s:1:"-";}i:21;s:4:"impr";}';
-                           
-                            // foreach (unserialize($obj) as $key => $obj) {
-                            //     if (is_array($obj)) {
-                            //         echo $key.'- ';
-                            //             print_r($obj);
-                                     
-                            //     } else {
-                            //         echo $key.'- '.$obj;
-                            //     }
-
-                            //     echo '<br><br>';
-                            // }
-                           
-                            $json = unserialize($obj);
-                            print_r($json);
-                            // for ($i=1; $i <=5 ; $i++) { 
-                            // print_r($json[$i][136]);
-                            // # code...
-                            // }
-                            ?>
+                        </div>
+                        <div class="dashboard-box green-box">
+                           <?php //print_r($referDataByGroup); ?>
                         </div>
                     </div>
                 </div>

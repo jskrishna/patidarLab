@@ -21,6 +21,12 @@ class Dashboard_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    public function referDataByGroup()
+    {
+        $sth = $this->db->query("SELECT * FROM `patient` GROUP BY `refered_by`");
+        return $sth;
+    }
+    
     public function getTestreportByLabId($labid,$date)
     {
         $query = $this->db->select('*')->from('bill');
