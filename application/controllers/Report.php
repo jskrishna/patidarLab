@@ -48,6 +48,14 @@ class Report extends CI_Controller
         $data = array('reportData' => $reportData, 'loggedData' => $loggedData, 'patientData' => $patientData[0], 'referedData' => $referedData, 'unitData' => $unitData, 'billData' => $billData[0], 'testData' => $testData, 'doctorData' => $doctorData[0], 'parameterData' => $parameterData, 'pxthis' => $this);
         $this->load->view('report/add_value.php', $data);
     }
+    public function getpatientinfoByID($id)
+    {
+
+     $patientData = $this->Report_model->getpatientinfoByID($id);
+     $patientData = $patientData[0];
+     echo json_encode($patientData);
+     exit;
+    }
 
     public function saveReportvalue()
     {
@@ -518,8 +526,27 @@ class Report extends CI_Controller
                             </a>
                         </li>';
 
+                         $testIds = explode(',', $post->testId);
+                        $urlAttr ='&b='.$post->id.'&p='.$post->patient_id.'&ph=Y';
+                         foreach ($testIds as $test) {
+                            $checkData = $this->Report_model->getreportDataByBIllandTestId($post->id, $test);
+                            if (!empty($checkData)) {
+                                $testData = $this->Report_model->getTestByID($test);
+                                $testData = $testData[0];
+                                $urlAttr .= '&t%5B%5D='.$test.'&d%5B%5D='.$testData->department;
+                            }
+                         }
+                         
+                        $lisend = '<li>
+                        <a data-toggle="tooltip" data-placement="top" title="Share via whatsapp" style="padding:5px;width:20px;" data-bs-toggle="modal" role="button" data-bs-type="direct" data-bs-target="#whatsapp_popup" data-pid="'.$post->patient_id.'" data-url="'.(BASE_URL).'Pdf?l='.($loggedInId).($urlAttr).'" class="whatsapp_click ">
+           <img width="25" src="https://niglabs.com/assets/img/whatsapp_logo.png"></a>
+                    </li>';
 
-                        $action = '<ul class="action-list">' . ($liOne . $linTwo . $lithree) . '</ul>';
+                    
+
+
+
+                        $action = '<ul class="action-list">' . ($liOne . $linTwo . $lithree.$lisend) . '</ul>';
 
                         $nestedData['id'] = $post->id;
                         $nestedData['name'] = $name;

@@ -39,11 +39,42 @@ class Dashboard extends CI_Controller
 		}
 		$process = $total - $complete;
 
-		$referDataByGroup = $this->Dashboard_model->referDataByGroup();
-		// echo json_encode($referDataByGroup);
+		if ($this->input->get('data')) {
+			$get = $this->input->get('data');
+			if ($get == 'previous_month') {
+				$first_date = date('Y-m-d 00:00:00', strtotime('first day of last month'));
+				$last_date = date('Y-m-d 23:59:59', strtotime('last day of last month'));
+				$dateCondition = "created_at BETWEEN '$first_date' AND '$last_date' ";
+			} else if ($get == 'this_month') {
+				$month_year = date('Y-m-');
+				$dateCondition = "created_at LIKE '%$month_year%'";
+			} else if ($get == 'all') {
+				$dateCondition = false;
+			}
+		} else {
+			$month_year = date('Y-m-');
+			$dateCondition = "created_at LIKE '%$month_year%'";
+		}
+
+		if ($this->input->get('y')) {
+			$yy = $this->input->get('y');
+			if ($yy == 'previous_year') {
+				$year = date('Y');
+				$year = intval($year) - 1;
+			} else {
+				$year = date('Y');
+			}
+		} else {
+			$year = date('Y');
+		}
+
+
+		$ChartData = $this->Dashboard_model->ChartData($dateCondition, $year);
+
+		// echo $year;
 		// die();
 
-		$data = array('loggedData' => $loggedData, 'testData' => $testData, 'total' => $total, 'complete' => $complete, 'process' => $process, 'referDataByGroup' => $referDataByGroup);
+		$data = array('loggedData' => $loggedData, 'testData' => $testData, 'total' => $total, 'complete' => $complete, 'process' => $process, 'ChartData' => $ChartData,'year'=>$year);
 		$this->load->view('dashboard/Index.php', $data);
 	}
 }

@@ -132,7 +132,7 @@
                                 <div class="docter-sec">
                                     <div class="page-head page-head-border">
                                         <h2>Doctors</h2>
-                                        <button class="btn custom-btn patientedit_btn doc-model-btn" data-bs-toggle="modal" data-id="" data-title="Add Doctor" data-bs-target="#adddoctor">Add Doctor</button>
+                                        <button class="btn custom-btn patientedit-btn doc-model-btn" data-bs-toggle="modal" data-id="" data-title="Add Doctor" data-bs-target="#adddoctor">Add Doctor</button>
                                     </div>
                                     <div class="form-row">
                                         <div class="col-lg-12 overflow-hidden">
@@ -347,7 +347,7 @@
                                 <div class="docter-sec">
                                     <div class="page-head page-head-border">
                                         <h2>Role Manage</h2>
-                                        <button class="btn custom-btn patientedit_btn user-model-btn" data-bs-toggle="modal" data-id="" data-title="Add User" data-bs-target="#adduser">Add User</button>
+                                        <button class="btn custom-btn patientedit-btn user-model-btn" data-bs-toggle="modal" data-id="" data-title="Add User" data-bs-target="#adduser">Add User</button>
                                     </div>
                                     <div class="form-row">
                                         <div class="col-lg-12 overflow-hidden">
