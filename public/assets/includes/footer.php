@@ -1539,7 +1539,13 @@ if (isset($editer)) {
 				return false;
 			});
 			// onload select 
+			<?php
+        if(isset($_SESSION['loggedInId'])){
+			?>
 			onloadSelect();
+			<?php 
+		}
+			?>
 
 			function onloadSelect() {
 				$.ajax({

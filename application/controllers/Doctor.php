@@ -30,6 +30,7 @@ class Doctor extends CI_Controller
     }
     public function referedList()
 	{
+        if(isset($_SESSION['loggedInId'])){
 		$loggedInId = $_SESSION['loggedInId'];
         $loggedData = $this->Doctor_model->getuserbyID($loggedInId);
         $loggedData = $loggedData[0];
@@ -50,6 +51,7 @@ class Doctor extends CI_Controller
 		echo json_encode($data);
 			exit;
 		# code...
+    }
 	}
     public function store()
     {

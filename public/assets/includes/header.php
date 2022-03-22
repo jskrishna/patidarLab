@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<title><?php echo BASE_TITILE;  ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="shortcut icon" type="image/x-icon" href="<?php echo BASE_URL ?>public/assets/images/icon.png" />
+	<link rel="shortcut icon" type="image/x-icon" href="<?php echo BASE_URL ?>public/assets/images/<?php if (isset($loggedData)) {echo $loggedData->lab_logo; } ?>" />
 	<link rel="stylesheet" href="<?php echo BASE_URL ?>public/assets/css/jquery-ui.css">
 	<link rel="stylesheet" href="<?php echo BASE_URL ?>public/assets/css/global.css">
 	<!-- CSS only -->
