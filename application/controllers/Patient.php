@@ -226,6 +226,7 @@ class Patient extends CI_Controller
 	}
 	public function patientList()
 	{
+		if(isset($_SESSION['loggedInId'])){
 		$loggedInId = $_SESSION['loggedInId'];
 		$patientList = $this->Patient_model->patientinfo($loggedInId);
 		$data = '';
@@ -237,6 +238,6 @@ class Patient extends CI_Controller
 		}
 		echo json_encode($data);
 		exit;
-		# code...
+	}
 	}
 }

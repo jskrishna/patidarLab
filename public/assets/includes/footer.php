@@ -165,24 +165,25 @@ if (isset($editer)) {
 }
 ?>
 <script type="text/javascript">
-	$('#login_btn').click(function() {
-		var $btn = $(this);
-
-		var submit_form = true;
-		$('.login-form .required').each(function() {
+	var submit_form = true;
+	function validationCheck(target) {
+		submit_form = true;
+		$(target + ' .required').each(function() {
 			if ($(this).val() == "" && !$(this).val()) {
 				$(this).focus();
 				$(this).parent('.form-group').addClass('error');
-
 				$(this).siblings('.error').show();
 				submit_form = false;
 			} else {
 				$(this).siblings('.error').hide();
 				$(this).parent('.form-group').removeClass('error');
-
 			}
 		});
+	}
 
+	$('#login_btn').click(function() {
+		var $btn = $(this);
+		validationCheck('.login-form');
 		var username = $("#username").val();
 		var password = $("#password").val();
 		var remember_me = $('#remember_me').is(':checked');
@@ -199,13 +200,15 @@ if (isset($editer)) {
 				},
 				success: function(res) {
 					if (res.success == 0) {
-						$(".errorTxt").removeClass("text-success");
-						$(".errorTxt").addClass("text-danger");
-						$(".errorTxt").html(res.msg);
+						new bootstrap.Toast(document.querySelector('#basicToast')).show();
+					$('#basicToast').addClass('toast-error');
+					$('#basicToast').removeClass('toast-success');
+					$('.toast-body').html(res.msg);
 					} else {
-						$(".errorTxt").removeClass("text-danger");
-						$(".errorTxt").addClass("text-success");
-						$(".errorTxt").html(res.msg);
+					new bootstrap.Toast(document.querySelector('#basicToast')).show();
+					$('#basicToast').removeClass('toast-error');
+					$('#basicToast').addClass('toast-success');
+					$('.toast-body').html(res.msg);
 						location.href = res.redirect_url;
 					}
 				}
@@ -225,19 +228,7 @@ if (isset($editer)) {
 
 			$('#addDoctor').click(function() {
 				var $btn = $(this);
-				var submit_form = true;
-				$('#add_doctor .required').each(function() {
-					if ($(this).val() == "" && !$(this).val()) {
-						$(this).focus();
-						$(this).parent('.form-group').addClass('error');
-						$(this).siblings('.error').show();
-						submit_form = false;
-					} else {
-						$(this).siblings('.error').hide();
-						$(this).parent('.form-group').removeClass('error');
-					}
-				});
-
+				validationCheck('#add_doctor');
 				var dname = $("#dname").val();
 				var designation = $("#designation").val();
 				var dmobile = $("#dmobile").val();
@@ -279,24 +270,11 @@ if (isset($editer)) {
 
 			$('#update_password').click(function() {
 				var $btn = $(this);
-				var submit_form = true;
 				$("#password-form .errorTxt").html('');
-				$('#password-form .required').each(function() {
-					if ($(this).val() == "" && !$(this).val()) {
-						$(this).focus();
-						$(this).parent('.form-group').addClass('error');
-						$(this).siblings('.error').show();
-						submit_form = false;
-					} else {
-						$(this).siblings('.error').hide();
-						$(this).parent('.form-group').removeClass('error');
-					}
-				});
-
+				validationCheck('#password-form');
 				var currentpass = $("#currentpass").val();
 				var newpass = $("#newpass").val();
 				var user_id = $("#passuser_id").val();
-
 				var updatepasseUrl = '<?php echo BASE_URL; ?>Users/updatePass';
 				if (submit_form) {
 					$.ajax({
@@ -310,13 +288,15 @@ if (isset($editer)) {
 						},
 						success: function(res) {
 							if (res.success == 0) {
-								$("#password-form .errorTxt").removeClass("text-success");
-								$("#password-form .errorTxt").addClass("text-danger");
-								$("#password-form .errorTxt").html(res.msg);
+								new bootstrap.Toast(document.querySelector('#basicToast')).show();
+								$('#basicToast').addClass('toast-error');
+								$('#basicToast').removeClass('toast-success');
+								$('.toast-body').html(res.msg);
 							} else {
-								$("#password-form .errorTxt").removeClass("text-danger");
-								$("#password-form .errorTxt").addClass("text-success");
-								$("#password-form .errorTxt").html(res.msg);
+								new bootstrap.Toast(document.querySelector('#basicToast')).show();
+								$('#basicToast').removeClass('toast-error');
+								$('#basicToast').addClass('toast-success');
+								$('.toast-body').html(res.msg);
 								location.reload();
 							}
 						}
@@ -327,21 +307,8 @@ if (isset($editer)) {
 			});
 			$('#verify').click(function() {
 				var $btn = $(this);
-				var submit_form = true;
-				$('#forgot-form .required').each(function() {
-					if ($(this).val() == "" && !$(this).val()) {
-						$(this).focus();
-						$(this).parent('.form-group').addClass('error');
-						$(this).siblings('.error').show();
-						submit_form = false;
-					} else {
-						$(this).siblings('.error').hide();
-						$(this).parent('.form-group').removeClass('error');
-					}
-				});
-
+				validationCheck('#forgot-form');
 				var number = $("#number").val();
-
 				var verifyurl = '<?php echo BASE_URL; ?>Forgot/verify';
 				if (submit_form) {
 					$.ajax({
@@ -353,13 +320,16 @@ if (isset($editer)) {
 						},
 						success: function(res) {
 							if (res.success == 0) {
-								$(".forgot-page .errorTxt").removeClass("text-success");
-								$(".forgot-page .errorTxt").addClass("text-danger");
-								$(".forgot-page .errorTxt").html(res.msg);
+								new bootstrap.Toast(document.querySelector('#basicToast')).show();
+								$('#basicToast').addClass('toast-error');
+								$('#basicToast').removeClass('toast-success');
+								$('.toast-body').html(res.msg);
 							} else {
-								$(".forgot-page .errorTxt").removeClass("text-danger");
-								$(".forgot-page .errorTxt").addClass("text-success");
-								$(".forgot-page .errorTxt").html(res.msg);
+								new bootstrap.Toast(document.querySelector('#basicToast')).show();
+								$('#basicToast').removeClass('toast-error');
+								$('#basicToast').addClass('toast-success');
+								$('.toast-body').html(res.msg);
+
 								$('#otp-form').show();
 								$('.forgot-page .login-heading').html('Verify OTP');
 								$('#forgot-form').hide();
@@ -377,22 +347,9 @@ if (isset($editer)) {
 
 			$('#verifyotp').click(function() {
 				var $btn = $(this);
-				var submit_form = true;
-				$('#otp-form .required').each(function() {
-					if ($(this).val() == "" && !$(this).val()) {
-						$(this).focus();
-						$(this).parent('.form-group').addClass('error');
-						$(this).siblings('.error').show();
-						submit_form = false;
-					} else {
-						$(this).siblings('.error').hide();
-						$(this).parent('.form-group').removeClass('error');
-					}
-				});
-
+				validationCheck('#otp-form');
 				var otp = $("#otp").val();
 				var user_id = $("#ei").val();
-
 				var otpverify = '<?php echo BASE_URL; ?>Forgot/verifyOtp';
 				if (submit_form) {
 					$.ajax({
@@ -405,13 +362,15 @@ if (isset($editer)) {
 						},
 						success: function(res) {
 							if (res.success == 0) {
-								$(".forgot-page .errorTxt").removeClass("text-success");
-								$(".forgot-page .errorTxt").addClass("text-danger");
-								$(".forgot-page .errorTxt").html(res.msg);
+								new bootstrap.Toast(document.querySelector('#basicToast')).show();
+								$('#basicToast').addClass('toast-error');
+								$('#basicToast').removeClass('toast-success');
+								$('.toast-body').html(res.msg);
 							} else {
-								$(".forgot-page .errorTxt").removeClass("text-danger");
-								$(".forgot-page .errorTxt").addClass("text-success");
-								$(".forgot-page .errorTxt").html(res.msg);
+								new bootstrap.Toast(document.querySelector('#basicToast')).show();
+								$('#basicToast').removeClass('toast-error');
+								$('#basicToast').addClass('toast-success');
+								$('.toast-body').html(res.msg);
 								$('#otp-form').hide();
 								$('.forgot-page .login-heading').html('Set New Password');
 								$('#reset-pass-form').show();
@@ -425,28 +384,16 @@ if (isset($editer)) {
 
 			$('#resetpass').click(function() {
 				var $btn = $(this);
-				var submit_form = true;
-				$('#reset-pass-from .required').each(function() {
-					if ($(this).val() == "" && !$(this).val()) {
-						$(this).focus();
-						$(this).parent('.form-group').addClass('error');
-						$(this).siblings('.error').show();
-						submit_form = false;
-					} else {
-						$(this).siblings('.error').hide();
-						$(this).parent('.form-group').removeClass('error');
-					}
-				});
+				validationCheck('#reset-pass-from');
+
 				if ($('#newpass').val() != $('#cnewpass').val()) {
 					submit_form = false;
 					$(".forgot-page .errorTxt").removeClass("text-success");
 					$(".forgot-page .errorTxt").addClass("text-danger");
 					$(".forgot-page .errorTxt").html('Password does not match.');
 				}
-
 				var newpass = $("#newpass").val();
 				var user_id = $("#ei").val();
-
 				var resetpassurl = '<?php echo BASE_URL; ?>Forgot/resetPass';
 				if (submit_form) {
 					$.ajax({
@@ -459,24 +406,22 @@ if (isset($editer)) {
 						},
 						success: function(res) {
 							if (res.success == 0) {
-								$(".forgot-page .errorTxt").removeClass("text-success");
-								$(".forgot-page .errorTxt").addClass("text-danger");
-								$(".forgot-page .errorTxt").html(res.msg);
+								new bootstrap.Toast(document.querySelector('#basicToast')).show();
+								$('#basicToast').addClass('toast-error');
+								$('#basicToast').removeClass('toast-success');
+								$('.toast-body').html(res.msg);
 							} else {
-								$(".forgot-page .errorTxt").removeClass("text-danger");
-								$(".forgot-page .errorTxt").addClass("text-success");
-								$(".forgot-page .errorTxt").html(res.msg);
+								new bootstrap.Toast(document.querySelector('#basicToast')).show();
+								$('#basicToast').removeClass('toast-error');
+								$('#basicToast').addClass('toast-success');
+								$('.toast-body').html(res.msg);
 								location.href = '<?php echo BASE_URL; ?>login';
 							}
 						}
-
 					});
 				}
 				return false;
 			});
-
-
-
 
 			function isEmail(email) {
 				var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -494,8 +439,6 @@ if (isset($editer)) {
 				}
 			});
 
-
-			// var test = Array();
 			var id = 1;
 			var total_persons = 0;
 
@@ -513,7 +456,6 @@ if (isset($editer)) {
 					container: 'body'
 				});
 			})
-			// $('[data-toggle="tooltip"]').tooltip({placement: 'bottom',trigger: 'manual'}).tooltip('show');
 
 			//calculation fun
 			function calculation() {
@@ -690,18 +632,7 @@ if (isset($editer)) {
 
 			// register 
 			$('body').on('click', '#patient_save', function() {
-				var submit_form = true;
-				$('#new_patient .required').each(function() {
-					if ($(this).val() == "" && !$(this).val()) {
-						$(this).focus();
-						$(this).parent('.form-group').addClass('error');
-						$(this).siblings('.error').show();
-						submit_form = false;
-					} else {
-						$(this).siblings('.error').hide();
-						$(this).parent('.form-group').removeClass('error');
-					}
-				});
+				validationCheck('#new_patient');
 
 				$("#errorText").hide();
 				var title = $("#titleAdd").val();
@@ -750,21 +681,7 @@ if (isset($editer)) {
 			});
 			//patient edit 
 			$("#gotoBilling").click(function() {
-				var submit_form = true;
-				$('#edit_patient .required').each(function() {
-					if ($(this).val() == "" && !$(this).val()) {
-						$(this).focus();
-						$(this).parent('.form-group').addClass('error');
-
-						$(this).siblings('.error').show();
-						submit_form = false;
-					} else {
-						$(this).siblings('.error').hide();
-						$(this).parent('.form-group').removeClass('error');
-
-					}
-				});
-
+				validationCheck('#edit_patient');
 				$("#errorText").hide();
 
 				var title = $("#title").val();
@@ -1084,70 +1001,7 @@ if (isset($editer)) {
 					}
 				});
 			});
-
-			// in bill patient update 
-			$("#gotoBillingEdit").click(function() {
-				if ($("#title_patientEdit").val() == '') {
-					$('#title_patientEdit').css("border", "1px solid red");
-					$('#title_patientEdit').focus();
-					return false
-				} else {
-					$('#title_patientEdit').css("border", "1px solid lightgray");
-				}
-				if ($("#patientNameEdit").val() == '') {
-					$('#patientNameEdit').css("border", "1px solid red");
-					$('#patientNameEdit').focus();
-					return false
-				} else {
-					$('#patientNameEdit').css("border", "1px solid lightgray");
-				}
-				if ($("#ageEdit").val() == '') {
-					$('#ageEdit').css("border", "1px solid red");
-					$('#ageEdit').focus();
-					return false
-				} else {
-					$('#ageEdit').css("border", "1px solid lightgray");
-				}
-
-				$("#errorText").hide();
-				var id = $("#patientIdEdit").val();
-				var title = $("#title_patientEdit").val();
-				var patientName = $("#patientNameEdit").val();
-				var mobileNo = $("#mobileNoEdit").val();
-				var alternateMobileNo = $("#alternateMobileNoEdit").val();
-				var emailId = $("#emailIdEdit").val();
-				var gender = $("#genderEdit").val();
-				var refered_by = $("#refered_byEdit").val();
-				var area = $("#areaEdit").val();
-				var city = $("#cityEdit").val();
-				var pin = $("#pinEdit").val();
-				var age = $("#ageEdit").val();
-				var age_type = $("#age_type").val();
-				$.ajax({
-					type: "POST",
-					url: "<?php echo BASE_URL; ?>patient/patientUpdate",
-					dataType: "json",
-					data: {
-						"id": id,
-						"title": title,
-						"patientName": patientName,
-						"mobileNo": mobileNo,
-						"alternateMobileNo": alternateMobileNo,
-						"emailId": emailId,
-						"gender": gender,
-						"refered_by": refered_by,
-						"area": area,
-						"city": city,
-						"pin": pin,
-						"age": age,
-						"age_type": age_type
-					},
-					success: function(res) {
-						$('#patient_name').html(title + '. ' + patientName + ' (' + gender.charAt(0) + ' - ' + age + ' )<br>Patient No : ' + $('#patientIdaEdit').html());
-						$(".modal .close").click();
-					}
-				});
-			});
+			// validationCheck('#edit_patient');
 
 			//add test list
 			$("#add_list").click(function() {
@@ -1224,7 +1078,6 @@ if (isset($editer)) {
 			});
 
 			$("body").on('click', '#bottom', function() {
-				// $("#bottom").attr('disabled', 'disabled');
 				var temp = Array();
 				$(".check_list").each(function() {
 					if ($(this).is(':checked')) {
@@ -1238,13 +1091,13 @@ if (isset($editer)) {
 					}
 				});
 
-				if(temp.length == 0){
+				if (temp.length == 0) {
 					new bootstrap.Toast(document.querySelector('#basicToast')).show();
 					$('#basicToast').addClass('toast-error');
 					$('#basicToast').removeClass('toast-success');
 					$('.toast-body').html('Please Select test first.');
 				}
-				
+
 				$.ajax({
 					type: "POST",
 					url: "<?php echo BASE_URL; ?>test/testSubmit",
@@ -1538,7 +1391,6 @@ if (isset($editer)) {
 							$('#basicToast').removeClass('toast-success');
 							$('.toast-body').html(res.msg);
 						}
-
 					},
 					error: function(err) {
 						console.dir(err);
@@ -1658,21 +1510,8 @@ if (isset($editer)) {
 			});
 
 			$('#update_profile').click(function() {
-				var submit_form = true;
-				$('#profile .required').each(function() {
-					if ($(this).val() == "" && !$(this).val()) {
-						$(this).focus();
-						$(this).parent('.form-group').addClass('error');
-						$(this).siblings('.error').show();
-						submit_form = false;
-					} else {
-						$(this).siblings('.error').hide();
-						$(this).parent('.form-group').removeClass('error');
-					}
-				});
-
+				validationCheck('#profile');
 				var formData = new FormData($('#profile-form')[0]);
-
 				var updateurl = '<?php echo BASE_URL; ?>Users/update';
 				if (submit_form) {
 					$.ajax({
@@ -1683,30 +1522,30 @@ if (isset($editer)) {
 						data: formData,
 						success: function(res) {
 							if (res.success == 0) {
-								$(".errorTxt").removeClass("text-success");
-								$(".errorTxt").addClass("text-danger");
-								$(".errorTxt").html(res.msg);
-
 								new bootstrap.Toast(document.querySelector('#basicToast')).show();
 								$('#basicToast').addClass('toast-error');
 								$('#basicToast').removeClass('toast-success');
-								$('.toast-body').html('Something went wrong.');
+								$('.toast-body').html(res.msg);
 							} else {
-								$(".errorTxt").removeClass("text-danger");
-								$(".errorTxt").addClass("text-success");
-								$(".errorTxt").html(res.msg);
+								new bootstrap.Toast(document.querySelector('#basicToast')).show();
+								$('#basicToast').removeClass('toast-error');
+								$('#basicToast').addClass('toast-success');
+								$('.toast-body').html(res.msg);
 								location.reload();
-
 							}
 						}
-
 					});
 				}
 				return false;
 			});
 			// onload select 
-
+			<?php
+        if(isset($_SESSION['loggedInId'])){
+			?>
 			onloadSelect();
+			<?php 
+		}
+			?>
 
 			function onloadSelect() {
 				$.ajax({
@@ -1742,7 +1581,6 @@ if (isset($editer)) {
 			}
 
 			// select 2 js
-			// $("#searchPatientId").select2();
 			$('#patientRefAdd').select2();
 			$(document).on('select2:open', () => {
 				document.querySelector('.select2-search__field').focus();
@@ -1751,12 +1589,6 @@ if (isset($editer)) {
 			$("#patientRef").select2({
 				dropdownParent: $('#patientEdit')
 			});
-
-			// $('#searchPatientId').on('change', function() {
-			// 	var id = this.value;
-			// 	$('#search_patient_id').val(id);
-			// 	$('#searchPatient').click();
-			// });
 
 			$('#patientRef').on('change', function() {
 				var id = this.value;
@@ -1769,7 +1601,6 @@ if (isset($editer)) {
 
 			// highlight 
 			$(".call").keyup(function() {
-
 				var id = (this.id);
 				var id = id.substring(10, 200);
 				var actual_value = $(this).val();
@@ -1798,7 +1629,6 @@ if (isset($editer)) {
 					$("#checkValue" + id).val('No');
 					$("#inputValue" + id).css("border", "1px solid lightgray");
 				}
-
 			});
 
 			$('#searchPatientId').keypress(function() {
@@ -1826,7 +1656,6 @@ if (isset($editer)) {
 				var tab_id = $(this).attr('data-tab');
 				$('ul.tabs li').removeClass('active');
 				$('.tab-content').removeClass('active');
-
 				$(this).addClass('active');
 				$("#" + tab_id).addClass('active');
 			})
@@ -1888,12 +1717,9 @@ if (isset($editer)) {
 				$('.advance-li').show();
 				$('.remain-li-span').html('Remaining Amount');
 			}
-
 		});
 
-
 		var format = $("input[name='invoice_type']:checked").val();
-
 
 		$('body').on('click', '#withHeader', function() {
 			var id = $("#printinvoiceid").val();
@@ -1921,7 +1747,6 @@ if (isset($editer)) {
 			} else {
 				$(this).data('status', 'authorised');
 			}
-
 			var testname = $(this).data('testname');
 			var bill_id = $('#bill_id').val();
 			var url = "<?php echo BASE_URL; ?>Report/authoriseStatus";
@@ -1946,7 +1771,6 @@ if (isset($editer)) {
 						$('#basicToast').removeClass('toast-success');
 						$('.toast-body').html(testname + ' ' + res.msg);
 					}
-
 				},
 				error: function(err) {
 					new bootstrap.Toast(document.querySelector('#basicToast')).show();
@@ -1955,13 +1779,11 @@ if (isset($editer)) {
 					$('.toast-body').html('Something went wrong.');
 				}
 			});
-
 		});
 
 		function readURL(input, id) {
 			if (input.files && input.files[0]) {
 				var reader = new FileReader();
-
 				reader.onload = function(e) {
 					$(id).attr('src', e.target.result);
 				}
@@ -1980,9 +1802,7 @@ if (isset($editer)) {
 		});
 
 		// input value funtions
-
-		$('body').on('keyup', '#inputValue14', function() {
-
+		$('body').on('keyup', '#inputValue13,#inputValue14', function() {
 			var total = $('#inputValue13').val();
 			var Direct = $('#inputValue14').val();
 			var Indirect = (Number(total) - Number(Direct)).toFixed(2);
@@ -1990,7 +1810,6 @@ if (isset($editer)) {
 		});
 
 		function alertValue(id, numid) {
-
 			var value_8 = $('#inputValue9').val();
 			var value_9 = $('#inputValue10').val();
 			var value_10 = $('#inputValue109').val();
@@ -1998,7 +1817,6 @@ if (isset($editer)) {
 
 			Totalvalue = Number(value_8) + Number(value_9) + Number(value_10) + Number(value_11);
 			alertid = "#alert" + numid;
-
 			if (Totalvalue > 100) {
 				$(alertid).css("color", "#dc3545").css("font-weight", "Bold");
 				$(".btn-approve").hide();
@@ -2029,7 +1847,6 @@ if (isset($editer)) {
 			alertValue('#inputValue110', 110);
 		});
 
-
 		$('body').on('keyup', '#user_fullname', function() {
 			var value = $(this).val().replace(/[^a-z0-9\s]/gi, '_').replace(/[_\s]/g, '_')
 			$('#user_username').val(value.toLowerCase());
@@ -2038,19 +1855,7 @@ if (isset($editer)) {
 
 		$('#adduserbtn').click(function() {
 			var $btn = $(this);
-			var submit_form = true;
-			$('#add_user .required').each(function() {
-				if ($(this).val() == "" && !$(this).val()) {
-					$(this).focus();
-					$(this).parent('.form-group').addClass('error');
-					$(this).siblings('.error').show();
-					submit_form = false;
-				} else {
-					$(this).siblings('.error').hide();
-					$(this).parent('.form-group').removeClass('error');
-				}
-			});
-
+			validationCheck('#add_user');
 			var fullname = $("#user_fullname").val();
 			var username = $("#user_username").val();
 			var email = $("#user_email").val();
@@ -2170,10 +1975,7 @@ if (isset($editer)) {
 			});
 			return submit;
 		}
-
-
 		//mvc  mch  mchc
-
 		$('body').on('keyup', '#inputValue1,#inputValue2,#inputValue3', function() {
 			var rbc = $('#inputValue2').val();
 			var pvc = $('#inputValue3').val();
@@ -2183,10 +1985,9 @@ if (isset($editer)) {
 			var mchc = Number(Hb) * 100 / Number(hct);
 			var mch = Number(Hb) * 10 / Number(rbc);
 			$('#inputValue6').val(mch.toFixed(2));
-			$('#inputValue7').val(mch.toFixed(2));
+			$('#inputValue7').val(mchc.toFixed(2));
 			$('#inputValue5').val(mcv.toFixed(2));
 		});
-
 
 		// lipid calculation cho
 		$('body').on('keyup', '#inputValue54', function() {
@@ -2195,7 +1996,6 @@ if (isset($editer)) {
 			var HDL = $('#inputValue56').val();
 			var LDL = $('#inputValue57').val();
 			var VLDL = $('#inputValue58').val();
-
 			$('#inputValue57').val(($('#inputValue54').val() - $('#inputValue56').val() - $('#inputValue58').val()).toFixed(2));
 			$('#inputValue59').val(($('#inputValue57').val() / $('#inputValue56').val()).toFixed(2));
 			$('#inputValue60').val((($('#inputValue54').val()) / ($('#inputValue56').val())).toFixed(2));
@@ -2221,7 +2021,6 @@ if (isset($editer)) {
 			$('#inputValue60').val((($('#inputValue54').val()) / ($('#inputValue56').val())).toFixed(2));
 		});
 
-
 		$('body').on('keyup', '.listInputClass', function() {
 			var id = $(this).data('id');
 			var thisvalue = '';
@@ -2233,6 +2032,42 @@ if (isset($editer)) {
 			$("#inputValue" + id).val(thisvalue);
 		});
 
+		$('body').on('click', '.whatsapp_click', function() {
+			$("#patient_mobile_no").removeAttr('style');
+			var api = $(this).data("url");
+			var pid = $(this).data("pid");
+			$('#shareUrl').val(api);
+			$.ajax({
+				type: "GET",
+				url: '<?php echo BASE_URL ?>Report/getpatientinfoByID/' + pid,
+				success: function(res) {
+					res = JSON.parse(res);
+					$('#patient_mobile_no').val(res.mobile);
+				},
+				error: function(request, status, error) {
+					new bootstrap.Toast(document.querySelector('#basicToast')).show();
+					$('#basicToast').addClass('toast-error');
+					$('#basicToast').removeClass('toast-success');
+					$('.toast-body').html(request.responseText);
+				}
+			});
+			$("#patient_mobile_no").focus();
+		});
+
+		$('#share_whatsapp_no').on('click', function() {
+			if ($("#patient_mobile_no").val() == '') {
+				$("#patient_mobile_no").css("border", "1px solid red");
+				$("#patient_mobile_no").focus();
+				return false;
+			} else {
+				$("#patient_mobile_no").css("border", "1px solid lightgray");
+			}
+			var patient_mobile_no = $('#patient_mobile_no').val();
+			$('#whatsapp_popup').modal('toggle');
+			var link = encodeURI('Your Test Report at <?php echo BASE_TITILE; ?> is ready. Please Collect it ') + encodeURIComponent($('#shareUrl').val());
+			console.log($('#shareUrl').val());
+			window.open("https://wa.me/91" + patient_mobile_no + "?text=" + link);
+		});
 		// dont remove
 	<?php } ?>
 </script>
@@ -2240,7 +2075,7 @@ if (isset($editer)) {
 <div id="basicToast" class="toast align-items-center text-white border-0" role="alert" data-bs-animation="true" data-bs-delay="3000" aria-live="assertive" aria-atomic="true">
 	<div class="d-flex">
 		<div class="toast-body">
-			Hello, world! This is a toast message.
+			Hello, This is a warning message.
 		</div>
 		<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-bs-label="Close"></button>
 	</div>
