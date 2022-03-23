@@ -122,6 +122,24 @@ class Report_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    public function checkKey($bill_id)
+    {
+        $query = $this->db->select('*')->from('pdf')->where('bill_id', $bill_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function insertKey($bill_id,$key,$url)
+    {
+        $sth = $this->db->query("INSERT INTO `pdf`(`key`, `bill_id`, `url`) VALUES ('$key','$bill_id','$url')");
+        return $sth;
+    }
+
+    public function updateKey($bill_id,$url)
+    {
+        $sth = $this->db->query("UPDATE `pdf` SET `url`='$url' WHERE `bill_id`='$bill_id'");
+        return $sth;
+    }
+    
     public function getreferedData()
     {
         $query = $this->db->select('*')->from('referral');

@@ -94,13 +94,19 @@
                                             </div>
                                         </th>
                                         <th>
+                                        <label style="width: 100%;" for="select_all">
                                             <div class="tablesorter-header-inner">Department</div>
+                                            </label>
                                         </th>
                                         <th>
+                                        <label style="width: 100%;" for="select_all">
                                             <div class="tablesorter-header-inner">Test</div>
+                                        </label>
                                         </th>
                                         <th>
+                                        <label style="width: 100%;" for="select_all">
                                             <div class="tablesorter-header-inner">Action</div>
+                                        </label>
                                         </th>
                                     </tr>
                                 </thead>
@@ -122,17 +128,23 @@
                                                 <td>
                                                     <div class="check-group single-select">
                                                         <input type="checkbox" value="<?php echo $testData->id; ?>" onclick="myFunction('test<?php echo $testData->id; ?>')" class="chkbox" id="test<?php echo $testData->id; ?>" name="t[]">
-                                                        <label for="test<?php echo $testData->id; ?>"></label>
+                                                        <label style="width: 100%;" for="test<?php echo $testData->id; ?>"></label>
                                                         <input type="checkbox" class="chkbox" id="department<?php echo $testData->id; ?>" value="<?php echo $departData->id; ?>" name="d[]">
                                                     </div>
                                                 </td>
                                                 <td>
+                                                <label style="width: 100%;" for="test<?php echo $testData->id; ?>">
+
                                                     <?php
                                                     echo $departData->department;
                                                     ?>
+                                                    </label>
                                                 </td>
                                                 <td>
+                                                <label style="width: 100%;" for="test<?php echo $testData->id; ?>">
+
                                                     <?php echo $testData->test_name; ?>
+                                                </label>
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btnupdate review-btn bill_settle" data-id="<?php echo $testData->id; ?>" id="sub<?php echo $testData->id; ?>">Review <?php if ($checkData[0]->printed > 0) {
@@ -142,10 +154,7 @@
                                             </tr>
                                     <?php }
                                     } ?>
-                                    <!-- <input type="hidden" name="payment_status1" id="payment_status1" value="<?php //echo $billData->status; ?>"> -->
-                                    <!-- <input type="hidden" name="count1" id="count1" value="1"> -->
-                                    <!-- <input type="hidden" name="bill_total" id="bill_total" value="<?php //echo intval($billData->balance) - intval($billData->advance); ?>"> -->
-                                    <!-- <input type="hidden" name="total_credit" id="total_credit" value="<?php //echo intval($billData->received_amount); ?>"> -->
+                                    
                                 </tbody>
                             </table>
                         </div>
