@@ -106,7 +106,8 @@ class Pdf extends CI_Controller
                 $mpdf->SetDefaultBodyCSS('background', "url('" . $headerImage . "')");
                 $mpdf->SetDefaultBodyCSS('background-image-resize', 6);
             }
-            $reportname = $patientData->title.' '.$patientData->patientname;
+            $reportname = $patientData->title.'.'.str_replace(' ','-',ucwords($patientData->patientname));
+
             $mpdf->SetTitle($reportname . '-' . $patientData->patientid);
             // $mpdf->SetDefaultFont('Inter');
             date_default_timezone_set('Asia/Kolkata');

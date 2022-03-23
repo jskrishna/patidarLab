@@ -152,7 +152,15 @@ class Users extends CI_Controller
             move_uploaded_file($_FILES["letter_pad"]["tmp_name"], "./public/assets/images/" . $letter_pad);
         }
 
-        if ($this->Users_model->updateLayoutImg($lab_logo, $letter_pad, $id)) {
+        if ($_FILES["fav_icon"]["name"] == NULL) {
+            $fav_icon = $this->input->post('old_fav_icon');
+        } else {
+            $ext = pathinfo($_FILES["fav_icon"]["name"], PATHINFO_EXTENSION);
+            $fav_icon = rand() . '.' . $ext;
+            move_uploaded_file($_FILES["fav_icon"]["tmp_name"], "./public/assets/images/" . $fav_icon);
+        }
+
+        if ($this->Users_model->updateLayoutImg($lab_logo, $letter_pad,$fav_icon, $id)) {
             $resultss = array('success' => 1, 'msg' => 'Update Sucess.');
             echo json_encode($resultss);
             header('location:' . BASE_URL . 'users');
@@ -172,9 +180,17 @@ class Users extends CI_Controller
         $password = md5($password);
         $userid = $this->input->post('userid');
         $loggedInId = $_SESSION['loggedInId'];
+        
+        $getuserbyID = $this->Users_model->getuserbyID($loggedInId);
+        $getuserbyID = $getuserbyID[0];
+        $labname = $getuserbyID->labname;
+        $lab_logo = $getuserbyID->lab_logo;
+        $letter_pad = $getuserbyID->letter_pad;
+        $fav_icon = $getuserbyID->fav_icon;
+        
         if (isset($loggedInId)) {
             if ($userid == '') {
-                $data = $this->Users_model->storeUserData($fullname, $username, $email, $mobile, $role, $password, $loggedInId);
+                $data = $this->Users_model->storeUserData($fullname, $username, $email, $mobile, $role, $password,$labname,$lab_logo,$letter_pad,$fav_icon,$loggedInId);
             } else {
                 $data = $this->Users_model->updateUserData($fullname, $username, $email, $mobile, $role, $password, $loggedInId, $userid);
             }

@@ -217,15 +217,14 @@
                                                 <h2>Layout Setting</h2>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-6">
                                             <form method="POST" id="update_layout-form" name="profile" action="<?php echo BASE_URL; ?>Users/updateLayout" enctype="multipart/form-data">
                                                 <div class="row">
                                                     <div id="layout">
                                                         <div class="errorTxt text-danger text-center mb-3"></div>
                                                         <div class="form-row">
                                                             <div class="row">
-
-                                                                <div class="form-group file-type col-lg-6">
+                                                                <div class="form-group file-type col-lg-4">
                                                                     <label for="letter_pad">Letter Head</label>
                                                                     <div class="image-input" data-toggle="tooltip" data-placement="top" data-bs-original-title="Upload image">
                                                                     <input type="file" name="letter_pad" id="letter_pad" class="" placeholder="Enter letter_pad" autocomplete="off">
@@ -239,8 +238,7 @@
                                                                        <?php } ?>
                                                                     </div>
                                                                 </div>
-
-                                                                <div class="form-group file-type col-lg-6">
+                                                                <div class="form-group file-type col-lg-4">
                                                                     <label for="lab_logo">Lab Logo</label>
                                                                     <div class="image-input" data-toggle="tooltip" data-placement="top" data-bs-original-title="Upload image">
                                                                     <input type="file" name="lab_logo" id="lab_logo" class="" placeholder="Enter lab_logo" autocomplete="off">
@@ -254,7 +252,20 @@
                                                                        <?php } ?>
                                                                     </div>
                                                                 </div>
-
+                                                                <div class="form-group file-type col-lg-4">
+                                                                    <label for="fav_icon">Fav Icon</label>
+                                                                    <div class="image-input" data-toggle="tooltip" data-placement="top" data-bs-original-title="Upload image">
+                                                                    <input type="file" name="fav_icon" id="fav_icon" class="" placeholder="Enter fav_icon" autocomplete="off">
+                                                                    <input type="hidden" name="old_fav_icon" id="old_fav_icon" value="<?php echo $UserData->fav_icon; ?>">
+                                                                        <label for="fav_icon" class="image-button">Choose image</label>
+                                                                        <?php if($UserData->fav_icon) { ?>
+                                                                            <img id="img_fav_icon" src="<?php echo BASE_URL .'public/assets/images/'.$UserData->fav_icon; ?>" class="image-preview">
+                                                                        <span class="change-image">Choose different image</span>
+                                                                        <?php }else{ ?>
+                                                                            <img id="img_fav_icon" src="<?php echo BASE_URL  ?>public/assets/images/placeholder.jpg" class="image-preview">
+                                                                       <?php } ?>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <hr>
                                                             <div class="row">

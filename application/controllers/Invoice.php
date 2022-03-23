@@ -24,8 +24,13 @@ class Invoice extends CI_Controller
 
         $referData = $this->Outputpdf_model->getdoctorinfoByID($patientData->refered_by);
         $referData = $referData[0];
-        $headerImage = BASE_URL . 'public/assets/images/Letter_pad.png';
 
+        $getuserbyID =  $this->Outputpdf_model->getuserbyID($billData->user_id);
+        $getuserbyID = $getuserbyID[0];
+
+        $headerImage = BASE_URL . 'public/assets/images/' . $getuserbyID->letter_pad;
+        $invoicename = $patientData->title.'.'.str_replace(' ','-',ucwords($patientData->patientname));
+        $labname = $getuserbyID->labname;
         $testIDS = explode(',', $billData->testId);
         require_once 'vendor/autoload.php';
 
@@ -58,7 +63,7 @@ class Invoice extends CI_Controller
             }
         }
 
-        $mpdf->SetTitle('Invoice-' . $patientData->patientid);
+        $mpdf->SetTitle('Invoice-' . $invoicename);
         date_default_timezone_set('Asia/Kolkata');
 
         if ($format == '3') {
@@ -239,15 +244,15 @@ class Invoice extends CI_Controller
                                 </tr>
                                     <tr>
                                     <td style='width:65%;border:0;'></td>
-                                        <td style='text-align:center;border:0;font-size:11px'  colspan='3'>Signature<br><b>Patidar Diagnostic</b></td>
+                                        <td style='text-align:center;border:0;font-size:11px'  colspan='3'>Signature<br><b>".($labname)."</b></td>
                                     </tr>
                                 </tfoot>
                                 </table>
                     </main>";
         $mpdf->WriteHTML($footer);
 
-        $mpdf->Output(); // opens in browser
-        // // $mpdf->Output('invoice-'.$patientData->patientid.'.pdf','D'); // it downloads the file into the user system, with give name
+        $mpdf->Output('Invoice-'.$invoicename.'.pdf','I'); // opens in browser
+        // // $mpdf->Output('Invoice-'.$invoicename.'.pdf','D'); // it downloads the file into the user system, with give name
     }
 }
 ?>

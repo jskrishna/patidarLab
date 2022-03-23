@@ -52,16 +52,16 @@ class Users_model extends CI_Model
         $sth = $this->db->query("UPDATE `users` SET `password`='$newpass' WHERE `id`= '$user_id'");
         return $sth;
     }
-    public function updateLayoutImg($lab_logo, $letter_pad, $id)
+    public function updateLayoutImg($lab_logo, $letter_pad,$fav_icon, $id)
     {
-        $sth = $this->db->query("UPDATE `users` SET `lab_logo`='$lab_logo',`letter_pad`='$letter_pad' WHERE `id`= '$id'");
-        $sth = $this->db->query("UPDATE `users` SET `lab_logo`='$lab_logo',`letter_pad`='$letter_pad' WHERE `user_id`='$id'");
+        $sth = $this->db->query("UPDATE `users` SET `lab_logo`='$lab_logo',`letter_pad`='$letter_pad',`fav_icon`='$fav_icon' WHERE `id`= '$id'");
+        $sth = $this->db->query("UPDATE `users` SET `lab_logo`='$lab_logo',`letter_pad`='$letter_pad',`fav_icon`='$fav_icon' WHERE `user_id`='$id'");
         return $sth;
     }
 
-    public function storeUserData($fullname, $username, $email, $mobile, $role, $password, $loggedInId)
+    public function storeUserData($fullname, $username, $email, $mobile, $role, $password,$labname,$lab_logo,$letter_pad,$fav_icon, $loggedInId)
     {
-        $sth = $this->db->query("INSERT INTO `users`(`username`, `fullname`, `email`, `mobile`, `password`, `role`, `user_id`) VALUES ('$username','$fullname','$email','$mobile','$password','$role','$loggedInId')");
+        $sth = $this->db->query("INSERT INTO `users`(`username`, `fullname`, `email`, `mobile`, `password`, `role`,`labname`,`lab_logo`,`letter_pad`,`fav_icon`,`user_id`) VALUES ('$username','$fullname','$email','$mobile','$password','$role','$labname','$lab_logo','$letter_pad','$fav_icon','$loggedInId')");
         return $sth;
     }
 

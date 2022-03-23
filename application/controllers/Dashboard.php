@@ -74,7 +74,7 @@ class Dashboard extends CI_Controller
 		}
 
 
-		$ChartData = $this->Dashboard_model->ChartData($dateCondition, $year);
+		$ChartData = $this->Dashboard_model->ChartData($dateCondition, $year,$labid);
 
 		// echo $year;
 		// die();
