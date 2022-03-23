@@ -1488,8 +1488,10 @@ if (isset($editer)) {
 				if ($('#select_all').is(':checked')) {
 					$('.chkbox').prop('checked', false);
 					$('#submit_report').attr('disabled', 'disabled');
+					$("#testArea tr").removeClass('checked');
 				} else {
 					$('.chkbox').prop('checked', true);
+					$("#testArea tr").addClass('checked');
 					$('#submit_report').removeAttr('disabled', 'disabled');
 				}
 			});
@@ -1797,6 +1799,10 @@ if (isset($editer)) {
 		$("#lab_logo").change(function() {
 			readURL(this, '#img_lablogo');
 		});
+		$("#fav_icon").change(function() {
+			readURL(this, '#img_fav_icon');
+		});
+
 		$("#signature").change(function() {
 			readURL(this, '#img_sign');
 		});
