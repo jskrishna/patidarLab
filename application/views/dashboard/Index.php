@@ -15,18 +15,18 @@
                 <div class="dashbord-box-main">
                     <h3>Today's <b class="color-green">Report</b></h3>
                     <div class="dashbord-box-inr row">
-                    <div class="dashboard-box green-box col-3">
+                        <div class="dashboard-box purple-box col-3">
                             <a href="<?php echo BASE_URL; ?>report">
                                 <div class="dashbord-content">
-                                    <h4>Today Collection </h4>
-                                    <span class="test-count"><?php echo $today_collection; ?></span>
+                                    <h4>Collection </h4>
+                                    <span class="test-count"><?php echo number_format($today_collection, 0, '.', ','); ?></span>
                                 </div>
                             </a>
                         </div>
                         <div class="dashboard-box blue-box col-3">
                             <a href="<?php echo BASE_URL; ?>report">
                                 <div class="dashbord-content">
-                                    <h4>Total Test</h4>
+                                    <h4>Test</h4>
                                     <span class="test-count"><?php echo $total; ?></span>
                                 </div>
                             </a>
@@ -47,6 +47,8 @@
                                 </div>
                             </a>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="dashboard-box green-box col-6">
                             <div>
                                 <form action="" method="GET">

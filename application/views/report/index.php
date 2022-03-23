@@ -38,19 +38,13 @@
                                 </div>
                                 <div class="form-group mb-0">
                                     <button type="button" id="filter" class="btn custom-btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24"
-                                            viewBox="0 0 24 24">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
                                             <defs>
                                                 <clipPath id="a">
-                                                    <path
-                                                        d="M17,18a.994.994,0,0,1-.707-.293l-3.4-3.395A7.91,7.91,0,0,1,8,16a8,8,0,1,1,8-8,7.909,7.909,0,0,1-1.688,4.9l3.395,3.4A1,1,0,0,1,17,18ZM8,2a6,6,0,1,0,6,6A6.007,6.007,0,0,0,8,2Z"
-                                                        transform="translate(3 3)" fill="#fff" />
+                                                    <path d="M17,18a.994.994,0,0,1-.707-.293l-3.4-3.395A7.91,7.91,0,0,1,8,16a8,8,0,1,1,8-8,7.909,7.909,0,0,1-1.688,4.9l3.395,3.4A1,1,0,0,1,17,18ZM8,2a6,6,0,1,0,6,6A6.007,6.007,0,0,0,8,2Z" transform="translate(3 3)" fill="#fff" />
                                                 </clipPath>
                                             </defs>
-                                            <path
-                                                d="M17,18a.994.994,0,0,1-.707-.293l-3.4-3.395A7.91,7.91,0,0,1,8,16a8,8,0,1,1,8-8,7.909,7.909,0,0,1-1.688,4.9l3.395,3.4A1,1,0,0,1,17,18ZM8,2a6,6,0,1,0,6,6A6.007,6.007,0,0,0,8,2Z"
-                                                transform="translate(3 3)" fill="#fff" />
+                                            <path d="M17,18a.994.994,0,0,1-.707-.293l-3.4-3.395A7.91,7.91,0,0,1,8,16a8,8,0,1,1,8-8,7.909,7.909,0,0,1-1.688,4.9l3.395,3.4A1,1,0,0,1,17,18ZM8,2a6,6,0,1,0,6,6A6.007,6.007,0,0,0,8,2Z" transform="translate(3 3)" fill="#fff" />
                                         </svg>
                                     </button>
                                 </div>
@@ -115,22 +109,19 @@
         </div>
     </div>
     <!-- //payment model  -->
-    <div class="c-modal modal center fade" id="bill_settlement" tabindex="-3" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="c-modal modal center fade" id="bill_settlement" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
             </div>
         </div>
     </div>
-    <div class="c-modal modal center fade" id="bill_paid" tabindex="-3" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="c-modal modal center fade" id="bill_paid" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
             </div>
         </div>
     </div>
-    <div class="c-modal modal center fade" id="printReport" tabindex="-3" role="dialog"
-        aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="c-modal modal center fade" id="printReport" tabindex="-3" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="page-head">
@@ -162,6 +153,8 @@
                             <input type="hidden" value="" id="printinvoiceid">
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer" style="justify-content:start">
                     <div class="form-group">
                         <label>Print Invoice With</label>
                         <div class="d-flex">
@@ -174,39 +167,33 @@
         </div>
     </div>
     <!-- // whatsapp  -->
-    <div class="modal fade" id="whatsapp_popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="c-modal modal center fade" id="whatsapp_popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-head    er">
-                    <h5 class="modal-title" id="exampleModalLabel">Share Via WhatsApp</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div class="page-head">
+                    <h2>Share Via WhatsApp</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <img src="<?php echo BASE_URL ?>public/assets/images/remove.svg" alt="">
+                        </button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <span>WhatsApp Number</span>
-                            <input type="hidden" id="shareUrl" value="">
-                        </div>
-                        <div class="form-group col-lg-12">
-                            <div class="form-row">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">+91</span>
-                                    </div><input type="number" class="form-control" id="patient_mobile_no" value=""
-                                        placeholder="Enter WhatsApp Number Here...">
-                                </div>
+                    <div class="form-group">
+                        <label>WhatsApp Number</label>
+                        <input type="hidden" id="shareUrl" value="">
+                        <div class="form-row">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">+91</span>
+                                </div><input type="number" class="form-control" id="patient_mobile_no" value="" placeholder="Enter WhatsApp Number Here...">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="share_whatsapp_no">Share</button>
+                    <div class="d-flex">
+                        <button class="btn custom-btn btnupdate" id="share_whatsapp_no">Share</button>
+                    </div>
                 </div>
-                
             </div>
         </div>
     </div>
@@ -215,5 +202,5 @@
 include_once "./public/assets/includes/footer.php";
 ?>
 <script>
-localStorage.setItem('activetab', 1);
+    localStorage.setItem('activetab', 1);
 </script>

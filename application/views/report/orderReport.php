@@ -133,23 +133,20 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                <label style="width: 100%;" for="test<?php echo $testData->id; ?>">
-
+                                                <label class="check-label" style="width: 100%;" for="test<?php echo $testData->id; ?>">
                                                     <?php
                                                     echo $departData->department;
                                                     ?>
                                                     </label>
                                                 </td>
                                                 <td>
-                                                <label style="width: 100%;" for="test<?php echo $testData->id; ?>">
-
+                                                <label class="check-label" style="width: 100%;" for="test<?php echo $testData->id; ?>">
                                                     <?php echo $testData->test_name; ?>
                                                 </label>
                                                 </td>
                                                 <td>
-                                                    <button type="button" class="btnupdate review-btn bill_settle" data-id="<?php echo $testData->id; ?>" id="sub<?php echo $testData->id; ?>">Review <?php if ($checkData[0]->printed > 0) {
-                                                                                                                                                                                                            echo '(' . $checkData[0]->printed . ')';
-                                                                                                                                                                                                        } ?></button>
+                                                    <button type="button" class="btnupdate review-btn bill_settle" data-id="<?php echo $testData->id; ?>" id="sub<?php echo $testData->id; ?>">Review <?php if ($checkData[0]->printed > 0) {                                                                                                                            echo '(' . $checkData[0]->printed . ')';                                                                                                                            } ?>
+                                                </button>
                                                 </td>
                                             </tr>
                                     <?php }
@@ -181,12 +178,13 @@ include_once "./public/assets/includes/footer.php";
         var val1 = val.substring(4, 10);
         if ($("#" + val).prop("checked") == true) {
             check.push(val);
-
+            console.log('addclass');
+            $("#" + val).closest("tr").addClass('checked');
         } else if ($("#" + val).prop("checked") == false) {
             check = $.grep(check, function(a) {
                 return a != val;
             })
-
+            $("#" + val).closest('tr').removeClass('checked');
         }
         var count = check.length;
 

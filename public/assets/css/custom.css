@@ -431,10 +431,11 @@
             padding: 30px;
             display: flex;
             position: relative;
+            margin-bottom: 20px;
         }
         
         .blue-box a {
-            background-image: linear-gradient(to right, #2d2668, #03a39b);
+            background-image: linear-gradient(to right, #001b22, #0b3d4a);
         }
         
         .yellow-box a {
@@ -442,17 +443,21 @@
         }
         
         .green-box a {
-            background-image: linear-gradient(to right, #99CC94, #CEF6C9);
+            background-image: linear-gradient(to right,#036653,#1ca187);
+        }
+
+        .purple-box a {
+            background-image: linear-gradient(to right, #4e2572, #7526bb);
         }
         
         .dashbord-content h4 {
-            font-size: 25px;
+            font-size: 22px;
             font-weight: 500;
             color: #000;
         }
         
         .test-count {
-            font-size: 70px;
+            font-size: 53px;
             line-height: 60px;
             padding-top: 25px;
             color: #000;
@@ -461,7 +466,9 @@
         }
         
         .blue-box .dashbord-content h4,
-        .blue-box .test-count {
+        .blue-box .test-count, .green-box .dashbord-content h4,
+        .green-box .test-count, .purple-box .dashbord-content h4,
+        .purple-box .test-count {
             color: #fff;
         }
         
@@ -488,6 +495,11 @@
             background: url(../images/approval.svg) no-repeat center/contain;
             width: 90px;
             right: 20px;
+        }
+        .dashboard-box.purple-box a:after {
+            background: url(../images/icon-rupee.svg) no-repeat center/contain;
+            width: 65px;
+    right: 20px;
         }
         
         .c-modal.right .modal-dialog {
@@ -1029,7 +1041,7 @@
         
         .c-modal.center .modal-footer {
             border-top: 1px solid #e0e0e0;
-            /* border-top: 0; */
+            padding: 10px 25px;
             justify-content: center;
         }
         
@@ -1304,7 +1316,7 @@
         
         .reportcnt td {
             font-size: 14px;
-            padding: 12px !important;
+            padding: 12px 1rem !important;
         }
         
         .billing-sec {
@@ -1429,6 +1441,15 @@
             border-color: #05836b;
             font-weight: 600;
             background-color: rgb(5 131 107 / 5%);
+            padding: 5px 6px;
+            border-radius: 4px;
+            border: 1px solid;
+            white-space: nowrap;
+        }
+        .check-label {
+            height: 40px;
+            line-height: 40px;
+            cursor: pointer;
         }
         /* .rte_command_paragraphs, .rte_command_fontname, .rte_command_fontsize, .rte_command_inlinestyle, .rte_command_lineheight, .rte_command_removeformat, .rte_command_cut, .rte_command_copy, .rte_command_paste, .rte_command_delete, .rte_command_find, .rte_command_insertlink, .rte_command_insertchars, .rte_command_inserttable, .rte_command_insertimage, .rte_command_insertvideo, .rte_command_insertdocument, .rte_command_inserttemplate, .rte_command_insertcode, .rte_command_preview, .rte_command_code, .rte_command_selectall, .rte_command_toggleborder, .rte_command_fullscreenenter, .rte_command_fullscreenexit, .rte_command_redo, .rte_command_togglemore, .rte_command_insertemoji, .rte_command_insertblockquote, .rte_command_outdent, .rte_command_indent, .report-edit .richtexteditor rte-powerby {
             display: none !important;
