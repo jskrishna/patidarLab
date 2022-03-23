@@ -2070,7 +2070,7 @@ if (isset($editer)) {
 			}
 			var patient_mobile_no = $('#patient_mobile_no').val();
 			$('#whatsapp_popup').modal('toggle');
-			var link = encodeURI('Your Test Report at <?php echo BASE_TITILE; ?> is ready. Please Collect it ') + encodeURIComponent($('#shareUrl').val());
+			var link = encodeURI('Your Test Report at <?php if(isset($_SESSION['BASE_TITILE'])){ echo $_SESSION['BASE_TITILE']; }else{ echo BASE_TITILE; } ?> is ready. Please Collect it ') + encodeURIComponent($('#shareUrl').val());
 			console.log($('#shareUrl').val());
 			window.open("https://wa.me/91" + patient_mobile_no + "?text=" + link);
 		});

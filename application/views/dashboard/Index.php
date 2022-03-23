@@ -19,7 +19,7 @@
                             <a href="<?php echo BASE_URL; ?>report">
                                 <div class="dashbord-content">
                                     <h4>Collection </h4>
-                                    <span class="test-count"><?php echo number_format($today_collection, 0, '.', ','); ?></span>
+                                    <span class="test-count">₹ <?php echo number_format($today_collection, 0, '.', ','); ?></span>
                                 </div>
                             </a>
                         </div>

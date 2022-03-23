@@ -4,7 +4,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title><?php echo BASE_TITILE;  ?></title>
+	<title><?php if(isset($_SESSION['BASE_TITILE'])){ echo $_SESSION['BASE_TITILE']; }else{ echo BASE_TITILE; } ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo BASE_URL ?>public/assets/images/<?php if (isset($loggedData)) {
 																										if ($loggedData->fav_icon) {
