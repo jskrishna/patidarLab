@@ -8,6 +8,12 @@ class Outputpdf_model extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+    public function getUrlByKey($key)
+    {
+        $query = $this->db->select('url')->from('pdf')->where('key', $key);
+        $query = $this->db->get();
+        return $query->result();
+    }
     public function getPatientinfo()
     {
         $query = $this->db->select('*')->from('patient')->order_by('id', 'DESC');

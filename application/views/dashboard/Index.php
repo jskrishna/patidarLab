@@ -14,8 +14,16 @@
             <div class="dashbord-content-inr">
                 <div class="dashbord-box-main">
                     <h3>Today's <b class="color-green">Report</b></h3>
-                    <div class="dashbord-box-inr">
-                        <div class="dashboard-box blue-box">
+                    <div class="dashbord-box-inr row">
+                    <div class="dashboard-box green-box col-3">
+                            <a href="<?php echo BASE_URL; ?>report">
+                                <div class="dashbord-content">
+                                    <h4>Today Collection </h4>
+                                    <span class="test-count"><?php echo $today_collection; ?></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="dashboard-box blue-box col-3">
                             <a href="<?php echo BASE_URL; ?>report">
                                 <div class="dashbord-content">
                                     <h4>Total Test</h4>
@@ -23,23 +31,23 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="dashboard-box yellow-box">
+                        <div class="dashboard-box yellow-box col-3">
                             <a href="<?php echo BASE_URL; ?>report">
                                 <div class="dashbord-content">
-                                    <h4>In Process Test</h4>
+                                    <h4>In Process</h4>
                                     <span class="test-count"><?php echo $process; ?></span>
                                 </div>
                             </a>
                         </div>
-                        <div class="dashboard-box green-box">
+                        <div class="dashboard-box green-box col-3">
                             <a href="<?php echo BASE_URL; ?>report">
                                 <div class="dashbord-content">
-                                    <h4>Completed Test </h4>
+                                    <h4>Completed </h4>
                                     <span class="test-count"><?php echo $complete; ?></span>
                                 </div>
                             </a>
                         </div>
-                        <div class="dashboard-box green-box">
+                        <div class="dashboard-box green-box col-6">
                             <div>
                                 <form action="" method="GET">
                                     <select class="form-control" name="data" id="data" onchange="this.form.submit()">
@@ -61,7 +69,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="dashboard-box green-box">
+                        <div class="dashboard-box green-box col-6">
                             <form action="" method="GET">
                                 <select class="form-control" name="y" id="y" onchange="this.form.submit()">
                                     <option <?php if (isset($_GET['y']) && $_GET['y'] == 'this_year') {
@@ -167,6 +175,8 @@ include_once "./public/assets/includes/footer.php";
 
         var options = {
             title: 'Income (in rupess)',
+            curveType: 'function',
+
             width: 600,
             height: 400,
             legend: {
@@ -176,7 +186,7 @@ include_once "./public/assets/includes/footer.php";
         };
 
         // Instantiate and draw the chart.
-        var chart = new google.visualization.ColumnChart(document.getElementById('drawColumnChart'));
+        var chart = new google.visualization.LineChart(document.getElementById('drawColumnChart'));
         chart.draw(view, options);
     }
 </script>

@@ -51,10 +51,10 @@ class Report extends CI_Controller
     public function getpatientinfoByID($id)
     {
 
-     $patientData = $this->Report_model->getpatientinfoByID($id);
-     $patientData = $patientData[0];
-     echo json_encode($patientData);
-     exit;
+        $patientData = $this->Report_model->getpatientinfoByID($id);
+        $patientData = $patientData[0];
+        echo json_encode($patientData);
+        exit;
     }
 
     public function saveReportvalue()
@@ -526,29 +526,40 @@ class Report extends CI_Controller
                             </a>
                         </li>';
 
-                         $testIds = explode(',', $post->testId);
-                         $wp = false;
-                        $urlAttr ='&b='.$post->id.'&p='.$post->patient_id.'&ph=Y';
-                         foreach ($testIds as $test) {
+                        $testIds = explode(',', $post->testId);
+                        $wp = false;
+                        $urlAttr = '&b=' . $post->id . '&p=' . $post->patient_id . '&ph=Y';
+                        foreach ($testIds as $test) {
                             $checkData = $this->Report_model->getreportDataByBIllandTestId($post->id, $test);
                             if (!empty($checkData)) {
                                 $wp = true;
                                 $testData = $this->Report_model->getTestByID($test);
                                 $testData = $testData[0];
-                                $urlAttr .= '&t%5B%5D='.$test.'&d%5B%5D='.$testData->department;
+                                $urlAttr .= '&t%5B%5D=' . $test . '&d%5B%5D=' . $testData->department;
                             }
-                         }
-                         
-                         if($wp){
+                        }
+
+                        $keyUrl = (BASE_URL) . 'Pdf?l=' . ($loggedInId) . ($urlAttr);
+                        $key = md5($post->id);
+                        $bid = $post->id;
+                        $checkKey = $this->Report_model->checkKey($bid);
+                       
+                        if ($wp) {
+                            if (!empty($checkKey)) {
+                                $this->Report_model->updateKey($bid, $keyUrl);
+                            } else {
+                                $this->Report_model->insertKey($bid, $key, $keyUrl);
+                            }
+    
                             $lisend = '<li>
-                            <a data-toggle="tooltip" data-placement="top" title="Share via whatsapp" style="padding:5px;width:20px;" data-bs-toggle="modal" role="button" data-bs-type="direct" data-bs-target="#whatsapp_popup" data-pid="'.$post->patient_id.'" data-url="'.(BASE_URL).'Pdf?l='.($loggedInId).($urlAttr).'" class="whatsapp_click ">
+                            <a data-toggle="tooltip" data-placement="top" title="Share via whatsapp" style="padding:5px;width:20px;" data-bs-toggle="modal" role="button" data-bs-type="direct" data-bs-target="#whatsapp_popup" data-pid="' . $post->patient_id . '" data-url="' . (BASE_URL) . 'Pdf?key=' . ($key) . '" class="whatsapp_click ">
                <img width="25" src="https://niglabs.com/assets/img/whatsapp_logo.png"></a>
                         </li>';
-                         }else{
+                        } else {
                             $lisend = '';
-                         }
+                        }
 
-                        $action = '<ul class="action-list">' . ($liOne . $linTwo . $lithree.$lisend) . '</ul>';
+                        $action = '<ul class="action-list">' . ($liOne . $linTwo . $lithree . $lisend) . '</ul>';
 
                         $nestedData['id'] = $post->id;
                         $nestedData['name'] = $name;

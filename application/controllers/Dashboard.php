@@ -25,6 +25,11 @@ class Dashboard extends CI_Controller
 
 		$testData = $this->Dashboard_model->getTestreportByLabId($labid, $date);
 
+		$today_collection = 0;
+		foreach ($testData as $key => $value) {
+			$today_collection+= $value->received_amount;
+		}
+
 		$total = 0;
 		$complete = 0;
 		foreach ($testData as $key => $data) {
@@ -74,7 +79,7 @@ class Dashboard extends CI_Controller
 		// echo $year;
 		// die();
 
-		$data = array('loggedData' => $loggedData, 'testData' => $testData, 'total' => $total, 'complete' => $complete, 'process' => $process, 'ChartData' => $ChartData,'year'=>$year);
+		$data = array('today_collection'=>$today_collection,'loggedData' => $loggedData, 'testData' => $testData, 'total' => $total, 'complete' => $complete, 'process' => $process, 'ChartData' => $ChartData,'year'=>$year);
 		$this->load->view('dashboard/Index.php', $data);
 	}
 }
