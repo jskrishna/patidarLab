@@ -170,7 +170,7 @@ $(document).ready(function() {
         },
         "columnDefs": [
             { responsivePriority: 1, targets: 0 },
-            { responsivePriority: 2, targets: 5 }
+            { responsivePriority: 2, targets: 6 }
         ]
     });
 
@@ -200,7 +200,7 @@ $(document).ready(function() {
         },
         "columnDefs": [
             { responsivePriority: 1, targets: 0 },
-            { responsivePriority: 2, targets: 5 }
+            { responsivePriority: 2, targets: 8 }
         ]
     });
 });
