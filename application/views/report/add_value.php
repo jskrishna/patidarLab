@@ -113,22 +113,6 @@
                                                     <form id="postValue<?php echo $test->id; ?>" method="POST" enctype="multipart/form-data">
 
                                                         <table class="table report-edit" id="tablelist<?php echo $test->id; ?>">
-                                                            <!-- <thead>
-                                                                    <tr class="">
-                                                                        <th>
-                                                                            <div class="tablesorter-header-inner">Test Field</div>
-                                                                        </th>
-                                                                        <th>
-                                                                            <div class="tablesorter-header-inner">Test Value</div>
-                                                                        </th>
-                                                                        <th>
-                                                                            <div class="tablesorter-header-inner">Unit</div>
-                                                                        </th>
-                                                                        <th>
-                                                                            <div class="tablesorter-header-inner">Range</div>
-                                                                        </th>
-                                                                    </tr>
-                                                                </thead> -->
                                                             <tbody>
                                                                 <?php $c = 1;
                                                                 foreach ($parameterData as $key=> $parameter) {
@@ -155,7 +139,7 @@
                                                                                     $highlights = unserialize($thisData[0]->highlights);
                                                                                     foreach ($parameterArray as $param => $px) {
                                                                                         if ($parameter->id == $px) {
-                                                                                            // if if if if  field type codntion start
+                                                                                            // if field type codntion start
                                                                                             if ($parameter->field_type == 'textarea') { ?>
                                                                                                 <td colspan="4">
                                                                                                    
@@ -201,7 +185,7 @@
                                                                                             else { ?>
                                                                                                 <td><input type="text" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php echo $inputArray[$param]; ?>" class="form-control call"></td>
                                                                                             <?php } ?>
-                                                                                            <!-- // if if if if  field type codntion end -->
+                                                                                            <!-- // if  field type codntion end -->
                                                                                             <?php
                                                                                             if ($parameter->field_type == 'textarea') { ?>
 

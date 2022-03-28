@@ -27,7 +27,7 @@ class Dashboard extends CI_Controller
 
 		$today_collection = 0;
 		foreach ($testData as $key => $value) {
-			$today_collection+= $value->received_amount;
+			$today_collection += $value->received_amount;
 		}
 
 		$total = 0;
@@ -74,12 +74,32 @@ class Dashboard extends CI_Controller
 		}
 
 
-		$ChartData = $this->Dashboard_model->ChartData($dateCondition, $year,$labid);
+		$ChartData = $this->Dashboard_model->ChartData($dateCondition, $year, $labid);
 
-		// echo $year;
-		// die();
+		$values = '[';
+		$months = '[';
+		foreach ($ChartData['monthly'] as $month => $Income) {
+			$values .= $Income[0]->income ? $Income[0]->income : 0;
+			$values .= ',';
 
-		$data = array('today_collection'=>$today_collection,'loggedData' => $loggedData, 'testData' => $testData, 'total' => $total, 'complete' => $complete, 'process' => $process, 'ChartData' => $ChartData,'year'=>$year);
+			$months .= "'$month'";
+			$months .= ',';
+		}
+		$values .= ']';
+		$months .= ']';
+
+		$names = '[';
+		$refer_count = '[';
+		foreach ($ChartData['refer'] as $name => $refer) {
+			$refer_count .= count($refer);
+			$refer_count .= ',';
+			$names .= "'$name'";
+			$names .= ',';
+		}
+		$names .= ']';
+		$refer_count .= ']';
+
+		$data = array('names'=>$names,'refer_count'=>$refer_count,'months'=>$months,'values'=>$values,'today_collection' => $today_collection, 'loggedData' => $loggedData, 'testData' => $testData, 'total' => $total, 'complete' => $complete, 'process' => $process, 'ChartData' => $ChartData, 'year' => $year);
 		$this->load->view('dashboard/Index.php', $data);
 	}
 }

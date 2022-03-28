@@ -43,23 +43,6 @@
                                                                 <span class="error">This field is required.</span>
                                                             </div>
                                                         </div>
-                                                        <!-- <div class="row">
-                                                            <div class="form-group file-type col-lg-6">
-                                                                <label for="user_logo">User Profile Logo</label>
-                                                                <input type="file" name="user_logo" id="user_logo" class="form-control enterAsTab" placeholder="Enter user_logo" autocomplete="off">
-                                                                <input type="hidden" name="oldprofile" id="oldprofile" value="<?php //echo $UserData->logo; 
-                                                                                                                                ?>">
-                                                            </div>
-                                                            <div class="form-group file-type-img col-lg-6">
-                                                                <label for="user_logo"></label>
-                                                                <?php //if ($UserData->logo) { 
-                                                                ?>
-                                                                    <img src="<?php //echo BASE_URL . 'public/assets/images/' . $UserData->logo; 
-                                                                                ?>" alt="">
-                                                                <?php //} 
-                                                                ?>
-                                                            </div>
-                                                        </div> -->
                                                         <div class="row">
                                                             <div class="form-group col-lg-6">
                                                                 <label for="email">Email</label>

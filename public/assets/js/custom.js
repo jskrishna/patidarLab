@@ -154,12 +154,6 @@ $(document).ready(function() {
         "order": [
             [2, "desc"]
         ],
-        responsive: {
-            details: {
-                type: "column",
-                target: 0,
-            },
-        },
         "bPaginate": true,
         "bLengthChange": true,
         "bFilter": true,
@@ -174,10 +168,10 @@ $(document).ready(function() {
             $("td:first", nRow).html(iDisplayIndex + 1);
             return nRow;
         },
-        columnDefs: [{
-            responsivePriority: 1,
-            targets: -1,
-        }, ],
+        "columnDefs": [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: 5 }
+        ]
     });
 
     // patients datatable

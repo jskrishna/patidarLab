@@ -129,25 +129,20 @@
 	</div>
 </div>
 </div>
-<link rel="stylesheet" href="<?php echo BASE_URL; ?>public/assets/css/richtext.min.css">
-<link rel="stylesheet" href="<?php echo BASE_URL; ?>public/assets/css/rte_theme_default.css">
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery-ui.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/bootstrap.bundle.min.js"></script>
-<!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.bootstrap.js"></script> -->
-<!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.responsive.js"></script> -->
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/responsive.bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/select2.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/rte.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/custom.js"></script>
 
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script>
-
-<script src="<?php echo BASE_URL; ?>public/assets/js/select2.min.js"></script>
-<script src="<?php echo BASE_URL; ?>public/assets/js/rte.js"></script>
 <script>
 	var serverSideUrl = "<?php echo BASE_URL; ?>report/getServerSide";
 </script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/custom.js"></script>
 <!-- JavaScript Bundle with Popper -->
 <?php
 if (isset($editer)) {
@@ -160,6 +155,7 @@ if (isset($editer)) {
 				},
 				formatter: null
 			});
+		
 		</script>
 <?php }
 }
@@ -1660,6 +1656,11 @@ if (isset($editer)) {
 				$('.tab-content').removeClass('active');
 				$(this).addClass('active');
 				$("#" + tab_id).addClass('active');
+				if(tab_id == 'tab-2' || tab_id == 'tab-4'){
+        $($.fn.dataTable.tables(true)).DataTable()
+           .columns.adjust()
+           .responsive.recalc();
+				}
 			})
 
 			$("body").on('click', '.tabs li', function() {
@@ -2075,6 +2076,14 @@ if (isset($editer)) {
 			window.open("https://wa.me/91" + patient_mobile_no + "?text=" + link);
 		});
 		// dont remove
+			setTimeout(() => {
+				if (window.location.href.indexOf("completed") > -1) {
+	 			 $('.input-sm').val('completed').keyup();
+					}
+					if (window.location.href.indexOf("pending") > -1) {
+					$('.input-sm').val('pending').keyup();
+					}
+							}, 200);
 	<?php } ?>
 </script>
 
