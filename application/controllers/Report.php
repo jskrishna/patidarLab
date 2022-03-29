@@ -446,15 +446,14 @@ class Report extends CI_Controller
                             }
                             $reportValues = null;
                         }
+                        $due = intval($post->total) - intval($post->received_amount) - intval($post->final_discount);
 
                         if ($post->status == 'Paid') {
-                            $am = '<span class="pay-received">Received - ₹ ' . intval($post->received_amount);
+                            $am = '<span class="pay-cont pay-received"><small>Received</small> ₹ ' . intval($post->received_amount);
                             '</span>';
                         } else {
-                            $am = '<span class="pay-paid">Total - ₹ ' . intval($post->total);
-                            '</span>
-        <span class="pay-due">Due - ₹ ' . intval($post->total) . '-' . intval($post->received_amount) . '-' . intval($post->final_discount);
-                            '</span>';
+                            $am = '<div class="custom-f"><span class="pay-cont pay-total"><small>Total</small> ₹ ' . ($post->total) . '</span><br><span class="pay-cont pay-due"><small>Due</small> ₹ ' . ($due) . '</span></div>';
+                         
                         }
                         $amount = $am;
 
@@ -563,8 +562,8 @@ class Report extends CI_Controller
 
                         $action = '<ul class="action-list">' . ($liOne . $lithree . $lisend) . '
                         <li>
-                        <div class="dropdown">
-                        <button data-toggle="tooltip" data-placement="top" title="View More" class="btn btn-sml dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="dropdown"  data-toggle="tooltip" data-placement="top" title="View More" >
+                        <button class="btn btn-sml dropdown-toggle" type="button" id="dropdownMenuButton1" aria-haspopup="true" data-bs-toggle="dropdown" aria-expanded="false">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M4.17157 4.17157C3 5.34315 3 7.22876 3 11V13C3 16.7712 3 18.6569 4.17157 19.8284C5.34315 21 7.22876 21 11 21H13C16.7712 21 18.6569 21 19.8284 19.8284C21 18.6569 21 16.7712 21 13V11C21 7.22876 21 5.34315 19.8284 4.17157C18.6569 3 16.7712 3 13 3H11C7.22876 3 5.34315 3 4.17157 4.17157ZM11 7V11L7 11V13H11V17H13V13H17V11H13V7H11Z" fill="#223345"/>
                                 </svg>

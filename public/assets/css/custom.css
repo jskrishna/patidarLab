@@ -1429,6 +1429,10 @@ strong {
     margin-top: 5px;
 }
 
+.pay-cont + br +.pay-cont {
+    margin-top: 6px;
+}
+
 span.pay-due {
     color: #dc3545;
     border-color: #dc3545;
@@ -1436,15 +1440,25 @@ span.pay-due {
     font-weight: 600;
 }
 
-span.pay-received {
-    color: #05836b;
-    border-color: #05836b;
+.pay-cont {
     font-weight: 600;
-    background-color: rgb(5 131 107 / 5%);
-    padding: 5px 6px;
-    border-radius: 4px;
+    padding: 2px 9px;
+    border-radius: 3px;
     border: 1px solid;
     white-space: nowrap;
+    position: relative;
+    display: inline-block;
+}
+.pay-cont small {
+    font-size: 13px;
+    font-weight: 500;
+}
+table tbody tr:hover small {
+    background: #f4f6f8;
+}
+.pay-received {
+    color: #05836b;
+    border-color: #05836b;
 }
 .check-label {
     height: 40px;

@@ -810,16 +810,15 @@ table.dataTable thead .sorting {
 .test-process label:after {
     content: "";
     display: block;
-    width: 6px;
-    height: 6px;
+    width: 7px;
+    height: 7px;
     position: absolute;
     left: 0;
-    top: 43%;
+    top: 50%;
     transform: translateY(-50%);
     background: #ff9e0f;
     border-radius: 50%;
 }
-
 .test-process.text-primary label:after {
     background: #0d6efd;
 }
