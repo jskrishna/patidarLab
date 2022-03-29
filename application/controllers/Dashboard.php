@@ -36,14 +36,15 @@ class Dashboard extends CI_Controller
 			$tests = explode(',', $data->testId);
 			foreach ($tests as $count => $test) {
 				$reportData = $this->Dashboard_model->getReportDataBybillTestID($data->id, $test);
-				if (count($reportData) > 0) {
+				if (count($reportData) > 0 && $reportData[0]->printed > 0 && $reportData[0]->status == 'authorised') {
 					$complete++;
 				}
 				$total++;
 			}
 		}
+	
 		$process = $total - $complete;
-
+	
 		if ($this->input->get('data')) {
 			$get = $this->input->get('data');
 			if ($get == 'previous_month') {

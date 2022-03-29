@@ -41,13 +41,7 @@ $(document).ready(function() {
                 "data": "test_status"
             },
             {
-                "data": "report_status"
-            },
-            {
                 "data": "payment"
-            },
-            {
-                "data": "print"
             },
             {
                 "data": "action"
@@ -57,10 +51,6 @@ $(document).ready(function() {
                 responsivePriority: 1,
                 targets: -1,
             },
-            {
-                "targets": [6],
-                "visible": false
-            }
         ],
         "lengthMenu": [
             [10, 20, 50, -1],
@@ -179,7 +169,7 @@ $(document).ready(function() {
         responsive: true,
         language: {
             search: "_INPUT_",
-            searchPlaceholder: "Search Patients..."
+            searchPlaceholder: "Search..."
         },
         "order": [
             [2, "desc"]
@@ -200,7 +190,7 @@ $(document).ready(function() {
         },
         "columnDefs": [
             { responsivePriority: 1, targets: 0 },
-            { responsivePriority: 2, targets: 8 }
+            { responsivePriority: 2, targets: 6 }
         ]
     });
 });

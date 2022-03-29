@@ -1086,7 +1086,7 @@ table tbody tr:hover {
 }
 
 ul.dropdown-menu {
-    z-index: 9999;
+    z-index: 999;
     padding: 0;
     box-shadow: 0 3px 10px rgb(0 0 0 / 8%);
     border: 1px solid rgba(0, 0, 0, 0.12);
