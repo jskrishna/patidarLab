@@ -21,7 +21,7 @@
                                 <div class="patient-name">
                                     <input type="hidden" value="<?php echo $patientData->id; ?>" id="patientID" name="patientID">
                                     <input type="hidden" name="bill_id" id="bill_id" value="<?php //echo $billData->id; ?>">
-                                    <h3><?php echo $patientData->title . '. ' . $patientData->patientname ?></h3>
+                                    <h3><?php echo $patientData->title . '. ' . ucwords($patientData->patientname); ?></h3>
                                     <div class="patient-dtl">
                                         <p>
                                             <img src="<?php echo BASE_URL ?>public/assets/images/feather-calendar.svg" alt="">
@@ -54,8 +54,50 @@
                 </div>
             <div class="form-row">
                 <div class="col-lg-12">
+                    <div class="c-datatable">
+                    <table width="100%" class="table patient-single-table" role="grid">
+                            <thead>
+                                <tr role="row" class="tablesorter-headerRow">
+                                     <th style="width:35px">
+                                        <div class="tablesorter-header-inner">S.No.</div>
+                                    </th>
+                                    <th>
+                                        <div class="tablesorter-header-inner">Billing On</div>
+                                    </th>
+                                    <th>
+                                        <div class="tablesorter-header-inner">Total Test</div>
+                                    </th>
+                                    <th>
+                                        <div class="tablesorter-header-inner">Total</div>
+                                    </th>
+                                    <th>
+                                        <div class="tablesorter-header-inner">Action</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php 
+                                foreach($billData as $key => $data){ ?>
+                                <tr>
+                                    <td><?php echo $key+1; ?></td>
+                                    <td><?php 
+                                    echo  date_format(new DateTime($data->billDate), "d-M-Y");
+                                    echo '<br>';
+                       echo  date_format(new DateTime($data->billDate), "h:i A");
+                        ?>
+                                </td>
+                                    <td>4</td>
+                                    <td>₹ 999</td>
+                                    <td>PDF</td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<?php
+include_once "./public/assets/includes/footer.php";
+?>

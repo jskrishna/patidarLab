@@ -2025,7 +2025,11 @@ if (isset($editer)) {
 			var id = $(this).data('id');
 			var thisvalue = '';
 			$(".listInput" + id).each(function() {
-				thisvalue += this.value + ',';
+				var vvv = this.value;
+				if(this.value == '' || this.value == null){
+					vvv = '_';
+				}
+				thisvalue += vvv + ',';
 			});
 			var lastIndex = thisvalue.lastIndexOf(",");
 			thisvalue = thisvalue.substring(0, lastIndex);
@@ -2077,13 +2081,49 @@ if (isset($editer)) {
 					$('.input-sm').val('pending').keyup();
 					}
 							}, 200);
+					$('#test').keypress(function (e) {
+						if (e.which == 13) 
+						{
+							e.preventDefault();
+							$('#test_save').click();
+						}
+					});
+
+					$(function  (){
+						var keyUp = 38;
+						var keyDown = 40;
+						$(document).keydown(
+							function(e)
+							{
+								var moves = $(".call");
+								// Key up function
+								if (e.keyCode == keyDown) {
+									for(i = 0; i <= moves.length; i++) {
+										if (moves[i] == $(".call:focus").get(0)) {
+										$(moves[i + 1]).focus();
+											break;
+										}
+									}
+								}
+								if (e.keyCode == keyUp) {
+									for(i = 0; i <= moves.length; i++) {
+										if (moves[i] == $(".call:focus").get(0)) {
+										$(moves[i - 1]).focus();
+											break;
+										}
+									}
+								}
+							}
+						);
+					});
+				
+
 	<?php } ?>
 </script>
 
 <div id="basicToast" class="toast align-items-center text-white border-0" role="alert" data-bs-animation="true" data-bs-delay="3000" aria-live="assertive" aria-atomic="true">
 	<div class="d-flex">
 		<div class="toast-body">
-			Hello, This is a warning message.
 		</div>
 		<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-bs-label="Close"></button>
 	</div>

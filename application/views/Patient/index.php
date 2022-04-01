@@ -53,7 +53,7 @@
                                                         } ?> </div>
                                                 </div>
                                                 <div class="ava-r">
-                                                    <span><?php echo $data->patientname; ?></span>
+                                                    <span><?php echo ucwords($data->patientname); ?></span>
                                                     <div>
                                                         <?php echo $data->gender[0]; ?> / <?php echo $data->age . ' ' . $data->age_type; ?>
                                                     </div>

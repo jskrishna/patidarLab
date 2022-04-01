@@ -36,11 +36,11 @@ include_once "./public/assets/includes/header.php";
 						<input class="form-control required" placeholder="Enter your Number or Email Address" value="" id="number" type="text" name="number" />
 						<span class='error'>This field is required.</span>
 					</div>
-					<div class="from-group from-wrap">
-					<a href="<?php echo BASE_URL; ?>login">Login here</a>
-					</div>
 					<div class="btn-wrap">
 						<button type="submit" id="verify" class="btn custom-btn login-btn" value="">Verify</button>
+					</div>
+					<div class="from-group from-wrap">
+					<a href="<?php echo BASE_URL; ?>login">Login here</a>
 					</div>
 				</form>
 			</div>
@@ -53,11 +53,12 @@ include_once "./public/assets/includes/header.php";
 						<span class='error'>This field is required.</span>
 						<input type="hidden" name="ei" id="ei" value="<?php if(isset($_SESSION['ei'])){ echo $_SESSION['ei']; } ?>">
 					</div>
-					<div class="from-group from-wrap">
-					<a href="<?php echo BASE_URL; ?>login">Login here</a>
-					</div>
+					
 					<div class="btn-wrap">
 						<button type="submit" id="verifyotp" class="btn custom-btn login-btn" value="">Verify OTP</button>
+					</div>
+					<div class="from-group from-wrap">
+					<a href="<?php echo BASE_URL; ?>login">Login here</a>
 					</div>
 				</form>
 			</div>
@@ -74,11 +75,12 @@ include_once "./public/assets/includes/header.php";
 						<input class="form-control required" placeholder="Confirm New Password" value="" id="cnewpass" type="password" name="cnewpass" />
 						<span class='error'>This field is required.</span>
 					</div>
-					<div class="from-group from-wrap">
-					<a href="<?php echo BASE_URL; ?>login">Login here</a>
-					</div>
+					
 					<div class="btn-wrap">
 						<button type="submit" id="resetpass" class="btn custom-btn login-btn" value="">Update</button>
+					</div>
+					<div class="from-group from-wrap">
+					<a href="<?php echo BASE_URL; ?>login">Login here</a>
 					</div>
 				</form>
 			</div>

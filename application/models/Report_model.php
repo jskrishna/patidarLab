@@ -31,7 +31,7 @@ class Report_model extends CI_Model
         if ($limit != '-1') {
             $query = $this->db->limit($limit);
         }
-        $query = $this->db->order_by('billDate', 'DESC');
+        $query = $this->db->order_by('id', 'DESC');
         $query = $this->db->get();
         return $query->result();
     }
@@ -47,7 +47,7 @@ class Report_model extends CI_Model
         if ($limit != '-1') {
             $query = $this->db->limit($limit);
         }
-        $query = $this->db->order_by('billDate', 'DESC');
+        $query = $this->db->order_by('id', 'DESC');
         $query = $this->db->get();
         return $query->result();
     }

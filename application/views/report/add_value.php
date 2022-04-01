@@ -27,7 +27,7 @@
                                 <div class="patient-name">
                                     <input type="hidden" value="<?php echo $patientData->id; ?>" id="patientID" name="patientID">
                                     <input type="hidden" name="bill_id" id="bill_id" value="<?php echo $billData->id; ?>">
-                                    <h3><?php echo $patientData->title . '. ' . $patientData->patientname ?></h3>
+                                    <h3><?php echo $patientData->title . '. ' . ucwords($patientData->patientname); ?></h3>
                                     <div class="patient-dtl">
                                         <p>
                                             <img src="<?php echo BASE_URL ?>public/assets/images/feather-calendar.svg" alt="">
@@ -115,7 +115,8 @@
                                                         <table class="table report-edit" id="tablelist<?php echo $test->id; ?>">
                                                             <tbody>
                                                                 <?php $c = 1;
-                                                                foreach ($parameterData as $key=> $parameter) {
+                                                                $keyCount = 0;
+                                                                foreach ($parameterData as $k=> $parameter) {
                                                                     if ($test->id == $parameter->test_id) { ?>
                                                                        
                                                                             <tr class="reportcnt" id="<?php echo $parameter->id; ?>">
@@ -124,7 +125,8 @@
                                                                                     
                                                                                         <input type="hidden" id="parameter_id<?php echo $parameter->id; ?>" name="parameter_id[]" value="<?php echo $parameter->id; ?>">
                                                                                        
-                                                                                <?php }else if($parameter->field_type == 'heading'){ ?>
+                                                                                <?php }else if($parameter->field_type == 'heading'){
+                                                                                    ?>
                                                                                     <th colspan="4"><?php echo $parameter->name;  ?></th>
                                                                                 <?php }else{ ?>
                                                                                         <td>
@@ -144,11 +146,11 @@
                                                                                                 <td colspan="4">
                                                                                                    
                                                                                                     <?php echo $parameter->name; ?>
-                                                                                                    <textarea name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" class=" form-control summernote<?php echo $editer; ?>"><?php echo $inputArray[$param]; ?></textarea>
+                                                                                                    <textarea name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" tabindex="<?php echo $keyCount; ?>" class="form-control call summernote<?php echo $editer; ?>"><?php echo $inputArray[$param]; ?></textarea>
                                                                                                 </td>
                                                                                             <?php  } else if ($parameter->field_type == 'options') { ?>
                                                                                                 <td>
-                                                                                                    <select class="form-control" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>">
+                                                                                                    <select class="form-control call" name="inputValue[]" tabindex="<?php echo $keyCount; ?>" id="inputValue<?php echo $parameter->id; ?>">
                                                                                                         <option value="">Select option</option>
                                                                                                         <?php foreach (explode(', ', $parameter->options) as $option) { ?>
                                                                                                             <option <?php if ($option == $inputArray[$param]) {
@@ -158,7 +160,9 @@
                                                                                                     </select>
                                                                                                 </td>
                                                                                             <?php } 
-                                                                                             else if ($parameter->field_type == 'heading') { ?>
+                                                                                             else if ($parameter->field_type == 'heading') {
+                                                                                                 
+                                                                                                 ?>
                                                                                                 
                                                                                             <?php }  else if ($parameter->field_type == 'listHeading') { ?>
                                                                                                 <td>
@@ -167,23 +171,34 @@
                                                                                                         <li><b><?php echo $list; ?></b></li>
                                                                                                      <?php } ?>
                                                                                                     </ul>
+                                                                                                    <input type="hidden" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="" class="form-control call">
+
                                                                                                 </td>
                                                                                                 <?php } 
                                                                                                    else if ($parameter->field_type == 'listInput') { ?>
                                                                                                       <td>
                                                                                                           <div class="serum-value-list">
-                                                                                                    <input type="hidden" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php echo $inputArray[$param]; ?>" class="form-control call">
-                                                                                                        <?php
-                                                                                                            foreach (explode(',',$inputArray[$param]) as $p) { ?>
-                                                                                                    <input type="text" name="listInput[]" data-paramid="listInput<?php echo $parameter->id; ?>" value="<?php echo $p; ?>" data-id="<?php echo $parameter->id; ?>" class="listInputClass listInput<?php echo $parameter->id; ?> form-control call">
+                                                                                                    <!-- <input type="hidden" name="inputValue[]" id="inputValue<?php //echo $parameter->id; ?>" value="<?php //echo $inputArray[$param]; ?>" class="form-control call"> -->
+                                                                                                    <textarea style="display: none;" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" class="form-control call"><?php echo $inputArray[$param]; ?></textarea>
+                                                                                                    <div class="widal-test">  <?php
+                                                                                                            
+                                                                                                          for ($i=0; $i < $parameter->options; $i++) { 
+                                                                                                           $array =  explode(',',$inputArray[$param]);
+                                                                                                              ?>
+                                                                                                            <div class="widal-test-list">
+
+                                                                                                    <input type="text" name="listInput[]" data-paramid="listInput<?php echo $parameter->id; ?>" tabindex="<?php echo $keyCount; ?>" value="<?php if(isset($array[$i]) && $array[$i] != '_'){echo $array[$i]; } ; ?>" data-id="<?php echo $parameter->id; ?>" class="listInputClass listInput<?php echo $parameter->id; ?> form-control call">
+                                                                                                            </div>
                                                                                                            <?php }
                                                                                                             ?>
+                                                                                                            
+                                                                                                            </div>
                                                                                                           </div>
                                                                                                     </td>
                                                                                                     <?php } 
                                                                                             
                                                                                             else { ?>
-                                                                                                <td><input type="text" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php echo $inputArray[$param]; ?>" class="form-control call"></td>
+                                                                                                <td><input type="text" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" tabindex="<?php echo $keyCount; ?>" value="<?php echo $inputArray[$param]; ?>" class="form-control call"></td>
                                                                                             <?php } ?>
                                                                                             <!-- // if  field type codntion end -->
                                                                                             <?php
@@ -228,7 +243,9 @@
                                                                                                     ?><span><?php echo $parameter->min_value . ' - ' . $parameter->max_value . '<br>'; ?></span> <?php
                                                                                                                                                                                                 }
                                                                                                                                                                                                 if ($parameter->field_type == 'range') {
-                                                                                                                                                                                                    echo $parameter->default_value.'<br>';
+                                                                                                                                                                                                    echo '<br>';
+                                                                                                                                                                                echo (!empty($parameter->default_value)) ? $parameter->default_value : $parameter->range_value;
+                                                                                                                                                                                echo '<br>';
                                                                                                                                                                                                 }else{
                                                                                                                                                                                                     if ($parameter->male_min_value != null) {
                                                                                                                                                                                                         echo 'Male -> ' . $parameter->male_min_value . ' - ' . $parameter->male_max_value . '<br>';
@@ -245,20 +262,26 @@
                                                                                                                                                                                                     ?>
                                                                                                     <div class="checkbox i-checks pull-right check-group">
                                                                                                         <?php
-                                                                                                                if($parameter->field_type != 'heading' && $parameter->field_type != 'listInput' && $parameter->field_type != 'listHeading' ){ 
-                                                                                                        if (!empty($highlights)) { ?>
-                                                                                                        
-                                                                                                            <input type="hidden" value="<?php echo $highlights[$param]; ?>" name="highlight[]" id="checkValue<?php echo $parameter->id; ?>">
+                                                                                                        if (!empty($highlights)) { 
+                                                                                                            if($parameter->field_type == 'listInput' || $parameter->field_type == 'listHeading' ){ ?>
+                                                                                                                <input type="hidden" value="No" name="highlight[]" id="checkValue<?php echo $parameter->id; ?>">
+                                                                                                              <?php }else{ ?>
+                                                                                                                <input type="hidden" value="<?php echo $highlights[$param]; ?>" name="highlight[]" id="checkValue<?php echo $parameter->id; ?>">
                                                                                                             <input type="checkbox" class="high" id="highlight<?php echo $parameter->id; ?>" <?php if ($highlights[$param] == 'Yes') {
                                                                                                                                                                                                 echo 'checked';
-                                                                                                                                                                                            } ?> value="Yes"><label for="highlight<?php echo $parameter->id; ?>"></label>
+                                                                                                                                                                                            } ?> value="Yes"><label id="phjkhjkgjkg" for="highlight<?php echo $parameter->id; ?>"></label>
+                                                                                                            <?php  }
+                                                                                                            ?>
+                                                                                                        
+                                                                                                        
+                                                                                                           
 
                                                                                                         <?php } else { ?>
                                                                                                             <input type="hidden" value="No" name="highlight[]" id="checkValue<?php echo $parameter->id; ?>">
                                                                                                             <input type="checkbox" class="high" id="highlight<?php echo $parameter->id; ?>" value="Yes"><label for="highlight<?php echo $parameter->id; ?>"></label>
 
                                                                                                         <?php }
-                                                                                        }
+                                                                                        
                                                                                                         ?>
                                                                                                     </div>
                                                                                                 </div>
@@ -271,11 +294,11 @@
                                                                                         <td colspan="4">
                                                                                             
                                                                                             <?php echo $parameter->name; ?>
-                                                                                            <textarea name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" class="form-control summernote<?php echo $editer; ?>"><?php echo $parameter->options; ?></textarea>
+                                                                                            <textarea name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" tabindex="<?php echo $keyCount; ?>" class="form-control call summernote<?php echo $editer; ?>"><?php echo $parameter->options; ?></textarea>
                                                                                         </td>
                                                                                     <?php  } else if ($parameter->field_type == 'options') { ?>
                                                                                         <td>
-                                                                                            <select class="form-control" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>">
+                                                                                            <select class="form-control call" name="inputValue[]" tabindex="<?php echo $keyCount; ?>" id="inputValue<?php echo $parameter->id; ?>">
                                                                                                 <option value="">Select option</option>
                                                                                                 <?php foreach (explode(', ', $parameter->options) as $option) { ?>
                                                                                                     <option <?php if($option == $parameter->default_value){echo 'selected';} ?> value="<?php echo $option; ?>"><?php echo $option; ?></option>
@@ -283,11 +306,13 @@
                                                                                             </select>
                                                                                         </td>
                                                                                     <?php }
-                                                                                      else if ($parameter->field_type == 'heading') { ?>
+                                                                                      else if ($parameter->field_type == 'heading') { 
+                                                                                          
+                                                                                          ?>
                                                                                                 
                                                                                         <?php }  else if ($parameter->field_type == 'listHeading') { ?>
                                                                                                 <td>
-                                                                                                    <ul>
+                                                                                                    <ul class="serum-list">
                                                                                                     <?php foreach (explode(', ', $parameter->options) as $list) { ?>
                                                                                                         <li><b><?php echo $list; ?></b></li>
                                                                                                      <?php } ?>
@@ -298,20 +323,26 @@
                                                                                                 <?php } 
                                                                                                 else if ($parameter->field_type == 'listInput') { ?>
                                                                                                     <td>
-                                                                                                    <input type="hidden" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php echo $parameter->default_value; ?>" class="form-control call form form else">
-                                                                                                        <?php
+                                                                                                    <textarea style="display: none;" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" class="form-control call form form else"><?php echo $parameter->default_value; ?></textarea>
+                                                                                                   
+                                                                                                    <!-- <input type="hidden" name="inputValue[]" id="inputValue<?php //echo $parameter->id; ?>" value="<?php // echo $parameter->default_value; ?>" class="form-control call form form else"> -->
+                                                                                                    <div class="widal-test">    <?php
                                                                                                             for ($i=1; $i <= $parameter->options; $i++) { ?>
-                                                                                                    <input type="text" name="listInput[]" data-paramid="listInput<?php echo $parameter->id; ?>" value="<?php echo $parameter->default_value; ?>" data-id="<?php echo $parameter->id; ?>" class="listInputClass listInput<?php echo $parameter->id; ?> form-control call form form else">
+                                                                                                            <div class="widal-test-list">
 
+                                                                                                    <input type="text" name="listInput[]" data-paramid="listInput<?php echo $parameter->id; ?>" tabindex="<?php echo $keyCount; ?>" value="<?php echo $parameter->default_value; ?>" data-id="<?php echo $parameter->id; ?>" class="listInputClass listInput<?php echo $parameter->id; ?> form-control call form form else">
+                                                                                                            </div>
                                                                                                            <?php }
                                                                                                             ?>
+                                                                                                           </div>
+
                                                                                                     </td>
                                                                                                     <?php } 
 
 
                                                                                     else { ?>
 
-                                                                                        <td><input type="text" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" value="<?php if($parameter->field_type != 'range'){echo $parameter->default_value; } ?>" class="form-control call form form else"></td>
+                                                                                        <td><input type="text" name="inputValue[]" id="inputValue<?php echo $parameter->id; ?>" tabindex="<?php echo $keyCount; ?>" value="<?php if($parameter->field_type != 'range'){echo $parameter->default_value; } ?>" class="form-control call form form else"></td>
                                                                                     <?php }
                                                                                     ?>
                                                                                     <!-- // if if if if  field type codntion end -->
@@ -361,7 +392,9 @@
 
                                                                                                                                                                             }
                                                                                                                                                                             if ($parameter->field_type == 'range') {
-                                                                                                                                                                                echo $parameter->default_value.'<br>';
+                                                                                                                                                                                echo '<br>';
+                                                                                                                                                                                echo (!empty($parameter->default_value)) ? $parameter->default_value : $parameter->range_value;
+                                                                                                                                                                                echo '<br>';
                                                                                                                                                                             }else{
                                                                                                                                                                                 if ($parameter->male_min_value != null) {
                                                                                                                                                                                     echo 'Male -> ' . $parameter->male_min_value . ' - ' . $parameter->male_max_value . '<br>';
@@ -395,8 +428,12 @@
                                                                         if ($parameter->field_type == 'textarea') {
                                                                             $editer++;
                                                                         }
+                                                               $keyCount++; 
+
                                                                     }
-                                                                }
+                                                               
+                                                               
+                                                            }
                                                                     ?>
                                                                     
                                                             </tbody>

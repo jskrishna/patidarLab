@@ -20,7 +20,7 @@
                                         </h3>
                                     </div>
                                     <div class="patient-name">
-                                        <h3><?php echo $patientData->title . '. ' . $patientData->patientname ?></h3>
+                                        <h3><?php echo $patientData->title . '. ' . ucwords($patientData->patientname); ?></h3>
                                         <div class="patient-dtl">
                                             <p>
                                                 <img src="<?php echo BASE_URL ?>public/assets/images/feather-calendar.svg" alt="">

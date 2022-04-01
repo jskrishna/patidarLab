@@ -193,4 +193,36 @@ $(document).ready(function() {
             { responsivePriority: 2, targets: 6 }
         ]
     });
+
+    var patient_single = $('.patient-single-table').DataTable({
+        responsive: true,
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search..."
+        },
+        "order": [
+            [2, "desc"]
+        ],
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bInfo": false,
+        "bAutoWidth": false,
+        "lengthMenu": [
+            [20, 50, -1],
+            [20, 50, "All"]
+        ],
+        "ordering": true,
+        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
+            $("td:first", nRow).html(iDisplayIndex + 1);
+            return nRow;
+        },
+        "columnDefs": [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: 4 }
+        ]
+    });
+
+
+    
 });

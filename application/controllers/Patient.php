@@ -35,8 +35,8 @@ class Patient extends CI_Controller
 		$patientData = $this->Patient_model->patientEdit($id);
 		$patientData = $patientData[0];
 		$doctorData = $this->Patient_model->getreferedDataByID($patientData->refered_by);
-
-		$data = array('loggedData' => $loggedData, 'patientData' => $patientData, 'doctorData' => $doctorData[0]);
+		$billData = $this->Patient_model->getbillinfoByID($patientData->id);
+		$data = array('loggedData' => $loggedData, 'patientData' => $patientData,'billData' => $billData, 'doctorData' => $doctorData[0]);
 		$this->load->view('Patient/patient-single', $data);
 	}
 

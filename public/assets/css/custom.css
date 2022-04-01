@@ -265,14 +265,13 @@ select#patientRef+.select2-container {
     transition: 300ms all;
     font-weight: 500;
 }
-
 .nav-links.nav-active {
-    background: rgb(255 255 255 / 5%) !important;
-    color: rgb(255 255 255 / 90%) !important;
+    background: rgb(255 255 255 / 20%) !important;
+    color: rgb(255 255 255 / 100%) !important;
 }
 
 .nav-links.nav-active .nav-link-icon path {
-    fill: rgb(255 255 255 / 90%);
+    fill: rgb(255 255 255 / 100%);
 }
 
 .sidenav-footer-content a {
@@ -526,9 +525,6 @@ right: 20px;
     transform: translate(0%, 0);
 }
 
-#patientName {
-    text-transform: capitalize;
-}
 
 .c-modal .modal-content {
     padding: 20px 30px;
@@ -1401,9 +1397,7 @@ strong {
     text-transform: capitalize;
 }
 
-#patientName {
-    text-transform: uppercase;
-}
+
 
 .accordion hr:last-child {
     display: none;
@@ -1678,8 +1672,11 @@ select#period {
 .serum-list {
     display: flex;
     justify-content: space-around;
+    margin: 0 -15px;
 }
-
+.serum-list li {
+    padding: 0 15px;
+}
 .serum-value-list {
     display: flex;
 }
@@ -1689,4 +1686,12 @@ select#period {
 }
 table.dataTable {
 margin-top: 5px !important;
+}
+.widal-test {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 -15px;
+}
+.widal-test-list {
+    padding: 0 15px;
 }

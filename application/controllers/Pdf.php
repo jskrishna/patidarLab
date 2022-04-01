@@ -91,7 +91,7 @@ class Pdf extends CI_Controller
                 'orientation' => 'P',
                 'margin_top' => 70,
                 'margin_bottom' => 60,
-                'default_font_size' => 10,
+                'default_font_size' => 11,
             );
 
             $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
@@ -114,35 +114,37 @@ class Pdf extends CI_Controller
 
             $collapse =  $this->input->get('c');
 
+            $bill_number = 1000+$bill_id +date_format(new DateTime($billData->billDate), "h") ;
+
             $mpdf->SetHeader("<table width='100%' cellspacing='0' cellpadding='0'>
         <thead>
         <tr>
         <td style='height:95px' colspan='2'></td>
         </tr>
         <tr>
-        <td style=''> Name :</td>
-        <th style='text-align:left;'><span style='text-transform:capitalize;'>" . ($patientData->patientname) . "</span></th>
-        <td style='width:140px; min-width:140px;'> Sample collection :</td>
-        <th style='text-align:left;'>" . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>
-        <td rowspan='4'>" . ($svg) . "</td>
+        <td style=''> Name</td>
+        <th style='text-align:left;'><span style='text-transform:capitalize;'> : " . ($patientData->patientname) . "</span></th>
+        <td style='width:117px; min-width:117px;'> Sample collection</td>
+        <th style='text-align:left;'> : " . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>
+        <td rowspan='4' style='text-align:right;'>" . ($svg) . "</td>
         </tr>
         <tr>
-        <td style=''> Age/gender :</td>
-        <th style='text-align:left;text-transform:capitalize;'>" . ($patientData->age . ' ' . $patientData->age_type . ' / ' . $patientData->gender) . "</th>
-        <td style='width:140px; min-width:140px;'> Report :</td>
-        <th style='text-align:left;text-transform:capitalize;'>" . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>     
+        <td style=''> Age/Gender </td>
+        <th style='text-align:left;text-transform:capitalize;'> : " . ($patientData->age . ' ' . $patientData->age_type . ' / ' . $patientData->gender) . "</th>
+        <td style='width:117px; min-width:117px;'> Report </td>
+        <th style='text-align:left;text-transform:capitalize;'> : " . (date_format(new DateTime($billData->billDate), "d-M-Y h:i:s")) . "</th>     
         </tr>
         <tr>
-        <td style=''> Refered By :</td>
-        <th style='text-align:left;text-transform:capitalize;'>"  . ($doctorData->title) . ' ' . ($doctorData->referral_name) . "</th>
-        <td style='width:140px; min-width:140px;'>Report Printed :</td>
-        <th style='text-align:left;text-transform:capitalize;'>" . (date("d-M-Y h:i:s")) . "</th>
+        <td style=''> Refered By </td>
+        <th style='text-align:left;text-transform:capitalize;'> : "  . ($doctorData->title) . ' ' . ($doctorData->referral_name) . "</th>
+        <td style='width:117px; min-width:117px;'>Report Printed</td>
+        <th style='text-align:left;text-transform:capitalize;'> : " . (date("d-M-Y h:i:s")) . "</th>
         </tr>
         <tr>
-        <td style=''> Patient No.:</td>
-        <th style='text-align:left;'>"  . ($patientData->patientid) . "</th>
-        <td style=''></td>
-        <th style=''></th>
+        <td style=''> Patient No. </td>
+        <th style='text-align:left;'> : "  . ($patientData->patientid) . "</th>
+        <td style='width:117px; min-width:117px;'>Bill No</td>
+        <th style='text-align:left;text-transform:capitalize;'> : " . ($bill_number) . "</th>
         </tr>
     </thead>
     </table>");
@@ -205,6 +207,7 @@ class Pdf extends CI_Controller
                             if ($paramData->field_type == 'textarea' || $paramData->field_type == 'listHeading' || $paramData->field_type == 'listInput') {
                                 $minmaxunit = '';
                             } else {
+                              
                                 $minmaxunit = "<td>" . ($minmaxunit) . "</td>";
                             }
                             $paramName = $paramData->name;
@@ -220,7 +223,8 @@ class Pdf extends CI_Controller
                             } else if ($paramData->field_type == 'listInput') {
                                 $value = '<table class="serum-list" style="width:100%;text-align:center"><tr>';
                                 foreach (explode(',', $input_values[$index]) as $option) {
-                                    $value .= '<td>' . $option . '</td>';
+                                $val = $option != '_' ? $option : ' ';
+                                    $value .= '<td>' . $val . '</td>';
                                 }
                                 $value .= '</tr></table>';
                             } else {
@@ -272,20 +276,19 @@ class Pdf extends CI_Controller
                     $tabledata .= '</tbody>
             </table><hr>';
                     $mpdf->defaultfooterline = 0;
-                    $mpdf->SetFooter("<table style='margin-bottom:80px; width:100%' cellspacing='5' >
-                            <tfoot align='center'>
-                            
-                            <tr>
-                                <td style='text-align:center;' >Checked By <br> <b>Technologist</b></td>
-                                <td style='text-align:center;' >
-                                <img style='height:60px; margin-bottom:5px;' src='" . ($signImage) . "'>
-                                <p style='text-align:center;'>" . ($getPathologistInfo->title . '. ' . $getPathologistInfo->name) . "<br>
-                                " . ($getPathologistInfo->designation) . "
-                                </p>
-                                </td>
-                                </tr>
-                            </tfoot>
-                            </table>");
+                    $mpdf->SetFooter("<table style='table-layout:fixed; margin-bottom:80px; width:100%' cellspacing='0' >
+                    <tfoot align='center'>                 
+                    <tr>
+                        <td style='font-size:13px;max-width:70%;
+                        width:70%; text-align:left;' >Checked By <br> <b>Technologist</b></td>
+                        <td style='text-align:center'>
+                        <img style='height:60px;margin-bottom:5px;' src='" . ($signImage) . "'/>
+                            <p style='font-size:13px'>" . ($getPathologistInfo->title . '.' . $getPathologistInfo->name) . ' ' . ($getPathologistInfo->designation) . "
+                            </p>
+                        </td>
+                        </tr>
+                    </tfoot>
+                    </table>");
                     $mpdf->WriteHTML($tabledata);
                 }
             } else {
@@ -358,7 +361,8 @@ class Pdf extends CI_Controller
                         } else if ($paramData->field_type == 'listInput') {
                             $value = '<table class="serum-list" style="width:100%;text-align:center"><tr>';
                             foreach (explode(',', $input_values[$index]) as $option) {
-                                $value .= '<td>' . $option . '</td>';
+                                $val = $option != '_' ? $option : ' ';
+                                $value .= '<td>' . $val . '</td>';
                             }
                             $value .= '</tr></table>';
                         } else {
@@ -411,15 +415,15 @@ class Pdf extends CI_Controller
                             </table><hr>';
                     $mpdf->defaultfooterline = 0;
 
-                    $mpdf->SetFooter("<table style='margin-bottom:80px; width:100%' cellspacing='5' >
+                    $mpdf->SetFooter("<table style='table-layout:fixed; margin-bottom:80px; width:100%' cellspacing='0' >
                 <tfoot align='center'>                 
                 <tr>
-                    <td style='text-align:center;' >Checked By <br> <b>Technologist</b></td>
-                    <td style='text-align:center;' >
-                    <img style='height:60px; margin-bottom:5px;' src='" . ($signImage) . "'>
-                    <p style='text-align:center;'>" . ($getPathologistInfo->title . '. ' . $getPathologistInfo->name) . "<br>
-                    " . ($getPathologistInfo->designation) . "
-                    </p>
+                    <td style='font-size:13px;max-width:70%;
+                    width:70%; text-align:left;' >Checked By <br> <b>Technologist</b></td>
+                    <td style='text-align:center'>
+                    <img style='height:60px;margin-bottom:5px;' src='" . ($signImage) . "'/>
+                        <p style='font-size:13px'>" . ($getPathologistInfo->title . '.' . $getPathologistInfo->name) . ' ' . ($getPathologistInfo->designation) . "
+                        </p>
                     </td>
                     </tr>
                 </tfoot>
