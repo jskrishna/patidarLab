@@ -41,13 +41,7 @@ $(document).ready(function() {
                 "data": "test_status"
             },
             {
-                "data": "report_status"
-            },
-            {
                 "data": "payment"
-            },
-            {
-                "data": "print"
             },
             {
                 "data": "action"
@@ -57,10 +51,6 @@ $(document).ready(function() {
                 responsivePriority: 1,
                 targets: -1,
             },
-            {
-                "targets": [6],
-                "visible": false
-            }
         ],
         "lengthMenu": [
             [10, 20, 50, -1],
@@ -154,12 +144,6 @@ $(document).ready(function() {
         "order": [
             [2, "desc"]
         ],
-        responsive: {
-            details: {
-                type: "column",
-                target: 0,
-            },
-        },
         "bPaginate": true,
         "bLengthChange": true,
         "bFilter": true,
@@ -174,10 +158,10 @@ $(document).ready(function() {
             $("td:first", nRow).html(iDisplayIndex + 1);
             return nRow;
         },
-        columnDefs: [{
-            responsivePriority: 1,
-            targets: -1,
-        }, ],
+        "columnDefs": [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: 6 }
+        ]
     });
 
     // patients datatable
@@ -185,7 +169,7 @@ $(document).ready(function() {
         responsive: true,
         language: {
             search: "_INPUT_",
-            searchPlaceholder: "Search Patients..."
+            searchPlaceholder: "Search..."
         },
         "order": [
             [2, "desc"]
@@ -206,7 +190,39 @@ $(document).ready(function() {
         },
         "columnDefs": [
             { responsivePriority: 1, targets: 0 },
-            { responsivePriority: 2, targets: 5 }
+            { responsivePriority: 2, targets: 6 }
         ]
     });
+
+    var patient_single = $('.patient-single-table').DataTable({
+        responsive: true,
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search..."
+        },
+        "order": [
+            [2, "desc"]
+        ],
+        "bPaginate": true,
+        "bLengthChange": true,
+        "bFilter": true,
+        "bInfo": false,
+        "bAutoWidth": false,
+        "lengthMenu": [
+            [20, 50, -1],
+            [20, 50, "All"]
+        ],
+        "ordering": true,
+        "fnRowCallback": function(nRow, aData, iDisplayIndex) {
+            $("td:first", nRow).html(iDisplayIndex + 1);
+            return nRow;
+        },
+        "columnDefs": [
+            { responsivePriority: 1, targets: 0 },
+            { responsivePriority: 2, targets: 4 }
+        ]
+    });
+
+
+    
 });

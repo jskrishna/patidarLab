@@ -84,17 +84,9 @@
 			<div class="form-row">
 				<div class="col-lg-12 text-center">
 					<div class="row">
-						<div class="col-lg-6">
-							<input type="button" class="btn btnupdate btn-block custom-btn" id="gotoBilling" value="Update">
+						<div class="col-lg-12">
+							<input type="button" class="btn custom-btn btnupdate btn-block" id="gotoBilling" value="Update">
 						</div>
-						<?php if ($loggedData->role == 'admin') { ?>
-
-							<div class="col-lg-6">
-								<button data-bs-toggle="modal" data-title="" data-bs-target="#myDeletemodel" data-url="" id="patientdelete" class="btn btn-delete btn-block custom-btn btn-danger" value="">
-									Delete
-								</button>
-							</div>
-						<?php } ?>
 					</div>
 				</div>
 			</div>
@@ -129,25 +121,21 @@
 	</div>
 </div>
 </div>
-<link rel="stylesheet" href="<?php echo BASE_URL; ?>public/assets/css/richtext.min.css">
-<link rel="stylesheet" href="<?php echo BASE_URL; ?>public/assets/css/rte_theme_default.css">
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery-ui.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/popper.min.js"></script>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/bootstrap.bundle.min.js"></script>
-<!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.bootstrap.js"></script> -->
-<!-- <script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.responsive.js"></script> -->
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/responsive.bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/select2.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/rte.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/custom.js"></script>
 
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script>
-
-<script src="<?php echo BASE_URL; ?>public/assets/js/select2.min.js"></script>
-<script src="<?php echo BASE_URL; ?>public/assets/js/rte.js"></script>
 <script>
 	var serverSideUrl = "<?php echo BASE_URL; ?>report/getServerSide";
 </script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>public/assets/js/custom.js"></script>
 <!-- JavaScript Bundle with Popper -->
 <?php
 if (isset($editer)) {
@@ -160,6 +148,7 @@ if (isset($editer)) {
 				},
 				formatter: null
 			});
+		
 		</script>
 <?php }
 }
@@ -1660,6 +1649,11 @@ if (isset($editer)) {
 				$('.tab-content').removeClass('active');
 				$(this).addClass('active');
 				$("#" + tab_id).addClass('active');
+				if(tab_id == 'tab-2' || tab_id == 'tab-4'){
+        $($.fn.dataTable.tables(true)).DataTable()
+           .columns.adjust()
+           .responsive.recalc();
+				}
 			})
 
 			$("body").on('click', '.tabs li', function() {
@@ -2031,7 +2025,11 @@ if (isset($editer)) {
 			var id = $(this).data('id');
 			var thisvalue = '';
 			$(".listInput" + id).each(function() {
-				thisvalue += this.value + ',';
+				var vvv = this.value;
+				if(this.value == '' || this.value == null){
+					vvv = '_';
+				}
+				thisvalue += vvv + ',';
 			});
 			var lastIndex = thisvalue.lastIndexOf(",");
 			thisvalue = thisvalue.substring(0, lastIndex);
@@ -2070,18 +2068,62 @@ if (isset($editer)) {
 			}
 			var patient_mobile_no = $('#patient_mobile_no').val();
 			$('#whatsapp_popup').modal('toggle');
-			var link = encodeURI('Your Test Report at <?php echo BASE_TITILE; ?> is ready. Please Collect it ') + encodeURIComponent($('#shareUrl').val());
+			var link = encodeURI('Your Test Report at <?php if(isset($_SESSION['BASE_TITILE'])){ echo $_SESSION['BASE_TITILE']; }else{ echo BASE_TITILE; } ?> is ready. Please Collect it ') + encodeURIComponent($('#shareUrl').val());
 			console.log($('#shareUrl').val());
 			window.open("https://wa.me/91" + patient_mobile_no + "?text=" + link);
 		});
 		// dont remove
+			setTimeout(() => {
+				if (window.location.href.indexOf("completed") > -1) {
+	 			 $('.input-sm').val('completed').keyup();
+					}
+					if (window.location.href.indexOf("pending") > -1) {
+					$('.input-sm').val('pending').keyup();
+					}
+							}, 200);
+					$('#test').keypress(function (e) {
+						if (e.which == 13) 
+						{
+							e.preventDefault();
+							$('#test_save').click();
+						}
+					});
+
+					$(function  (){
+						var keyUp = 38;
+						var keyDown = 40;
+						$(document).keydown(
+							function(e)
+							{
+								var moves = $(".call");
+								// Key up function
+								if (e.keyCode == keyDown) {
+									for(i = 0; i <= moves.length; i++) {
+										if (moves[i] == $(".call:focus").get(0)) {
+										$(moves[i + 1]).focus();
+											break;
+										}
+									}
+								}
+								if (e.keyCode == keyUp) {
+									for(i = 0; i <= moves.length; i++) {
+										if (moves[i] == $(".call:focus").get(0)) {
+										$(moves[i - 1]).focus();
+											break;
+										}
+									}
+								}
+							}
+						);
+					});
+				
+
 	<?php } ?>
 </script>
 
 <div id="basicToast" class="toast align-items-center text-white border-0" role="alert" data-bs-animation="true" data-bs-delay="3000" aria-live="assertive" aria-atomic="true">
 	<div class="d-flex">
 		<div class="toast-body">
-			Hello, This is a warning message.
 		</div>
 		<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-bs-label="Close"></button>
 	</div>

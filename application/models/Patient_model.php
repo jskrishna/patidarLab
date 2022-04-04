@@ -81,5 +81,12 @@ class Patient_model extends CI_Model
         return $query->result();
     }
 
+    public function getbillinfoByID($pid)
+    {
+        $query = $this->db->select('*')->from('bill')->where('patient_id', $pid);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 }
 

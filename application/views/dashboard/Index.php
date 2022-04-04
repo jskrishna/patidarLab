@@ -16,10 +16,10 @@
                     <h3>Today's <b class="color-green">Report</b></h3>
                     <div class="dashbord-box-inr row">
                         <div class="dashboard-box purple-box col-3">
-                            <a href="<?php echo BASE_URL; ?>report">
+                            <a href="JavaScript:void(0)">
                                 <div class="dashbord-content">
                                     <h4>Collection </h4>
-                                    <span class="test-count"><?php echo number_format($today_collection, 0, '.', ','); ?></span>
+                                    <span class="test-count">₹ <?php echo number_format($today_collection, 0, '.', ','); ?></span>
                                 </div>
                             </a>
                         </div>
@@ -32,7 +32,7 @@
                             </a>
                         </div>
                         <div class="dashboard-box yellow-box col-3">
-                            <a href="<?php echo BASE_URL; ?>report">
+                            <a href="<?php echo BASE_URL; ?>report#pending">
                                 <div class="dashbord-content">
                                     <h4>In Process</h4>
                                     <span class="test-count"><?php echo $process; ?></span>
@@ -40,7 +40,7 @@
                             </a>
                         </div>
                         <div class="dashboard-box green-box col-3">
-                            <a href="<?php echo BASE_URL; ?>report">
+                            <a href="<?php echo BASE_URL; ?>report#completed">
                                 <div class="dashbord-content">
                                     <h4>Completed </h4>
                                     <span class="test-count"><?php echo $complete; ?></span>
@@ -48,7 +48,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="display: none;">
                         <div class="dashboard-box green-box col-6">
                             <div>
                                 <form action="" method="GET">
@@ -67,7 +67,7 @@
                             </div>
                             <div class="container">
                                 <div class="mt-5">
-                                    <div id="ReferralChart" style="height: 600px; width: 100%"></div>
+                                    <canvas id="ReferralChart"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                             </form>
                             <div class="container">
                                 <div class="mt-5">
-                                    <div id="drawColumnChart" style="height: 600px; width: 100%"></div>
+                                    <canvas id="drawColumnChart"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -100,95 +100,119 @@ include_once "./public/assets/includes/footer.php";
 <script>
     localStorage.setItem('activetab', 1);
 </script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>
 <script>
     <?php
-    if (isset($_GET['data'])) {
-        if ($_GET['data'] == 'previous_month') {
-            $refertitle = 'Previous Month data of Referral By Dr.';
-        } else if ($_GET['data'] == 'all') {
-            $refertitle = 'All data of Referral By Dr.';
-        } else {
-            $refertitle = 'This Month data of Referral By Dr.';
-        }
-    } else {
-        $refertitle = 'This Month data of Referral By Dr.';
-    }
-    $yeartitle = 'Income Of ' . $year;
+    // if (isset($_GET['data'])) {
+    //     if ($_GET['data'] == 'previous_month') {
+    //         $refertitle = 'Previous Month data of Referral By Dr.';
+    //     } else if ($_GET['data'] == 'all') {
+    //         $refertitle = 'All data of Referral By Dr.';
+    //     } else {
+    //         $refertitle = 'This Month data of Referral By Dr.';
+    //     }
+    // } else {
+    //     $refertitle = 'This Month data of Referral By Dr.';
+    // }
+    // $yeartitle = 'Income Of ' . $year;
     ?>
 
-    google.charts.load('visualization', "1", {
-        packages: ['corechart', 'bar']
+    // var drawColumnChart = document.getElementById('drawColumnChart');
+    // var ReferralChart = document.getElementById('ReferralChart');
+    // var chart = new Chart(drawColumnChart, {
+    //     type: 'line',
+    //     data: {
+    //         labels: <?php //echo $months; ?>,
+    //         datasets: [{
+    //             label: "<?php //echo $yeartitle; ?>",
+    //             backgroundColor: 'transparent',
+    //             borderColor: '#7526bb',
+    //             data: <?php //echo $values; ?>,
+    //             lineTension: 0,
+    //             pointRadius: 4,
+    //             pointBackgroundColor: 'rgba(255,255,255,1)',
+    //             pointHoverBackgroundColor: 'rgba(255,255,255,0.6)',
+    //             pointHoverRadius: 8,
+    //             pointHitRadius: 30,
+    //             pointBorderWidth: 2,
+    //             pointStyle: 'rectRounded'
+    //         }, ]
+    //     },
 
-    });
-    google.charts.setOnLoadCallback(drawReferralChart);
-    // Pie Chart
-    function drawReferralChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Day', 'Products Count'],
-            <?php
-            foreach ($ChartData['refer'] as $name => $refer) {
-                echo "['" . $name . "'," . count($refer) . "],";
-            }
-            ?>
-        ]);
+    //     options: {
+    //         responsive: true,
+    //         legend: {
+    //             display: true,
+    //             position: 'bottom'
+    //         },
+    //         tooltips: {
+    //             callbacks: {
+    //                 title: function(tooltipItem, data) {
+    //                     return data['labels'][tooltipItem[0]['index']];
+    //                 },
+    //                 label: function(tooltipItem, data) {
+    //                     return ' ₹ ' + data['datasets'][0]['data'][tooltipItem['index']];
+    //                 },
+    //                 afterLabel: function(tooltipItem, data) {}
+    //             },
+    //             backgroundColor: '#000000',
+    //             titleFontSize: 12,
+    //             bodyFontSize: 18,
+    //             displayColors: false
+    //         }
+    //     }
+    // });
 
-        var Referralview = new google.visualization.DataView(data);
-        Referralview.setColumns([0, 1, {
-            calc: "stringify",
-            sourceColumn: 1,
-            type: "string",
-            role: "annotation"
-        }, ]);
+    // function getRandomColor() {
+    //     var letters = '05836B'.split('');
+    //     var color = '#';
+    //     for (var i = 0; i < 6; i++) {
+    //         color += letters[Math.round(Math.random() * 6)];
+    //     }
+    //     return color;
+    // }
 
-        var options = {
-            title: '<?php echo $refertitle; ?>',
-            curveType: 'function',
-            is3D: true,
-            legend: {
-                position: 'bottom'
-            }
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('ReferralChart'));
-        chart.draw(Referralview, options);
-    }
-
-    google.setOnLoadCallback(drawColumnChart);
-
-    function drawColumnChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Months', '<?php echo $yeartitle; ?>'],
-            <?php
-            foreach ($ChartData['monthly'] as $month => $Income) {
-                echo "['" . $month . "'," . intval($Income[0]->income) . "],";
-            }
-            ?>
-        ]);
-
-        // Use view to show annotation
-        var view = new google.visualization.DataView(data);
-        view.setColumns([0, 1, {
-            calc: "stringify",
-            sourceColumn: 1,
-            type: "string",
-            role: "annotation"
-        }, ]);
-
-        var options = {
-            title: 'Income (in rupess)',
-            curveType: 'function',
-
-            width: 600,
-            height: 400,
-            legend: {
-                position: "bottom"
-            },
-            colors: ['#05836B']
-        };
-
-        // Instantiate and draw the chart.
-        var chart = new google.visualization.LineChart(document.getElementById('drawColumnChart'));
-        chart.draw(view, options);
-    }
+    // var myChart = new Chart(ReferralChart, {
+    //     type: 'pie',
+    //     data: {
+    //         labels: <?php //echo $names; ?>,
+    //         datasets: [{
+    //             label: '<?php //echo $refertitle; ?>',
+    //             data: <?php //echo $refer_count; ?>,
+    //             backgroundColor: [
+    //                 <?php
+    //                 foreach ($ChartData['refer'] as $name => $refer) { ?>
+    //                     getRandomColor(),
+    //                 <?php //} ?>
+    //             ]
+    //         }]
+    //     },
+    //     options: {
+    //         title: {
+    //             display: true,
+    //             text: '<?php //echo $refertitle; ?>',
+    //             position: 'bottom'
+    //         },
+    //         responsive: true,
+    //         legend: {
+    //             display: true,
+    //             position: 'bottom',
+    //         },
+    //         tooltips: {
+    //             callbacks: {
+    //                 title: function(tooltipItem, data) {
+    //                     return data['labels'][tooltipItem[0]['index']];
+    //                 },
+    //                 label: function(tooltipItem, data) {
+    //                     return 'Refered Total : ' + data['datasets'][0]['data'][tooltipItem['index']];
+    //                 },
+    //                 afterLabel: function(tooltipItem, data) {}
+    //             },
+    //             backgroundColor: '#000000',
+    //             titleFontSize: 12,
+    //             bodyFontSize: 18,
+    //             displayColors: false
+    //         }
+    //     }
+    // });
 </script>

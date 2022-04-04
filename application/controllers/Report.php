@@ -446,15 +446,14 @@ class Report extends CI_Controller
                             }
                             $reportValues = null;
                         }
+                        $due = intval($post->total) - intval($post->received_amount) - intval($post->final_discount);
 
                         if ($post->status == 'Paid') {
-                            $am = '<span class="pay-received">Received - ₹ ' . intval($post->received_amount);
+                            $am = '<span class="pay-cont pay-received"><small>Received</small> ₹ ' . intval($post->received_amount);
                             '</span>';
                         } else {
-                            $am = '<span class="pay-paid">Total - ₹ ' . intval($post->total);
-                            '</span>
-        <span class="pay-due">Due - ₹ ' . intval($post->total) . '-' . intval($post->received_amount) . '-' . intval($post->final_discount);
-                            '</span>';
+                            $am = '<div class="custom-f"><span class="pay-cont pay-total"><small>Total</small> ₹ ' . ($post->total) . '</span><br><span class="pay-cont pay-due"><small>Due</small> ₹ ' . ($due) . '</span></div>';
+                         
                         }
                         $amount = $am;
 
@@ -477,7 +476,7 @@ class Report extends CI_Controller
                     Paid
                 </span>';
 
-                        $print = ' <a data-toggle="tooltip" data-placement="top" title="Print Invoice" target="_blank" href="printinvoice/index/' . ($post->id) . '" class="btn btn-sml btnupdate print-invoice-btn" data-id="' . ($post->id) . '" data-bs-toggle="modal" data-bs-target="#printReport">
+                        $print = ' <a target="_blank" href="printinvoice/index/' . ($post->id) . '" class="btnupdate print-invoice-btn" data-id="' . ($post->id) . '" data-bs-toggle="modal" data-bs-target="#printReport">
 
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
                     <defs>
@@ -487,6 +486,7 @@ class Report extends CI_Controller
                     </defs>
                     <path d="M14.5,18h-9a2,2,0,0,1-2-2H2.637A2.655,2.655,0,0,1,0,13.333V6.667A2.655,2.655,0,0,1,2.637,4H4V2A1.924,1.924,0,0,1,5.833,0h8.334A1.924,1.924,0,0,1,16,2V4h1.363A2.655,2.655,0,0,1,20,6.667v6.665A2.655,2.655,0,0,1,17.363,16H16.5A2,2,0,0,1,14.5,18Zm-9-6v4h9l0-4ZM6.014,2,6.007,4H14V2Z" transform="translate(2 3)" fill="#223345" />
                 </svg>
+                <span>Print Invoice</span>
             </a>';
 
                         $liOne = ($loggedData->role != 'staff') ? '<li>
@@ -502,7 +502,7 @@ class Report extends CI_Controller
                         </a>
                     </li>' : '';
 
-                        $linTwo = ($loggedData->role != 'staff') ? '<li><a data-toggle="tooltip" data-placement="top" title="View Test" href="bill?bill=' . ($post->id) . '" class="btn btn-sml btnupdate btn-report">
+                        $linTwo = ($loggedData->role != 'staff') ? '<li><a href="bill?bill=' . ($post->id) . '" class="btnupdate btn-report">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
                     <defs>
                         <clipPath id="a">
@@ -511,6 +511,7 @@ class Report extends CI_Controller
                     </defs>
                     <path d="M10.025,14C4.163,14,.756,8.585.132,7.5a1.009,1.009,0,0,1,0-1C.987,5.015,4.205.146,9.729,0c.1,0,.2,0,.294,0,5.813,0,9.221,5.418,9.846,6.5a1.014,1.014,0,0,1,0,1c-.855,1.489-4.073,6.358-9.6,6.5ZM10,3.5A3.5,3.5,0,1,0,13.5,7,3.5,3.5,0,0,0,10,3.5Zm0,5A1.5,1.5,0,1,1,11.5,7,1.5,1.5,0,0,1,10,8.5Z" transform="translate(2 4.998)" fill="#223345" />
                 </svg>
+                <span>Edit Bill</span>
             </a></li>' : '';
 
                         $lithree = '<li>
@@ -543,23 +544,37 @@ class Report extends CI_Controller
                         $key = md5($post->id);
                         $bid = $post->id;
                         $checkKey = $this->Report_model->checkKey($bid);
-                       
+
                         if ($wp) {
                             if (!empty($checkKey)) {
                                 $this->Report_model->updateKey($bid, $keyUrl);
                             } else {
                                 $this->Report_model->insertKey($bid, $key, $keyUrl);
                             }
-    
+
                             $lisend = '<li>
-                            <a data-toggle="tooltip" class="whatsapp_click btn btn-sml btn-whatsapp" data-placement="top" title="Share via whatsapp" data-bs-toggle="modal" role="button" data-bs-type="direct" data-bs-target="#whatsapp_popup" data-pid="' . $post->patient_id . '" data-url="' . (BASE_URL) . 'Pdf?key=' . ($key) . '">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"><path d="M12.94,2.25A10.27,10.27,0,0,0,2.631,12.48a10.124,10.124,0,0,0,1.479,5.282L2.25,23.25l5.708-1.813A10.327,10.327,0,0,0,23.25,12.48,10.27,10.27,0,0,0,12.94,2.25Zm5.126,14.115a2.663,2.663,0,0,1-1.823,1.175c-.483.026-.5.375-3.133-.77a10.756,10.756,0,0,1-4.346-4.11,5.056,5.056,0,0,1-.973-2.74,2.921,2.921,0,0,1,1-2.143,1.01,1.01,0,0,1,.714-.3c.208,0,.342-.006.5,0s.384-.032.584.5.677,1.835.738,1.968a.478.478,0,0,1,0,.458,1.79,1.79,0,0,1-.279.426c-.138.148-.289.33-.412.443s-.28.261-.136.528a7.889,7.889,0,0,0,1.4,1.863,7.193,7.193,0,0,0,2.067,1.374c.259.141.413.125.573-.044s.686-.738.872-.992.359-.2.6-.109,1.507.776,1.766.916.431.212.493.323A2.165,2.165,0,0,1,18.067,16.365Z" transform="translate(-2.25 -2.25)" fill="#242424"/></svg></a>
+                            <a data-toggle="tooltip" class="whatsapp_click btn btn-sml btn-whatsapp" data-placement="top" title="Whatsapp" data-bs-toggle="modal" role="button" data-bs-type="direct" data-bs-target="#whatsapp_popup" data-pid="' . $post->patient_id . '" data-url="' . (BASE_URL) . 'Pdf?key=' . ($key) . '">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"><path d="M12.94,2.25A10.27,10.27,0,0,0,2.631,12.48a10.124,10.124,0,0,0,1.479,5.282L2.25,23.25l5.708-1.813A10.327,10.327,0,0,0,23.25,12.48,10.27,10.27,0,0,0,12.94,2.25Zm5.126,14.115a2.663,2.663,0,0,1-1.823,1.175c-.483.026-.5.375-3.133-.77a10.756,10.756,0,0,1-4.346-4.11,5.056,5.056,0,0,1-.973-2.74,2.921,2.921,0,0,1,1-2.143,1.01,1.01,0,0,1,.714-.3c.208,0,.342-.006.5,0s.384-.032.584.5.677,1.835.738,1.968a.478.478,0,0,1,0,.458,1.79,1.79,0,0,1-.279.426c-.138.148-.289.33-.412.443s-.28.261-.136.528a7.889,7.889,0,0,0,1.4,1.863,7.193,7.193,0,0,0,2.067,1.374c.259.141.413.125.573-.044s.686-.738.872-.992.359-.2.6-.109,1.507.776,1.766.916.431.212.493.323A2.165,2.165,0,0,1,18.067,16.365Z" transform="translate(-2.25 -2.25)" fill="#223345"/></svg></a>
                         </li>';
                         } else {
                             $lisend = '';
                         }
 
-                        $action = '<ul class="action-list">' . ($liOne . $linTwo . $lithree . $lisend) . '</ul>';
+                        $action = '<ul class="action-list">' . ($liOne . $lithree . $lisend) . '
+                        <li>
+                        <div class="dropdown"  data-toggle="tooltip" data-placement="top" title="View More" >
+                        <button class="btn btn-sml dropdown-toggle" type="button" id="dropdownMenuButton1" aria-haspopup="true" data-bs-toggle="dropdown" aria-expanded="false">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.17157 4.17157C3 5.34315 3 7.22876 3 11V13C3 16.7712 3 18.6569 4.17157 19.8284C5.34315 21 7.22876 21 11 21H13C16.7712 21 18.6569 21 19.8284 19.8284C21 18.6569 21 16.7712 21 13V11C21 7.22876 21 5.34315 19.8284 4.17157C18.6569 3 16.7712 3 13 3H11C7.22876 3 5.34315 3 4.17157 4.17157ZM11 7V11L7 11V13H11V17H13V13H17V11H13V7H11Z" fill="#223345"/>
+                                </svg>
+
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li>' . ($print) .  '</li><li>' . ($linTwo) . '</li>
+  </ul>
+                            </div>
+                        </li>
+                        </ul>';
 
                         $nestedData['id'] = $post->id;
                         $nestedData['name'] = $name;
@@ -567,9 +582,7 @@ class Report extends CI_Controller
                         $nestedData['amount'] = $amount;
                         $nestedData['referral'] = $ref;
                         $nestedData['test_status'] = $status;
-                        $nestedData['report_status'] = $reportStatus;
                         $nestedData['payment'] = $payment;
-                        $nestedData['print'] = $print;
                         $nestedData['action'] = $action;
                         $data[] = $nestedData;
                     }

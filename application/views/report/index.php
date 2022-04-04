@@ -86,13 +86,7 @@
                                         <div class="tablesorter-header-inner">Test Status</div>
                                     </th>
                                     <th>
-                                        <div class="tablesorter-header-inner">Report Status</div>
-                                    </th>
-                                    <th>
                                         <div class="tablesorter-header-inner">Payment Status</div>
-                                    </th>
-                                    <th>
-                                        <div class="tablesorter-header-inner">Print Invoice</div>
                                     </th>
                                     <th>
                                         <div class="tablesorter-header-inner">Actions</div>

@@ -229,7 +229,7 @@ switch (ENVIRONMENT)
 	// Path to the system directory
 	define('BASEPATH', $system_path);
 	define('BASE_URL', 'http://localhost/patidarLab/');
-	define('BASE_TITILE', 'Patidar Diagnostic');
+	define('BASE_TITILE', 'Labify');
 
 	// Path to the front controller (this file) directory
 	define('FCPATH', dirname(__FILE__).DIRECTORY_SEPARATOR);

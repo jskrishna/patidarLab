@@ -1,0 +1,333 @@
+@media(max-width:767px){
+    
+    body {
+        height: calc(100vh - 65px);
+        overflow-y: scroll;
+        background: #fff !important;
+        overflow-x: hidden;
+    }
+        
+        
+        .sidenav-header,.search-top, .sidenav-footer, .btn.custom-btn.add-btn-patient svg,div#DataTables_Table_0_length , .add-patient, .patient-short-name, .extra-features, .name-sec-inr .btn , .name-sec-center.bill-add-d, .form-footer{display: none !important;}
+        .layoutSidenav_nav {
+        height: inherit;
+        overflow: hidden;
+        top: unset;
+        width: 100%;
+        right: 0;
+        bottom: 0;
+    }
+    .sidenav-menu .accordion {
+        margin-bottom: 0;
+    }
+    .sidenav-menu .nav-links, .sidenav-footer-content a {
+        padding: 0;
+    }
+    .sidenav-menu ul {
+        padding: 0;
+        margin-bottom: 0;
+        display: flex;
+        justify-content: space-between;
+    }
+    .nav-link-icon {
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
+    .sidenav-menu li {
+        padding: 9px 10px;
+    }
+    .sidenav-menu .nav-links, .sidenav-footer-content a {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        flex-direction: column;
+    }
+    .nav-links.nav-active {
+        background: transparent !important;
+    }
+    .layoutSidenav_content {
+        padding: 0;
+         margin: 0 0 65px 0;
+    }
+    .main-header+main {
+        margin-top: 56px;
+    }
+    .layout_content_inr {
+        min-height: 100%;
+    }
+    .main-header {
+        top: 0;
+        left: 0;
+        width: 100%;
+        right: 0;
+        height: 56px;
+    }
+    .c-datatable .dataTables_filter, .c-datatable .dataTables_length {
+        margin-bottom: 13px !important;
+    }
+    body,.report-filter .filter-item, .form-group input, .form-group textarea, .form-group select, .form-control, .dataTables_filter input, .dataTables_length select, .input-group-text, .test-process label, .dataTables_wrapper .dataTables_paginate .paginate_button a, .accordion-button, .reportcnt td {
+        font-size: 14px !important;
+    }
+    table.dataTable>tbody>tr.child ul.dtr-details {
+        width: 100%;
+    }
+    table.dataTable>tbody>tr.child ul.dtr-details>li {
+        padding: 12px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .action-list li+li {
+        margin-left: 10px;
+    }
+    
+    .btn-sml {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+    }
+    .c-datatable .pagination {
+        justify-content: center !important;
+    }
+    
+    .name-sec-inr {
+        flex-direction: column;
+    }
+    .name-icon {
+        width: 42px;
+        height: 42px;
+    }
+    .name-icon h3 {
+        font-size: 14px;
+    }
+    .patient-name h3 {
+        font-size: 18px;
+        line-height: 36px;
+    }
+    
+    .patient-name-sec {
+        padding: 10px 15px;
+    }
+    
+    .fixed-save {
+        margin-bottom: 15px;
+        margin-top: 15px;
+        padding: 0 15px;
+    }
+    .tabs.fixed-save{
+        margin-bottom: 15px;
+    }
+    .accordion .table>tbody tr td:first-child {
+        width: auto;
+    }
+    
+    .reportcnt td {
+        padding: 12px !important;
+    }
+    
+    hr {
+        margin: 15px 0 !important;
+    }
+    
+    .c-datatable .normal-input input, .c-datatable .normal-input select, .form-group input, .form-group textarea, .form-group select, .form-control, .dataTables_filter input, .dataTables_length select {
+        height: 42px ;
+            line-height: 42px;
+        min-height: 42px;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .c-datatable {
+        padding: 15px !important;
+    }
+    
+    .layout_content_inr .fixed-save .c-datatable {
+        margin-bottom: 15px;
+    }
+    .c-datatable+.c-datatable {
+        margin-top: 15px;
+    }
+    .page-head h2 {
+        font-size: 14px;
+        height: 35px;
+        line-height: 35px;
+    }
+    
+    .c-modal.center .modal-content {
+        border-radius: 5px !important;
+    }
+    .custom-btn {
+        line-height: 42px !important;
+        padding: 0 15px !important;
+        height: 42px !important;
+        min-width: 120px !important;
+        font-size: 14px !important;
+    }
+    
+    
+    .c-modal.center .modal-footer, .c-modal.center .modal-content .page-head {
+        padding: 10px 15px;
+    }
+    
+    .c-modal.center .modal-content .modal-body{
+         padding:20px 15px;
+    }
+    
+    .c-modal .close img {
+        width: 14px;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    check-group label {
+        font-size: 14px;
+        line-height: 14px;
+    }
+    
+    .check-group input:checked+label:after {
+        top: 0;
+    }
+    
+    .col-3 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+    .dashboard-box a {
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .dashbord-content h4 {
+        font-size: 14px;
+    }
+    
+    .test-count {
+        font-size: 22px;
+        line-height: initial;
+        padding-top: 0;
+        margin-bottom: 0;
+    }
+    .dashbord-content-main {
+        padding: 15px;
+    }
+    .dashboard-box.col-6 {
+        flex: 0 0 auto;
+        width: 100%;
+        display: none;
+    }
+    .c-datatable.px-0.py-0 .dataTables_wrapper, .docter-sec {
+        padding: 0;
+    }
+    
+    .report-filter {
+        padding: 0;
+        margin: 0 0 20px;
+    }
+    
+    /*.dt-responsive1 .action-list li:last-child {display: none;}*/
+    
+    .action-list {
+        justify-content: right;
+    }
+    table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+        
+        left: 8px;
+        height: 15px;
+        width: 15px;
+        margin-top: -7.5px;
+        
+        border: 0;
+        box-shadow: none;
+        text-indent: 0 !important;
+        line-height: 15px;
+        background-color: #001b22;
+        text-align: center;
+        border-radius: 3px;
+    }
+    .patient-avator {
+        margin-left: 25px;
+    }
+    
+    .billing-sec {
+        min-height: 100%;
+    }
+    .form-footer.test_save {
+        display: block !important;
+        bottom: 65px;
+        width: 100%;
+        left: 0;
+        z-index: 99;
+        padding: 10px 15px;
+    }
+    .checkout-wrap li+li {
+        margin-top: 10px;
+    }
+    .checkout-wrap {
+        margin-bottom: 40px;
+    }
+    .row.normal-input .form-group.col-lg-4 {
+        display: none;
+    }
+    .ui-widget-content {
+        min-width: 250px !important;
+        width: 250px !important;
+    }
+    .c-modal.right .modal-dialog {
+        width: 100%;
+    }
+    
+    ul.action-list {
+        display: none;
+    }
+    
+    .check-group label:before {
+        height: 15px;
+        width: 15px;
+    }
+    
+    .print-option .check-group label {
+        font-size: 12px;
+    }
+    .print-option {
+        margin-bottom: 15px;
+        margin-top: -13px;
+    }
+    .c-datatable table td, .c-datatable table th {
+        padding: 12px !important;
+    }
+    .review-btn {
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .report-edit .check-label {
+        font-size: 10px;
+        font-weight: 600;
+        height: auto;
+        line-height: initial;
+    }
+    
+    .input-group-text {
+        height: 42px;
+    }
+    .page-head-border {
+        padding-bottom: 0;
+    }
+    .report-filter {
+        white-space: nowrap;
+        overflow: auto;
+    }
+    .dataTables_wrapper .row .col-sm-6:first-child {
+        display: none;
+    }
+    .page-head-border {
+        padding-bottom: 17px;
+    }
+    
+    
+    
+    }

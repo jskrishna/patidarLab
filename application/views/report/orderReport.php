@@ -20,7 +20,7 @@
                                         </h3>
                                     </div>
                                     <div class="patient-name">
-                                        <h3><?php echo $patientData->title . '. ' . $patientData->patientname ?></h3>
+                                        <h3><?php echo $patientData->title . '. ' . ucwords($patientData->patientname); ?></h3>
                                         <div class="patient-dtl">
                                             <p>
                                                 <img src="<?php echo BASE_URL ?>public/assets/images/feather-calendar.svg" alt="">
@@ -48,24 +48,6 @@
                                     </p>
                                 </div>
                                 <a class="btn custom-btn" href="<?php echo BASE_URL . 'report' ?>">All Reports</a>
-                                <!-- <div class="name-sec-right"> -->
-                                <!-- <p>
-                                        <img src="<?php //echo BASE_URL 
-                                                    ?>public/assets/images/feather-clock-active.svg" alt="">
-                                        <span><?php //echo date_format(new DateTime($billData->billDate), "d-M-Y"); 
-                                                ?></span>
-                                    </p>
-                                    <?php //if ($patientData->mobile) { 
-                                    ?>
-                                        <p>
-                                            <img src="<?php //echo BASE_URL 
-                                                        ?>public/assets/images/feather-phone-call.svg" alt="">
-                                            <span><?php //echo $patientData->mobile 
-                                                    ?></span>
-                                        </p>
-                                    <?php  //} 
-                                    ?> -->
-                                <!-- </div> -->
                             </div>
                         </div>
                     </div>

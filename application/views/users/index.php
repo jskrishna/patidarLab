@@ -43,23 +43,6 @@
                                                                 <span class="error">This field is required.</span>
                                                             </div>
                                                         </div>
-                                                        <!-- <div class="row">
-                                                            <div class="form-group file-type col-lg-6">
-                                                                <label for="user_logo">User Profile Logo</label>
-                                                                <input type="file" name="user_logo" id="user_logo" class="form-control enterAsTab" placeholder="Enter user_logo" autocomplete="off">
-                                                                <input type="hidden" name="oldprofile" id="oldprofile" value="<?php //echo $UserData->logo; 
-                                                                                                                                ?>">
-                                                            </div>
-                                                            <div class="form-group file-type-img col-lg-6">
-                                                                <label for="user_logo"></label>
-                                                                <?php //if ($UserData->logo) { 
-                                                                ?>
-                                                                    <img src="<?php //echo BASE_URL . 'public/assets/images/' . $UserData->logo; 
-                                                                                ?>" alt="">
-                                                                <?php //} 
-                                                                ?>
-                                                            </div>
-                                                        </div> -->
                                                         <div class="row">
                                                             <div class="form-group col-lg-6">
                                                                 <label for="email">Email</label>
@@ -232,7 +215,7 @@
                                                                         <label for="letter_pad" class="image-button">Choose image</label>
                                                                         <?php if($UserData->letter_pad) { ?>
                                                                             <img id="img_letter" src="<?php echo BASE_URL .'public/assets/images/'.$UserData->letter_pad; ?>" class="image-preview">
-                                                                        <span class="change-image">Choose different image</span>
+                                                                        <span class="change-image">Choose image</span>
                                                                         <?php }else{ ?>
                                                                             <img id="img_letter" src="<?php echo BASE_URL  ?>public/assets/images/placeholder.jpg" class="image-preview">
                                                                        <?php } ?>
@@ -246,7 +229,7 @@
                                                                         <label for="lab_logo" class="image-button">Choose image</label>
                                                                         <?php if($UserData->lab_logo) { ?>
                                                                             <img id="img_lablogo" src="<?php echo BASE_URL .'public/assets/images/'.$UserData->lab_logo; ?>" class="image-preview">
-                                                                        <span class="change-image">Choose different image</span>
+                                                                        <span class="change-image">Choose image</span>
                                                                         <?php }else{ ?>
                                                                             <img id="img_lablogo" src="<?php echo BASE_URL  ?>public/assets/images/placeholder.jpg" class="image-preview">
                                                                        <?php } ?>
@@ -260,7 +243,7 @@
                                                                         <label for="fav_icon" class="image-button">Choose image</label>
                                                                         <?php if($UserData->fav_icon) { ?>
                                                                             <img id="img_fav_icon" src="<?php echo BASE_URL .'public/assets/images/'.$UserData->fav_icon; ?>" class="image-preview">
-                                                                        <span class="change-image">Choose different image</span>
+                                                                        <span class="change-image">Choose image</span>
                                                                         <?php }else{ ?>
                                                                             <img id="img_fav_icon" src="<?php echo BASE_URL  ?>public/assets/images/placeholder.jpg" class="image-preview">
                                                                        <?php } ?>
@@ -331,7 +314,7 @@
                                                                         <label for="signature" class="image-button">Choose image</label>
                                                                         <?php if (!empty($pathologistData) && $pathologistData->sign) { ?>
                                                                         <img id="img_sign" src="<?php echo BASE_URL . 'public/assets/images/' . $pathologistData->sign; ?>">
-                                                                        <span class="change-image">Choose different image</span>
+                                                                        <span class="change-image">Choose image</span>
                                                                         <?php } else{ ?>
                                                                             <img id="img_sign" src="<?php echo BASE_URL  ?>public/assets/images/placeholder.jpg" class="image-preview">
                                                                        <?php } ?>
