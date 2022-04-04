@@ -38,7 +38,8 @@
                                 foreach ($patientData as $data) { ?>
                                     <tr role="row">
                                         <td style="width:35px"><?php echo $count++ ?></td>
-                                        <td>
+                                        <td class="from-wrap">
+                                            <a  href="<?php echo BASE_URL; ?>patient/info/<?php echo $data->id; ?>">
                                             <div class="patient-avator">
                                                 <div class="ava-l">
                                                     <div class="patient-short-name">
@@ -59,13 +60,19 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            </a>
                                         </td>
                                         <td>
                                             <span class="reg-span date">
                                                 <span class="nowwrap-text"><?php echo date_format(new DateTime($data->created_at), "d/m/Y"); ?></span>
                                             </span>
                                         </td>
-                                        <td><?php echo $data->patientid; ?></td>
+                                        <td class="from-wrap">
+                                        <a href="<?php echo BASE_URL; ?>patient/info/<?php echo $data->id; ?>">
+                                        <?php echo $data->patientid; ?>
+                                        </a>
+                                    </td>
+
                                         <?php foreach ($referedData as $doc) {
                                             if ($data->refered_by == $doc->id) {
                                         ?>

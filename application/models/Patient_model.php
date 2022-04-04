@@ -74,16 +74,49 @@ class Patient_model extends CI_Model
         $query = $this->db->select('*')->from('patient');
         $query = $this->db->where('user_id',$labid);
         $query = $this->db->like('patientname',$search);
-        $query = $this->db->or_like('email',$search);
-        $query = $this->db->or_like('mobile',$search);
-        $query = $this->db->or_like('patientid',$search);
+        // $query = $this->db->or_like('email',$search);
+        // $query = $this->db->or_like('mobile',$search);
+        // $query = $this->db->or_like('patientid',$search);
         $query = $this->db->get();
         return $query->result();
     }
 
+    public function getreportDataByBIllandTestId($bill_id, $test_id)
+    {
+        $query = $this->db->select('*')->from('reportdata');
+        $query = $this->db->where('bill_id', $bill_id);
+        $query = $this->db->where('test_id', $test_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function getTestByID($id)
+    {
+        $query = $this->db->select('*')->from('test');
+        $query = $this->db->where('id', $id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function checkKey($bill_id)
+    {
+        $query = $this->db->select('*')->from('pdf')->where('bill_id', $bill_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function insertKey($bill_id,$key,$url)
+    {
+        $sth = $this->db->query("INSERT INTO `pdf`(`key`, `bill_id`, `url`) VALUES ('$key','$bill_id','$url')");
+        return $sth;
+    }
+
+    public function updateKey($bill_id,$url)
+    {
+        $sth = $this->db->query("UPDATE `pdf` SET `url`='$url' WHERE `bill_id`='$bill_id'");
+        return $sth;
+    }
+
     public function getbillinfoByID($pid)
     {
-        $query = $this->db->select('*')->from('bill')->where('patient_id', $pid);
+        $query = $this->db->select('*')->from('bill')->where('patient_id', $pid)->order_by('id', 'desc');
         $query = $this->db->get();
         return $query->result();
     }
