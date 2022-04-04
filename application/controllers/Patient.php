@@ -29,6 +29,9 @@ class Patient extends CI_Controller
 	}
 	public function info($id)
 	{
+		if(!isset($id)){
+		header("Location:" . BASE_URL . "patient");
+		}
 		$loggedInId = $_SESSION['loggedInId'];
 		$loggedData = $this->Patient_model->getuserbyID($loggedInId);
 		$loggedData = $loggedData[0];
@@ -36,7 +39,7 @@ class Patient extends CI_Controller
 		$patientData = $patientData[0];
 		$doctorData = $this->Patient_model->getreferedDataByID($patientData->refered_by);
 		$billData = $this->Patient_model->getbillinfoByID($patientData->id);
-		$data = array('loggedData' => $loggedData, 'patientData' => $patientData,'billData' => $billData, 'doctorData' => $doctorData[0]);
+		$data = array('loggedData' => $loggedData, 'patientData' => $patientData,'billData' => $billData, 'doctorData' => $doctorData[0],'thismodel'=>$this);
 		$this->load->view('Patient/patient-single', $data);
 	}
 

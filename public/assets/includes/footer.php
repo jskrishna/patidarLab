@@ -1623,8 +1623,27 @@ if (isset($editer)) {
 			});
 
 			$('#searchPatientId').keypress(function() {
+				var searchUrl = "<?php echo BASE_URL; ?>patient/searchPatient";
 				$('#searchPatientId').autocomplete({
-					source: "<?php echo BASE_URL; ?>patient/searchPatient",
+					// source: "<?php echo BASE_URL; ?>patient/searchPatient",
+					source: function(request, response) {
+						$.ajax({
+						url: searchUrl,
+						dataType: "json",
+						data: request,                    
+						success: function (data) {
+							if (data.length == 0) {
+								$('.ui-autocomplete').empty().append("<li class='ui-autocomplete-row form-control text-danger'>No matches were found !</li>")
+								$('.ui-autocomplete').css('top','52.9861px');
+								$('.ui-autocomplete').css('left','443.229px');
+								$('.ui-autocomplete').css('display','block');
+								$('.ui-autocomplete').show();
+							}
+							else {
+							response(data);
+							}
+						}});
+						},
 					minLength: 1,
 					max: 10,
 					scroll: true,

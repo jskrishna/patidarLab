@@ -200,9 +200,6 @@ $(document).ready(function() {
             search: "_INPUT_",
             searchPlaceholder: "Search..."
         },
-        "order": [
-            [2, "desc"]
-        ],
         "bPaginate": true,
         "bLengthChange": true,
         "bFilter": true,
@@ -212,7 +209,6 @@ $(document).ready(function() {
             [20, 50, -1],
             [20, 50, "All"]
         ],
-        "ordering": true,
         "fnRowCallback": function(nRow, aData, iDisplayIndex) {
             $("td:first", nRow).html(iDisplayIndex + 1);
             return nRow;
